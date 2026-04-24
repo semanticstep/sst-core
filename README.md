@@ -40,7 +40,7 @@ Key point: **PolyForm Noncommercial** explicitly prohibits commercial use, which
 * It's **not** <ins>free software</ins> by FSF definition
 * It **is** <ins>source-available</ins> with a usage restriction
 
-For commercial licenses contacts either:
+For commercial licenses contact either:
 * Semantic STEP Technology GmbH, Germany,
   info@semanticstep.com
 * DCT Co., Ltd. Tianjin, China; sst@dct-china.cn

@@ -1,6 +1,7 @@
 # sst-core
 
 [![GoDoc](https://pkg.go.dev/badge/github.com/semanticstep/sst-core.svg)](https://pkg.go.dev/github.com/semanticstep/sst-core)
+
 Semantic STEP Technology Core software is available under either a commercial licenses or under the <ins>POLYFORM Noncommercial 1.0.0 license</ins>
 
 Key point: **PolyForm Noncommercial** explicitly prohibits commercial use, which means:

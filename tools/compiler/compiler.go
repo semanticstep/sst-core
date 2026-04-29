@@ -2,7 +2,25 @@
 
 //go:generate go run compiler.go
 
-// The SST Compiler is to convert higher level ontologies provided in Turtle format into Go statements for early binding SST functionality.
+// The SST Compiler converts higher level ontologies provided in Turtle format into Go
+// statements for early binding SST functionality.
+//
+// Ontology source:
+//
+//	The compiler reads .ttl files from the standalone module
+//	    git.semanticstep.net/x/sst-ontologies
+//	which exposes all ontologies via an embed.FS (ontologies.FS).
+//
+//	LoadDictOntologies works with any fs.FS, so it can also be pointed at a local
+//	directory (e.g. os.DirFS(".")) for development or testing.
+//
+// Updating ontologies:
+//  1. Publish changes to github.com/semanticstep/sst-ontologies.
+//  2. In this module run:
+//     go get github.com/semanticstep/sst-ontologies@latest
+//     go mod tidy
+//  3. Re-run the compiler:
+//     go run ./tools/compiler
 package main
 
 import (
@@ -11,17 +29,18 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/fs"
 	"log"
 	"os"
 	"path"
-	"path/filepath"
 	"slices"
 	"sort"
 	"strings"
 	"unicode"
 
+	wrfs "github.com/relab/wrfs"
 	"github.com/semanticstep/sst-core/sst"
-	fs "github.com/relab/wrfs"
+	ontologies "github.com/semanticstep/sst-ontologies"
 )
 
 // Copy of used vocabulary elements.
@@ -764,7 +783,7 @@ func main() {
 		}
 	}
 
-	dict, err := LoadDictOntologies("vocabularies/", log.Default())
+	dict, err := LoadDictOntologies(ontologies.FS, "ontologies", log.Default())
 	if err != nil {
 		log.Panic(err)
 	}
@@ -1080,7 +1099,7 @@ func generateDict(dict sst.Stage) (map[sst.Vocabulary]sst.NamedGraph, error) {
 	if err != nil {
 		log.Panic(err)
 	}
-	err = dict.WriteToSstFilesWithBaseURL(fs.DirFS("vocabularies/" + destDictDir))
+	err = dict.WriteToSstFilesWithBaseURL(wrfs.DirFS("vocabularies/" + destDictDir))
 
 	if err != nil {
 		log.Panic(err)
@@ -1201,20 +1220,20 @@ type ErrorReporter interface {
 	Println(v ...interface{})
 }
 
-func LoadDictOntologies(baseDir string, errs ErrorReporter) (sst.Stage, error) {
+func LoadDictOntologies(fsys fs.FS, baseDir string, errs ErrorReporter) (sst.Stage, error) {
 	combining := sst.OpenStage(sst.DefaultTriplexMode)
-	err := filepath.WalkDir(baseDir, func(path string, d fs.DirEntry, err error) error {
+	err := fs.WalkDir(fsys, baseDir, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
 		if strings.HasPrefix(d.Name(), "_") || d.Name() == "testdata" {
-			return filepath.SkipDir
+			return fs.SkipDir
 		}
 		var errorCount int
 		tooManyErrors := errors.New("too many errors")
 		if !d.IsDir() && strings.HasSuffix(d.Name(), ".ttl") {
 			var err error
-			file, err := os.Open(path)
+			file, err := fsys.Open(path)
 			defer func() {
 				e := file.Close()
 				if err == nil {

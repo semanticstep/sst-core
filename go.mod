@@ -18,6 +18,7 @@ require (
 	github.com/leodido/go-urn v1.4.0
 	github.com/mr-tron/base58 v1.2.0
 	github.com/relab/wrfs v0.0.0-20210628111300-b51570396aec
+	github.com/semanticstep/sst-ontologies v0.0.0-20260429073006-ce71966daeac
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.9.0

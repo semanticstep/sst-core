@@ -57,17 +57,6 @@ type Repository interface {
 	// SuperRepository() either returns the SuperRepository this Repository belongs to or otherwise return a nil value.
 	SuperRepository() SuperRepository
 
-	// Path returns a string containing the path where the Repository is stored in the local file system.
-	// In case the Repository is a remote one, an empty string is returned.
-	// Path() string
-
-	// Storage and Remote Repositories return true.
-	// LocalFlat and LocalBasic Repositories return false.
-	// SupportHistory() bool
-
-	// New Repository Method ReadOnly returns bool
-	// ReadOnly() bool
-
 	// OpenStage(DefaultTriplexMode) will create an empty stage to work on persistent data in this SST Repository to which it is linked to.
 	// Linking means that data can be loaded from the SST Repository to the Stage and written back to it.
 	// As a result, Datasets from this Repository can be loaded, modified, committed or created anew to this SST Repository.
@@ -94,6 +83,13 @@ type Repository interface {
 	// CommitDetails returns commit metadata for the given list of commit hashes.
 	CommitDetails(ctx context.Context, hashes []Hash) ([]*CommitDetails, error)
 
+	// CheckoutCommit materializes a Stage at the given repository commit.
+	// The Stage contains the Named Graphs recorded in CommitDetails.NamedGraphRevisions
+	// for that commit, each at the correct NamedGraphRevision, with checkout lineage metadata set.
+	CheckoutCommit(ctx context.Context, commitID Hash, mode TriplexMode) (Stage, error)
+
+	// ----- Index management -----
+
 	// A new created sst.Repository has initially no indexMapping, meaning there is no query functionality.
 	// RegisterIndexHandler checks if the provided DerivePackageVersion is same with the DerivePackageVersion in the Repository.
 	// If they are different,  the complete recreation of the bleve index will be performed.
@@ -109,6 +105,19 @@ type Repository interface {
 	// A nil value is returned if no one is registered.
 	// For Remote Repository, it returns the bleve client. So there is no need to add context parameter.
 	Bleve() bleve.Index
+
+	// RebuildBleveIndex closes the current Bleve index, removes the index directory,
+	// and rebuilds it from scratch.
+	//
+	// Supported by:
+	//   - localFullRepository: full rebuild with revision history preserved.
+	//   - localBasicRepository: full rebuild without revision history.
+	//
+	// Not supported by:
+	//   - remoteRepository: returns ErrNotSupported (rebuild is a server-side operation).
+	//   - localFlatRepository: returns ErrNotAvailable (no Bleve index).
+	//   - localFlatFileSystemRepository: returns ErrNotAvailable (no Bleve index).
+	RebuildBleveIndex() error
 
 	// Close closes the Repository
 	Close() error
@@ -203,6 +212,7 @@ var (
 	ErrUnrecognizedOption                          = errors.New("unrecognized option")
 	ErrBranchNotFound                              = errors.New("branch not found")
 	ErrEmptyCommitMessage                          = errors.New("empty commit message")
+	ErrQuotaExceeded                               = errors.New("repository quota exceeded")
 )
 
 // used for the local repositories, not for the remote one.
@@ -212,6 +222,10 @@ type repoConfig struct {
 
 	preCommitCondition     func(stage Stage) (postCommitNotifier, error)
 	postCommitNotification func(stage Stage, commitID Hash)
+
+	// bleveIndexUpdater decouples Bleve index maintenance from BBolt writes.
+	// A nil value means no Bleve updates are performed.
+	bleveIndexUpdater bleveIndexUpdaterI
 
 	// application should register this by calling RegisterIndexHandler
 	deriveInfo *SSTDeriveInfo
@@ -286,7 +300,11 @@ func OpenRemoteRepository(ctx context.Context, URL string, tlsOption grpc.DialOp
 	if err != nil {
 		return nil, err
 	}
-	log.Println(repoInfo.BleveName, repoInfo.BleveVersion)
+	GlobalLogger.Debug(
+		"remote repository opened",
+		zap.String("bleveName", repoInfo.BleveName),
+		zap.String("bleveVersion", repoInfo.BleveVersion),
+	)
 
 	return r, nil
 }
@@ -364,10 +382,11 @@ func CreateLocalRepository(repoDir string, email string, name string, revisionHi
 	// if revisionHistory is true, create a LocalFullRepository
 	if revisionHistory {
 		repo := &localFullRepository{
-			url:      &url.URL{Scheme: "file", Path: path},
-			config:   repoConfig{repositoryDir: repoDir, timeNow: time.Now, deriveInfo: deriveInfoPlaceholder},
-			authInfo: &sstauth.SstUserInfo{Email: email},
-			db:       createdBbolt,
+			url:         &url.URL{Scheme: "file", Path: path},
+			config:      repoConfig{repositoryDir: repoDir, timeNow: time.Now, deriveInfo: deriveInfoPlaceholder},
+			authInfo:    &sstauth.SstUserInfo{Email: email},
+			db:          createdBbolt,
+			accessRight: sstauth.AccessMode_ReadWrite,
 		}
 
 		// Write initial log entry
@@ -384,6 +403,7 @@ func CreateLocalRepository(repoDir string, email string, name string, revisionHi
 			config:               repoConfig{repositoryDir: repoDir, timeNow: time.Now, deriveInfo: deriveInfoPlaceholder},
 			repositoryBucketName: rootRepositoryBucketName,
 			db:                   createdBbolt,
+			accessRight:          sstauth.AccessMode_ReadWrite,
 		}
 		localBasicRepo.state.Store(int32(stateOpen))
 		// Initialize the basic repository
@@ -401,7 +421,6 @@ func CreateLocalRepository(repoDir string, email string, name string, revisionHi
 
 		return localBasicRepo, nil
 	}
-
 }
 
 // writeInitialLogEntry creates a sub-bucket at log/0 and writes "timestamp" & "message" & "author" field into it.
@@ -526,14 +545,16 @@ func OpenLocalRepository(repoDir string, email string, name string) (Repository,
 			config:               repoConfig{repositoryDir: repoDir, timeNow: time.Now, deriveInfo: deriveInfoPlaceholder},
 			repositoryBucketName: rootRepositoryBucketName,
 			db:                   openedBBolt,
+			accessRight:          accessModeFromDir(repoDir),
 		}
 		returnRepo.(*localBasicRepository).state.Store(int32(stateOpen))
 	} else {
 		returnRepo = &localFullRepository{
-			url:      &url.URL{Scheme: "file", Path: path},
-			config:   repoConfig{repositoryDir: repoDir, timeNow: time.Now, deriveInfo: deriveInfoPlaceholder},
-			authInfo: &sstauth.SstUserInfo{Email: email},
-			db:       openedBBolt,
+			url:         &url.URL{Scheme: "file", Path: path},
+			config:      repoConfig{repositoryDir: repoDir, timeNow: time.Now, deriveInfo: deriveInfoPlaceholder},
+			authInfo:    &sstauth.SstUserInfo{Email: email},
+			db:          openedBBolt,
+			accessRight: accessModeFromDir(repoDir),
 		}
 		returnRepo.(*localFullRepository).state.Store(int32(stateOpen))
 	}
@@ -601,8 +622,9 @@ func CreateLocalFlatRepository(repoDir string) (Repository, error) {
 	rc.repositoryDir = dir
 
 	return &localFlatRepository{
-		url:    &url.URL{Scheme: "file", Path: path},
-		config: rc,
+		url:         &url.URL{Scheme: "file", Path: path},
+		config:      rc,
+		accessRight: sstauth.AccessMode_ReadWrite,
 	}, err
 }
 
@@ -666,8 +688,9 @@ func OpenLocalFlatRepository(repoDir string) (Repository, error) {
 	rc.repositoryDir = dir
 
 	return &localFlatRepository{
-		url:    &url.URL{Scheme: "file", Path: path},
-		config: rc,
+		url:         &url.URL{Scheme: "file", Path: path},
+		config:      rc,
+		accessRight: accessModeFromDir(dir),
 	}, err
 }
 
@@ -683,23 +706,31 @@ func OpenLocalFlatFileSystemRepository(dictFS fs.FS) (Repository, error) {
 
 // RepositoryInfo represents the statistics of a repository.
 type RepositoryInfo struct {
-	URL                         string `json:"url"`
-	AccessRight                 string `json:"AccessRight"`
-	MasterDBSize                int    `json:"masterDBSize"`  // BboltSize
-	DerivedDBSize               int    `json:"derivedDBSize"` // BleveSize
-	DocumentDBSize              int    `json:"documentDBSize"`
-	NumberOfDatasets            int    `json:"numberOfDatasets"`
-	NumberOfDatasetsInBranch    int    `json:"numberOfDatasetsInBranch"`
-	NumberOfDatasetRevisions    int    `json:"numberOfDatasetRevisions"`
-	NumberOfNamedGraphRevisions int    `json:"numberOfNamedGraphRevisions"`
-	NumberOfCommits             int    `json:"numberOfCommits"`
-	NumberOfRepositoryLogs      int    `json:"NumberOfRepositoryLogs"`
-	NumberOfDocuments           int    `json:"NumberOfDocuments"`
-	IsRemote                    bool   `json:"isRemote"`
-	SupportRevisionHistory      bool   `json:"supportRevisionHistory"`
-	BleveName                   string `json:"bleveName"`
-	BleveVersion                string `json:"bleveVersion"`
-	VersionHash                 string `json:"versionHash"`
+	URL                         string             `json:"url"`
+	AccessRight                 sstauth.AccessMode `json:"AccessRight"`
+	MasterDBSize                int64              `json:"masterDBSize"`  // BboltSize
+	DerivedDBSize               int64              `json:"derivedDBSize"` // BleveSize
+	DocumentDBSize              int64              `json:"documentDBSize"`
+	ActualRepositorySize        int64              `json:"actualRepositorySize"`
+	MaxRepositorySize           int64              `json:"maxRepositorySize"`
+	NumberOfDatasets            int64              `json:"numberOfDatasets"`
+	NumberOfDatasetsInBranch    int64              `json:"numberOfDatasetsInBranch"`
+	NumberOfDatasetRevisions    int64              `json:"numberOfDatasetRevisions"`
+	NumberOfNamedGraphRevisions int64              `json:"numberOfNamedGraphRevisions"`
+	NumberOfCommits             int64              `json:"numberOfCommits"`
+	NumberOfRepositoryLogs      int64              `json:"NumberOfRepositoryLogs"`
+	NumberOfDocuments           int64              `json:"NumberOfDocuments"`
+	IsRemote                    bool               `json:"isRemote"`
+	SupportRevisionHistory      bool               `json:"supportRevisionHistory"`
+	BleveName                   string             `json:"bleveName"`
+	BleveVersion                string             `json:"bleveVersion"`
+	VersionHash                 string             `json:"versionHash"`
+}
+
+// RepositoryQuota describes the configured size limit and current usage for a repository.
+type RepositoryQuota struct {
+	MaxSizeBytes    int64 `json:"maxSizeBytes"`
+	ActualSizeBytes int64 `json:"actualSizeBytes"`
 }
 
 func (r RepositoryInfo) String() string {
@@ -721,7 +752,7 @@ func (r RepositoryInfo) String() string {
 //	  - "type":      string, required. Defines the entry type. Possible values:
 //	                   "commit", "set_branch", "remove_branch",
 //	                   "upload_document", "download_document",
-//	                   "delete_document".
+//	                   "delete_document", "sync_from".
 //
 //	type = "commit":
 //	  - "author":    string, Author email.
@@ -765,6 +796,15 @@ func (r RepositoryInfo) String() string {
 //   - "mime_type":  string, MIME type.
 //   - "message":    string
 //   - "timestamp":  string, RFC3339 format.
+//
+// type = "sync_from":
+//   - "author":         string, Author email.
+//   - "timestamp":      string, RFC3339 format.
+//   - "from_repo_url":  string, URL of the source repository.
+//   - "affected_count": string, Number of newly synced dataset branch/revision pairs.
+//   - "dataset_N":      string, Dataset IRI of affected entry N (0-based).
+//   - "branch_N":       string, Named branch or "leaf" for affected entry N.
+//   - "ds_revision_N":  string, Dataset revision hash for affected entry N.
 type RepositoryLogEntry struct {
 	LogKey uint64
 	Fields map[string]string // timestamp, type, commit_id, message, ...
@@ -802,7 +842,11 @@ func WithDatasetIRIs(datasetIRIs ...IRI) SyncOption {
 		}
 		ids := make([]uuid.UUID, 0, len(datasetIRIs))
 		for _, iri := range datasetIRIs {
-			ids = append(ids, iriToUUID(iri))
+			id, err := iriToUUID(iri)
+			if err != nil {
+				GlobalLogger.Error("WithDatasetIRIs: invalid IRI", zap.String("iri", string(iri)), zap.Error(err))
+			}
+			ids = append(ids, id)
 		}
 		opts.DatasetIDs = ids
 	}
@@ -826,4 +870,29 @@ func WithBranch(branchName string) SyncOption {
 // Returns true if branchName is empty string or "*".
 func isAllBranches(branchName string) bool {
 	return branchName == "" || branchName == "*"
+}
+
+// isDirWritable reports whether the directory dir can be written to.
+// It probes actual write capability by creating and removing a temporary
+// file inside dir. This is more reliable than os.FileMode.Perm(), which
+// misses read-only mounts, ACLs, SELinux, disk-full, and does not reflect
+// real permissions on Windows.
+func isDirWritable(dir string) bool {
+	f, err := os.CreateTemp(dir, ".sst-write-test-*")
+	if err != nil {
+		return false
+	}
+	_ = f.Close()
+	_ = os.Remove(f.Name())
+	return true
+}
+
+// accessModeFromDir probes dir for actual write capability and returns the
+// corresponding access mode. The value is intended to be cached on a
+// repository struct so that Info() can return it without further I/O.
+func accessModeFromDir(dir string) sstauth.AccessMode {
+	if isDirWritable(dir) {
+		return sstauth.AccessMode_Admin
+	}
+	return sstauth.AccessMode_ReadOnly
 }

@@ -1,0 +1,56 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:3ef4cb93-c2b7-40e5-bb1e-9992a3026b7f#> .
+
+<urn:uuid:3ef4cb93-c2b7-40e5-bb1e-9992a3026b7f> a owl:Ontology .
+:1116b4fb-67f9-4113-92c7-cd74953f86aa a lci:ClassOfIndividual ,
+    :89811824-b3fe-489e-b5fd-9ab04de376dd ;
+  sso:id "L" ;
+  rdfs:label "Construction element" .
+:209c235c-77bd-42db-94aa-f92d92575b04 a lci:ClassOfIndividual ,
+    :89811824-b3fe-489e-b5fd-9ab04de376dd ;
+  sso:id "S" ;
+  rdfs:label "Storey" .
+:56dee87b-e781-45ae-8df1-f9d73b265f98 a lci:ClassOfIndividual ,
+    :89811824-b3fe-489e-b5fd-9ab04de376dd ;
+  sso:id "G" ;
+  rdfs:label "Construction agent" .
+:60a6894f-267a-4b77-8bb7-b163feb5b50f a lci:ClassOfIndividual ,
+    :89811824-b3fe-489e-b5fd-9ab04de376dd ;
+  sso:id "A" ;
+  rdfs:label "Activity space" .
+:6671d555-d0c8-4776-873c-d7309491a2f5 a lci:ClassOfIndividual ,
+    :89811824-b3fe-489e-b5fd-9ab04de376dd ;
+  sso:id "P" ;
+  rdfs:label "Construction product" .
+:89811824-b3fe-489e-b5fd-9ab04de376dd a sso:ClassSystem ;
+  sso:id "ISO81346-12_T1_construction_work_top_nodes" ;
+  rdfs:label "ISO 81346-12 Table 1 — Letter codes for construction work domains to be applied as top node identifiers" .
+:bb97dc6c-83dc-4509-99ab-326f8bd0746e a lci:ClassOfIndividual ,
+    :89811824-b3fe-489e-b5fd-9ab04de376dd ;
+  sso:id "E" ;
+  rdfs:label "Construction entity" .
+:bf13f761-6723-495b-a30f-c1e700e4bb6f a lci:ClassOfIndividual ,
+    :89811824-b3fe-489e-b5fd-9ab04de376dd ;
+  sso:id "C" ;
+  rdfs:label "Construction complex" .
+:c5aa99ce-e5dc-4326-a501-cc13e143e466 a lci:ClassOfIndividual ,
+    :89811824-b3fe-489e-b5fd-9ab04de376dd ;
+  sso:id "R" ;
+  rdfs:label "Construction process" .
+:df2de808-b11b-49e4-b00a-3c6b5c240525 a lci:ClassOfIndividual ,
+    :89811824-b3fe-489e-b5fd-9ab04de376dd ;
+  sso:id "B" ;
+  rdfs:label "Built space" .
+:e535bb40-76d6-476a-a334-377969dd44ce a lci:ClassOfIndividual ,
+    :89811824-b3fe-489e-b5fd-9ab04de376dd ;
+  sso:id "Z" ;
+  rdfs:label "Zone" .
+:f08f6f5e-d77d-4342-976c-d66330e74b2a a lci:ClassOfIndividual ,
+    :89811824-b3fe-489e-b5fd-9ab04de376dd ;
+  sso:id "D" ;
+  rdfs:label "Construction aid" .

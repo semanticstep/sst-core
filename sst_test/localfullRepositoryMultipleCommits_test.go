@@ -10,10 +10,10 @@ package sst_test
 import (
 	"context"
 	"fmt"
-	"os"
 	"path/filepath"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/semanticstep/sst-core/vocabularies/lci"
@@ -21,13 +21,11 @@ import (
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_LocalFullRepository_MultipleParents(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 
 	iriNodeUUID1 := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a001")
@@ -41,9 +39,7 @@ func Test_LocalFullRepository_MultipleParents(t *testing.T) {
 
 	var modifiedDS []uuid.UUID
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -60,7 +56,7 @@ func Test_LocalFullRepository_MultipleParents(t *testing.T) {
 		assert.Equal(t, 1, len(modifiedDS))
 		ds, err := repo.Dataset(context.TODO(), ngAIRI)
 		assert.NoError(t, err)
-		ds.SetBranch(context.TODO(), commitHash1, "anotherBranch")
+		ds.SetBranchCommit(context.TODO(), commitHash1, "anotherBranch")
 		// ng.PrintTriples()
 		fmt.Println(commitHash1)
 	})
@@ -256,8 +252,7 @@ func Test_LocalFullRepository_MultipleParents(t *testing.T) {
 }
 
 func Test_LocalFullRepositoryMultipleCommits_IsParentRevision(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
 	var commitHash1 sst.Hash
@@ -266,9 +261,7 @@ func Test_LocalFullRepositoryMultipleCommits_IsParentRevision(t *testing.T) {
 
 	var modifiedDS []uuid.UUID
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -291,7 +284,7 @@ func Test_LocalFullRepositoryMultipleCommits_IsParentRevision(t *testing.T) {
 		if err != nil {
 			panic(err)
 		}
-		err = ds.SetBranch(context.TODO(), commitHash1, "commit1")
+		err = ds.SetBranchCommit(context.TODO(), commitHash1, "commit1")
 		if err != nil {
 			panic(err)
 		}
@@ -349,7 +342,7 @@ func Test_LocalFullRepositoryMultipleCommits_IsParentRevision(t *testing.T) {
 			panic(err)
 		}
 
-		common1, err := ds.FindCommonParentRevision(context.TODO(), commitHash4, stMaster.NamedGraphs()[0].Info().Commits[0])
+		common1, err := ds.FindCommonParentRevision(context.TODO(), commitHash4, stMaster.NamedGraphs()[0].Info().CheckedOutCommits[0])
 		if err != nil {
 			panic(err)
 		}
@@ -438,17 +431,14 @@ func Test_LocalFullRepositoryMultipleCommits_IsParentRevision(t *testing.T) {
 }
 
 func Test_LocalFullRepositoryMultipleCommits_UUIDNamedGraph(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
 	var commitHash1 sst.Hash
 	var commitHash3 sst.Hash
 	var modifiedDS []uuid.UUID
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -471,7 +461,7 @@ func Test_LocalFullRepositoryMultipleCommits_UUIDNamedGraph(t *testing.T) {
 		if err != nil {
 			panic(err)
 		}
-		err = ds.SetBranch(context.TODO(), commitHash1, "commit1")
+		err = ds.SetBranchCommit(context.TODO(), commitHash1, "commit1")
 		if err != nil {
 			panic(err)
 		}
@@ -599,8 +589,7 @@ func Test_LocalFullRepositoryMultipleCommits_UUIDNamedGraph(t *testing.T) {
 }
 
 func Test_LocalFullRepositoryMultipleCommits_UUIDNamedGraph_CommitToUserDefinedBranch(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
 	var commitHash1 sst.Hash
@@ -608,9 +597,7 @@ func Test_LocalFullRepositoryMultipleCommits_UUIDNamedGraph_CommitToUserDefinedB
 	var commitHash3 sst.Hash
 	var modifiedDS []uuid.UUID
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -770,13 +757,10 @@ func Test_LocalFullRepositoryMultipleCommits_UUIDNamedGraph_CommitToUserDefinedB
 }
 
 func Test_LocalFullRepositoryMultipleCommits_IRINamedGraph(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	testIri := "http://ontology.semanticstep.net/abc#"
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -825,15 +809,12 @@ func Test_LocalFullRepositoryMultipleCommits_IRINamedGraph(t *testing.T) {
 }
 
 func Test_LocalFullRepositoryMultipleCommits_NGBandNGC(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 	ngDIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a364").URN())
 
-	defer os.RemoveAll(dir)
 	t.Run("write NGA and NGB", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -929,8 +910,7 @@ func Test_LocalFullRepositoryMultipleCommits_NGBandNGC(t *testing.T) {
 }
 
 func Test_LocalFullRepositoryMultipleCommits_NGBImportNGC_ModifyB(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
@@ -938,9 +918,7 @@ func Test_LocalFullRepositoryMultipleCommits_NGBImportNGC_ModifyB(t *testing.T) 
 	commitHash2 := sst.Hash{}
 	modifiedDS := []uuid.UUID{}
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -997,8 +975,8 @@ func Test_LocalFullRepositoryMultipleCommits_NGBImportNGC_ModifyB(t *testing.T) 
 		if ngB == nil {
 			panic("got nil NamedGraph")
 		}
-		fmt.Println(ngB.Info().Commits)
-		assert.Equal(t, commitHash2, ngB.Info().Commits[0])
+		fmt.Println(ngB.Info().CheckedOutCommits)
+		assert.Equal(t, commitHash2, ngB.Info().CheckedOutCommits[0])
 
 		// ngB.Dump()
 
@@ -1007,8 +985,8 @@ func Test_LocalFullRepositoryMultipleCommits_NGBImportNGC_ModifyB(t *testing.T) 
 			panic("got nil NamedGraph")
 		}
 
-		fmt.Println(ngC.Info().Commits)
-		assert.Equal(t, commitHash1, ngC.Info().Commits[0])
+		fmt.Println(ngC.Info().CheckedOutCommits)
+		assert.Equal(t, commitHash1, ngC.Info().CheckedOutCommits[0])
 
 		// ngC.Dump()
 		fmt.Println()
@@ -1017,14 +995,11 @@ func Test_LocalFullRepositoryMultipleCommits_NGBImportNGC_ModifyB(t *testing.T) 
 }
 
 func Test_LocalFullRepositoryMultipleCommits_NGBImportNGC_ModifyC(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -1057,14 +1032,11 @@ func Test_LocalFullRepositoryMultipleCommits_NGBImportNGC_ModifyC(t *testing.T) 
 }
 
 func Test_LocalFullRepositoryMultipleCommits_NGBImportNGC(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -1199,15 +1171,12 @@ func Test_LocalFullRepositoryMultipleCommits_NGBImportNGC(t *testing.T) {
 }
 
 func Test_LocalFullRepositoryMultipleCommits_NGAImportsNGBImportsNGC_ModifyA(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -1251,8 +1220,7 @@ func Test_LocalFullRepositoryMultipleCommits_NGAImportsNGBImportsNGC_ModifyA(t *
 }
 
 func Test_LocalFullRepositoryMultipleCommits_NGAImportsNGBImportsNGC_ModifyB(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
@@ -1261,9 +1229,7 @@ func Test_LocalFullRepositoryMultipleCommits_NGAImportsNGBImportsNGC_ModifyB(t *
 	commitHash2 := sst.Hash{}
 	modifiedDS := []uuid.UUID{}
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -1334,15 +1300,15 @@ func Test_LocalFullRepositoryMultipleCommits_NGAImportsNGBImportsNGC_ModifyB(t *
 		if ngA == nil {
 			panic("got nil NamedGraph")
 		}
-		assert.Equal(t, commitHash2, ngA.Info().Commits[0])
-		fmt.Println(ngA.Info().Commits)
+		assert.Equal(t, commitHash2, ngA.Info().CheckedOutCommits[0])
+		fmt.Println(ngA.Info().CheckedOutCommits)
 
 		ngB := st.NamedGraph(ngBIRI)
 		if ngB == nil {
 			panic("got nil NamedGraph")
 		}
-		assert.Equal(t, commitHash2, ngB.Info().Commits[0])
-		fmt.Println(ngB.Info().Commits)
+		assert.Equal(t, commitHash2, ngB.Info().CheckedOutCommits[0])
+		fmt.Println(ngB.Info().CheckedOutCommits)
 
 		// ngB.Dump()
 
@@ -1350,8 +1316,8 @@ func Test_LocalFullRepositoryMultipleCommits_NGAImportsNGBImportsNGC_ModifyB(t *
 		if ngC == nil {
 			panic("got nil NamedGraph")
 		}
-		assert.Equal(t, commitHash1, ngC.Info().Commits[0])
-		fmt.Println(ngC.Info().Commits)
+		assert.Equal(t, commitHash1, ngC.Info().CheckedOutCommits[0])
+		fmt.Println(ngC.Info().CheckedOutCommits)
 		// ngC.Dump()
 		fmt.Println()
 		traversalByAPI(ngB)
@@ -1359,15 +1325,12 @@ func Test_LocalFullRepositoryMultipleCommits_NGAImportsNGBImportsNGC_ModifyB(t *
 }
 
 func Test_LocalFullRepositoryMultipleCommits_NGAImportsNGBImportsNGC_ModifyC(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -1413,15 +1376,12 @@ func Test_LocalFullRepositoryMultipleCommits_NGAImportsNGBImportsNGC_ModifyC(t *
 }
 
 func Test_LocalFullRepositoryMultipleCommits_NGAImportsNGBImportsNGC(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -1615,16 +1575,13 @@ func Test_LocalFullRepositoryMultipleCommits_NGAImportsNGBImportsNGC(t *testing.
 }
 
 func Test_LocalFullRepositoryMultipleCommits_DiamondCase_ModifyA(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 	ngDIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a364").URN())
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -1683,16 +1640,13 @@ func Test_LocalFullRepositoryMultipleCommits_DiamondCase_ModifyA(t *testing.T) {
 }
 
 func Test_LocalFullRepositoryMultipleCommits_DiamondCase_ModifyB(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 	ngDIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a364").URN())
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -1751,16 +1705,13 @@ func Test_LocalFullRepositoryMultipleCommits_DiamondCase_ModifyB(t *testing.T) {
 }
 
 func Test_LocalFullRepositoryMultipleCommits_DiamondCase_ModifyC(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 	ngDIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a364").URN())
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -1822,16 +1773,13 @@ func Test_LocalFullRepositoryMultipleCommits_DiamondCase_ModifyC(t *testing.T) {
 }
 
 func Test_LocalFullRepositoryMultipleCommits_DiamondCase_ModifyD(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 	ngDIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a364").URN())
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -1891,16 +1839,13 @@ func Test_LocalFullRepositoryMultipleCommits_DiamondCase_ModifyD(t *testing.T) {
 }
 
 func Test_LocalFullRepositoryMultipleCommits_DiamondCase(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 	ngDIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a364").URN())
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {

@@ -243,16 +243,17 @@ func readDictionary(r *bufio.Reader, graph NamedGraph, gc *graphReadingContext) 
 	}
 
 	// handle blank nodes
+	// SST files do not persist blank node UUIDs. To ensure that multiple reads
+	// of the same file produce identical in-memory state (aiding debugging and
+	// in-memory diff alignment), each blank node is reconstructed with a
+	// deterministic type 5 UUID derived from the graph ID and its index position.
 	for i := uint(0); i < blankNodeCount; i++ {
 		allocatedTriplexCnt, err := readUint(r)
 		if err != nil {
 			panic(err)
 		}
 		var d IBNode
-		d, tripleCount, err = graph.createAllocatedNode("", blankNodeType, tripleCount, int(allocatedTriplexCnt))
-		if err != nil {
-			panic(err)
-		}
+		d, tripleCount = graph.createAllocatedNode("", blankNodeType, tripleCount, int(allocatedTriplexCnt))
 		uuidData := [11]byte{'b'}
 		uuidDataLen := binary.PutUvarint(uuidData[1:], (uint64)(i))
 		err = d.asUuidIBNode().setFragment(uuid.NewSHA1(graph.ID(), uuidData[0:uuidDataLen+1]))
@@ -320,15 +321,12 @@ func gatherTriplesForReading(
 		}
 		GlobalLogger.Debug("gatherTriplesForReading: ", zap.String("fragment", fragment), zap.Uint("allocatedTriplexCnt", allocatedTriplexCnt))
 
-		sortedNodes[i], tripleCount, err = ng.createAllocatedNode(
+		sortedNodes[i], tripleCount = ng.createAllocatedNode(
 			fragment,
 			iriNodeType,
 			tripleCount,
 			int(allocatedTriplexCnt),
 		)
-		if err != nil {
-			return 0, err
-		}
 	}
 	return tripleCount, nil
 }

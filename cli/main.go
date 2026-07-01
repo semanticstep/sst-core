@@ -4,10 +4,14 @@
 // for debugging and testing the SST-Core and -Repositories.
 package main
 
-import cli "github.com/semanticstep/sst-core/cli/cmd"
+import (
+	cli "github.com/semanticstep/sst-core/cli/cmd"
+	"github.com/semanticstep/sst-core/cli/cmd/utils"
+)
 
 // main function to execute the CLI commands
 // go build -o ./cli/sst ./cli/main.go
 func main() {
+	utils.LoadEnvSstCLI()
 	cli.Execute()
 }

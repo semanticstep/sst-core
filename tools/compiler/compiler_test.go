@@ -35,7 +35,7 @@ func TestLoadDictOntologies(t *testing.T) {
 			},
 			wantAssertion: func(t testing.TB, stage sst.Stage) {
 				dictDir := t.TempDir()
-				assert.NoError(t, stage.WriteToSstFilesWithBaseURL(wrfs.DirFS(dictDir)))
+				assert.NoError(t, stage.WriteSstFilesDirectory(wrfs.DirFS(dictDir)))
 				st, err := sst.ReadStageFromSstFiles(wrfs.DirFS(dictDir), sst.DefaultTriplexMode)
 				if !assert.NoError(t, err) {
 					return

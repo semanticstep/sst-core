@@ -1,0 +1,67 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:4fb0f6a1-60d8-42e8-bb0f-224745621d98#> .
+
+<urn:uuid:4fb0f6a1-60d8-42e8-bb0f-224745621d98> a owl:Ontology .
+:15ffa48b-5da4-4a45-8bc6-adfea4724d23 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :93ece508-f783-47cd-bc7e-908c88b73e6d ;
+  sso:id "PersonalCompany" ;
+  rdfs:label "Personal Company" .
+:31ec5ac2-1d76-4c7f-ad83-8561a6ff7285 a lci:ClassOfIndividual ,
+    :6118c8a1-8d6f-43d3-93c5-e821ac166fb9 ;
+  sso:id "Government Organization" .
+:4578e272-e96d-4668-9973-a1c6d2d75e22 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :877d54af-2a4b-4248-ab07-8f874c4e98c7 ;
+  sso:id "PoliticalParty" ;
+  rdfs:label "Political Party" .
+:4693c13b-2c4a-4862-921b-396de68a5ae4 a lci:ClassOfIndividual ,
+    :6118c8a1-8d6f-43d3-93c5-e821ac166fb9 ;
+  sso:id "ReligiousOrganization" ;
+  rdfs:label "Religious Organization" .
+:4c6744e4-03ca-44a4-8316-fbe411b03744 a lci:ClassOfIndividual ,
+    :6118c8a1-8d6f-43d3-93c5-e821ac166fb9 ;
+  sso:id "StandardOrganization" ;
+  rdfs:label "Standard Organization" .
+:6118c8a1-8d6f-43d3-93c5-e821ac166fb9 a sso:ClassSystem ;
+  sso:id "OrganizationTypes" ;
+  rdfs:label "Organization Types" .
+:7f1d70b4-b228-4fbc-a0fd-08783c6dd016 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :31ec5ac2-1d76-4c7f-ad83-8561a6ff7285 ;
+  sso:id "National Government Organization" ;
+  rdfs:label "National Government Organization" .
+:877d54af-2a4b-4248-ab07-8f874c4e98c7 a lci:ClassOfIndividual ,
+    :6118c8a1-8d6f-43d3-93c5-e821ac166fb9 ;
+  sso:id "PoliticalOrganization" ;
+  rdfs:label "Political Organization" .
+:895b83ce-6e26-4c71-a961-33f282166b94 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :31ec5ac2-1d76-4c7f-ad83-8561a6ff7285 ;
+  sso:id "International Government Organization" ;
+  rdfs:label "International Government Organization" .
+:93ece508-f783-47cd-bc7e-908c88b73e6d a lci:ClassOfIndividual ,
+    :6118c8a1-8d6f-43d3-93c5-e821ac166fb9 ;
+  sso:id "ForProfitOrganization" ;
+  rdfs:label "For Profit Organization" .
+:b3ab6943-4d7f-4987-b42f-2882dc9aa3c1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4c6744e4-03ca-44a4-8316-fbe411b03744 ;
+  sso:id "NationalStandardOrganization" ;
+  rdfs:label "National Standard Organization" .
+:b5d2a8c9-6739-42d0-8384-3f7cf7e34a3a a lci:ClassOfIndividual ,
+    :6118c8a1-8d6f-43d3-93c5-e821ac166fb9 ;
+  sso:id "NonprofitOrganization" ;
+  rdfs:label "Not For Profit Organization" .
+:b69a8677-ab86-43a6-bd75-776fd863ef70 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4c6744e4-03ca-44a4-8316-fbe411b03744 ;
+  sso:id "InternationalStanardOrganization" ;
+  rdfs:label "International Standard Organization" .
+:c7c661bd-9da3-49e8-8da8-f3aa57e9feed a lci:ClassOfIndividual ;
+  rdfs:subClassOf :93ece508-f783-47cd-bc7e-908c88b73e6d ;
+  sso:id "LimitedCompany" ;
+  rdfs:label "Limited or Cooperation Company" .
+:e3afde61-8d32-4b8b-ab98-aafc45d43ec5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b5d2a8c9-6739-42d0-8384-3f7cf7e34a3a ;
+  sso:id "Association" ;
+  rdfs:label "Association" .

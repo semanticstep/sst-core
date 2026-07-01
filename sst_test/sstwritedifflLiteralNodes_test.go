@@ -12,10 +12,10 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
-	"github.com/google/go-cmp/cmp"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -794,7 +794,7 @@ func Test_DiffOnLiterals(t *testing.T) {
 			want: []sst.DiffTriple{
 				T(0, ":uuid1", "sso:occurrenceQuantity", "_:b0"),
 				T(-1, "_:b0", "qau:metre", "5.00"),
-				T(+1, "_:b0", "qau:metre", "7.00"),
+				T(+1, "", "", "7.00"),
 			},
 		},
 		{
@@ -802,10 +802,10 @@ func Test_DiffOnLiterals(t *testing.T) {
 			ttlFrom: ttl1,
 			ttlTo:   ttl3,
 			want: []sst.DiffTriple{
-				T(1, ":uuid2", "sso:occurrenceQuantity", "_:b0"),
 				T(-1, ":uuid2", "sso:occurrenceQuantity", "_:b1"),
-				T(-1, "_:b1", "rdf:type", "qau:Length"),
+				T(+1, "", "", "_:b0"),
 				T(-1, "_:b1", "qau:metre", "5.00"),
+				T(-1, "", "rdf:type", "qau:Length"),
 			},
 		},
 		{
@@ -814,12 +814,12 @@ func Test_DiffOnLiterals(t *testing.T) {
 			ttlTo:   ttl4,
 			want: []sst.DiffTriple{
 				T(0, ":uuid1", "sso:occurrenceQuantity", "_:b0"),
-				T(1, ":uuid2", "sso:occurrenceQuantity", "_:b0"),
 				T(-1, ":uuid2", "sso:occurrenceQuantity", "_:b1"),
-				T(-1, "_:b1", "rdf:type", "qau:Length"),
-				T(-1, "_:b0", "qau:metre", "5.00"),
-				T(1, "_:b0", "qau:metre", "7.00"),
+				T(+1, "", "", "_:b0"),
 				T(-1, "_:b1", "qau:metre", "5.00"),
+				T(-1, "", "rdf:type", "qau:Length"),
+				T(-1, "_:b0", "qau:metre", "5.00"),
+				T(+1, "", "", "7.00"),
 			},
 		},
 

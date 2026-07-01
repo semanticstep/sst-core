@@ -15,25 +15,22 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_ReadCollectionIntoLocalFullRepository(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIDB := uuid.MustParse("acc85dd8-4b61-4f90-934c-43ca645e73ae")
 	readTTLFilePath := filepath.Join("./testdata", "stageStorageCollection_test.ttl")
 	outputTTLFilePath := filepath.Join(dir, "stageStorageCollection_test_output.ttl")
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -183,13 +180,10 @@ func traversalByAPI2Level(ngA sst.NamedGraph) {
 }
 
 func Test_StorageCollection_UUIDNamedGraph(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIDC := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363")
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -235,13 +229,10 @@ func Test_StorageCollection_UUIDNamedGraph(t *testing.T) {
 }
 
 func Test_StorageCollection_UUIDNamedGraphAssert(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIDC := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363")
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {

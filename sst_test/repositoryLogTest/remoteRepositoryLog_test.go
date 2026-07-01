@@ -9,28 +9,23 @@ import (
 	"testing"
 
 	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/sst_test/testutil"
+	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_remoteRepositoryLog_SingleCommit(t *testing.T) {
-	testName := t.Name() + "_RemoteRepoLog"
-	dir := filepath.Join("./testdata/" + testName)
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
-
-	defer removeFolder(dir)
 
 	// Helper: Create int pointer
 	pointerTo := func(x int) *int { return &x }
 
 	t.Run("SingleCommit_LogEntryCreated_Remote", func(t *testing.T) {
-		removeFolder(dir)
 
-		url := testutil.ServerServe(t, dir)
+		url := testutil.ServerServe(t, filepath.Join(t.TempDir(), t.Name()))
 		ctx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
 		repo, err := sst.OpenRemoteRepository(ctx, url, transportCreds)
 		require.NoError(t, err)
@@ -62,9 +57,8 @@ func Test_remoteRepositoryLog_SingleCommit(t *testing.T) {
 	})
 
 	t.Run("LogWithStartAndEnd_Remote", func(t *testing.T) {
-		removeFolder(dir)
 
-		url := testutil.ServerServe(t, dir)
+		url := testutil.ServerServe(t, filepath.Join(t.TempDir(), t.Name()))
 		ctx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
 		repo, err := sst.OpenRemoteRepository(ctx, url, transportCreds)
 		require.NoError(t, err)
@@ -112,9 +106,8 @@ func Test_remoteRepositoryLog_SingleCommit(t *testing.T) {
 	})
 
 	t.Run("StartEqualsEnd_ShouldReturnEmpty", func(t *testing.T) {
-		removeFolder(dir)
 
-		url := testutil.ServerServe(t, dir)
+		url := testutil.ServerServe(t, filepath.Join(t.TempDir(), t.Name()))
 		ctx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
 		repo, err := sst.OpenRemoteRepository(ctx, url, transportCreds)
 		require.NoError(t, err)

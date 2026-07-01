@@ -19,13 +19,16 @@ import (
 	"github.com/blevesearch/bleve/v2"
 	"github.com/google/uuid"
 	fs "github.com/relab/wrfs"
+	"github.com/semanticstep/sst-core/sstauth"
+	"go.uber.org/zap"
 )
 
 var errDirectoryExpected = errors.New("directory expected")
 
 type localFlatRepository struct {
-	url    *url.URL
-	config repoConfig
+	url         *url.URL
+	config      repoConfig
+	accessRight sstauth.AccessMode // fixed at open/create time from filesystem probe
 }
 
 func (r *localFlatRepository) SuperRepository() SuperRepository {
@@ -44,6 +47,10 @@ func (r *localFlatRepository) Bleve() bleve.Index {
 	return nil
 }
 
+func (r *localFlatRepository) RebuildBleveIndex() error {
+	return ErrNotAvailable
+}
+
 func (r *localFlatRepository) OpenStage(mode TriplexMode) Stage {
 	return &stage{
 		repo:                     r,
@@ -51,36 +58,6 @@ func (r *localFlatRepository) OpenStage(mode TriplexMode) Stage {
 		referencedGraphs:         map[string]*namedGraph{},
 		assignedNamedGraphNumber: 1,
 	}
-}
-
-func (r *localFlatRepository) DatasetIDs(ctx context.Context) ([]uuid.UUID, error) {
-	var datasetIDs []uuid.UUID
-
-	err := filepath.Walk(r.config.repositoryDir, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-
-		if !info.IsDir() && filepath.Ext(info.Name()) == ".sst" {
-			filename := strings.TrimSuffix(info.Name(), ".sst")
-			// Decode base64URL-encoded filename to get base URL
-			baseURL, err := decodeBaseURL(filename)
-			if err != nil {
-				// Skip files that don't match the expected format
-				return nil
-			}
-			// Convert base URL to UUID (same as iriToUUID)
-			id := iriToUUID(IRI(baseURL + "#"))
-			datasetIDs = append(datasetIDs, id)
-		}
-		return nil
-	})
-
-	if err != nil {
-		return nil, err
-	}
-
-	return datasetIDs, nil
 }
 
 func (r *localFlatRepository) Datasets(ctx context.Context) ([]IRI, error) {
@@ -101,7 +78,6 @@ func (r *localFlatRepository) Datasets(ctx context.Context) ([]IRI, error) {
 		}
 		return nil
 	})
-
 	if err != nil {
 		return nil, err
 	}
@@ -179,6 +155,10 @@ func (r *localFlatRepository) CommitDetails(ctx context.Context, hashes []Hash) 
 	return nil, ErrNotSupported
 }
 
+func (r *localFlatRepository) CheckoutCommit(ctx context.Context, commitID Hash, mode TriplexMode) (Stage, error) {
+	return nil, wrapError(ErrNotSupported)
+}
+
 func (r *localFlatRepository) Close() error {
 	return nil
 }
@@ -200,7 +180,11 @@ func (d *localFlatDataset) IRI() IRI {
 	return IRI(fmt.Sprintf("urn:uuid:%s#", d.id.String()))
 }
 
-func (d *localFlatDataset) SetBranch(ctx context.Context, commit Hash, branch string) error {
+func (d *localFlatDataset) SetBranchCommit(ctx context.Context, commit Hash, branch string) error {
+	return wrapError(ErrNotSupported)
+}
+
+func (d *localFlatDataset) SetBranchRevision(ctx context.Context, datasetRevision Hash, branch string) error {
 	return wrapError(ErrNotSupported)
 }
 
@@ -307,13 +291,19 @@ func (d *localFlatDataset) CommitDetailsByBranch(
 	return nil, wrapError(fmt.Errorf("CommitDetailsByBranch not supported in localFlatRepository"))
 }
 
+func (d *localFlatDataset) CommitForRevision(
+	ctx context.Context,
+	datasetRevision Hash,
+) (Hash, error) {
+	return HashNil(), wrapError(fmt.Errorf("CommitForRevision not supported in localFlatRepository"))
+}
+
 func (r *localFlatRepository) commitNewVersion(ctx context.Context, stage *stage, message string, branch string) (Hash, []uuid.UUID, error) {
 	if message == "" {
 		return Hash{}, nil, ErrEmptyCommitMessage
 	}
 
-	err := stage.WriteToSstFilesWithBaseURL(fs.DirFS(r.config.repositoryDir))
-
+	err := stage.WriteSstFilesDirectory(fs.DirFS(r.config.repositoryDir))
 	if err != nil {
 		return Hash{}, nil, err
 	}
@@ -402,10 +392,10 @@ func (r *localFlatRepository) Info(ctx context.Context, branchName string) (Repo
 	}
 
 	// Document DB size (not supported in localFlatRepository)
-	DocumentDBSize := 0
+	var DocumentDBSize int64
 
 	// Number of documents (not supported in localFlatRepository)
-	NumberOfDocuments := 0
+	var NumberOfDocuments int64
 
 	// Calculate version hash (not supported)
 	VersionHash, err := r.calculateRepositoryVersionHash()
@@ -415,10 +405,15 @@ func (r *localFlatRepository) Info(ctx context.Context, branchName string) (Repo
 
 	// Return repository statistics
 	return RepositoryInfo{
-		URL:                         r.url.String(),
+		URL: r.url.String(),
+		// AccessRight was fixed at open/create time and never changes
+		// during the lifetime of the repository instance.
+		AccessRight:                 r.accessRight,
 		MasterDBSize:                totalSize, // Total size of all .sst files
 		DerivedDBSize:               0,
 		DocumentDBSize:              DocumentDBSize,
+		ActualRepositorySize:        totalSize,
+		MaxRepositorySize:           0,
 		NumberOfDatasets:            numDatasets, // Number of .sst files
 		NumberOfDatasetsInBranch:    numDatasets, // Same as NumDatasets
 		NumberOfDatasetRevisions:    numDatasets, // Same as NumDatasets
@@ -438,20 +433,19 @@ func (r *localFlatRepository) Log(ctx context.Context, start, end *int) ([]Repos
 	return nil, errors.New("RepositoryLog not supported in localFlatRepository")
 }
 
-// Helper: Calculate the total size of all .sst files in the given directory
-func calculateSSTFilesSize(dir string) (int, error) {
-	var totalSize int
+// Helper: Calculate the total size of all .sst files in the given directory.
+func calculateSSTFilesSize(dir string) (int64, error) {
+	var totalSize int64
 	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
-			// Log and skip files with errors
-			fmt.Printf("error accessing path %s: %v\n", path, err)
+			GlobalLogger.Error("error accessing path while calculating SST size", zap.String("path", path), zap.Error(err))
 			return nil
 		}
 		if info.IsDir() {
 			return nil // Skip directories
 		}
 		if strings.HasSuffix(info.Name(), ".sst") {
-			totalSize += int(info.Size())
+			totalSize += info.Size()
 		}
 		return nil
 	})
@@ -461,13 +455,12 @@ func calculateSSTFilesSize(dir string) (int, error) {
 	return totalSize, nil
 }
 
-// Helper: Count the number of .sst files in the given directory
-func countSSTFilesInDirectory(dir string) (int, error) {
-	var count int
+// Helper: Count the number of .sst files in the given directory.
+func countSSTFilesInDirectory(dir string) (int64, error) {
+	var count int64
 	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
-			// Log and skip files with errors
-			fmt.Printf("error accessing path %s: %v\n", path, err)
+			GlobalLogger.Error("error accessing path while counting SST files", zap.String("path", path), zap.Error(err))
 			return nil
 		}
 		if info.IsDir() {

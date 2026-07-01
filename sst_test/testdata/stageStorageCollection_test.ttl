@@ -1,29 +1,29 @@
-@prefix rep:	<http://ontology.semanticstep.net/rep#> .
-@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
-@prefix owl:	<http://www.w3.org/2002/07/owl#> .
-@prefix :	<urn:uuid:acc85dd8-4b61-4f90-934c-43ca645e73ae#> .
+@prefix rep: <http://ontology.semanticstep.net/rep#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:acc85dd8-4b61-4f90-934c-43ca645e73ae#> .
 
-<urn:uuid:acc85dd8-4b61-4f90-934c-43ca645e73ae>	a	owl:Ontology .
-:08a49d84-f35d-482f-a7c5-4e88963365b8	a	rep:Path ;
-	rep:edgeList	( :b30cb45a-8fa9-4995-bf1f-65799bdb0d40 :9c78e651-4477-4451-95da-25ce2db38b73
-	:c51f6357-8007-4e51-99a6-f1fb08035024 ) ;
-	:50da3884-bac0-41ac-a580-0fd3f109a312	:3d6d9218-68c8-41c6-9810-085f353092dc ;
-	rdfs:label	"C2" .
-:3d6d9218-68c8-41c6-9810-085f353092dc	a	rep:Axis2Placement3D ;
-	rep:location	[
-	a	rep:CartesianPoint ;
-	rep:coordinates	( 0.0 0.0 0.0 )
+<urn:uuid:acc85dd8-4b61-4f90-934c-43ca645e73ae> a owl:Ontology .
+:08a49d84-f35d-482f-a7c5-4e88963365b8 a rep:Path ;
+  rep:edgeList ( :b30cb45a-8fa9-4995-bf1f-65799bdb0d40 :9c78e651-4477-4451-95da-25ce2db38b73
+  :c51f6357-8007-4e51-99a6-f1fb08035024 ) ;
+  :50da3884-bac0-41ac-a580-0fd3f109a312 :3d6d9218-68c8-41c6-9810-085f353092dc ;
+  rdfs:label "C2" .
+:3d6d9218-68c8-41c6-9810-085f353092dc a rep:Axis2Placement3D ;
+  rep:location [
+  a rep:CartesianPoint ;
+  rep:coordinates ( 0.0 0.0 0.0 )
 ] .
-:50da3884-bac0-41ac-a580-0fd3f109a312	a	owl:ObjectProperty ;
-	rdfs:subPropertyOf	rep:geometryToTopologyItemAssociation .
-:9c78e651-4477-4451-95da-25ce2db38b73	a	rep:OrientedEdge ;
-	rep:edgeElement	:08a32d0d-8773-4397-88e1-c5f8b3881a5f ;
-	rep:orientation	false .
-:b30cb45a-8fa9-4995-bf1f-65799bdb0d40	a	rep:OrientedEdge ;
-	rep:edgeElement	:63c57201-8785-4e59-9d95-af0c981a703d ;
-	rep:orientation	false .
-:c51f6357-8007-4e51-99a6-f1fb08035024	a	rep:OrientedEdge ;
-	rep:edgeElement	:baea6b64-167b-4913-88c4-dea71172c3f2 ;
-	rep:orientation	true .
+:50da3884-bac0-41ac-a580-0fd3f109a312 a owl:ObjectProperty ;
+  rdfs:subPropertyOf rep:geometryToTopologyItemAssociation .
+:9c78e651-4477-4451-95da-25ce2db38b73 a rep:OrientedEdge ;
+  rep:edgeElement :08a32d0d-8773-4397-88e1-c5f8b3881a5f ;
+  rep:orientation false .
+:b30cb45a-8fa9-4995-bf1f-65799bdb0d40 a rep:OrientedEdge ;
+  rep:edgeElement :63c57201-8785-4e59-9d95-af0c981a703d ;
+  rep:orientation false .
+:c51f6357-8007-4e51-99a6-f1fb08035024 a rep:OrientedEdge ;
+  rep:edgeElement :baea6b64-167b-4913-88c4-dea71172c3f2 ;
+  rep:orientation true .

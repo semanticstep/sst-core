@@ -4,6 +4,7 @@ package sst
 
 import (
 	"context"
+	"fmt"
 	"net/url"
 
 	"github.com/semanticstep/sst-core/bboltproto"
@@ -11,7 +12,9 @@ import (
 	"github.com/semanticstep/sst-core/sstauth"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials/oauth"
+	"google.golang.org/grpc/status"
 )
 
 type remoteSuperRepository struct {
@@ -77,6 +80,9 @@ func (r *remoteSuperRepository) Create(ctx context.Context, name string) (Reposi
 	GlobalLogger.Info("Creating remote repository", zap.String("name", name), zap.String("target", r.url.String()))
 	_, err = r.mgrClient.CreateRepo(ctx, &bboltproto.CreateRepoRequest{Name: name}, opts...)
 	if err != nil {
+		if s, ok := status.FromError(err); ok && s.Code() == codes.ResourceExhausted {
+			return nil, fmt.Errorf("%w: %s", ErrQuotaExceeded, s.Message())
+		}
 		return nil, err
 	}
 
@@ -124,6 +130,69 @@ func (r *remoteSuperRepository) URL() string {
 
 func (r *remoteSuperRepository) RegisterIndexHandler(*SSTDeriveInfo) error {
 	return ErrNotSupported
+}
+
+func (r *remoteSuperRepository) GetQuota(ctx context.Context, name string) (RepositoryQuota, error) {
+	opts, err := perRPCCallOpts(ctx)
+	if err != nil {
+		return RepositoryQuota{}, err
+	}
+	resp, err := r.mgrClient.GetRepoQuota(ctx, &bboltproto.GetRepoQuotaRequest{Name: name}, opts...)
+	if err != nil {
+		return RepositoryQuota{}, err
+	}
+	return RepositoryQuota{MaxSizeBytes: resp.GetMaxSizeBytes(), ActualSizeBytes: resp.GetActualSizeBytes()}, nil
+}
+
+func (r *remoteSuperRepository) SetQuota(ctx context.Context, name string, maxSizeBytes int64) error {
+	opts, err := perRPCCallOpts(ctx)
+	if err != nil {
+		return err
+	}
+	_, err = r.mgrClient.SetRepoQuota(ctx, &bboltproto.SetRepoQuotaRequest{Name: name, MaxSizeBytes: maxSizeBytes}, opts...)
+	return err
+}
+
+func (r *remoteSuperRepository) GetTotalQuota(ctx context.Context) (RepositoryQuota, error) {
+	opts, err := perRPCCallOpts(ctx)
+	if err != nil {
+		return RepositoryQuota{}, err
+	}
+	resp, err := r.mgrClient.GetSuperQuota(ctx, &bboltproto.GetSuperQuotaRequest{}, opts...)
+	if err != nil {
+		return RepositoryQuota{}, err
+	}
+	return RepositoryQuota{MaxSizeBytes: resp.GetMaxSizeBytes(), ActualSizeBytes: resp.GetActualSizeBytes()}, nil
+}
+
+func (r *remoteSuperRepository) SetTotalQuota(ctx context.Context, maxSizeBytes int64) error {
+	opts, err := perRPCCallOpts(ctx)
+	if err != nil {
+		return err
+	}
+	_, err = r.mgrClient.SetSuperQuota(ctx, &bboltproto.SetSuperQuotaRequest{MaxSizeBytes: maxSizeBytes}, opts...)
+	return err
+}
+
+func (r *remoteSuperRepository) GetMaxRepositoryCount(ctx context.Context) int {
+	opts, err := perRPCCallOpts(ctx)
+	if err != nil {
+		return 0
+	}
+	resp, err := r.mgrClient.GetMaxRepoCount(ctx, &bboltproto.GetMaxRepoCountRequest{}, opts...)
+	if err != nil {
+		return 0
+	}
+	return int(resp.GetCount())
+}
+
+func (r *remoteSuperRepository) SetMaxRepositoryCount(ctx context.Context, count int) error {
+	opts, err := perRPCCallOpts(ctx)
+	if err != nil {
+		return err
+	}
+	_, err = r.mgrClient.SetMaxRepoCount(ctx, &bboltproto.SetMaxRepoCountRequest{Count: int32(count)}, opts...)
+	return err
 }
 
 // Close closes the gRPC connection to the remote super repository.

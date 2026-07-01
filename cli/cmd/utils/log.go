@@ -4,23 +4,8 @@ package utils
 
 import (
 	"fmt"
-	"io"
-	"log"
 	"os"
 )
-
-var originalLogOutput io.Writer = log.Default().Writer() // Store the original log output
-var nullDevice, _ = os.Open(os.DevNull)                  // Get `/dev/null` as io.Writer
-
-// MuteLog redirects log output to a null device, effectively silencing it.
-func MuteLog() {
-	log.SetOutput(nullDevice) // Redirect log output to `NUL` (Windows) or `/dev/null` (Linux/Mac)
-}
-
-// RestoreLog restores the log output to its original destination.
-func RestoreLog() {
-	log.SetOutput(originalLogOutput) // Restore the original log output
-}
 
 var (
 	originalStdout *os.File = os.Stdout // Store the original stdout

@@ -589,9 +589,8 @@ OMITTED_PARAMETER:
 		sd := yylexer(yylex).sd
 		if sd.instanceMode > parserNoInstanceMode {
 			stage := sd.graph.Stage()
-			ib := sst.MustIBNode(stage.ReferencedGraphIRINode(ssmeta.DerivedValue))
+			ib, _ := stage.IBNodeByVocabulary(ssmeta.DerivedValue)
 			sd.attributeValues = append(sd.attributeValues, ib)
-
 		}
 	}
 

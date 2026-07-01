@@ -33,7 +33,7 @@ func buildVerboseEntryGroups(repo sst.Repository, ctx context.Context, logs []ss
 	if len(ids) > 0 {
 		detailsList, err := repo.CommitDetails(ctx, ids)
 		if err != nil {
-			fmt.Printf("Error fetching commit details: %v\n", err)
+			fmt.Println(utils.ExplainCLIError("fetch commit details", err))
 		} else {
 			for i, h := range ids {
 				base58ID := h.String()
@@ -137,6 +137,23 @@ func buildVerboseEntryGroups(repo sst.Repository, ctx context.Context, logs []ss
 			lines = append(lines, fmt.Sprintf("  Dataset Revision:  %s", entry.Fields["ds_revision"]))
 			lines = append(lines, fmt.Sprintf("  Time:      %s", entry.Fields["timestamp"]))
 
+		case "sync_from":
+			firstLine += " Sync From"
+			lines = append(lines, firstLine)
+			lines = append(lines, fmt.Sprintf("  Author:    %s", entry.Fields["author"]))
+			lines = append(lines, fmt.Sprintf("  From:      %s", entry.Fields["from_repo_url"]))
+			lines = append(lines, fmt.Sprintf("  Time:      %s", entry.Fields["timestamp"]))
+			if countStr := entry.Fields["affected_count"]; countStr != "" {
+				if count, err := strconv.Atoi(countStr); err == nil {
+					for i := 0; i < count; i++ {
+						idx := strconv.Itoa(i)
+						lines = append(lines, fmt.Sprintf("  Dataset:   %s", entry.Fields["dataset_"+idx]))
+						lines = append(lines, fmt.Sprintf("  Branch:    %s", entry.Fields["branch_"+idx]))
+						lines = append(lines, fmt.Sprintf("  Dataset Revision:  %s", entry.Fields["ds_revision_"+idx]))
+					}
+				}
+			}
+
 		default:
 			firstLine += fmt.Sprintf(" Type: %s (unknown)", strings.Title(strings.ReplaceAll(t, "_", " ")))
 			lines = append(lines, firstLine)
@@ -202,6 +219,12 @@ func buildSimpleEntryGroups(logs []sst.RepositoryLogEntry) [][]string {
 
 		case "remove_branch":
 			firstLine += " Remove Branch"
+
+		case "sync_from":
+			firstLine += " Sync From"
+			if fromURL := entry.Fields["from_repo_url"]; fromURL != "" {
+				firstLine += fmt.Sprintf(" %s", fromURL)
+			}
 
 		case "init":
 			firstLine += " Init"

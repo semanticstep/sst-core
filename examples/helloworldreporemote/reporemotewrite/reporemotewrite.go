@@ -12,12 +12,12 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
-	"github.com/google/uuid"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -49,7 +49,7 @@ func main() {
 		panic(err)
 	}
 
-	err = ds.SetBranch(context.TODO(), commitid, "testbranch")
+	err = ds.SetBranchCommit(context.TODO(), commitid, "testbranch")
 	if err != nil {
 		panic(err)
 	}

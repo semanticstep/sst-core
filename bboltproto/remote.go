@@ -20,8 +20,8 @@ import (
 //go:generate protoc -I. -I$GOPATH/pkg/mod/github.com/yeqown/protoc-gen-fieldmask@v0.3.3/proto --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative --fieldmask_out=. --fieldmask_opt=paths=source_relative,lang=go repository.proto
 
 // need point the protoc-gen-fieldmask file out
-// e.g.
 // protoc -I . -I "C:\Users\50258\go\pkg\mod\github.com\yeqown\protoc-gen-fieldmask@v0.3.3\proto" --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative repository.proto
+// protoc -I . -I "C:\Users\allen\go\pkg\mod\github.com\yeqown\protoc-gen-fieldmask@v0.3.3\proto" --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative repository.proto
 
 var datasetsSkipIRI struct {
 	fieldMask *fieldmaskpb.FieldMask

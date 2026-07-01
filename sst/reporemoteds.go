@@ -17,8 +17,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/semanticstep/sst-core/bboltproto"
 	"github.com/google/uuid"
+	"github.com/semanticstep/sst-core/bboltproto"
+	"github.com/semanticstep/sst-core/sstauth"
 	"go.etcd.io/bbolt"
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
@@ -88,7 +89,7 @@ func (s *datasetServiceServer) GetRepositoryInfo(
 	tok, err := tokenFromIncomingContext(ctx)
 	if err != nil {
 		if status.Code(err) == codes.Unauthenticated {
-			log.Printf("no token found in context: %v", err)
+			GlobalLogger.Debug("no token found in context", zap.Error(err))
 		} else {
 			return nil, err
 		}
@@ -96,7 +97,7 @@ func (s *datasetServiceServer) GetRepositoryInfo(
 		extractedRoles, err := extractClientRolesNoVerify(tok, s.clientID)
 		if err != nil {
 			// GlobalLogger.Error("failed to extract client roles", zap.Error(err))
-			log.Printf("failed to extract client roles: %v", err)
+			GlobalLogger.Debug("failed to extract client roles", zap.Error(err))
 		}
 		roles = append(roles, extractedRoles...)
 	}
@@ -104,19 +105,25 @@ func (s *datasetServiceServer) GetRepositoryInfo(
 
 	// log.Println("extracted roles:", roles)
 
+	mode := sstauth.AccessModeFromRoles(roles)
+	isAdmin := sstauth.HasAccess(mode, sstauth.AccessMode_Admin)
 	resp := &bboltproto.GetRepositoryInfoResponse{
-		AccessRight:                 strings.Join(roles, ","),
-		BboltSize:                   int32(stats.MasterDBSize),
-		BleveSize:                   int32(stats.DerivedDBSize),
-		NumberOfDatasets:            int32(stats.NumberOfDatasets),
-		NumberOfDatasetsInBranch:    int32(stats.NumberOfDatasetsInBranch),
-		NumberOfDatasetRevisions:    int32(stats.NumberOfDatasetRevisions),
-		NumberOfNamedGraphRevisions: int32(stats.NumberOfNamedGraphRevisions),
-		NumberOfCommits:             int32(stats.NumberOfCommits),
-		NumberOfRepositoryLogs:      int32(stats.NumberOfRepositoryLogs),
-		DocumentDbSize:              int32(stats.DocumentDBSize),
-		NumberOfDocuments:           int32(stats.NumberOfDocuments),
+		AccessRight:                 mode.String(),
+		BboltSize:                   stats.MasterDBSize,
+		BleveSize:                   stats.DerivedDBSize,
+		NumberOfDatasets:            stats.NumberOfDatasets,
+		NumberOfDatasetsInBranch:    stats.NumberOfDatasetsInBranch,
+		NumberOfDatasetRevisions:    stats.NumberOfDatasetRevisions,
+		NumberOfNamedGraphRevisions: stats.NumberOfNamedGraphRevisions,
+		NumberOfCommits:             stats.NumberOfCommits,
+		NumberOfRepositoryLogs:      stats.NumberOfRepositoryLogs,
+		DocumentDbSize:              stats.DocumentDBSize,
+		NumberOfDocuments:           stats.NumberOfDocuments,
 		VersionHash:                 stats.VersionHash,
+	}
+	if isAdmin {
+		resp.ActualRepositorySize = stats.ActualRepositorySize
+		resp.MaxRepositorySize = stats.MaxRepositorySize
 	}
 
 	GlobalLogger.Info("gRPC datasetServiceServer GetRepositoryInfo response")
@@ -251,6 +258,9 @@ func (s *datasetServiceServer) DocumentSet(stream bboltproto.DatasetService_Docu
 	// Call repository.Upload
 	hash, err := repo.DocumentSet(stream.Context(), info.GetMimeType(), bufio.NewReader(reader))
 	if err != nil {
+		if errors.Is(err, ErrQuotaExceeded) {
+			return status.Errorf(codes.ResourceExhausted, "upload failed: %v", err)
+		}
 		return status.Errorf(codes.Internal, "upload failed: %v", err)
 	}
 
@@ -444,7 +454,7 @@ func (s *datasetServiceServer) FindCommonParentRevision(
 	ctx context.Context,
 	request *bboltproto.FindCommonParentRevisionRequest,
 ) (*bboltproto.FindCommonParentRevisionResponse, error) {
-	log.Println("gRPC datasetServiceServer received FindCommonParentRevision request")
+	GlobalLogger.Debug("gRPC datasetServiceServer received FindCommonParentRevision request")
 
 	repo, err := datasetServiceServerToRepository(s, ctx, request.RepoName)
 	if err != nil {
@@ -466,11 +476,41 @@ func (s *datasetServiceServer) FindCommonParentRevision(
 	return &resp, err
 }
 
+func (s *datasetServiceServer) GetCommitForDatasetRevision(
+	ctx context.Context,
+	request *bboltproto.GetCommitForDatasetRevisionRequest,
+) (*bboltproto.GetCommitForDatasetRevisionResponse, error) {
+	GlobalLogger.Debug("gRPC datasetServiceServer received GetCommitForDatasetRevision request")
+
+	repo, err := datasetServiceServerToRepository(s, ctx, request.RepoName)
+	if err != nil {
+		return nil, err
+	}
+
+	ds, err := repo.Dataset(ctx, IRI(uuid.UUID(request.DatasetId).URN()))
+	if err != nil {
+		return nil, status.Errorf(codes.NotFound, "dataset not found: %v", err)
+	}
+
+	commitHash, err := ds.CommitForRevision(ctx, BytesToHash(request.DatasetRevision))
+	if err != nil {
+		if errors.Is(err, ErrDatasetRevisionNotFound) {
+			return nil, status.Errorf(codes.NotFound, "%v", err)
+		}
+		return nil, status.Errorf(codes.Internal, "failed to get commit for dataset revision: %v", err)
+	}
+
+	resp := bboltproto.GetCommitForDatasetRevisionResponse{CommitHash: commitHash[:]}
+
+	return &resp, nil
+}
+
 func (s *datasetServiceServer) GetBranches(
 	ctx context.Context,
 	request *bboltproto.GetBranchesRequest,
 ) (*bboltproto.GetBranchesResponse, error) {
-	GlobalLogger.Debug("GetBranches request Received",
+	GlobalLogger.Debug(
+		"GetBranches request Received",
 		zap.String("RepoName", request.RepoName),
 		zap.String("Dataset UUID", uuid.UUID(request.Uuid).String()),
 	)
@@ -528,7 +568,8 @@ func (s *datasetServiceServer) SetBranch(
 	ctx context.Context,
 	request *bboltproto.SetBranchRequest,
 ) (*bboltproto.SetBranchResponse, error) {
-	GlobalLogger.Debug("SetBranch request Received",
+	GlobalLogger.Debug(
+		"SetBranch request Received",
 		zap.String("RepoName", request.RepoName),
 		zap.String("Branch", request.Branch),
 		zap.String("Dataset UUID", uuid.UUID(request.Uuid).String()),
@@ -541,16 +582,24 @@ func (s *datasetServiceServer) SetBranch(
 		GlobalLogger.Error("", zap.Error(err))
 		return nil, err
 	}
-	err = ds.SetBranch(ctx, Hash(request.CommitHash), request.Branch)
+	err = ds.SetBranchCommit(ctx, Hash(request.CommitHash), request.Branch)
+	if err != nil {
+		return nil, err
+	}
 
-	return &bboltproto.SetBranchResponse{}, err
+	// Ensure asynchronous Bleve index updates are visible before returning to
+	// the remote client.
+	FlushBleveIndex(repo)
+
+	return &bboltproto.SetBranchResponse{}, nil
 }
 
 func (s *datasetServiceServer) RemoveBranch(
 	ctx context.Context,
 	request *bboltproto.RemoveBranchRequest,
 ) (*bboltproto.RemoveBranchResponse, error) {
-	GlobalLogger.Debug("RemoveBranch request Received",
+	GlobalLogger.Debug(
+		"RemoveBranch request Received",
 		zap.String("RepoName", request.RepoName),
 		zap.String("Branch", request.Branch),
 		zap.String("Dataset UUID", uuid.UUID(request.Uuid).String()),
@@ -568,15 +617,23 @@ func (s *datasetServiceServer) RemoveBranch(
 		return nil, err
 	}
 	err = ds.RemoveBranch(ctx, request.Branch)
+	if err != nil {
+		return nil, err
+	}
 
-	return &bboltproto.RemoveBranchResponse{}, err
+	// Ensure asynchronous Bleve index updates are visible before returning to
+	// the remote client.
+	FlushBleveIndex(repo)
+
+	return &bboltproto.RemoveBranchResponse{}, nil
 }
 
 func (s *datasetServiceServer) GetLeafCommits(
 	ctx context.Context,
 	request *bboltproto.GetLeafCommitsRequest,
 ) (*bboltproto.GetLeafCommitsResponse, error) {
-	GlobalLogger.Debug("RemoveBranch request Received",
+	GlobalLogger.Debug(
+		"RemoveBranch request Received",
 		zap.String("RepoName", request.RepoName),
 		zap.String("Dataset UUID", uuid.UUID(request.Uuid).String()),
 	)
@@ -613,7 +670,7 @@ func (s *datasetServiceServer) ListDatasets(
 	ctx context.Context,
 	request *bboltproto.ListDatasetsRequest,
 ) (*bboltproto.ListDatasetsResponse, error) {
-	log.Println("gRPC datasetServiceServer received ListDatasets request")
+	GlobalLogger.Debug("gRPC datasetServiceServer received ListDatasets request")
 
 	repo, err := datasetServiceServerToRepository(s, ctx, request.RepoName)
 	if err != nil {
@@ -738,7 +795,7 @@ func (s *datasetServiceServer) CreateDataset(
 }
 
 func (s *datasetServiceServer) FetchDatasets(stream bboltproto.DatasetService_FetchDatasetsServer) error {
-	log.Println("gRPC datasetServiceServer received FetchDatasets request")
+	GlobalLogger.Debug("gRPC datasetServiceServer received FetchDatasets request")
 	objSender, err := newDatasetObjectSender(s.r, stream)
 	if err != nil {
 		return err
@@ -748,11 +805,13 @@ func (s *datasetServiceServer) FetchDatasets(stream bboltproto.DatasetService_Fe
 
 // SyncFrom handles the server-side sync operation.
 func (s *datasetServiceServer) SyncFrom(stream bboltproto.DatasetService_SyncFromServer) error {
-	log.Println("gRPC datasetServiceServer received SyncFrom request")
+	GlobalLogger.Debug("gRPC datasetServiceServer received SyncFrom request")
 
 	var repoName string
 	var localRepo *localFullRepository
 	var db *bbolt.DB
+	var syncMetadata *bboltproto.SyncFromMetadata
+	var existingDSRs map[Hash]struct{}
 
 	stats := &bboltproto.SyncFromResponse{}
 
@@ -771,6 +830,7 @@ func (s *datasetServiceServer) SyncFrom(stream bboltproto.DatasetService_SyncFro
 
 		switch data := req.Data.(type) {
 		case *bboltproto.SyncFromRequest_Metadata:
+			syncMetadata = data.Metadata
 			// Extract repo_name from metadata for SuperRepository support
 			if data.Metadata != nil {
 				repoName = data.Metadata.RepoName
@@ -787,6 +847,11 @@ func (s *datasetServiceServer) SyncFrom(stream bboltproto.DatasetService_SyncFro
 					return status.Errorf(codes.Unimplemented, "SyncFrom is only supported for LocalFullRepository, got %T", repo)
 				}
 				db = localRepo.db
+				var snapshotErr error
+				existingDSRs, snapshotErr = snapshotExistingDSRs(db)
+				if snapshotErr != nil {
+					return status.Errorf(codes.Internal, "failed to snapshot existing dataset revisions: %v", snapshotErr)
+				}
 			}
 			continue
 		case *bboltproto.SyncFromRequest_BucketData:
@@ -804,8 +869,20 @@ func (s *datasetServiceServer) SyncFrom(stream bboltproto.DatasetService_SyncFro
 	// Note: Files should already be in the vault via DocumentSet, but we verify and log warnings if missing
 	if localRepo != nil && len(documentHashesToSync) > 0 {
 		if err := s.verifyDocumentFiles(localRepo, documentHashesToSync); err != nil {
-			log.Printf("Warning: some document files may be missing in vault: %v", err)
+			GlobalLogger.Warn("some document files may be missing in vault", zap.Error(err))
 			// Don't fail the sync if files are missing, as they might have been uploaded separately
+		}
+	}
+
+	if localRepo != nil && existingDSRs != nil {
+		fromRepoURL := ""
+		branchName := ""
+		if syncMetadata != nil {
+			fromRepoURL = syncMetadata.FromRepoUrl
+			branchName = syncMetadata.BranchName
+		}
+		if err := writeSyncFromLogAfterSync(stream.Context(), localRepo, fromRepoURL, existingDSRs, branchName); err != nil {
+			return status.Errorf(codes.Internal, "failed to write sync_from log entry: %v", err)
 		}
 	}
 
@@ -816,7 +893,7 @@ func (s *datasetServiceServer) SyncFrom(stream bboltproto.DatasetService_SyncFro
 // SyncTo handles the server-side sync operation for remote to local sync.
 // Server streams bucket data to the client.
 func (s *datasetServiceServer) SyncTo(req *bboltproto.SyncToRequest, stream bboltproto.DatasetService_SyncToServer) error {
-	log.Println("gRPC datasetServiceServer received SyncTo request")
+	GlobalLogger.Debug("gRPC datasetServiceServer received SyncTo request")
 
 	// Get bbolt database from repository
 	// Server-side repository should always be LocalFullRepository

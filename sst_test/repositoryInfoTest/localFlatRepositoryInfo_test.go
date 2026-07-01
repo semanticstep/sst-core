@@ -4,18 +4,17 @@ package sst_test
 
 import (
 	"context"
+	"path/filepath"
 	"testing"
 
-	"github.com/semanticstep/sst-core/sst"
 	"github.com/google/uuid"
+	"github.com/semanticstep/sst-core/sst"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestLocalFlatRepositoryAddSingleDataset(t *testing.T) {
 	// This test validates repository statistics after adding a single dataset.
-	dir := "./testlocalflatRepo_SingleDataset"
-	removeFolder(dir)
-	defer removeFolder(dir)
+	dir := filepath.Join(t.TempDir(), t.Name())
 
 	// Open the repo
 	repo, err := sst.CreateLocalFlatRepository(dir)
@@ -39,16 +38,14 @@ func TestLocalFlatRepositoryAddSingleDataset(t *testing.T) {
 	assert.NoError(t, err, "Failed to fetch repository statistics")
 
 	// Validate statistics after adding one dataset
-	assert.Equal(t, stats.NumberOfDatasets, 1, "NumberOfDatasets should be 1 after adding a dataset")
-	assert.Equal(t, stats.NumberOfDatasetRevisions, 1, "NumberOfDatasetRevisions should equal the number of datasets")
-	assert.Equal(t, stats.NumberOfNamedGraphRevisions, 1, "NumberOfNamedGraphRevisions should equal the number of datasets")
+	assert.Equal(t, stats.NumberOfDatasets, int64(1), "NumberOfDatasets should be 1 after adding a dataset")
+	assert.Equal(t, stats.NumberOfDatasetRevisions, int64(1), "NumberOfDatasetRevisions should equal the number of datasets")
+	assert.Equal(t, stats.NumberOfNamedGraphRevisions, int64(1), "NumberOfNamedGraphRevisions should equal the number of datasets")
 }
 
 func TestLocalFlatRepositoryAddMultipleDatasets(t *testing.T) {
 	// This test validates repository statistics after adding multiple datasets.
-	dir := "./testlocalflatRepo_MultipleDatasets"
-	removeFolder(dir)
-	defer removeFolder(dir)
+	dir := filepath.Join(t.TempDir(), t.Name())
 
 	// Open the repo
 	repo, err := sst.CreateLocalFlatRepository(dir)
@@ -77,7 +74,7 @@ func TestLocalFlatRepositoryAddMultipleDatasets(t *testing.T) {
 	assert.NoError(t, err, "Failed to fetch repository statistics")
 
 	// Validate statistics after adding two datasets
-	assert.Equal(t, stats.NumberOfDatasets, 2, "NumberOfDatasets should be 2 after adding two datasets")
-	assert.Equal(t, stats.NumberOfDatasetRevisions, 2, "NumberOfDatasetRevisions should equal the number of datasets")
-	assert.Equal(t, stats.NumberOfNamedGraphRevisions, 2, "NumberOfNamedGraphRevisions should equal the number of datasets")
+	assert.Equal(t, stats.NumberOfDatasets, int64(2), "NumberOfDatasets should be 2 after adding two datasets")
+	assert.Equal(t, stats.NumberOfDatasetRevisions, int64(2), "NumberOfDatasetRevisions should equal the number of datasets")
+	assert.Equal(t, stats.NumberOfNamedGraphRevisions, int64(2), "NumberOfNamedGraphRevisions should equal the number of datasets")
 }

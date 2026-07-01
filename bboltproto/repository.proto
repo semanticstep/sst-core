@@ -14,7 +14,55 @@ service RepoManagerService {
   rpc ListRepos(ListReposRequest) returns (ListReposReply);
   rpc CreateRepo(CreateRepoRequest) returns (CreateRepoReply);
   rpc DeleteRepo(DeleteRepoRequest) returns (DeleteRepoReply);
+
+  rpc GetRepoQuota(GetRepoQuotaRequest) returns (GetRepoQuotaResponse);
+  rpc SetRepoQuota(SetRepoQuotaRequest) returns (SetRepoQuotaResponse);
+  rpc GetSuperQuota(GetSuperQuotaRequest) returns (GetSuperQuotaResponse);
+  rpc SetSuperQuota(SetSuperQuotaRequest) returns (SetSuperQuotaResponse);
+  rpc GetMaxRepoCount(GetMaxRepoCountRequest) returns (GetMaxRepoCountResponse);
+  rpc SetMaxRepoCount(SetMaxRepoCountRequest) returns (SetMaxRepoCountResponse);
 }
+
+message GetRepoQuotaRequest {
+  string name = 1;
+}
+
+message GetRepoQuotaResponse {
+  int64 max_size_bytes = 1;
+  int64 actual_size_bytes = 2;
+}
+
+message SetRepoQuotaRequest {
+  string name = 1;
+  int64 max_size_bytes = 2;
+}
+
+message SetRepoQuotaResponse {}
+
+message GetSuperQuotaRequest {}
+
+message GetSuperQuotaResponse {
+  int64 max_size_bytes = 1;
+  int64 actual_size_bytes = 2;
+}
+
+message SetSuperQuotaRequest {
+  int64 max_size_bytes = 1;
+}
+
+message SetSuperQuotaResponse {}
+
+message GetMaxRepoCountRequest {}
+
+message GetMaxRepoCountResponse {
+  int32 count = 1;
+}
+
+message SetMaxRepoCountRequest {
+  int32 count = 1;
+}
+
+message SetMaxRepoCountResponse {}
 
 message ListReposRequest {}
 
@@ -74,6 +122,8 @@ service DatasetService {
 
   rpc FindCommonParentRevision(FindCommonParentRevisionRequest) returns (FindCommonParentRevisionResponse);
 
+  rpc GetCommitForDatasetRevision(GetCommitForDatasetRevisionRequest) returns (GetCommitForDatasetRevisionResponse);
+
   rpc SyncFrom(stream SyncFromRequest) returns (SyncFromResponse);
 
   // SyncTo streams bucket data from server to client (for remote to local sync)
@@ -89,6 +139,16 @@ message FindCommonParentRevisionRequest {
 
 message FindCommonParentRevisionResponse {
   bytes common_parent_commit_rv = 1;
+}
+
+message GetCommitForDatasetRevisionRequest {
+  bytes dataset_id = 1;
+  bytes dataset_revision = 2;
+  string repoName = 3;
+}
+
+message GetCommitForDatasetRevisionResponse {
+  bytes commit_hash = 1;
 }
 
 message RemoveBranchRequest {
@@ -492,18 +552,20 @@ message GetRepositoryInfoRequest {
 }
 
 message GetRepositoryInfoResponse {
-    int32 bbolt_size = 1;
-    int32 bleve_size = 2;
-    int32 number_of_datasets = 3;
-    int32 number_of_dataset_revisions = 4;
-    int32 number_of_named_graph_revisions = 5;
-    int32 number_of_commits = 6;
-    int32 number_of_repository_logs = 7;
-    int32 number_of_datasets_in_branch = 8;
-    int32 document_db_size = 9;
-    int32 number_of_documents = 10;
+    int64 bbolt_size = 1;
+    int64 bleve_size = 2;
+    int64 number_of_datasets = 3;
+    int64 number_of_dataset_revisions = 4;
+    int64 number_of_named_graph_revisions = 5;
+    int64 number_of_commits = 6;
+    int64 number_of_repository_logs = 7;
+    int64 number_of_datasets_in_branch = 8;
+    int64 document_db_size = 9;
+    int64 number_of_documents = 10;
     string access_right = 11;
     string version_hash = 12;
+    int64 actual_repository_size = 13;
+    int64 max_repository_size = 14;
 }
 
 message RepositoryLogEntry {
@@ -618,6 +680,8 @@ message SyncFromMetadata {
   repeated bytes dataset_ids = 2;
   // Optional: branch name to sync. If empty or "*", sync all branches.
   string branch_name = 3;
+  // URL of the source repository (for sync_from log entry in target repository).
+  string from_repo_url = 4;
 }
 
 message SyncFromBucketData {

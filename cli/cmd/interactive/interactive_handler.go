@@ -17,80 +17,37 @@ import (
 	"github.com/semanticstep/sst-core/step/ap242xmlexport"
 	"github.com/semanticstep/sst-core/step/ap242xmlimport"
 	"github.com/semanticstep/sst-core/step/p21"
+	svgtosst "github.com/semanticstep/sst-core/tools/svg_to_sst"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
 
-// displayOpenRepositories prints the list of currently opened repositories
-func displayOpenRepositories() {
-	if len(interactiveConfig.RepositoryAliases) == 0 {
-		fmt.Println("No repositories are currently open.")
-		return
-	}
-	fmt.Print("Currently opened repositories: ")
-	first := true
-	for alias := range interactiveConfig.Repositories {
-		if !first {
-			fmt.Print(", ")
-		}
-		fmt.Print(alias)
-		first = false
-	}
-	fmt.Println()
-}
-
-// displayOpenDatasets prints the list of currently opened datasets
-func displayOpenDatasets() {
-	if len(interactiveConfig.DatasetAliases) == 0 {
-		fmt.Println("No datasets are currently open.")
-		return
-	}
-	fmt.Print("Currently opened datasets: ")
-	first := true
-	for alias := range interactiveConfig.Datasets {
-		if !first {
-			fmt.Print(", ")
-		}
-		fmt.Print(alias)
-		first = false
-	}
-	fmt.Println()
-}
-
 func handleOpen(args []string) {
-	reader := bufio.NewReader(os.Stdin)
 	var repoType, repoPath, repoURL, alias string
 
-	// Ask for local or remote if not provided
 	if len(args) == 0 || (args[0] != "local" && args[0] != "remote") {
-		fmt.Print("Do you want to open a 'local' or 'remote' repository? ")
-		inputType, _ := reader.ReadString('\n')
-		repoType = strings.TrimSpace(inputType)
-	} else {
-		repoType = args[0]
-		args = args[1:] // Remove type from args
+		fmt.Println("Usage: openlocalrepository <path> [-a <alias>]")
+		fmt.Println("   or: openremoterepository <URL> [-a <alias>]")
+		return
 	}
+	repoType = args[0]
+	args = args[1:]
 
-	// Ask for path or URL
 	switch repoType {
 	case "local":
 		if len(args) == 0 {
-			fmt.Print("Enter local repository path: ")
-			repoPath, _ = reader.ReadString('\n')
-			repoPath = strings.TrimSpace(repoPath)
-		} else {
-			repoPath = args[0]
-			args = args[1:] // Remove path from args
+			fmt.Println("Usage: openlocalrepository <path> [-a <alias>]")
+			return
 		}
+		repoPath = args[0]
+		args = args[1:]
 	case "remote":
 		if len(args) == 0 {
-			fmt.Print("Enter remote repository URL: ")
-			repoURL, _ = reader.ReadString('\n')
-			repoURL = strings.TrimSpace(repoURL)
-		} else {
-			repoURL = args[0]
-			args = args[1:] // Remove URL from args
+			fmt.Println("Usage: openremoterepository <URL> [-a <alias>]")
+			return
 		}
+		repoURL = args[0]
+		args = args[1:]
 	default:
 		fmt.Println("Invalid repository type. Use 'local' or 'remote'.")
 		return
@@ -123,7 +80,7 @@ func handleOpen(args []string) {
 	switch repoType {
 	case "local":
 		if err := utils.ValidatePath(repoPath); err != nil {
-			fmt.Printf("Invalid path: %v\n", err)
+			utils.PrintCLIProblem("validate path", err)
 			return
 		}
 		repository, err = sst.OpenLocalRepository(repoPath, "default@semanticstep.net", "default")
@@ -150,7 +107,6 @@ func handleOpen(args []string) {
 		realProvider := utils.GetRealProvider()
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), realProvider)
 
-		utils.MuteLog()
 		var panicErr any
 		func() {
 			defer func() {
@@ -161,7 +117,6 @@ func handleOpen(args []string) {
 
 			repository, err = sst.OpenRemoteRepository(constructCtx, repoURL, grpc.WithTransportCredentials(creds))
 		}()
-		utils.RestoreLog()
 		if panicErr != nil {
 			fmt.Printf("Cannot connect to remote repository at '%s'.\n", repoURL)
 			fmt.Println("Please check that the URL is correct and your network is available.")
@@ -169,11 +124,8 @@ func handleOpen(args []string) {
 			return
 		}
 		if err != nil {
-			msg, details := utils.ExplainRemoteRepositoryOpenError(repoURL, err)
+			msg, _ := utils.ExplainRemoteRepositoryOpenError(repoURL, err)
 			fmt.Println(msg)
-			if details {
-				fmt.Printf("Details: %v\n", err)
-			}
 			return
 		}
 		if repository == nil {
@@ -230,7 +182,7 @@ func handleOpenLocalFlatRepository(args []string) {
 	}
 
 	if err := utils.ValidatePath(repoPath); err != nil {
-		fmt.Printf("Invalid path: %v\n", err)
+		utils.PrintCLIProblem("validate path", err)
 		return
 	}
 
@@ -248,6 +200,88 @@ func handleOpenLocalFlatRepository(args []string) {
 	interactiveConfig.RepositoryAliases = append(interactiveConfig.RepositoryAliases, alias)
 
 	fmt.Printf("Repository '%s' (local flat) opened successfully.\n", alias)
+}
+
+// handleCreateLocalRepository creates a new local repository at the given path and registers it in the session.
+func handleCreateLocalRepository(args []string) {
+	if len(args) == 0 {
+		fmt.Println("Usage: createlocalrepository <path> [-a <alias>] [--basic]")
+		fmt.Println("  --basic  Create a local basic repository without revision history (default: local full with history)")
+		return
+	}
+
+	revisionHistory := true
+	var pathArgs []string
+	for _, arg := range args {
+		if arg == "--basic" {
+			revisionHistory = false
+		} else {
+			pathArgs = append(pathArgs, arg)
+		}
+	}
+
+	if len(pathArgs) == 0 {
+		fmt.Println("Usage: createlocalrepository <path> [-a <alias>] [--basic]")
+		return
+	}
+
+	repoPath := pathArgs[0]
+
+	aliasResult, err := utils.GetAlias(pathArgs[1:], "repository")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	alias := aliasResult.Alias
+
+	success := false
+	defer func() {
+		if success {
+			aliasResult.Confirm()
+		}
+	}()
+
+	if _, exists := interactiveConfig.Repositories[alias]; exists {
+		fmt.Printf("Error: Repository with alias '%s' already exists.\n", alias)
+		return
+	}
+
+	absRepoPath, err := filepath.Abs(repoPath)
+	if err != nil {
+		utils.PrintCLIProblem("resolve path", err)
+		return
+	}
+
+	if _, err := os.Stat(absRepoPath); err == nil {
+		fmt.Printf("Error: Directory '%s' already exists.\n", absRepoPath)
+		return
+	} else if !os.IsNotExist(err) {
+		utils.PrintCLIProblem("access path", err)
+		return
+	}
+
+	repository, err := sst.CreateLocalRepository(absRepoPath, "default@semanticstep.net", "default", revisionHistory)
+	if err != nil {
+		utils.PrintCLIProblem("create local repository", err)
+		return
+	}
+
+	success = true
+
+	interactiveConfig.Repositories[alias] = repository
+	interactiveConfig.RepositoryLocations[alias] = repoPath
+	interactiveConfig.RepositoryTypes[alias] = "local"
+	interactiveConfig.RepositoryAliases = append(interactiveConfig.RepositoryAliases, alias)
+
+	repoKind := "local full"
+	if !revisionHistory {
+		repoKind = "local basic"
+	}
+	fmt.Printf("Repository '%s' (%s) created successfully.\n", alias, repoKind)
+}
+
+func printStatusLine(indent int, alias, detail string) {
+	fmt.Printf("%s- %s: %s\n", strings.Repeat(" ", indent), alias, detail)
 }
 
 func handleStatus() {
@@ -272,7 +306,7 @@ func handleStatus() {
 	for _, superRepoAlias := range interactiveConfig.SuperRepositoryAliases {
 		superRepo, exists := interactiveConfig.SuperRepositories[superRepoAlias]
 		if !exists || superRepo == nil {
-			fmt.Printf("%s: (nil)\n", superRepoAlias)
+			printStatusLine(0, superRepoAlias, "(nil)")
 			continue
 		}
 
@@ -281,7 +315,7 @@ func handleStatus() {
 		if v, ok := interactiveConfig.SuperRepositoryLocations[superRepoAlias]; ok && v != "" {
 			loc = v
 		}
-		fmt.Printf("%s: %s (SuperRepository)\n", superRepoAlias, loc)
+		printStatusLine(0, superRepoAlias, loc)
 		printed.superRepositories[superRepoAlias] = true
 
 		// Display repositories belonging to this SuperRepository
@@ -296,7 +330,7 @@ func handleStatus() {
 				if v, ok := interactiveConfig.RepositoryLocations[repoAlias]; ok && v != "" {
 					repoLoc = v
 				}
-				fmt.Printf("  %s: %s\n", repoAlias, repoLoc)
+				printStatusLine(2, repoAlias, repoLoc)
 			}
 		}
 	}
@@ -308,7 +342,7 @@ func handleStatus() {
 		}
 		repo, exists := interactiveConfig.Repositories[repoAlias]
 		if !exists || repo == nil {
-			fmt.Printf("%s: (nil)\n", repoAlias)
+			printStatusLine(0, repoAlias, "(nil)")
 			continue
 		}
 
@@ -317,13 +351,13 @@ func handleStatus() {
 		if v, ok := interactiveConfig.RepositoryLocations[repoAlias]; ok && v != "" {
 			loc = v
 		}
-		fmt.Printf("%s: %s\n", repoAlias, loc)
+		printStatusLine(0, repoAlias, loc)
 
 		// Display datasets belonging to this repository
 		for _, dsAlias := range interactiveConfig.DatasetAliases {
 			ds, exists := interactiveConfig.Datasets[dsAlias]
 			if exists && ds != nil && ds.Repository() == repo {
-				fmt.Printf("  %s: %s\n", dsAlias, ds.IRI())
+				printStatusLine(2, dsAlias, ds.IRI().String())
 				printed.datasets[dsAlias] = true
 			}
 		}
@@ -336,7 +370,7 @@ func handleStatus() {
 			}
 			// Only show stages that are linked to this specific repository
 			if st.Repository() == repo {
-				fmt.Printf("  %s: %s\n", stAlias, stageRevisionSuffix(stAlias))
+				printStatusLine(2, stAlias, stageRevisionSuffix(stAlias))
 				printed.stages[stAlias] = true
 
 				// Display namedgraphs in this stage
@@ -349,7 +383,7 @@ func handleStatus() {
 						continue
 					}
 					printed.namedGraphs[ngAlias] = true
-					fmt.Printf("    %s: %s\n", ngAlias, ngRevisionSuffix(ng))
+					printStatusLine(4, ngAlias, ngRevisionSuffix(ng))
 
 					// Display ibnodes in this namedgraph
 					for _, nodeAlias := range interactiveConfig.IBNodeAliases {
@@ -359,7 +393,7 @@ func handleStatus() {
 						}
 						if nodeBelongsToNamedGraph(n, ng) {
 							printed.ibNodes[nodeAlias] = true
-							fmt.Printf("      %s: %s\n", nodeAlias, getNodeDisplayString(n))
+							printStatusLine(6, nodeAlias, getNodeDisplayString(n))
 						}
 					}
 				}
@@ -375,7 +409,7 @@ func handleStatus() {
 		st, exists := interactiveConfig.Stages[stAlias]
 		if !exists || st == nil {
 			// Stage alias exists but stage is nil
-			fmt.Printf("%s: %s (nil stage)\n", stAlias, stageRevisionSuffix(stAlias))
+			printStatusLine(0, stAlias, stageRevisionSuffix(stAlias)+" (nil stage)")
 			continue
 		}
 
@@ -399,7 +433,7 @@ func handleStatus() {
 			} else {
 				suffix += " (repository not opened)"
 			}
-			fmt.Printf("%s: %s\n", stAlias, suffix)
+			printStatusLine(0, stAlias, suffix)
 
 			// Display namedgraphs in this orphaned stage
 			for _, ngAlias := range interactiveConfig.NamedGraphAliases {
@@ -414,7 +448,7 @@ func handleStatus() {
 					continue
 				}
 				printed.namedGraphs[ngAlias] = true
-				fmt.Printf("  %s: %s\n", ngAlias, ngRevisionSuffix(ng))
+				printStatusLine(2, ngAlias, ngRevisionSuffix(ng))
 
 				// Display ibnodes in this namedgraph
 				for _, nodeAlias := range interactiveConfig.IBNodeAliases {
@@ -427,7 +461,7 @@ func handleStatus() {
 					}
 					if nodeBelongsToNamedGraph(n, ng) {
 						printed.ibNodes[nodeAlias] = true
-						fmt.Printf("    %s: %s\n", nodeAlias, getNodeDisplayString(n))
+						printStatusLine(4, nodeAlias, getNodeDisplayString(n))
 					}
 				}
 			}
@@ -441,7 +475,7 @@ func handleStatus() {
 		}
 		ds, exists := interactiveConfig.Datasets[dsAlias]
 		if exists && ds != nil {
-			fmt.Printf("%s: %s (no repository)\n", dsAlias, ds.IRI())
+			printStatusLine(0, dsAlias, ds.IRI().String()+" (no repository)")
 		}
 	}
 
@@ -452,7 +486,7 @@ func handleStatus() {
 		}
 		ng, exists := interactiveConfig.NamedGraphs[ngAlias]
 		if exists && ng != nil {
-			fmt.Printf("%s: %s (no stage)\n", ngAlias, ngRevisionSuffix(ng))
+			printStatusLine(0, ngAlias, ngRevisionSuffix(ng)+" (no stage)")
 
 			// Display ibnodes in this orphaned namedgraph
 			for _, nodeAlias := range interactiveConfig.IBNodeAliases {
@@ -465,7 +499,7 @@ func handleStatus() {
 				}
 				if nodeBelongsToNamedGraph(n, ng) {
 					printed.ibNodes[nodeAlias] = true
-					fmt.Printf("  %s: %s\n", nodeAlias, getNodeDisplayString(n))
+					printStatusLine(2, nodeAlias, getNodeDisplayString(n))
 				}
 			}
 		}
@@ -478,7 +512,7 @@ func handleStatus() {
 		}
 		n, exists := interactiveConfig.IBNodes[nodeAlias]
 		if exists && n != nil {
-			fmt.Printf("%s: %s (no namedgraph)\n", nodeAlias, getNodeDisplayString(n))
+			printStatusLine(0, nodeAlias, getNodeDisplayString(n)+" (no namedgraph)")
 		}
 	}
 }
@@ -515,11 +549,14 @@ func getNodeDisplayString(n sst.IBNode) string {
 }
 
 // stageRevisionSuffix returns a suffix string indicating the revision information for a stage.
-// It returns "[branch: xxx]" if the stage has a branch, "[commit: abc12345]" if it has a commit hash,
+// It returns "[branch: xxx]" if the stage has a branch, "[revision: ...]" or "[commit: ...]" for checkout metadata,
 // "[source: filepath]" if it was created from a source file, or "empty stage" otherwise.
 func stageRevisionSuffix(stageAlias string) string {
 	if b, ok := interactiveConfig.StageBranches[stageAlias]; ok && b != "" {
 		return "[branch: " + b + "]"
+	}
+	if h, ok := interactiveConfig.StageRevisions[stageAlias]; ok {
+		return "[revision: " + h.String() + "]"
 	}
 	if h, ok := interactiveConfig.StageCommits[stageAlias]; ok {
 		hs := h.String()
@@ -639,7 +676,7 @@ func handleRDFRead(args []string) {
 	// Open RDF file (.ttl or .trig)
 	file, err := os.Open(filePath)
 	if err != nil {
-		fmt.Printf("Error: Failed to open file '%s': %v\n", filePath, err)
+		utils.PrintCLIProblem("open file", err)
 		return
 	}
 	defer func() {
@@ -651,7 +688,7 @@ func handleRDFRead(args []string) {
 	// Convert RDF (Turtle/TriG) into a new Stage.
 	stage, err := sst.RdfRead(bufio.NewReader(file), format, sst.StrictHandler, sst.DefaultTriplexMode)
 	if err != nil {
-		fmt.Printf("Error: Failed to read RDF file: %v\n", err)
+		utils.PrintCLIProblem("read RDF file", err)
 		return
 	}
 
@@ -662,7 +699,89 @@ func handleRDFRead(args []string) {
 	interactiveConfig.StageAliases = append(interactiveConfig.StageAliases, stageAlias)
 	interactiveConfig.StageSources[stageAlias] = filePath
 
-	fmt.Printf("rdfRead successful. Stage '%s' created for file '%s'.\n", stageAlias, filePath)
+	fmt.Printf("Stage '%s' (file '%s') opened successfully.\n", stageAlias, filePath)
+}
+
+func handleSstRead(args []string) {
+	if len(args) < 1 {
+		fmt.Println("Error: Missing arguments. Usage: sstread <file-path> [-a <stage-alias>]")
+		return
+	}
+
+	var filePath string
+	for i := 0; i < len(args); i++ {
+		a := strings.TrimSpace(args[i])
+		if a == "" {
+			continue
+		}
+		if a == "-a" && i+1 < len(args) {
+			i++
+			continue
+		}
+		if strings.HasPrefix(a, "-") {
+			continue
+		}
+		filePath = a
+		break
+	}
+
+	if filePath == "" {
+		fmt.Println("Error: Missing file path. Usage: sstread <file-path> [-a <stage-alias>]")
+		return
+	}
+
+	aliasResult, err := utils.GetAlias(args, "stage")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	stageAlias := aliasResult.Alias
+
+	success := false
+	defer func() {
+		if success {
+			aliasResult.Confirm()
+		}
+	}()
+
+	if _, exists := interactiveConfig.Stages[stageAlias]; exists {
+		fmt.Printf("Error: Stage alias '%s' already exists.\n", stageAlias)
+		return
+	}
+
+	file, err := os.Open(filePath)
+	if err != nil {
+		utils.PrintCLIProblem("open file", err)
+		return
+	}
+	defer func() {
+		if e := file.Close(); e != nil {
+			log.Printf("Error closing file: %v", e)
+		}
+	}()
+
+	var readErr error
+	var stage sst.Stage
+	utils.ShowLoadingIndicator(fmt.Sprintf("Reading SST file '%s'", filePath), func() {
+		graph, err := sst.SstRead(bufio.NewReader(file), sst.DefaultTriplexMode)
+		if err != nil {
+			readErr = err
+			return
+		}
+		stage = graph.Stage()
+	})
+	if readErr != nil {
+		utils.PrintCLIProblem("read SST file", readErr)
+		return
+	}
+
+	success = true
+
+	interactiveConfig.Stages[stageAlias] = stage
+	interactiveConfig.StageAliases = append(interactiveConfig.StageAliases, stageAlias)
+	interactiveConfig.StageSources[stageAlias] = filePath
+
+	fmt.Printf("Stage '%s' (file '%s') opened successfully.\n", stageAlias, filePath)
 }
 
 func handleImportAP242XML(args []string) {
@@ -695,7 +814,7 @@ func handleImportAP242XML(args []string) {
 	// Open XML file
 	file, err := os.Open(filePath)
 	if err != nil {
-		fmt.Printf("Error: Failed to open file '%s': %v\n", filePath, err)
+		utils.PrintCLIProblem("open file", err)
 		return
 	}
 	defer func() {
@@ -726,7 +845,7 @@ func handleImportAP242XML(args []string) {
 	// Import AP242 XML to SST graph
 	graph, err := ap242xmlimport.FromXMLReader(reader)
 	if err != nil {
-		fmt.Printf("Error: Failed to import AP242 XML: %v\n", err)
+		utils.PrintCLIProblem("import AP242 XML", err)
 		return
 	}
 
@@ -764,7 +883,7 @@ func handleImportAP242XML(args []string) {
 		}
 	}
 
-	fmt.Printf("Import AP242 XML successful. Stage '%s' created for file '%s'.\n", stageAlias, filePath)
+	fmt.Printf("Stage '%s' (file '%s') opened successfully.\n", stageAlias, filePath)
 
 	if graphAlias != "" {
 		if _, exists := interactiveConfig.NamedGraphs[graphAlias]; exists {
@@ -780,14 +899,12 @@ func handleNamedGraphExportAP242XML(graphAlias string, args []string) {
 		return
 	}
 	if len(args) < 1 || strings.TrimSpace(args[0]) == "" {
-		fmt.Println("Error: Missing output file. Usage: <namedgraph>.exportap242xml <output-file.xml>")
+		fmt.Println("Error: Missing output file. Usage: <namedgraph>.exportap242xml <file>")
 		return
 	}
 
 	outputFile := strings.TrimSpace(args[0])
-	if !strings.HasSuffix(strings.ToLower(outputFile), ".xml") {
-		outputFile += ".xml"
-	}
+	outputFile = utils.EnsureOutputExt(outputFile, ".xml")
 
 	// Check if file exists
 	if _, err := os.Stat(outputFile); err == nil {
@@ -799,13 +916,13 @@ func handleNamedGraphExportAP242XML(graphAlias string, args []string) {
 			return
 		}
 	} else if !os.IsNotExist(err) {
-		fmt.Fprintf(os.Stderr, "Error checking file '%s': %v\n", outputFile, err)
+		utils.PrintCLIProblem("check file", err)
 		return
 	}
 
 	f, err := os.Create(outputFile)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to create file '%s': %v\n", outputFile, err)
+		utils.PrintCLIProblem("create file", err)
 		return
 	}
 	defer func() {
@@ -838,7 +955,7 @@ func handleNamedGraphExportAP242XML(graphAlias string, args []string) {
 		return
 	}
 
-	fmt.Printf("AP242 XML exported successfully to '%s'\n", outputFile)
+	fmt.Printf("AP242 XML successfully written to %s\n", outputFile)
 }
 
 func handleImportP21(args []string) {
@@ -871,7 +988,7 @@ func handleImportP21(args []string) {
 	// Open P21/STEP file
 	file, err := os.Open(filePath)
 	if err != nil {
-		fmt.Printf("Error: Failed to open file '%s': %v\n", filePath, err)
+		utils.PrintCLIProblem("open file", err)
 		return
 	}
 	defer func() {
@@ -885,7 +1002,7 @@ func handleImportP21(args []string) {
 	var graph sst.NamedGraph
 	graph, err = p21.Parse(reader, log.Default())
 	if err != nil {
-		fmt.Printf("Error: Failed to import P21/STEP: %v\n", err)
+		utils.PrintCLIProblem("import P21 file", err)
 		return
 	}
 
@@ -931,7 +1048,124 @@ func handleImportP21(args []string) {
 		}
 	}
 
-	fmt.Printf("Import P21/STEP successful. Stage '%s' created for file '%s'.\n", stageAlias, filePath)
+	fmt.Printf("Stage '%s' (file '%s') opened successfully.\n", stageAlias, filePath)
+
+	if graphAlias != "" {
+		if _, exists := interactiveConfig.NamedGraphs[graphAlias]; exists {
+			utils.PrintNamedGraphDetails(graphAlias, graph)
+		}
+	}
+}
+
+func handleImportSVG(args []string) {
+	if len(args) < 1 {
+		fmt.Println("Error: Missing arguments. Usage: importsvg <file-path> [-a <stage-alias>]")
+		return
+	}
+	filePath := args[0]
+
+	aliasResult, err := utils.GetAlias(args, "stage")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	stageAlias := aliasResult.Alias
+
+	// Use defer to confirm alias generation only on success
+	success := false
+	defer func() {
+		if success {
+			aliasResult.Confirm()
+		}
+	}()
+
+	if _, exists := interactiveConfig.Stages[stageAlias]; exists {
+		fmt.Printf("Error: Stage alias '%s' already exists.\n", stageAlias)
+		return
+	}
+
+	// Open SVG file
+	file, err := os.Open(filePath)
+	if err != nil {
+		utils.PrintCLIProblem("open file", err)
+		return
+	}
+	defer func() {
+		if e := file.Close(); e != nil {
+			log.Printf("Error closing file: %v", e)
+		}
+	}()
+
+	reader := bufio.NewReader(file)
+
+	// tools/svg_to_sst currently emits some debug output via both the log package and fmt.Printf.
+	// Redirect both temporarily to keep interactive output readable.
+	nullDevice, _ := os.Open(os.DevNull)
+	originalStdout := os.Stdout
+	originalLogOutput := log.Default().Writer()
+	restoreDone := false
+	defer func() {
+		if !restoreDone {
+			os.Stdout = originalStdout
+			log.SetOutput(originalLogOutput)
+			_ = nullDevice.Close()
+		}
+	}()
+
+	os.Stdout = nullDevice
+	log.SetOutput(nullDevice)
+	graph, convertErr := svgtosst.ConvertSvgToGraph(reader, "")
+	os.Stdout = originalStdout
+	log.SetOutput(originalLogOutput)
+	_ = nullDevice.Close()
+	restoreDone = true
+
+	if convertErr != nil {
+		utils.PrintCLIProblem("convert SVG", convertErr)
+		return
+	}
+	if graph == nil {
+		fmt.Println("Error: Failed to convert SVG to SST: graph is nil")
+		return
+	}
+
+	stage := graph.Stage()
+	if stage == nil {
+		fmt.Println("Error: Failed to convert SVG to SST: stage is nil")
+		return
+	}
+
+	// Success! Set flag so defer will confirm
+	success = true
+	interactiveConfig.Stages[stageAlias] = stage
+	interactiveConfig.StageAliases = append(interactiveConfig.StageAliases, stageAlias)
+	interactiveConfig.StageSources[stageAlias] = filePath
+
+	// Create alias for the graph (remove stage alias flag from args first)
+	remainingArgs := utils.RemoveAliasFlag(args)
+	graphAliasResult, err := utils.GetAlias(remainingArgs, "namedgraph")
+	var graphAlias string
+	if err != nil {
+		fmt.Printf("Warning: Failed to get graph alias: %v\n", err)
+	} else {
+		graphAlias = graphAliasResult.Alias
+		graphSuccess := false
+		defer func() {
+			if graphSuccess {
+				graphAliasResult.Confirm()
+			}
+		}()
+
+		if _, exists := interactiveConfig.NamedGraphs[graphAlias]; exists {
+			fmt.Printf("Warning: NamedGraph alias '%s' already exists, skipping graph alias creation.\n", graphAlias)
+		} else {
+			graphSuccess = true
+			interactiveConfig.NamedGraphs[graphAlias] = graph
+			interactiveConfig.NamedGraphAliases = append(interactiveConfig.NamedGraphAliases, graphAlias)
+		}
+	}
+
+	fmt.Printf("Stage '%s' (file '%s') opened successfully.\n", stageAlias, filePath)
 
 	if graphAlias != "" {
 		if _, exists := interactiveConfig.NamedGraphs[graphAlias]; exists {
@@ -982,7 +1216,7 @@ func handleClone(sourceAlias string, args []string) {
 	// Convert to absolute path
 	absTargetDir, err := filepath.Abs(targetDir)
 	if err != nil {
-		fmt.Printf("Error: Failed to resolve target directory: %v\n", err)
+		utils.PrintCLIProblem("resolve path", err)
 		return
 	}
 
@@ -999,18 +1233,16 @@ func handleClone(sourceAlias string, args []string) {
 	fmt.Printf("Creating local repository at %s...\n", absTargetDir)
 	targetRepo, err := sst.CreateLocalRepository(absTargetDir, "default@semanticstep.net", "default", true)
 	if err != nil {
-		fmt.Printf("Error: Failed to create local repository: %v\n", err)
+		utils.PrintCLIProblem("create local repository", err)
 		return
 	}
 
 	// Sync from source to target
 	fmt.Printf("Syncing data from repository '%s' to '%s'...\n", sourceAlias, absTargetDir)
-	utils.MuteLog()
 	err = targetRepo.SyncFrom(sourceCtx, sourceRepo)
-	utils.RestoreLog()
 
 	if err != nil {
-		fmt.Printf("Error: Failed to sync repository: %v\n", err)
+		utils.PrintCLIProblem("sync repository", err)
 		return
 	}
 
@@ -1022,7 +1254,7 @@ func handleClone(sourceAlias string, args []string) {
 	fmt.Printf("Opening cloned repository as '%s'...\n", targetAlias)
 	openedRepo, err := sst.OpenLocalRepository(absTargetDir, "default@semanticstep.net", "default")
 	if err != nil {
-		fmt.Printf("Warning: Failed to open cloned repository: %v\n", err)
+		utils.PrintCLIProblem("open cloned repository", err)
 		return
 	}
 

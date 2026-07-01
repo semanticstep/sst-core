@@ -1,0 +1,62 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix qau: <http://ontology.semanticstep.net/qau#> .
+@prefix ssmeta: <http://ontology.semanticstep.net/ssmeta#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:03431413-2c10-4be9-b144-30d4d91343c1#> .
+
+<urn:uuid:03431413-2c10-4be9-b144-30d4d91343c1> a owl:Ontology .
+:0f5aba07-726f-420a-8a74-ae8ab3359281 a lci:PhysicalProperty ,
+    lci:PropertyDefinition ,
+    owl:FunctionalProperty ,
+    owl:ObjectProperty ,
+    :2fda48a4-5cdf-4e20-95d2-989fbb8d3bc2 ;
+  rdfs:range sso:ClassSystem ;
+  sso:id "included ClassSystem" .
+:24557887-e6d7-4ddf-9ee5-3086b8aa1606 a lci:PropertyDefinition ,
+    owl:DatatypeProperty ,
+    :2fda48a4-5cdf-4e20-95d2-989fbb8d3bc2 ;
+  rdfs:range xsd:string ;
+  sso:id "Criteria" .
+:263ae5d6-e777-41f8-8a35-79bab1a0780c a lci:ClassOfIndividual ,
+    :2fda48a4-5cdf-4e20-95d2-989fbb8d3bc2 ;
+  sso:id "CustomClassSystem" ;
+  rdfs:label "Custom Class System" .
+:2fda48a4-5cdf-4e20-95d2-989fbb8d3bc2 a sso:ClassSystem ;
+  ssmeta:formProperties ( :940b6d17-3867-446f-a505-ede15056c36b ) ;
+  sso:id "ClassSystemTypes" ;
+  rdfs:label "Class System Types" .
+:6f0ab966-a35d-4d75-a4b1-66fde139162b a lci:PropertyDefinition ,
+    owl:DatatypeProperty ,
+    :2fda48a4-5cdf-4e20-95d2-989fbb8d3bc2 ;
+  rdfs:range xsd:string ;
+  sso:id "12344" .
+:940b6d17-3867-446f-a505-ede15056c36b a lci:PhysicalProperty ,
+    lci:PropertyDefinition ,
+    owl:FunctionalProperty ,
+    owl:ObjectProperty ,
+    :2fda48a4-5cdf-4e20-95d2-989fbb8d3bc2 ;
+  rdfs:range lci:NominalQuantity ,
+    qau:Area ;
+  sso:id "n1" .
+:9fff5fff-0311-44f8-96dd-c35c72dfb909 a lci:ClassOfIndividual ,
+    :2fda48a4-5cdf-4e20-95d2-989fbb8d3bc2 ;
+  sso:id "PlibClassSystem" ;
+  rdfs:label "PLIB Class System according to ISO13584 / IEC61360" .
+:a7f0e0f6-8448-4096-b652-55c850b3344a a lci:ClassOfIndividual ,
+    :2fda48a4-5cdf-4e20-95d2-989fbb8d3bc2 ;
+  ssmeta:formProperties ( :24557887-e6d7-4ddf-9ee5-3086b8aa1606 :eb198936-0d10-4381-a217-1287a705e967 ) ;
+  sso:id "IEC81346_ClassSystems" ;
+  rdfs:label "ClassSystem for IEC 81346" .
+:eb198936-0d10-4381-a217-1287a705e967 a lci:PropertyDefinition ,
+    owl:DatatypeProperty ,
+    :2fda48a4-5cdf-4e20-95d2-989fbb8d3bc2 ;
+  rdfs:range xsd:string ;
+  sso:id "Example" .
+:f4a5e2e8-ba71-4794-a9db-b729c2307308 a lci:ClassOfIndividual ,
+    :2fda48a4-5cdf-4e20-95d2-989fbb8d3bc2 ;
+  sso:id "EdmClassSystem" ;
+  rdfs:label "EDM Class System" .

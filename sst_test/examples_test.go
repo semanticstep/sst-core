@@ -7,22 +7,24 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"testing"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict" // Register vocabularies for pretty TTL output
 	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/semanticstep/sst-core/vocabularies/owl"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
-	"github.com/google/uuid"
 )
 
 func Test_ExampleReadTTLAndWrite(t *testing.T) {
-	defer os.Remove("./testdata/example.ttl")
-	defer os.Remove("./testdata/example.sst")
-	defer os.Remove("./testdata/examplewriteafterread.sst")
+	tmpDir := t.TempDir()
+	ttlFile := filepath.Join(tmpDir, "example.ttl")
+	sstFile := filepath.Join(tmpDir, "example.sst")
+	writeAfterReadFile := filepath.Join(tmpDir, "examplewriteafterread.sst")
 
 	t.Run("write", func(t *testing.T) {
 		st := sst.OpenStage(sst.DefaultTriplexMode)
@@ -39,7 +41,7 @@ func Test_ExampleReadTTLAndWrite(t *testing.T) {
 
 		second := ng.CreateIRINode("", lci.Individual)
 		myIndividual.AddStatement(lci.HasPart, second)
-		f, err := os.Create("./testdata/example.ttl")
+		f, err := os.Create(ttlFile)
 		if err != nil {
 			panic(err)
 		}
@@ -49,7 +51,7 @@ func Test_ExampleReadTTLAndWrite(t *testing.T) {
 		if err != nil {
 			log.Panic(err)
 		}
-		out, err := os.Create("./testdata/example.sst")
+		out, err := os.Create(sstFile)
 		if err != nil {
 			log.Panic(err)
 		}
@@ -66,7 +68,7 @@ func Test_ExampleReadTTLAndWrite(t *testing.T) {
 
 	})
 	t.Run("readThenWriteAgain", func(t *testing.T) {
-		file, err := os.Open("./testdata/example.ttl")
+		file, err := os.Open(ttlFile)
 		defer func() {
 			e := file.Close()
 			if err == nil {
@@ -107,7 +109,7 @@ func Test_ExampleReadTTLAndWrite(t *testing.T) {
 			})
 			return nil
 		})
-		out, err := os.Create("./testdata/examplewriteafterread.sst")
+		out, err := os.Create(writeAfterReadFile)
 		if err != nil {
 			log.Panic(err)
 		}
@@ -131,7 +133,7 @@ func Test_ExampleReadTTLAndWrite(t *testing.T) {
 	})
 
 	t.Run("readsstagain", func(t *testing.T) {
-		in, err := os.Open("./testdata/examplewriteafterread.sst")
+		in, err := os.Open(writeAfterReadFile)
 		if err != nil {
 			log.Panic(err)
 		}
@@ -218,7 +220,7 @@ func Test_NGNodeReadTTL(t *testing.T) {
 			graph.AddImport(ng2)
 		}
 
-		f, err := os.Create("./testdata/descriptionNodeOut.ttl")
+		f, err := os.Create(filepath.Join(t.TempDir(), "descriptionNodeOut.ttl"))
 		if err != nil {
 			panic(err)
 		}
@@ -237,9 +239,6 @@ func Test_NGNodeReadTTL(t *testing.T) {
 		//     http://www.w3.org/2000/01/rdf-schema#comment ["comment line 1" "comment line 2"]^^http://www.w3.org/2001/XMLSchema#string
 	})
 
-	t.Run("Cleanup", func(t *testing.T) {
-		os.Remove("./testdata/descriptionNodeOut.ttl")
-	})
 }
 
 func Test_NGNode(t *testing.T) {
@@ -256,7 +255,7 @@ func Test_NGNode(t *testing.T) {
 
 		n1.AddStatement(p1, col)
 
-		f, err := os.Create("./testdata/NGNode.ttl")
+		f, err := os.Create(filepath.Join(t.TempDir(), "NGNode.ttl"))
 		if err != nil {
 			panic(err)
 		}
@@ -268,9 +267,6 @@ func Test_NGNode(t *testing.T) {
 		}
 	})
 
-	t.Run("Cleanup", func(t *testing.T) {
-		os.Remove("./testdata/NGNode.ttl")
-	})
 }
 
 func TestUnixSeconds_RoundTrip_UTC(t *testing.T) {

@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/sst_test/testutil"
+	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/oauth2"

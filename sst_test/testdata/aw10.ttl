@@ -1,13 +1,13 @@
-@prefix lci:	<http://ontology.semanticstep.net/lci#> .
-@prefix sso:	<http://ontology.semanticstep.net/sso#> .
-@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
-@prefix owl:	<http://www.w3.org/2002/07/owl#> .
-@prefix :	<urn:uuid:c1efcf54-3e8e-4cc7-a7d1-82a9f61aaa10#> .
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:c1efcf54-3e8e-4cc7-a7d1-82a9f61aaa10#> .
 
-<urn:uuid:c1efcf54-3e8e-4cc7-a7d1-82a9f61aaa10>	a	owl:Ontology .
-:c1efcf54-3e8e-4cc7-a7d1-82a9f613ad10	a	sso:ClassSystem .
-:c1efcf54-3e8e-4cc7-a7d1-82a9f613ad11	a	lci:ClassOfIndividual ,
-			:c1efcf54-3e8e-4cc7-a7d1-82a9f613ad10 ;
-	rdfs:label	"Commercial organizations" .
+<urn:uuid:c1efcf54-3e8e-4cc7-a7d1-82a9f61aaa10> a owl:Ontology .
+:c1efcf54-3e8e-4cc7-a7d1-82a9f613ad10 a sso:ClassSystem .
+:c1efcf54-3e8e-4cc7-a7d1-82a9f613ad11 a lci:ClassOfIndividual ,
+    :c1efcf54-3e8e-4cc7-a7d1-82a9f613ad10 ;
+  rdfs:label "Commercial organizations" .

@@ -20,6 +20,13 @@ func registerDictionaryProvider(dictFS fs.FS) {
 		if err != nil {
 			panic(err)
 		}
+
+		repo, err := OpenLocalFlatFileSystemRepository(dictFS)
+		if err != nil {
+			panic(err)
+		}
+
+		st.(*stage).repo = repo
 		tempDictionaryStage.Stage = st
 		staticDictionaryStage = tempDictionaryStage
 	})
@@ -53,8 +60,10 @@ func (d *dictionaryStage) Element(e Element) (IBNode, error) {
 // The Dictionary interface is an extension of the Stage interface to provides access to the build in ontologies of SST in read-only mode.
 // The single Dictionary object can be accessed by StaticDictionary().
 // Dictionary provides access to dictionary [NamedGraph]s and [IBNode]s within the dictionary stage.
-// The dictionary stage is distinct from application data stages, is read-only and does not belong
-// to any Repository. It is completely managed by SST internally.
+// The dictionary stage is distinct from application data stages and is read-only.
+// It is linked to a read-only flat [Repository] backed by the embedded dictionary SST files,
+// which can be accessed via the [Stage.Repository] method.
+// It is completely managed by SST internally.
 //
 // Example:
 //
@@ -120,12 +129,12 @@ type (
 	ElementInformer interface {
 		Node
 		Elementer
-		IsClass() bool            // true if the element is an owl:Class
-		IsProperty() bool         // true if the element is an rdf:Property or owl:DatatypeProperty or owl:ObjectProperty.
-		IsDatatypeProperty() bool // true if the element is an owl:DatatypeProperty.
-		IsObjectProperty() bool   // true if the element is an owl:ObjectProperty.
-		IsDatatype() bool         // true if the element is an rdfs:Datatype.
-		IsIndividual() bool       // true if the target is neither a class nor a property nor a datatype.
+		IsClass() bool            // IsClass returns true if the element is an owl:Class.
+		IsProperty() bool         // IsProperty returns true if the element is an rdf:Property or owl:DatatypeProperty or owl:ObjectProperty.
+		IsDatatypeProperty() bool // IsDatatypeProperty returns true if the element is an owl:DatatypeProperty.
+		IsObjectProperty() bool   // IsObjectProperty returns true if the element is an owl:ObjectProperty.
+		IsDatatype() bool         // IsDatatype returns true if the element is an rdfs:Datatype.
+		IsIndividual() bool       // IsIndividual returns true if the element is neither a class nor a property nor a datatype.
 
 		// IsMainClass returns true if the target is directly or indirectly of the mainClass type.
 		IsMainClass(mainClass Element) bool
@@ -133,13 +142,13 @@ type (
 		Domain() ElementInformer
 		// Range returns the rdfs:range of a property.
 		Range() ElementInformer
-		// SubtypeOf returns superclasses from zero or more rdfs:subClassOf statements.
+		// SubtypeOf returns the superclasses from zero or more rdfs:subClassOf statements.
 		SubtypeOf() []ElementInformer
-		// SubPropertyOf returns super-property from rdfs:subPropertyOf statement or nil.
+		// SubPropertyOf returns the super-property from rdfs:subPropertyOf statement, or nil.
 		SubPropertyOf() ElementInformer
-		// InverseOf returns the owl:inverseOf of a property if available.
+		// InverseOf returns the owl:inverseOf of a property, if available.
 		InverseOf() ElementInformer
-		// CollectionMember() returns the collection member type.
+		// CollectionMember returns the collection member type.
 		CollectionMember() ElementInformer
 	}
 
@@ -177,14 +186,14 @@ type (
 	ElementInfo struct {
 		Element
 		AClass            bool // true if the element is an owl:Class.
-		AnOptionClass     bool // true is the element is a ssmeta:OptionClass.
+		AnOptionClass     bool // true if the element is a ssmeta:OptionClass.
 		AnAbstractClass   bool // true if the element is a ssmeta:AbstractClass.
 		ARootClass        bool // true if the element is a ssmeta:RootClass.
 		AProperty         bool // true if the element is an rdf:Property.
 		ADatatypeProperty bool // true if the element is an owl:DatatypeProperty.
 		AnObjectProperty  bool // true if the element is an owl:ObjectProperty.
 		ADatatype         bool // true if the element is an rdfs:Datatype.
-		AnIndividual      bool // true if the property is neither a class nor a property nor a datatype.
+		AnIndividual      bool // true if the element is neither a class nor a property nor a datatype.
 
 		// AMainClassSupersedure provides the main classes this element supersedes.
 		// AMainClassSupersedure is set to empty map[Element]struct{} in case the
@@ -192,16 +201,19 @@ type (
 		// AMainClassSupersedure is set to nil if this element is not a main class.
 		AMainClassSupersedure map[Element]struct{}
 
-		ADomain               ElementInformer   // The rdfs:domain of a property.
-		ARange                ElementInformer   // The rdfs:range of a property.
-		ACollectionMemberType ElementInformer   // represent collection member type
-		ASubtypeOf            []ElementInformer // Superclasses from zero or more rdfs:subClassOf statements.
+		ADomain               ElementInformer   // the rdfs:domain of a property.
+		ARange                ElementInformer   // the rdfs:range of a property.
+		ACollectionMemberType ElementInformer   // the collection member type.
+		ASubtypeOf            []ElementInformer // the superclasses from zero or more rdfs:subClassOf statements.
 
-		ASubPropertyOf ElementInformer // Super-property from rdfs:subPropertyOf statement or nil.
-		AnInverseOf    ElementInformer // The owl:inverseOf of a property if available.
+		ASubPropertyOf ElementInformer // the super-property from rdfs:subPropertyOf statement, or nil.
+		AnInverseOf    ElementInformer // the owl:inverseOf of a property, if available.
 	}
 )
 
+// ElementInformer looks up the ontological information for an element identified
+// by name within this vocabulary. It returns ErrElementInformerNotFound if the
+// element is not registered in the global vocabulary map.
 func (v Vocabulary) ElementInformer(name string) (ElementInformer, error) {
 	t := Element{Vocabulary: v, Name: name}
 	if dt, found := vocabularyMap[t]; found {
@@ -210,7 +222,8 @@ func (v Vocabulary) ElementInformer(name string) (ElementInformer, error) {
 	return nil, ErrElementInformerNotFound
 }
 
-// VocabularyElement implements the corresponding Elementer interface method.
+// VocabularyElement returns the Element identity itself.
+// It satisfies the [Elementer] interface.
 func (e Element) VocabularyElement() Element {
 	return e
 }
@@ -222,37 +235,37 @@ func ElementPkg(t ElementInformer) string {
 	return strings.TrimSuffix(tt.String(), "."+tt.Name())
 }
 
-// IsClass implements the corresponding ElementInformer interface method.
+// IsClass returns true if the element is an owl:Class.
 func (i ElementInfo) IsClass() bool {
 	return i.AClass
 }
 
-// IsProperty implements the corresponding ElementInformer interface method.
+// IsProperty returns true if the element is an rdf:Property.
 func (i ElementInfo) IsProperty() bool {
 	return i.AProperty
 }
 
-// IsDatatypeProperty implements the corresponding ElementInformer interface method.
+// IsDatatypeProperty returns true if the element is an owl:DatatypeProperty.
 func (i ElementInfo) IsDatatypeProperty() bool {
 	return i.ADatatypeProperty
 }
 
-// IsObjectProperty implements the corresponding ElementInformer interface method.
+// IsObjectProperty returns true if the element is an owl:ObjectProperty.
 func (i ElementInfo) IsObjectProperty() bool {
 	return i.AnObjectProperty
 }
 
-// IsDatatype implements the corresponding ElementInformer interface method.
+// IsDatatype returns true if the element is an rdfs:Datatype.
 func (i ElementInfo) IsDatatype() bool {
 	return i.ADatatype
 }
 
-// IsIndividual implements the corresponding ElementInformer interface method.
+// IsIndividual returns true if the element is neither a class nor a property nor a datatype.
 func (i ElementInfo) IsIndividual() bool {
 	return i.AnIndividual
 }
 
-// IsMainClass implements the corresponding ElementInformer interface method.
+// IsMainClass returns true if the target is directly or indirectly of the mainClass type.
 func (i ElementInfo) IsMainClass(prevMainClass Element) bool {
 	if i.AMainClassSupersedure == nil {
 		return false
@@ -264,35 +277,38 @@ func (i ElementInfo) IsMainClass(prevMainClass Element) bool {
 	return superseded
 }
 
-// Domain implements the corresponding ElementInformer interface method.
+// Domain returns the rdfs:domain of a property.
 func (i ElementInfo) Domain() ElementInformer {
 	return i.ADomain
 }
 
-// Range implements the corresponding ElementInformer interface method.
+// Range returns the rdfs:range of a property.
 func (i ElementInfo) Range() ElementInformer {
 	return i.ARange
 }
 
+// CollectionMember returns the collection member type.
 func (i ElementInfo) CollectionMember() ElementInformer {
 	return i.ACollectionMemberType
 }
 
-// SubtypeOf implements the corresponding ElementInformer interface method.
+// SubtypeOf returns the superclasses from zero or more rdfs:subClassOf statements.
 func (i ElementInfo) SubtypeOf() []ElementInformer {
 	return i.ASubtypeOf
 }
 
-// SubPropertyOf implements the corresponding ElementInformer interface method.
+// SubPropertyOf returns the super-property from rdfs:subPropertyOf statement, or nil.
 func (i ElementInfo) SubPropertyOf() ElementInformer {
 	return i.ASubPropertyOf
 }
 
-// InverseOf implements the corresponding ElementInformer interface method.
+// InverseOf returns the owl:inverseOf of a property, if available.
 func (i ElementInfo) InverseOf() ElementInformer {
 	return i.AnInverseOf
 }
 
+// convertFragmentToGoName converts an RDF fragment (e.g., "part-of-speech")
+// into a valid Go exported identifier (e.g., "PartOfSpeech").
 func convertFragmentToGoName(s string) string {
 	goName := strings.Builder{}
 	toUpper := true
@@ -320,6 +336,9 @@ func convertFragmentToGoName(s string) string {
 	return s1
 }
 
+// capitalizeCommonInitialism replaces orig with replacement in s, but only
+// when orig appears at the end of s or is followed by an uppercase letter.
+// It is used to turn "Url" into "URL", "Iri" into "IRI", etc.
 func capitalizeCommonInitialism(s, orig, replacement string) string {
 	if pos := strings.Index(s, orig); pos >= 0 {
 		if pos+len(orig) == len(s) || unicode.IsUpper(rune(s[pos+len(orig)])) {
@@ -343,10 +362,13 @@ func (e Element) IRI() IRI {
 	return iri
 }
 
+// TermKind returns TermKindIBNode, indicating that every vocabulary element
+// is represented as an IRI node in RDF terms.
 func (Element) TermKind() TermKind {
 	return TermKindIBNode
 }
 
+// IsTermCollection returns false; a vocabulary element is never a collection.
 func (Element) IsTermCollection() bool {
 	return false
 }
@@ -354,17 +376,23 @@ func (Element) IsTermCollection() bool {
 // IRI is a specialization of IRI for the purpose of SST Vocabularies.
 type IRI string
 
+// TermKind returns TermKindIBNode, indicating that an IRI is treated as an
+// IRI node in RDF terms.
 func (IRI) TermKind() TermKind {
 	return TermKindIBNode
 }
 
+// IsTermCollection returns false; a plain IRI is never a collection.
 func (IRI) IsTermCollection() bool {
 	return false
 }
 
+// IRI returns the IRI value itself.
 func (i IRI) IRI() IRI { return IRI(i) }
 
-// VocabularyElement implements the corresponding Elementer interface method.
+// VocabularyElement returns an Element whose vocabulary is derived from the
+// base portion of this IRI and whose name is the fragment portion.
+// It satisfies the [Elementer] interface.
 func (i IRI) VocabularyElement() Element {
 	prefix, suffix := IRI(i).Split()
 	return Element{

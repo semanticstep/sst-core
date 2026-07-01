@@ -1,0 +1,283 @@
+@prefix lci:	<http://ontology.semanticstep.net/lci#> .
+@prefix qau:	<http://ontology.semanticstep.net/qau#> .
+@prefix ssmeta:	<http://ontology.semanticstep.net/ssmeta#> .
+@prefix sso:	<http://ontology.semanticstep.net/sso#> .
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:	<http://www.w3.org/2002/07/owl#> .
+@prefix :	<urn:uuid:55bb223f-acee-4ca3-a753-fe99daba16f7#> .
+
+<urn:uuid:55bb223f-acee-4ca3-a753-fe99daba16f7>	a	owl:Ontology .
+:02db967a-de35-482f-a149-850589512869	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:7fe636be-666c-4a24-a77e-44a1b015f238 ;
+	sso:id	"NonInsulatedWire" ;
+	rdfs:comment	"Wire without an insulating covering" ;
+	rdfs:label	"Non-insulated wire" .
+:04f5a20e-fa92-4369-a245-cf242b78f88f	a	lci:ClassOfIndividual ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	sso:id	"WireProfile" ;
+	rdfs:comment	"?? transport or cross-section or ... ??" ;
+	rdfs:label	"Wire profile" .
+:0ba32032-c75a-4136-bb80-3d1face4e651	a	lci:ClassOfIndividual ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	sso:id	"EWHSegment" ;
+	rdfs:label	"EWH segment" .
+:0e8dc5e0-9d7a-4678-bed3-3f0024e7373f	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:59fad1dd-ab84-4f76-bd43-a445eea7551c ;
+	sso:id	"ConnectorProfile" ;
+	rdfs:label	"Connector profile" .
+:120e7c31-7218-4488-bc3b-fad56840da2a	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:ObjectProperty ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:range	sso:ShapeFeatureDefinition ;
+	sso:id	"Fit Relationship" ;
+	rdfs:comment	"make the Alias IRI to be: sso:contactFeatureDefinitionFitRelationship" .
+:16dbd622-8fb8-47bb-a2f6-aee7251ce03d	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:7fe636be-666c-4a24-a77e-44a1b015f238 ;
+	sso:id	"InsulatedWire" ;
+	rdfs:comment	"Wire with an insulating covering" ;
+	rdfs:label	"Insulated wire" .
+:1abe88cd-0c5d-4a82-98bf-2970da34d344	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:DatatypeProperty ,
+			owl:FunctionalProperty ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:range	xsd:boolean ;
+	sso:id	"AllowMultiJoints" ;
+	rdfs:label	"Allow Multi Joints" .
+:1e5331cf-5aaf-4eb8-b77f-e7428f7c66f8	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:59fad1dd-ab84-4f76-bd43-a445eea7551c ;
+	sso:id	"ConnectorInsertOuterProfile" ;
+	rdfs:comment	"outer profile of an insert arrangement" ;
+	rdfs:label	"Connector insert outer profile" .
+:1fd58bb7-159e-4956-857c-02c4a714ece2	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:FunctionalProperty ,
+			owl:ObjectProperty ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:range	qau:Length ,
+			[
+	a	owl:Class ;
+	owl:unionOf	( lci:NominalQuantity lci:MinMaxQuantity lci:MinNomMaxQuantity )
+] ;
+	sso:id	"outer diameter" .
+:238e6517-6d27-4039-8c4a-a2a638e317c3	a	sso:ClassSystem ;
+	sso:id	"TemplateFeatureTypes" ;
+	rdfs:label	"Template & feature types" .
+:256af37c-ad4d-4bd9-b913-c7e9d84e282d	a	lci:ClassOfIndividual ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	owl:sameAs	sso:TerminalAndTransportDomainType_electrical ;
+	sso:id	"TransportFeature" ;
+	rdfs:label	"Transport feature" .
+:269afacf-e72c-4174-9d75-eb9d2c477726	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:0e8dc5e0-9d7a-4678-bed3-3f0024e7373f ;
+	sso:id	"ElectricalConnectorProfile" ;
+	rdfs:label	"Electrical connector profile" .
+:28fcdc6e-9dcb-4aaf-9bff-df329f672057	a	lci:ClassOfIndividual ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:subClassOf	:38fbb0f6-d86d-415a-886d-a4eac7ff9640 ;
+	sso:id	"151-12-30" ;
+	rdfs:comment	"low-impedance conductor to which several electric circuits can be connected at separate points" ;
+	rdfs:label	"Busbar" .
+:30418c70-7bb6-42ad-a51b-b297e7610454	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:59fad1dd-ab84-4f76-bd43-a445eea7551c ;
+	sso:id	"ConnectorContactOuterCavityProfile" ;
+	rdfs:label	"Connector contact outer cavity profile" .
+:38fbb0f6-d86d-415a-886d-a4eac7ff9640	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:256af37c-ad4d-4bd9-b913-c7e9d84e282d ;
+	sso:id	"TransportFeatureElectrical" ;
+	rdfs:label	"Conductor" .
+:3f86c15e-3109-41e8-ad46-0911a592cfdd	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:FunctionalProperty ,
+			owl:ObjectProperty ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:range	sso:ShapeFeatureDefinition ;
+	sso:id	"defX" .
+:48839f3c-6677-495f-bf43-0dee4b7feee0	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:FunctionalProperty ,
+			owl:ObjectProperty ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:range	sso:ShapeElement ;
+	sso:id	"FeatureTest1" .
+:53a5fb16-d159-4315-84af-bcb51ccfa84a	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:61ca7897-bb35-4337-ae2d-dc9e16eb942e ;
+	sso:id	"TerminalPipe" ;
+	rdfs:label	"Pipe terminal" .
+:59fad1dd-ab84-4f76-bd43-a445eea7551c	a	lci:ClassOfIndividual ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	ssmeta:formProperties	( :6de6cd28-10f7-4023-9535-c25ece824666 :1abe88cd-0c5d-4a82-98bf-2970da34d344 ) ;
+	sso:id	"ContactFeature" ;
+	rdfs:label	"Contact feature" .
+:61ca7897-bb35-4337-ae2d-dc9e16eb942e	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:e843cd06-ab0d-41d8-8802-a5cfbb8155f1 ;
+	owl:sameAs	sso:TerminalAndTransportDomainType_matter ;
+	sso:id	"TerminalMatter" ;
+	rdfs:label	"Matter terminal" .
+:674feb32-b71b-4201-95a6-8c98bd0e787b	a	lci:ClassOfIndividual ;
+	ssmeta:formProperties	( :b4aed512-b63b-4dac-bdd5-3c23cba0976f :e53d2027-d282-4843-93a1-3ce50206ace8
+	:b25d54ec-976c-48c2-9c7f-1b60d2302f56 :879e47bd-8f6a-4bef-b95e-96b41ae2ea84
+	:f909c408-27ec-4094-9d4d-b7b0f93dd2f4 ) ;
+	rdfs:subClassOf	:59fad1dd-ab84-4f76-bd43-a445eea7551c ;
+	sso:id	"ConnectorInsertArrangement" ;
+	rdfs:label	"Connector insert arrangement" .
+:681f8b7e-b1ec-4931-84a0-c91c4d432e5b	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:e843cd06-ab0d-41d8-8802-a5cfbb8155f1 ;
+	owl:sameAs	sso:TerminalAndTransportDomainType_optical ;
+	sso:id	"TerminalOptical" ;
+	rdfs:label	"Optical Terminal" .
+:68e24df8-fb69-4ed4-95fb-fde74d308cb8	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:256af37c-ad4d-4bd9-b913-c7e9d84e282d ;
+	sso:id	"TransportFeatureOptical" ;
+	rdfs:label	"Optical transport feature" .
+:6de6cd28-10f7-4023-9535-c25ece824666	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:DatatypeProperty ,
+			owl:FunctionalProperty ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:range	xsd:boolean ;
+	sso:id	"RequiresMatingJoint" ;
+	rdfs:label	"Requires Mating Joint" .
+:77a90876-f460-41e5-be28-7d0072e577ff	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:59fad1dd-ab84-4f76-bd43-a445eea7551c ;
+	sso:id	"ConnectorInsertInnerProfile" ;
+	rdfs:comment	"inner profile of a connector housing for a connector insert" ;
+	rdfs:label	"Connector insert inner profile" .
+:79109f6f-5dd0-4de7-9605-7f3b56f49c5d	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:b9f4cfc0-8a99-4588-8f23-66e61b64fb5c ;
+	sso:id	"Connector" ;
+	rdfs:comment	"identification of complete front side of a connector, including size, insert arrangement(s) and keying" .
+:7eaae18a-90da-49a4-83d3-8d8b879555ea	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:59fad1dd-ab84-4f76-bd43-a445eea7551c ;
+	sso:id	"ConnectorContactInnerCavityProfile" ;
+	rdfs:label	"Connector contact inner cavity profile" .
+:7fe636be-666c-4a24-a77e-44a1b015f238	a	lci:ClassOfIndividual ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:subClassOf	:38fbb0f6-d86d-415a-886d-a4eac7ff9640 ;
+	sso:id	"151-12-28" ;
+	rdfs:comment	"flexible cylindrical conductor, with or without an insulating covering, the length of which is large with respect to its cross-sectional dimensions\n\nNote – The cross-section of a wire may have any shape, but the term \"wire\" is not generally used for ribbons or tapes. " ;
+	rdfs:label	"Wire" .
+:879e47bd-8f6a-4bef-b95e-96b41ae2ea84	a	lci:PropertyDefinition ,
+			owl:DatatypeProperty ,
+			owl:FunctionalProperty ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:range	xsd:string ;
+	sso:id	"note4" ;
+	rdfs:label	"Note 4" .
+:9d9697b8-c9fa-4f67-8420-0283eaa65fd3	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:02db967a-de35-482f-a149-850589512869 ;
+	sso:id	"StrandedWire" ;
+	rdfs:comment	"IEV ref: 151-12-36 stranded conductor: conductor consisting of a number of wires, all or some of which are wound in a helix" ;
+	rdfs:label	"Stranded wire" .
+:a27effc8-5603-4e03-8910-43676a77bfd9	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:e5451d0b-3358-48a6-8999-a19ec0beb359 ;
+	sso:id	"TerminalElectricCrimp" ;
+	rdfs:label	"Electrical crimp contact" .
+:a2dffc41-c45b-4fd0-9d14-2b514de0b2be	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:61ca7897-bb35-4337-ae2d-dc9e16eb942e ;
+	sso:id	"TerminalHose" ;
+	rdfs:label	"Hose terminal" .
+:a8124876-43cd-4b60-baf9-7bf3f637f2c8	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:256af37c-ad4d-4bd9-b913-c7e9d84e282d ;
+	sso:id	"TransportFeatureMatter" ;
+	rdfs:label	"Matter transport feature" .
+:ac19fc9a-bbf6-4f2b-8b01-b7c52916b3ce	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:FunctionalProperty ,
+			owl:ObjectProperty ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:range	sso:ShapeFeatureDefinition ;
+	sso:id	"Standard Socket Contact" .
+:b25d54ec-976c-48c2-9c7f-1b60d2302f56	a	lci:PropertyDefinition ,
+			owl:DatatypeProperty ,
+			owl:FunctionalProperty ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:range	xsd:string ;
+	sso:id	"note3" ;
+	rdfs:label	"Note 3" .
+:b4aed512-b63b-4dac-bdd5-3c23cba0976f	a	lci:PropertyDefinition ,
+			owl:DatatypeProperty ,
+			owl:FunctionalProperty ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:range	xsd:string ;
+	sso:id	"note1" ;
+	rdfs:label	"Note 1" .
+:b66dadb2-e2c7-4369-bedf-06cd1f5a0ebf	a	lci:ClassOfIndividual ;
+	ssmeta:formProperties	( :ec6e4845-c24d-4b00-bbb0-f5f3c0a45ee2 :ac19fc9a-bbf6-4f2b-8b01-b7c52916b3ce ) ;
+	rdfs:subClassOf	:59fad1dd-ab84-4f76-bd43-a445eea7551c ;
+	sso:id	"InsertArrangementGenericContactProfile" ;
+	rdfs:comment	"cavity or contact profile in an insert arrangement of a connector" ;
+	rdfs:label	"Cavity or Contact profile" .
+:b8d109d7-33b5-4af8-81c3-b4210bbfe4f3	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:681f8b7e-b1ec-4931-84a0-c91c4d432e5b ;
+	sso:id	"TerminalOpticalFibre" ;
+	rdfs:label	"Optical fibre terminal" .
+:b9f4cfc0-8a99-4588-8f23-66e61b64fb5c	a	lci:ClassOfIndividual ,
+			ssmeta:AbstractClass ;
+	rdfs:subClassOf	:e843cd06-ab0d-41d8-8802-a5cfbb8155f1 ;
+	owl:sameAs	sso:TerminalAndTransportDomainType_multiple ;
+	sso:id	"TerminalMultiple" ;
+	rdfs:label	"Multi Terminal" .
+:bb95b3ed-bc6b-40ae-95e5-6102c73f29c7	a	lci:PropertyDefinition ,
+			owl:DatatypeProperty ,
+			owl:FunctionalProperty ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:range	xsd:string ;
+	sso:id	"base color" .
+:bc8bef83-d3b1-42b8-b5de-607ed37466fd	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:e5451d0b-3358-48a6-8999-a19ec0beb359 ;
+	sso:id	"TerminalWireEnd" ;
+	rdfs:label	"Electrical wire end" .
+:cbe78633-6538-455d-ae84-166883f2d88d	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:e5451d0b-3358-48a6-8999-a19ec0beb359 ;
+	sso:id	"TerminalElectricSolder" ;
+	rdfs:label	"Electrical solder contact" .
+:cce2e7b8-f014-46a8-8265-68734e2f5715	a	lci:ClassOfIndividual ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	ssmeta:formProperties	( :1fd58bb7-159e-4956-857c-02c4a714ece2 ) ;
+	sso:id	"EWHNode" ;
+	rdfs:label	"EWH Node" .
+:ceeaead0-001d-4e96-aef0-7cd1813519b7	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:02db967a-de35-482f-a149-850589512869 ;
+	sso:id	"BareWire" ;
+	rdfs:comment	"solid wire that is not stranded" ;
+	rdfs:label	"Bare wire" .
+:d04ee398-cc92-4a9d-afa5-e003a7e32d4b	a	lci:ClassOfIndividual ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	sso:id	"CrossSectionOfExtrudedObject" ;
+	rdfs:comment	"Cross section feature along perpendicular to extruded length" ;
+	rdfs:label	"Cross section of an extruded object" ;
+	owl:sameAs	"cross-sectional shape of an extruded object perpendicular to the local centre line" .
+:e53d2027-d282-4843-93a1-3ce50206ace8	a	lci:PropertyDefinition ,
+			owl:DatatypeProperty ,
+			owl:FunctionalProperty ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:range	xsd:string ;
+	sso:id	"note2" ;
+	rdfs:label	"Note 2" .
+:e5451d0b-3358-48a6-8999-a19ec0beb359	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:e843cd06-ab0d-41d8-8802-a5cfbb8155f1 ;
+	sso:id	"TerminalElectric" ;
+	rdfs:label	"Electric terminal" .
+:e843cd06-ab0d-41d8-8802-a5cfbb8155f1	a	lci:ClassOfIndividual ,
+			ssmeta:AbstractClass ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	sso:id	"Terminal" .
+:ec6e4845-c24d-4b00-bbb0-f5f3c0a45ee2	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:FunctionalProperty ,
+			owl:ObjectProperty ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:range	sso:ShapeFeatureDefinition ;
+	sso:id	"Standard Pin Contact" .
+:f909c408-27ec-4094-9d4d-b7b0f93dd2f4	a	lci:PropertyDefinition ,
+			owl:DatatypeProperty ,
+			owl:FunctionalProperty ,
+			:238e6517-6d27-4039-8c4a-a2a638e317c3 ;
+	rdfs:range	xsd:string ;
+	sso:id	"report" ;
+	rdfs:comment	"message to the user when using this entry" ;
+	rdfs:label	"Report" .

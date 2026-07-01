@@ -52,11 +52,7 @@ func (c *sstCompleter) Do(line []rune, pos int) ([][]rune, int) {
 
 // completeTopLevelCommands returns completions for top-level commands
 func (c *sstCompleter) completeTopLevelCommands(prefix string) ([][]rune, int) {
-	commands := []string{
-		"q", "help",
-		"open", "openlocalrepository", "openlocalflatrepository", "openremoterepository",
-		"status", "rdfread", "importap242xml", "importp21",
-	}
+	commands := topLevelCommandNames()
 
 	var matches [][]rune
 	prefixLower := strings.ToLower(prefix)
@@ -74,7 +70,7 @@ func (c *sstCompleter) completeTopLevelCommands(prefix string) ([][]rune, int) {
 	return matches, len(prefix)
 }
 
-// completeAliases returns completions for aliases (repositories, datasets, stages, etc.)
+// completeAliases returns completions for aliases (repositories, super-repositories, datasets, stages, etc.)
 func (c *sstCompleter) completeAliases(prefix string) ([][]rune, int) {
 	var matches [][]rune
 	prefixLower := strings.ToLower(prefix)
@@ -82,6 +78,7 @@ func (c *sstCompleter) completeAliases(prefix string) ([][]rune, int) {
 	// Collect all aliases
 	allAliases := []string{}
 	allAliases = append(allAliases, interactiveConfig.RepositoryAliases...)
+	allAliases = append(allAliases, interactiveConfig.SuperRepositoryAliases...)
 	allAliases = append(allAliases, interactiveConfig.DatasetAliases...)
 	allAliases = append(allAliases, interactiveConfig.StageAliases...)
 	allAliases = append(allAliases, interactiveConfig.NamedGraphAliases...)
@@ -102,57 +99,13 @@ func (c *sstCompleter) completeAliases(prefix string) ([][]rune, int) {
 
 // completeAliasCommand returns completions for commands after an alias (e.g., r1.info)
 func (c *sstCompleter) completeAliasCommand(alias, commandPrefix string) ([][]rune, int) {
-	aliasLower := strings.ToLower(alias)
 	commandPrefixLower := strings.ToLower(commandPrefix)
 
-	// Determine alias type and get appropriate commands
 	var commands []string
-
-	// Check if it's a repository alias
-	if _, isRepo := interactiveConfig.Repositories[aliasLower]; isRepo {
-		commands = []string{
-			"info", "close", "datasets", "dataset",
-			"query", "queryuuid", "listfield", "log", "commitInfo", "commitinfo", "dump",
-			"commitdiff", "openstage", "documentset", "documentget",
-			"documentinfo", "documents", "documentdelete", "extractsstfile",
-		}
-	} else if _, isDataset := interactiveConfig.Datasets[aliasLower]; isDataset {
-		commands = []string{
-			"info", "listcommits", "commitsbyhash", "commitsbybranch",
-			"branches", "leafcommits", "checkoutcommit", "checkoutbranch",
-			"diff", "history",
-		}
-	} else if _, isStage := interactiveConfig.Stages[aliasLower]; isStage {
-		commands = []string{
-			"info", "namedgraphs", "referencednamedgraphs",
-			"namedgraph", "moveandmerge",
-			"commit", "validate", "rdfwrite", "trig",
-		}
-	} else if _, isNamedGraph := interactiveConfig.NamedGraphs[aliasLower]; isNamedGraph {
-		commands = []string{
-			"info", "foririnodes", "forallibnodes", "forblanknodes",
-			"getirinodebyfragment", "getblanknodebyfragment",
-			"rdfwrite", "exportap242xml", "ttl",
-		}
-	} else if _, isIBNode := interactiveConfig.IBNodes[aliasLower]; isIBNode {
-		commands = []string{
-			"forall",
-		}
+	if kind, ok := resolveAliasKind(alias); ok {
+		commands = commandListForKind(kind)
 	} else {
-		// Unknown alias, return all possible commands
-		commands = []string{
-			"info", "close", "datasets", "dataset",
-			"query", "queryuuid", "listfield", "log", "commitInfo", "commitinfo", "dump",
-			"commitdiff", "openstage", "documentset", "documentget",
-			"documentinfo", "documents", "documentdelete", "extractsstfile",
-			"listcommits", "commitsbyhash",
-			"commitsbybranch", "branches", "leafcommits", "checkoutcommit",
-			"checkoutbranch", "diff", "history", "namedgraphs",
-			"referencednamedgraphs", "namedgraph",
-			"moveandmerge", "commit", "validate", "foririnodes",
-			"forallibnodes", "forblanknodes", "getirinodebyfragment",
-			"getblanknodebyfragment", "rdfwrite", "ttl", "forall",
-		}
+		commands = allKnownCommands()
 	}
 
 	var matches [][]rune

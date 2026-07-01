@@ -1,0 +1,521 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:08961882-9386-4a02-b5fe-12f1bf12f3c0#> .
+
+<urn:uuid:08961882-9386-4a02-b5fe-12f1bf12f3c0> a owl:Ontology .
+:05c5327e-8ac1-4587-a54b-14ed66d1d4e1 a lci:ClassOfIndividual ,
+    :09129a10-1900-430c-bbdd-29fd1fa961c9 ;
+  sso:id "L" ;
+  rdfs:comment "Technical system which monitors and/or controls events and processes" ;
+  rdfs:label "Monitoring and control system" .
+:06e31c42-782c-4ba8-9840-473b99e5e202 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f80180ea-1668-4b0f-808e-626ca2c02bff ;
+  sso:id "IC" ;
+  rdfs:comment "Transport system for flammable or other chemical liquids" ;
+  rdfs:label "Chemical distribution system" .
+:070f569c-0dbf-41ab-a1fe-64454595aa7f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :05c5327e-8ac1-4587-a54b-14ed66d1d4e1 ;
+  sso:id "LC" ;
+  rdfs:comment "Monitoring system which automates processes in buildings and process plants in a central unit" ;
+  rdfs:label "Automation system" .
+:07b3ee4e-99e1-4533-a4fe-5e32f60975fb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0f0901cd-af23-452e-a2de-b49e8ec138b6 ;
+  sso:id "BD" ;
+  rdfs:comment "Structural system in a vertical separation" ;
+  rdfs:label "Wall structure" .
+:08a776c6-54fd-4352-89c1-c1adc94b175e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :51b7af7f-b4f5-49cc-a273-c9bd6c2d9ab0 ;
+  sso:id "CC" ;
+  rdfs:comment "Ground surface construction system for traffic separation area" ;
+  rdfs:label "Traffic island construction" .
+:09129a10-1900-430c-bbdd-29fd1fa961c9 a sso:ClassSystem ;
+  sso:id "ISO81346-12_A2_technical_building_function_systems" ;
+  rdfs:label "ISO 81346-12 Table A.2 — Classes of technical building systems based on inherent functions" .
+:094d630f-c2d7-4b78-ace4-86e61dd7f2c9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3404500-9fae-48e4-b74f-f174aadc3f4a ;
+  sso:id "DC" ;
+  rdfs:comment "Railway track construction system with one rail" ;
+  rdfs:label "Monorail construction" .
+:0c689ab9-9c31-411e-be66-dd6eeea38ca2 a lci:ClassOfIndividual ,
+    :09129a10-1900-430c-bbdd-29fd1fa961c9 ;
+  sso:id "M" ;
+  rdfs:comment "Technical system which presents information" ;
+  rdfs:label "Information presenting system" .
+:0f0901cd-af23-452e-a2de-b49e8ec138b6 a lci:ClassOfIndividual ,
+    :09129a10-1900-430c-bbdd-29fd1fa961c9 ;
+  sso:id "B" ;
+  rdfs:comment "Technical system which forms structural construction" ;
+  rdfs:label "Structural system" .
+:0f290f56-398e-4b33-83d8-685cf397c46b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0f0901cd-af23-452e-a2de-b49e8ec138b6 ;
+  sso:id "BA" ;
+  rdfs:comment "Structural system forming a regulated volume of underground" ;
+  rdfs:label "Groundworks structure" .
+:11a0dbab-d66f-4aaf-b985-a46addb05adb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f80180ea-1668-4b0f-808e-626ca2c02bff ;
+  sso:id "JJ" ;
+  rdfs:comment "Transport system for air" ;
+  rdfs:label "Air distribution system" .
+:13201fb9-c9ff-4cb9-afaf-5f6ef4c8be2e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b205e4df-d01a-4df5-bded-dd38406705ab ;
+  sso:id "QD" ;
+  rdfs:comment "Storage system for energy" ;
+  rdfs:label "Energy storage system" .
+:144fc09a-cce5-4187-8d5e-7f0f97e739e5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fb18e2d9-6d69-46c9-ae63-2b825292a22e ;
+  sso:id "KA" ;
+  rdfs:comment "Treatment system limiting or excluding solar heat gain" ;
+  rdfs:label "Solar screening system" .
+:146a807b-2b70-4714-8bdb-fd85314c1e9e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0f0901cd-af23-452e-a2de-b49e8ec138b6 ;
+  sso:id "BG" ;
+  rdfs:comment "Structural system terminating a space upwards" ;
+  rdfs:label "Ceiling structure" .
+:1cf94959-e790-4fcc-a3e2-33190f0e90a4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f80180ea-1668-4b0f-808e-626ca2c02bff ;
+  sso:id "JD" ;
+  rdfs:comment "Transport system for liquid waste" ;
+  rdfs:label "Liquids outflow system" .
+:1d594e36-25c0-4041-aa71-f914ad7107a3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f3ea1dca-af68-45f2-9d46-99273ebb4717 ;
+  sso:id "AE" ;
+  rdfs:comment "Assembly system terminating a construction entity upwards" ;
+  rdfs:label "Roof construction" .
+:2db1cb30-36db-4979-8f59-1985eedf7540 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f80180ea-1668-4b0f-808e-626ca2c02bff ;
+  sso:id "JB" ;
+  rdfs:comment "Transport system for water" ;
+  rdfs:label "Water distribution system" .
+:3009104d-8966-4c6a-a022-3ba326bf142f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fb18e2d9-6d69-46c9-ae63-2b825292a22e ;
+  sso:id "KL" ;
+  rdfs:comment "Treatment system for physical separation of a flow of persons or items" ;
+  rdfs:label "Access control system" .
+:349d089e-f125-4cb7-ab2c-13a14a22e2ae a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f3ea1dca-af68-45f2-9d46-99273ebb4717 ;
+  sso:id "AJ" ;
+  rdfs:comment "Assembly system that creates an extended inner user space built into wall system" ;
+  rdfs:label "Bay window" .
+:35035ed7-1868-4518-b7f6-f790996b6978 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fb18e2d9-6d69-46c9-ae63-2b825292a22e ;
+  sso:id "KG" ;
+  rdfs:comment "Treatment system for stabilizing pressure and volume in liquid or in gas flow" ;
+  rdfs:label "Pressure and expansion system" .
+:362410e3-a598-4bdc-97df-b724ddd09516 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b205e4df-d01a-4df5-bded-dd38406705ab ;
+  sso:id "QB" ;
+  rdfs:comment "Storage system for air and gases" ;
+  rdfs:label "Gas and air storage system" .
+:38d8e215-6a1c-4e1e-9498-1abb7f525797 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f3ea1dca-af68-45f2-9d46-99273ebb4717 ;
+  sso:id "AD" ;
+  rdfs:comment "Assembly system forming vertical separation" ;
+  rdfs:label "Wall construction" .
+:3b9bd31b-899e-4c2d-80f2-7e9e18ccd594 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :842641e8-d765-45f7-98f9-5de8b840eda3 ;
+  sso:id "HF" ;
+  rdfs:comment "Supply system for ventilation" ;
+  rdfs:label "Ventilation supply system" .
+:42bd9e0f-157d-4fd2-afc5-906c14817854 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :51b7af7f-b4f5-49cc-a273-c9bd6c2d9ab0 ;
+  sso:id "CA" ;
+  rdfs:comment "Ground surface construction system which gives support to other constructions" ;
+  rdfs:label "Subgrade construction" .
+:47247652-b6af-4293-81f4-74481566e3a4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f80180ea-1668-4b0f-808e-626ca2c02bff ;
+  sso:id "JM" ;
+  rdfs:comment "Transport system for persons" ;
+  rdfs:label "Passenger transportation system" .
+:48f9228d-933b-40a2-82c1-f807ce6a04ae a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f80180ea-1668-4b0f-808e-626ca2c02bff ;
+  sso:id "JG" ;
+  rdfs:comment "Transport system for heating" ;
+  rdfs:label "Heating distribution system" .
+:49ecee34-d242-4698-8468-75b6d5ccc1b2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :7a3c11c9-64ea-45fc-b009-266f965277b9 ;
+  sso:id "PE" ;
+  rdfs:comment "Protection system for metal constructions against corrosion by corrosion protection" ;
+  rdfs:label "Cathodic protection system" .
+:4d606dd5-56cb-4e24-8cdc-e7de09c371e2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f3ea1dca-af68-45f2-9d46-99273ebb4717 ;
+  sso:id "AM" ;
+  rdfs:comment "Assembly system that creates an extended space for light transmission" ;
+  rdfs:label "Light well" .
+:50fd1eb6-2e44-436a-83f0-ca417a498a1a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0c689ab9-9c31-411e-be66-dd6eeea38ca2 ;
+  sso:id "MB" ;
+  rdfs:comment "Information presenting system which produces images and/or sounds" ;
+  rdfs:label "Audio-video system" .
+:51b7af7f-b4f5-49cc-a273-c9bd6c2d9ab0 a lci:ClassOfIndividual ,
+    :09129a10-1900-430c-bbdd-29fd1fa961c9 ;
+  sso:id "C" ;
+  rdfs:comment "Technical construction system forming ground-based areas" ;
+  rdfs:label "Ground surface construction system" .
+:566dccf5-87dc-49d2-9afe-0874f2605cbc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :842641e8-d765-45f7-98f9-5de8b840eda3 ;
+  sso:id "HG" ;
+  rdfs:comment "Supply system for electrical energy" ;
+  rdfs:label "Power supply system" .
+:6101aad4-83d9-4a50-9b64-d107bfd423fd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fb18e2d9-6d69-46c9-ae63-2b825292a22e ;
+  sso:id "KH" ;
+  rdfs:comment "Treatment system for transforming electrical energy" ;
+  rdfs:label "Transformer system" .
+:6108c7e5-7744-422b-b409-dd3835cc5369 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b03a51cf-9d70-4330-a274-4efbe6b35cde ;
+  sso:id "RA" ;
+  rdfs:comment "Furnishing system in the form of vegetation" ;
+  rdfs:label "Planting system" .
+:644da2a8-f33e-4e59-8d3d-d21e310e898b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :51b7af7f-b4f5-49cc-a273-c9bd6c2d9ab0 ;
+  sso:id "CD" ;
+  rdfs:comment "Ground surface construction system for safety zone for traffic" ;
+  rdfs:label "Side area construction" .
+:67ea106a-6bfd-4d11-97f7-94a91dc9cb35 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fb18e2d9-6d69-46c9-ae63-2b825292a22e ;
+  sso:id "KC" ;
+  rdfs:comment "Treatment system for separating solid particles from liquid or air flow" ;
+  rdfs:label "Filter system" .
+:6830a407-eb82-4b38-9b6a-3f521f6918b5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fb18e2d9-6d69-46c9-ae63-2b825292a22e ;
+  sso:id "KF" ;
+  rdfs:comment "Treatment system for increasing pressure in a flow of liquid" ;
+  rdfs:label "Pump system" .
+:68aeda2f-5f47-4434-80c8-108800e05c90 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b03a51cf-9d70-4330-a274-4efbe6b35cde ;
+  sso:id "RC" ;
+  rdfs:comment "Furnishing system in the form of tools used in a particular situation" ;
+  rdfs:label "Equipment system" .
+:6bf845c5-10c3-4e0b-8c59-eef7db571c03 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f80180ea-1668-4b0f-808e-626ca2c02bff ;
+  sso:id "JA" ;
+  rdfs:comment "Transport system for gas" ;
+  rdfs:label "Gas distribution system" .
+:717ef0a8-6dc0-4e9d-adf2-f8ac326569a6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :842641e8-d765-45f7-98f9-5de8b840eda3 ;
+  sso:id "HE" ;
+  rdfs:comment "Supply system for cooling and heating" ;
+  rdfs:label "Combined heating and cooling supply system" .
+:7443466a-4f3e-4bc5-9941-d7d373288344 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0c689ab9-9c31-411e-be66-dd6eeea38ca2 ;
+  sso:id "ME" ;
+  rdfs:comment "Information presenting system which provides instruction in a written or symbolic form" ;
+  rdfs:label "Sign system" .
+:7658761c-bb74-4a95-ad5b-f8b961e958e9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0c689ab9-9c31-411e-be66-dd6eeea38ca2 ;
+  sso:id "MC" ;
+  rdfs:comment "Information presenting system which controls traffic" ;
+  rdfs:label "Traffic control system" .
+:7a3c11c9-64ea-45fc-b009-266f965277b9 a lci:ClassOfIndividual ,
+    :09129a10-1900-430c-bbdd-29fd1fa961c9 ;
+  sso:id "P" ;
+  rdfs:comment "Self-acting technical system which protects against danger or unwanted conditions" ;
+  rdfs:label "Protection system" .
+:7d2322f3-3b25-49a8-a3fa-3bf18ea50d48 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :842641e8-d765-45f7-98f9-5de8b840eda3 ;
+  sso:id "HD" ;
+  rdfs:comment "Supply system for heating" ;
+  rdfs:label "Heating supply system" .
+:7d32ed77-3bfb-456b-b1d7-1c7e3eabd4d7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0f0901cd-af23-452e-a2de-b49e8ec138b6 ;
+  sso:id "BH" ;
+  rdfs:comment "Structural system supporting supply or distribution system" ;
+  rdfs:label "Routing structure" .
+:7dd7810b-5482-4788-b390-5e248e3c6c84 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f3ea1dca-af68-45f2-9d46-99273ebb4717 ;
+  sso:id "AG" ;
+  rdfs:comment "Assembly system establishing a step-free link between two or more levels" ;
+  rdfs:label "Ramp construction" .
+:842641e8-d765-45f7-98f9-5de8b840eda3 a lci:ClassOfIndividual ,
+    :09129a10-1900-430c-bbdd-29fd1fa961c9 ;
+  sso:id "H" ;
+  rdfs:comment "Technical system supplying consumption" ;
+  rdfs:label "Supply system" .
+:85dc6124-b671-4e95-bc93-aa137bd54e3c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :51b7af7f-b4f5-49cc-a273-c9bd6c2d9ab0 ;
+  sso:id "CL" ;
+  rdfs:comment "Ground surface construction system which separates spaces" ;
+  rdfs:label "Terrain wall construction" .
+:86f6294e-6d2f-44c5-b2e8-8d71bc1589df a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f3ea1dca-af68-45f2-9d46-99273ebb4717 ;
+  sso:id "AH" ;
+  rdfs:comment "Assembly system that creates an adjoining outer user space built into wall system or roof system" ;
+  rdfs:label "Balcony" .
+:873d594c-f01b-4192-8eaf-515678733205 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0f0901cd-af23-452e-a2de-b49e8ec138b6 ;
+  sso:id "BC" ;
+  rdfs:comment "Structural system in a horizontal separation" ;
+  rdfs:label "Slab structure" .
+:88f66d72-577a-47ec-b104-41da37729880 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :842641e8-d765-45f7-98f9-5de8b840eda3 ;
+  sso:id "HH" ;
+  rdfs:comment "Supply system for lighting" ;
+  rdfs:label "Lighting system" .
+:90e45b77-89ba-4731-affd-b7c5cfd2c745 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :05c5327e-8ac1-4587-a54b-14ed66d1d4e1 ;
+  sso:id "LD" ;
+  rdfs:comment "Monitoring system which ensures authorized access for persons to an area or a construction entity" ;
+  rdfs:label "Access monitor system" .
+:947bc813-e2e4-4614-a5df-5117d034b6c3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0f0901cd-af23-452e-a2de-b49e8ec138b6 ;
+  sso:id "BF" ;
+  rdfs:comment "Structural system terminating a space downwards" ;
+  rdfs:label "Floor structure" .
+:94af7caf-1574-4ead-8951-8dd2469c4205 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :51b7af7f-b4f5-49cc-a273-c9bd6c2d9ab0 ;
+  sso:id "CG" ;
+  rdfs:comment "Ground surface construction system for transport, storage or infiltration of water, or for space along water or over water" ;
+  rdfs:label "Water management construction" .
+:966d32e1-8854-46d9-b558-fe733fd4eb69 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :842641e8-d765-45f7-98f9-5de8b840eda3 ;
+  sso:id "HB" ;
+  rdfs:comment "Supply system for liquid" ;
+  rdfs:label "Liquid supply system" .
+:9a39cef7-11b4-4113-8db8-f68c7f31c53f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :51b7af7f-b4f5-49cc-a273-c9bd6c2d9ab0 ;
+  sso:id "CK" ;
+  rdfs:comment "Ground surface construction system which connects spaces at different levels" ;
+  rdfs:label "Terrain stairway/Terrain ramp construction" .
+:9c2971ec-e8c1-4cd8-8c92-29670a73dcf7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f3ea1dca-af68-45f2-9d46-99273ebb4717 ;
+  sso:id "AA" ;
+  rdfs:comment "Pavement construction" ;
+  rdfs:label "Assembly system forming areas for transport" .
+:9c9bf7ac-69e1-464d-9277-541a08ab0396 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f3ea1dca-af68-45f2-9d46-99273ebb4717 ;
+  sso:id "AF" ;
+  rdfs:comment "Assembly system establishing a stepwise link between two or more levels" ;
+  rdfs:label "Stairway construction" .
+:9cc3c949-1db4-48f2-ad6e-853f51a4ad26 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f80180ea-1668-4b0f-808e-626ca2c02bff ;
+  sso:id "JK" ;
+  rdfs:comment "Transport system for signals" ;
+  rdfs:label "Signal distribution system" .
+:a1f9bd8b-c9db-44f3-9610-68d6867dcf64 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f3ea1dca-af68-45f2-9d46-99273ebb4717 ;
+  sso:id "AC" ;
+  rdfs:comment "Assembly system forming horizontal separation" ;
+  rdfs:label "Slab construction" .
+:a3404500-9fae-48e4-b74f-f174aadc3f4a a lci:ClassOfIndividual ,
+    :09129a10-1900-430c-bbdd-29fd1fa961c9 ;
+  sso:id "D" ;
+  rdfs:comment "Technical system which guides rail bound vehicles" ;
+  rdfs:label "Railway track construction system" .
+:a5ef86a8-5d72-4caa-b62d-18d9fbb95e67 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :51b7af7f-b4f5-49cc-a273-c9bd6c2d9ab0 ;
+  sso:id "CJ" ;
+  rdfs:comment "Ground surface construction system which carries vertical or horizontal load" ;
+  rdfs:label "Foundation and ground support construction" .
+:a6214ca4-724c-4c8b-b37b-5a61c841b9db a lci:ClassOfIndividual ;
+  rdfs:subClassOf :7a3c11c9-64ea-45fc-b009-266f965277b9 ;
+  sso:id "PA" ;
+  rdfs:comment "Protection system by opening or closing doors and windows in the event of a fire" ;
+  rdfs:label "Fire protection system" .
+:ab8403e1-1068-4d03-9793-544466ee79c7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :7a3c11c9-64ea-45fc-b009-266f965277b9 ;
+  sso:id "FB" ;
+  rdfs:comment "Protection system against fire by extinguishing" ;
+  rdfs:label "Firefighting system" .
+:aba1b811-a939-42a6-b128-dbb6603f2b07 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :7a3c11c9-64ea-45fc-b009-266f965277b9 ;
+  sso:id "PC" ;
+  rdfs:comment "Protection system against dangerous electrical currents by earthing of electrical systems" ;
+  rdfs:label "Earthing system" .
+:abb436b5-44b7-4353-9884-3312df05f9b5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f80180ea-1668-4b0f-808e-626ca2c02bff ;
+  sso:id "JE" ;
+  rdfs:comment "Transport system for solid waste" ;
+  rdfs:label "Solids outflow system" .
+:ae98a128-6d48-4f06-a7a9-863cc8522ed7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :51b7af7f-b4f5-49cc-a273-c9bd6c2d9ab0 ;
+  sso:id "CB" ;
+  rdfs:comment "Ground surface construction system for hard covered outdoor space" ;
+  rdfs:label "Ground superstructure construction" .
+:af63b464-ca47-44fe-82ea-e4429bdeeed4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3404500-9fae-48e4-b74f-f174aadc3f4a ;
+  sso:id "DB" ;
+  rdfs:comment "Railway track construction system with two rails, without ballast" ;
+  rdfs:label "Non-ballasted railway track construction" .
+:b03a51cf-9d70-4330-a274-4efbe6b35cde a lci:ClassOfIndividual ,
+    :09129a10-1900-430c-bbdd-29fd1fa961c9 ;
+  sso:id "R" ;
+  rdfs:comment "Technical system which fits out space or construction elements in a construction entity" ;
+  rdfs:label "Furnishing system" .
+:b1881f86-5409-4093-9fc7-2618e602693c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f80180ea-1668-4b0f-808e-626ca2c02bff ;
+  sso:id "JK" ;
+  rdfs:comment "Transport for electrical energy" ;
+  rdfs:label "Power distribution system" .
+:b205e4df-d01a-4df5-bded-dd38406705ab a lci:ClassOfIndividual ,
+    :09129a10-1900-430c-bbdd-29fd1fa961c9 ;
+  sso:id "Q" ;
+  rdfs:comment "Technical system which stores information, energy or substances" ;
+  rdfs:label "Storage system" .
+:b2dd7282-b2f3-4f16-a16d-a638f7448b8e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fb18e2d9-6d69-46c9-ae63-2b825292a22e ;
+  sso:id "KK" ;
+  rdfs:comment "Treatment system for transforming weather-related information into electrical signals" ;
+  rdfs:label "Weather station system" .
+:b8b6a139-e3af-4b06-a6d8-6a8574c53aca a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fb18e2d9-6d69-46c9-ae63-2b825292a22e ;
+  sso:id "KB" ;
+  rdfs:comment "Treatment system for automatic control of openings" ;
+  rdfs:label "Opening control system" .
+:bbea2a67-d0fa-47ce-a557-56e2adf78bdf a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f80180ea-1668-4b0f-808e-626ca2c02bff ;
+  sso:id "JH" ;
+  rdfs:comment "Transport system for cooling and heating" ;
+  rdfs:label "Combined heat and cooling distribution system" .
+:bc3cd06f-9514-4c4e-8de7-c998082e7e3a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f80180ea-1668-4b0f-808e-626ca2c02bff ;
+  sso:id "JF" ;
+  rdfs:comment "Transport system for cooling" ;
+  rdfs:label "Cooling distribution system" .
+:bdf08a83-2f20-45eb-8e3f-312ffd89b658 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f3ea1dca-af68-45f2-9d46-99273ebb4717 ;
+  sso:id "AB" ;
+  rdfs:comment "Assembly system forming separation towards underground" ;
+  rdfs:label "Foundation construction" .
+:c3b7e93d-afdd-4148-ac4f-5ab9e8e17c22 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f3ea1dca-af68-45f2-9d46-99273ebb4717 ;
+  sso:id "AK" ;
+  rdfs:comment "Assembly system that creates an extended inner user space built into roof system" ;
+  rdfs:label "Dormer" .
+:c42874aa-be3a-4c66-82c2-7aac8483eb37 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0f0901cd-af23-452e-a2de-b49e8ec138b6 ;
+  sso:id "BB" ;
+  rdfs:comment "Structural system connecting a construction entity with the underground" ;
+  rdfs:label "Foundation structure" .
+:cd8e7659-ea6e-49a6-b599-bd9ad717da00 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fb18e2d9-6d69-46c9-ae63-2b825292a22e ;
+  sso:id "KE" ;
+  rdfs:comment "Treatment system for adding substances" ;
+  rdfs:label "Mixing system" .
+:cf21e44a-7e05-4e9b-8725-719eece20ddb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :842641e8-d765-45f7-98f9-5de8b840eda3 ;
+  sso:id "HC" ;
+  rdfs:comment "Supply system for cooling" ;
+  rdfs:label "Cooling supply system" .
+:da5b5698-4017-47f2-86cc-684f204493c4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :51b7af7f-b4f5-49cc-a273-c9bd6c2d9ab0 ;
+  sso:id "CE" ;
+  rdfs:comment "Ground surface construction system for railway track support" ;
+  rdfs:label "Railway embankment construction" .
+:dca3a083-3c89-457f-821a-2ddb5348b287 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :05c5327e-8ac1-4587-a54b-14ed66d1d4e1 ;
+  sso:id "LF" ;
+  rdfs:comment "Monitoring system which provides remote visual monitoring" ;
+  rdfs:label "Video surveillance system" .
+:dcf528b7-64a2-4a22-8a47-12919f883edc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0c689ab9-9c31-411e-be66-dd6eeea38ca2 ;
+  sso:id "MD" ;
+  rdfs:comment "Information presenting system for time" ;
+  rdfs:label "Time system" .
+:dfd490f5-8484-44ee-943b-1c77f160733d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :51b7af7f-b4f5-49cc-a273-c9bd6c2d9ab0 ;
+  sso:id "CH" ;
+  rdfs:comment "Ground surface construction system for refilled media excavation" ;
+  rdfs:label "Pipe ditch system" .
+:e0736c36-6254-4155-b1d2-f540784c5256 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :842641e8-d765-45f7-98f9-5de8b840eda3 ;
+  sso:id "HJ" ;
+  rdfs:comment "Supply system for signals" ;
+  rdfs:label "Signal supply system" .
+:e155fb1a-4232-4c0a-a93d-250fabae2c8c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fb18e2d9-6d69-46c9-ae63-2b825292a22e ;
+  sso:id "KJ" ;
+  rdfs:comment "Treatment system for bidirectional transforming between radio waves and electrical signals" ;
+  rdfs:label "Antenna system" .
+:e238fcf7-7bae-41fd-9eea-323cddf9deb3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :842641e8-d765-45f7-98f9-5de8b840eda3 ;
+  sso:id "HA" ;
+  rdfs:comment "Supply system for process gas" ;
+  rdfs:label "Gas and air supply system" .
+:e2cfd1ba-092c-4344-8a9c-776687825ea6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0f0901cd-af23-452e-a2de-b49e8ec138b6 ;
+  sso:id "BE" ;
+  rdfs:comment "Structural system terminating a construction entity upwards" ;
+  rdfs:label "Roof structure" .
+:e3fbe95a-b571-418c-9a67-cf069771f0eb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :05c5327e-8ac1-4587-a54b-14ed66d1d4e1 ;
+  sso:id "LB" ;
+  rdfs:comment "Monitoring system which raises an alarm in the presence of smoke or fire" ;
+  rdfs:label "Fire alarm system" .
+:e5105130-1aa6-481a-9f7a-6f52dc6c5d89 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :7a3c11c9-64ea-45fc-b009-266f965277b9 ;
+  sso:id "PD" ;
+  rdfs:comment "Protection system against lightning by earthing of electrical systems" ;
+  rdfs:label "Lightning protection system" .
+:e671f51a-f890-4111-aa31-54497d4a9555 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :05c5327e-8ac1-4587-a54b-14ed66d1d4e1 ;
+  sso:id "LA" ;
+  rdfs:comment "Monitoring system which raises an alarm on the occurrence of hazardous gases" ;
+  rdfs:label "Gas alarm system" .
+:e6d61c70-bb22-432a-bf7a-28c4707acb03 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :05c5327e-8ac1-4587-a54b-14ed66d1d4e1 ;
+  sso:id "LE" ;
+  rdfs:comment "Monitoring system which raises an alarm in the presence of dangerous or undesirable conditions" ;
+  rdfs:label "Alarm system" .
+:eb280855-96d6-417f-a10a-b7f03ac4fc3d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3404500-9fae-48e4-b74f-f174aadc3f4a ;
+  sso:id "DA" ;
+  rdfs:comment "Railway track construction system with two rails, on ballast" ;
+  rdfs:label "Ballasted railway track construction" .
+:ec9df175-e7d7-4afd-b182-2a848323831d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b03a51cf-9d70-4330-a274-4efbe6b35cde ;
+  sso:id "RB" ;
+  rdfs:comment "Furnishing system in the form of fixed or moveable construction elements" ;
+  rdfs:label "Furniture system" .
+:ed220448-cbe2-4fa6-87ad-679ad965e6dd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f80180ea-1668-4b0f-808e-626ca2c02bff ;
+  sso:id "JN" ;
+  rdfs:comment "Transport system for solid goods or packets" ;
+  rdfs:label "Goods transportation system" .
+:f3ea1dca-af68-45f2-9d46-99273ebb4717 a lci:ClassOfIndividual ,
+    :09129a10-1900-430c-bbdd-29fd1fa961c9 ;
+  sso:id "A" ;
+  rdfs:label "Assembly system" .
+:f7eb6608-ef62-462b-bf7b-ca589456deb9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :51b7af7f-b4f5-49cc-a273-c9bd6c2d9ab0 ;
+  sso:id "CF" ;
+  rdfs:comment "Ground surface construction system for vegetation areas" ;
+  rdfs:label "Vegetation area construction" .
+:f80180ea-1668-4b0f-808e-626ca2c02bff a lci:ClassOfIndividual ,
+    :09129a10-1900-430c-bbdd-29fd1fa961c9 ;
+  sso:id "J" ;
+  rdfs:comment "Technical system which brings something from one place to another" ;
+  rdfs:label "Transporting system" .
+:f940083c-bff0-42cf-8834-6bcac86de79b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0c689ab9-9c31-411e-be66-dd6eeea38ca2 ;
+  sso:id "MA" ;
+  rdfs:comment "Information presenting system which produces a fixed sound or voice messages to warn of hazardous conditions" ;
+  rdfs:label "Warning system" .
+:faa39da3-b3ba-40e8-8af2-1f70dd42609d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f3ea1dca-af68-45f2-9d46-99273ebb4717 ;
+  sso:id "AL" ;
+  rdfs:comment "Assembly system that creates an extended inner user space built on top of roof system or construction entity" ;
+  rdfs:label "Roof tower" .
+:fb18e2d9-6d69-46c9-ae63-2b825292a22e a lci:ClassOfIndividual ,
+    :09129a10-1900-430c-bbdd-29fd1fa961c9 ;
+  sso:id "K" ;
+  rdfs:comment "Technical system which provides treatment" ;
+  rdfs:label "Treatment system" .
+:fc027dad-1e7a-415a-b228-db1b680f15ea a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b205e4df-d01a-4df5-bded-dd38406705ab ;
+  sso:id "QA" ;
+  rdfs:comment "Storage system for metered consumption information" ;
+  rdfs:label "Meter system" .
+:ff175a1e-8b2b-4282-b73c-262763efb4bf a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fb18e2d9-6d69-46c9-ae63-2b825292a22e ;
+  sso:id "KD" ;
+  rdfs:comment "Treatment system for separating substances" ;
+  rdfs:label "Separator system" .
+:ff4678d3-e755-48a7-9ce1-a3a584d4f464 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b205e4df-d01a-4df5-bded-dd38406705ab ;
+  sso:id "QC" ;
+  rdfs:comment "Storage system for liquids" ;
+  rdfs:label "Liquid storage system" .

@@ -9,7 +9,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"strings"
 	"time"
@@ -151,13 +150,16 @@ type Stage interface {
 	//   fmt.Println(report)
 	MoveAndMerge(ctx context.Context, from Stage) (*MoveAndMergeReport, error)
 
-	// ForUndefinedIBNodes is looping through all local NamedGraphs for IBNodes that do not have any subject triple
-	// and invoke callback function for them. The undefined IBNodes might be referenced as predicate or object in the same NamedGraph or not.
-	// In case the callback function c returns an error, the loop terminates and this method
-	// is returning this error.
-	// Note: SST allows the existence of IBNodes that do not show up in any triple within that NamedGraph.
-	//       This is not possible in any standard RDF formats e.g. Turtle.
-	ForUndefinedIBNodes(c func(IBNode) error) error
+	// AlignHistory copies the repository pointer and checkout metadata
+	// from the given stage to this stage. For each local NamedGraph in the given stage
+	// that has a matching NamedGraph in this stage, the checkout values
+	// (checkedOutCommits, checkedOutNGRevisions, checkedOutDSRevisions) are copied.
+	// If a matching NamedGraph is referenced in this stage but was local in the source
+	// stage, it is converted to a local NamedGraph and marked as deleted, so that
+	// commit reflects the removal.
+	// This allows a stage created from e.g. RdfRead to be committed to the same
+	// repository as the source stage.
+	AlignHistory(from Stage)
 
 	// IBNodeByVocabulary locates the IBNode with the IRI for the specified vocabulary element.
 	IBNodeByVocabulary(t Elementer) (IBNode, error)
@@ -167,25 +169,24 @@ type Stage interface {
 	// TODO: ensure all underlying objects become invalid
 	Close()
 
-	// WriteToSstFiles writes this Stage data to the specified directory.
+	// WriteSstFilesDirectory persists the NamedGraphs of this Stage into the
+	// directory represented by stageDir.
+	//
+	// Each NamedGraph is written to its own file. The file name is the
+	// base64 URL-safe encoding (without padding) of the graph's IRI base
+	// portion, i.e. the part before the last '#'. If the IRI contains no '#',
+	// the whole IRI is encoded. This encoding keeps file names filesystem-safe
+	// and allows the original base IRI to be recovered.
 	//
 	// Parameters:
-	//   - stageDir: The filesystem directory where the stage data will be written.
+	//   - stageDir: An fs.FS referring to an existing directory where the graph
+	//     files will be created.
 	//
 	// Returns:
-	//   - err: An error if the write operation fails, otherwise nil.
-	WriteToSstFiles(stageDir fs.FS) (err error)
-
-	// WriteToSstFilesWithBaseURL writes this Stage data to the specified directory using the graph's base URL as filename.
-	// Unlike WriteToSstFiles which uses UUIDs as filenames, this function uses a base64-encoded version of the base URL
-	// portion of each graph's IRI. This ensures the filename is filesystem-safe while being reversible.
-	//
-	// Parameters:
-	//   - stageDir: The filesystem directory where the stage data will be written.
-	//
-	// Returns:
-	//   - err: An error if the write operation fails, otherwise nil.
-	WriteToSstFilesWithBaseURL(stageDir fs.FS) (err error)
+	//   - err: nil on success, or ErrDirectoryExpectedAsBasePath if stageDir
+	//     does not denote a directory. I/O failures during graph writing are
+	//     reported via panic.
+	WriteSstFilesDirectory(stageDir fs.FS) (err error)
 
 	// Info returns a StageInfo struct containing information about the Stage.
 	// The information include the number of local graphs, the number of referenced graphs,
@@ -287,16 +288,16 @@ func (to *stage) Dump() {
 	fmt.Fprintln(os.Stderr, "stage.Repository:", to.Repository())
 	count := 0
 	for _, val := range to.localGraphs {
-		log.Printf("localGraph %d ", count)
+		fmt.Fprintf(os.Stderr, "localGraph %d ", count)
 		val.Dump()
 		count++
-		log.Println()
+		fmt.Fprintln(os.Stderr)
 	}
 	for _, val := range to.referencedGraphs {
-		log.Printf("referencedGraph %d ", count)
+		fmt.Fprintf(os.Stderr, "referencedGraph %d ", count)
 		val.Dump()
 		count++
-		log.Println()
+		fmt.Fprintln(os.Stderr)
 	}
 }
 
@@ -865,6 +866,54 @@ func (to *stage) MoveAndMerge(ctx context.Context, from Stage) (*MoveAndMergeRep
 	return report, nil
 }
 
+// AlignHistory copies the repository pointer and checkout metadata
+// from the given stage to this stage. For each local NamedGraph in the given stage
+// that has a matching NamedGraph in this stage, the checkout values
+// (checkedOutCommits, checkedOutNGRevisions, checkedOutDSRevisions) are copied.
+// If a matching NamedGraph is referenced in this stage but was local in the source
+// stage, it is converted to a local NamedGraph and marked as deleted, so that
+// commit reflects the removal.
+// This allows a stage created from e.g. RdfRead to be committed to the same
+// repository as the source stage.
+func (to *stage) AlignHistory(from Stage) {
+	fromImpl := from.(*stage)
+	to.repo = fromImpl.repo
+
+	copyMetadata := func(toNg, fromNg *namedGraph) {
+		commits := make([]Hash, len(fromNg.checkedOutCommits))
+		copy(commits, fromNg.checkedOutCommits)
+		toNg.checkedOutCommits = commits
+		ngRevs := make([]Hash, len(fromNg.checkedOutNGRevisions))
+		copy(ngRevs, fromNg.checkedOutNGRevisions)
+		toNg.checkedOutNGRevisions = ngRevs
+		dsRevs := make([]Hash, len(fromNg.checkedOutDSRevisions))
+		copy(dsRevs, fromNg.checkedOutDSRevisions)
+		toNg.checkedOutDSRevisions = dsRevs
+	}
+
+	for _, fromNg := range fromImpl.localGraphs {
+		if toNg, ok := to.localGraphs[fromNg.id]; ok {
+			copyMetadata(toNg, fromNg)
+		} else if toNg, ok := to.referencedGraphs[fromNg.baseIRI]; ok {
+			// Graph was local in from but is referenced in to.
+			// This means the graph content was effectively deleted.
+			to.localGraphs[toNg.id] = toNg
+			delete(to.referencedGraphs, toNg.baseIRI)
+			copyMetadata(toNg, fromNg)
+			toNg.setReferenced(false)
+			toNg.Empty()
+			toNg.setDeleted(true)
+		} else {
+			// Graph exists in from but is missing in to: create and mark as deleted
+			toNg := to.CreateNamedGraph(fromNg.IRI()).(*namedGraph)
+			toNg.Empty()
+			toNg.setDeleted(true)
+			copyMetadata(toNg, fromNg)
+		}
+	}
+
+}
+
 // update all IBNode triples in fromNg by the content in toStage
 func updateNgTriples(fromNg *namedGraph, to *stage) error {
 	err := fromNg.forAllIBNodes(func(fromIBNode *ibNode) error {
@@ -990,7 +1039,7 @@ func (toNg *namedGraph) mergeNodes(fromNg *namedGraph) {
 		case *ibNodeString:
 			toIBNode, found = toNg.stringNodes[fromIBNode.Fragment()]
 		case *ibNodeUuid:
-			toIBNode, found = toNg.uuidNodes[fromIBNode.ID()]
+			toIBNode, found = toNg.uuidNodes[fromIBNode.asUuidIBNode().id]
 		}
 		// If the IBNode(include blankNodes) does not exist, then move it over with all it's triples and remove it from the remaining fromNG
 		if !found {
@@ -999,7 +1048,7 @@ func (toNg *namedGraph) mergeNodes(fromNg *namedGraph) {
 			copyNodeToNamedGraph(toNg, fromIBNode)
 
 			if fromIBNode.IsUuidFragment() {
-				toNg.uuidNodes[fromIBNode.ID()] = fromIBNode.asUuidIBNode()
+				toNg.uuidNodes[fromIBNode.asUuidIBNode().id] = fromIBNode.asUuidIBNode()
 			} else {
 				toNg.stringNodes[fromIBNode.Fragment()] = fromIBNode.asStringIBNode()
 			}
@@ -1095,6 +1144,8 @@ func (toNg *namedGraph) mergeNodes(fromNg *namedGraph) {
 	}
 
 	toNg.checkedOutCommits = append(toNg.checkedOutCommits, fromNg.checkedOutCommits...)
+	toNg.checkedOutNGRevisions = append(toNg.checkedOutNGRevisions, fromNg.checkedOutNGRevisions...)
+	toNg.checkedOutDSRevisions = append(toNg.checkedOutDSRevisions, fromNg.checkedOutDSRevisions...)
 	toNg.flags.modified = true
 }
 
@@ -1388,7 +1439,11 @@ func (to *stage) namedGraphByUUID(id uuid.UUID) NamedGraph {
 }
 
 func (to *stage) NamedGraph(iri IRI) NamedGraph {
-	newUUID := iriToUUID(iri)
+	newUUID, err := iriToUUID(iri)
+	if err != nil {
+		GlobalLogger.Error("NamedGraph: invalid IRI", zap.String("iri", string(iri)), zap.Error(err))
+		return nil
+	}
 
 	return to.namedGraphByUUID(newUUID)
 }
@@ -1406,16 +1461,6 @@ func (to *stage) ReferencedGraph(iri IRI) NamedGraph {
 		return graph
 	}
 
-	return nil
-}
-
-func (to *stage) ForUndefinedIBNodes(callback func(IBNode) error) error {
-	for _, g := range to.localGraphs {
-		err := g.ForUndefinedIBNodes(callback)
-		if err != nil {
-			return err
-		}
-	}
 	return nil
 }
 

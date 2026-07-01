@@ -7,26 +7,23 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/sst_test/testutil"
+	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_remoteRepository_SetRemoveBranch_LogEntry(t *testing.T) {
-	testName := t.Name() + "_SetRemoveBranch"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 
-	defer removeFolder(dir)
-
 	t.Run("writeSetAndRemoveBranchLogs", func(t *testing.T) {
-		removeFolder(dir)
+
 		url := testutil.ServerServe(t, dir)
 		ctx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
 
@@ -47,7 +44,7 @@ func Test_remoteRepository_SetRemoveBranch_LogEntry(t *testing.T) {
 		ds, err := repo.Dataset(ctx, sst.IRI(ngID.URN()))
 		require.NoError(t, err)
 
-		err = ds.SetBranch(ctx, commitHash, "dev")
+		err = ds.SetBranchCommit(ctx, commitHash, "dev")
 		require.NoError(t, err)
 
 		err = ds.RemoveBranch(ctx, "dev")

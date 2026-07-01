@@ -66,7 +66,7 @@ func (e *tripleWriter) write(ng NamedGraph, t rdfTriple) error {
 				// In predicate or object list
 				if rdfTermsEqual(e.curPred, t.Pred) {
 					// in object list
-					s = " ,\n\t"
+					s = " ,\n  "
 					p = ""
 				} else {
 					// in predicate list
@@ -75,7 +75,7 @@ func (e *tripleWriter) write(ng NamedGraph, t rdfTriple) error {
 					// check if predicate introduced new prefix directive
 					if e.OpenStatement {
 						// in predicate list
-						s = " ;\n"
+						s = " ;\n "
 						e.curPred = t.Pred
 					} else {
 						// previous statement closed
@@ -106,9 +106,9 @@ func (e *tripleWriter) write(ng NamedGraph, t rdfTriple) error {
 		e.OpenStatement = true
 
 		e.w.write([]byte(s))
-		e.w.write([]byte("\t"))
+		e.w.write([]byte(" "))
 		e.w.write([]byte(p))
-		e.w.write([]byte("\t"))
+		e.w.write([]byte(" "))
 		e.w.write([]byte(o))
 
 		if e.w.err != nil {
@@ -263,10 +263,10 @@ func (e *tripleWriter) prefixify(ng NamedGraph, t rdfTerm) string {
 			if e.OpenStatement {
 				e.w.write([]byte(" .\n"))
 			}
-			e.w.write([]byte(fmt.Sprintf("@prefix %s:\t<%s#> .\n", prefix, base)))
+			e.w.write([]byte(fmt.Sprintf("@prefix %s: <%s#> .\n", prefix, base)))
 			e.OpenStatement = false
 		}
-		return fmt.Sprintf("%s:%s", prefix, fragment)
+		return fmt.Sprintf("%s:%s", prefix, escapeLocal(fragment))
 	}
 	if t.rdfTermType() == rdfTermLiteral {
 		switch t.(rdfTypeLiteral).DataType {
@@ -296,7 +296,7 @@ func (e *tripleWriter) prefixify(ng NamedGraph, t rdfTerm) string {
 				if e.OpenStatement {
 					e.w.write([]byte(" .\n"))
 				}
-				e.w.write([]byte(fmt.Sprintf("@prefix %s:\t<%s> .\n", prefix, first)))
+				e.w.write([]byte(fmt.Sprintf("@prefix %s: <%s> .\n", prefix, first)))
 				e.OpenStatement = false
 			}
 			return fmt.Sprintf("\"%s\"^^%s:%s", t.rdfSerialize(formatInternal), prefix, rest)
@@ -305,25 +305,40 @@ func (e *tripleWriter) prefixify(ng NamedGraph, t rdfTerm) string {
 	return t.rdfSerialize(format)
 }
 
+// escapeLocal escapes a Turtle local name (PN_LOCAL) fragment so it can be
+// safely appended after a prefix (e.g. ":foo"). Characters that are only
+// valid via PN_LOCAL_ESC are always backslash-escaped. '-' is escaped only
+// when it appears as the first character, and '.' is escaped only when it
+// appears as the last character, because both are valid inside PN_LOCAL but
+// not at those positions.
+// See https://www.w3.org/TR/turtle/#grammar-production-PN_LOCAL
 func escapeLocal(rest string) string {
-	// escape rest according to PN_LOCAL
-	// http://www.w3.org/TR/turtle/#reserved
+	runes := []rune(rest)
 	var b bytes.Buffer
-	for _, r := range rest {
+	for i, r := range runes {
+		needsEscape := false
 		if int(r) <= 126 && int(r) >= 33 {
-			// only bother to check if rune is in range
 			switch r {
-			case '_', '~', '.', '-', '!', '$', '&', '\'', '(', ')', '*', '+', ',', ';', '=', '/', '?', '#', '@', '%':
-				b.WriteRune('\\')
-				b.WriteRune(r)
-			default:
-				b.WriteRune(r)
+			// Characters only valid via PN_LOCAL_ESC — must always be escaped
+			case '~', '!', '$', '&', '\'', '(', ')', '*', '+', ',', ';', '=', '/', '?', '#', '@', '%':
+				needsEscape = true
+			// '-' is valid in PN_CHARS but not as the first character of PN_LOCAL
+			case '-':
+				if i == 0 {
+					needsEscape = true
+				}
+			// '.' is valid in the middle of PN_LOCAL but not as the last character
+			case '.':
+				if i == len(runes)-1 {
+					needsEscape = true
+				}
 			}
-		} else {
-			b.WriteRune(r)
 		}
+		if needsEscape {
+			b.WriteRune('\\')
+		}
+		b.WriteRune(r)
 	}
-	// TODO should also ensure that last character is not '.'
 	return b.String()
 }
 
@@ -400,6 +415,11 @@ func (s *stage) RdfWrite(w io.Writer, format RdfFormat) error {
 	if len(graphs) == 0 {
 		return nil
 	}
+
+	// Sort graphs by IRI to ensure stable output order across runs.
+	sort.Slice(graphs, func(i, j int) bool {
+		return graphs[i].IRI().String() < graphs[j].IRI().String()
+	})
 
 	// Only TriG format supports multiple graphs
 	if format != RdfFormatTriG {
@@ -479,10 +499,10 @@ func toWriter(graph NamedGraph, writer *tripleWriter) (err error) {
 			if writer.OpenStatement {
 				writer.w.write([]byte(" .\n"))
 			}
-			writer.w.write([]byte(fmt.Sprintf("@prefix %s:\t<%s#> .\n", prefix, base)))
+			writer.w.write([]byte(fmt.Sprintf("@prefix %s: <%s#> .\n", prefix, base)))
 		}
 		// write current NamedGraph
-		writer.w.write([]byte(fmt.Sprintf("@prefix %s:\t<%s#> .\n", "", graph.IRI().String())))
+		writer.w.write([]byte(fmt.Sprintf("@prefix %s: <%s#> .\n", "", graph.IRI().String())))
 	}
 
 	graphDirectImports := graph.DirectImports()
@@ -978,12 +998,21 @@ func toWriterTriG(s *stage, graphs []NamedGraph, writer *tripleWriter) (err erro
 		if writer.OpenStatement {
 			writer.w.write([]byte(" .\n"))
 		}
-		writer.w.write([]byte(fmt.Sprintf("@prefix %s:\t<%s#> .\n", prefix, base)))
+		writer.w.write([]byte(fmt.Sprintf("@prefix %s: <%s#> .\n", prefix, base)))
+	}
+
+	// Share blank-node label scope across all graph blocks.
+	// Per RDF 1.1 TriG, a blank node label represents the same blank node
+	// throughout the document, so labels must be unique globally.
+	wc := &writerContext{
+		writer:               writer,
+		blankNodes:           map[IBNode]rdfTypeBlank{},
+		allowCollectionTerms: true,
 	}
 
 	// Process each named graph
 	for _, graph := range graphs {
-		if err := writeNamedGraphTriG(graph, writer); err != nil {
+		if err := writeNamedGraphTriG(graph, writer, wc); err != nil {
 			return err
 		}
 	}
@@ -992,7 +1021,7 @@ func toWriterTriG(s *stage, graphs []NamedGraph, writer *tripleWriter) (err erro
 }
 
 // writeNamedGraphTriG writes a single NamedGraph in TriG format with graph block.
-func writeNamedGraphTriG(graph NamedGraph, writer *tripleWriter) error {
+func writeNamedGraphTriG(graph NamedGraph, writer *tripleWriter, wc *writerContext) error {
 	// Close any previous statement before starting a new graph block
 	if writer.OpenStatement {
 		writer.w.write([]byte(" .\n"))
@@ -1014,7 +1043,7 @@ func writeNamedGraphTriG(graph NamedGraph, writer *tripleWriter) error {
 	}
 
 	// Write the graph content using a modified version of toWriter
-	if err := writeGraphContentTriG(graph, writer); err != nil {
+	if err := writeGraphContentTriG(graph, writer, wc); err != nil {
 		return err
 	}
 
@@ -1029,24 +1058,42 @@ func writeNamedGraphTriG(graph NamedGraph, writer *tripleWriter) error {
 }
 
 // writeGraphContentTriG writes the triples of a NamedGraph within a TriG graph block.
-func writeGraphContentTriG(graph NamedGraph, writer *tripleWriter) error {
+func writeGraphContentTriG(graph NamedGraph, writer *tripleWriter, wc *writerContext) error {
 	sortedNodes, err := getSortedTriplesIBNodes(graph.(*namedGraph))
 	if err != nil {
 		return err
 	}
 
-	wc := writerContext{
-		writer:               writer,
-		blankNodes:           map[IBNode]rdfTypeBlank{},
-		allowCollectionTerms: true, // Allow collection terms in TriG
+	graphDirectImports := graph.DirectImports()
+
+	graphImportURLs := make([]IRI, 0, len(graphDirectImports))
+	for _, ng := range graphDirectImports {
+		graphImportURLs = append(graphImportURLs, ng.IRI())
 	}
+	sort.Slice(graphImportURLs, func(i, j int) bool {
+		return strings.Compare(graphImportURLs[i].String(), graphImportURLs[j].String()) < 0
+	})
+
+	// Handle prefixes for import IRIs
+	for _, u := range graphImportURLs {
+		importIRI := u
+		p, s := importIRI.Split()
+		if s != "" {
+			pIRI, err := NewIRI(p)
+			if err != nil {
+				return err
+			}
+			writer.prefixify(graph, pIRI)
+		}
+	}
+
 	var triples []rdfTriple
 
 	// Handle prefixes for all terms first
 	for _, s := range sortedNodes {
 		err := s.ForAll(func(index int, ts, tp IBNode, to Term) error {
 			if s == ts {
-				triples, err := nodeTripleToRdfTriples(index, ts, tp, to, &wc, triples[:0])
+				triples, err := nodeTripleToRdfTriples(index, ts, tp, to, wc, triples[:0])
 				if err != nil {
 					return err
 				}
@@ -1067,7 +1114,6 @@ func writeGraphContentTriG(graph NamedGraph, writer *tripleWriter) error {
 	}
 
 	writeToTripleWriter(writer, ([]byte)("\n"))
-	wc.collectionCnt = 0
 
 	// Handle NG Node (the node with empty fragment representing the graph itself)
 	for pos, s := range sortedNodes {
@@ -1088,7 +1134,7 @@ func writeGraphContentTriG(graph NamedGraph, writer *tripleWriter) error {
 					if tp.Is(rdfType) && to.TermKind() == TermKindIBNode && to.(IBNode).Is(owlOntology) {
 						// Skip, already written above
 					} else {
-						triples, err := nodeTripleToRdfTriples(index, ts, tp, to, &wc, triples[:0])
+						triples, err := nodeTripleToRdfTriples(index, ts, tp, to, wc, triples[:0])
 						if err != nil {
 							return err
 						}
@@ -1106,6 +1152,18 @@ func writeGraphContentTriG(graph NamedGraph, writer *tripleWriter) error {
 			})
 			if err != nil {
 				return err
+			}
+
+			for _, u := range graphImportURLs {
+				importIRIStr := strings.TrimSuffix(u.String(), "#")
+				importIRI, err := NewIRI(importIRIStr)
+				if err != nil {
+					return err
+				}
+				err = writer.write(graph, rdfTriple{Subj: selfIRI, Pred: owlImports.IRI(), Obj: importIRI})
+				if err != nil {
+					return err
+				}
 			}
 
 			sortedNodes = removeElementGeneric(sortedNodes, pos)
@@ -1131,7 +1189,7 @@ func writeGraphContentTriG(graph NamedGraph, writer *tripleWriter) error {
 		}
 		err = s.ForAll(func(index int, ts, tp IBNode, to Term) error {
 			if s == ts {
-				triples, err := nodeTripleToRdfTriples(index, ts, tp, to, &wc, triples[:0])
+				triples, err := nodeTripleToRdfTriples(index, ts, tp, to, wc, triples[:0])
 				if err != nil {
 					return err
 				}

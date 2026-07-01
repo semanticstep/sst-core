@@ -87,7 +87,61 @@ func Test_RdfTypeValidation(t *testing.T) {
   "generated": "2025-11-07T11:14:49.473987+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
+			},
 
+			errorAssertion: assert.NoError,
+		},
+		{
+			name: "rdfType_custom_mainclass_direct",
+			args: toArgs(fromTurtleContent(t,
+				`
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix ssmeta: <http://ontology.semanticstep.net/ssmeta#> .
+@prefix :       <urn:uuid:c1efcf54-3e8e-4cc7-a7d1-82a9f61aaa10#> .
+
+<urn:uuid:c1efcf54-3e8e-4cc7-a7d1-82a9f61aaa10#>    a   owl:Ontology .
+:MyClass    a   owl:Class , ssmeta:MainClass .
+:instance1  a   :MyClass .
+`)),
+
+			expected: `{
+  "kinds": [
+    "rdf_type"
+  ],
+  "passed": true,
+  "generated": "2025-11-07T11:14:49.473987+08:00"
+}`,
+			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
+			},
+
+			errorAssertion: assert.NoError,
+		},
+		{
+			name: "rdfType_custom_mainclass_subclass",
+			args: toArgs(fromTurtleContent(t,
+				`
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix lci:    <http://ontology.semanticstep.net/lci#> .
+@prefix :       <urn:uuid:c1efcf54-3e8e-4cc7-a7d1-82a9f61aaa10#> .
+
+<urn:uuid:c1efcf54-3e8e-4cc7-a7d1-82a9f61aaa10#>    a   owl:Ontology .
+:SubClass   a   owl:Class ;
+    rdfs:subClassOf lci:Person .
+:instance2  a   :SubClass .
+`)),
+
+			expected: `{
+  "kinds": [
+    "rdf_type"
+  ],
+  "passed": true,
+  "generated": "2025-11-07T11:14:49.473987+08:00"
+}`,
+			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
 			},
 
 			errorAssertion: assert.NoError,
@@ -127,7 +181,6 @@ func Test_RdfTypeValidation(t *testing.T) {
   "generated": "2025-11-07T11:14:49.473987+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -167,7 +220,6 @@ func Test_RdfTypeValidation(t *testing.T) {
   "generated": "2025-11-07T11:14:49.484161+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -254,7 +306,6 @@ func Test_RdfTypeValidation(t *testing.T) {
 
 			rp, err := validate.Validate(st, validate.KindRdfType)
 			assert.NoError(t, err)
-			// fmt.Println(rp)
 
 			var want validate.ValidateReport
 			require.NoError(t, json.Unmarshal([]byte(tt.expected), &want))
@@ -307,9 +358,9 @@ func Test_DomainRangeValidation(t *testing.T) {
 @prefix ex:    <http://example.org#> .
 
 <http://example.org>    a   owl:Ontology .
-ex:pump1  a lci:SpaceTimeIndividual ;
+ex:pump1  a lci:Individual ;
           lci:partOf ex:plant1 .
-ex:plant1 a lci:SpaceTimeIndividual .
+ex:plant1 a lci:Individual .
 `)),
 
 			expected: `{
@@ -321,7 +372,6 @@ ex:plant1 a lci:SpaceTimeIndividual .
   "generated": "2025-11-07T14:42:13.7028174+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -339,8 +389,8 @@ ex:plant1 a lci:SpaceTimeIndividual .
 @prefix ex:    <http://example.org#> .
 
 <http://example.org>    a   owl:Ontology .
-ex:engine1 a lci:SpaceTimeIndividual .
-ex:car1    a lci:SpaceTimeIndividual ;
+ex:engine1 a lci:Individual .
+ex:car1    a lci:Individual ;
            lci:hasPart ex:engine1 .
 `)),
 
@@ -353,7 +403,6 @@ ex:car1    a lci:SpaceTimeIndividual ;
   "generated": "2025-11-07T14:42:13.7028174+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -372,8 +421,8 @@ ex:car1    a lci:SpaceTimeIndividual ;
 
 <http://example.org>    a   owl:Ontology .
 
-ex:plant1 a lci:SpaceTimeIndividual .
-ex:omniA a lci:OmnipresentIndividual ;
+ex:plant1 a lci:Individual .
+ex:omniA a lci:Class ;
          lci:partOf ex:plant1 .
 `)),
 
@@ -398,7 +447,6 @@ ex:omniA a lci:OmnipresentIndividual ;
   "generated": "2025-11-07T14:52:43.1898046+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -417,9 +465,9 @@ ex:omniA a lci:OmnipresentIndividual ;
 
 <http://example.org>    a   owl:Ontology .
 
-ex:pump2  a lci:SpaceTimeIndividual ;
+ex:pump2  a lci:Individual ;
           lci:partOf ex:omniB .
-ex:omniB  a lci:OmnipresentIndividual .
+ex:omniB  a lci:Class .
 `)),
 
 			expected: `{
@@ -443,7 +491,6 @@ ex:omniB  a lci:OmnipresentIndividual .
   "generated": "2025-11-07T14:54:37.0426784+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -462,7 +509,7 @@ ex:omniB  a lci:OmnipresentIndividual .
 
 <http://example.org>    a   owl:Ontology .
 
-ex:car2 a lci:SpaceTimeIndividual ;
+ex:car2 a lci:Individual ;
        lci:hasPart "wheel-literal" .
 `)),
 
@@ -487,7 +534,6 @@ ex:car2 a lci:SpaceTimeIndividual ;
   "generated": "2025-11-07T15:14:02.3909279+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -506,7 +552,7 @@ ex:car2 a lci:SpaceTimeIndividual ;
 
 <http://example.org>    a   owl:Ontology .
 
-ex:plant1 a lci:SpaceTimeIndividual .
+ex:plant1 a lci:Individual .
 ex:unknownSubject
     lci:partOf ex:plant1 .
 `)),
@@ -532,7 +578,6 @@ ex:unknownSubject
   "generated": "2025-11-07T15:22:32.3630259+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -577,7 +622,6 @@ ex:s1 lci:Thing ex:s2 .
   "generated": "2025-11-07T16:54:50.6936047+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -624,7 +668,6 @@ ex:s1 ex:newProperty1 ex:s2 .
   "generated": "2025-11-07T16:43:06.7621187+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -666,7 +709,6 @@ ex:a2 a lci:SpaceTimeIndividual .
   "generated": "2025-11-10T15:36:07.5324529+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -699,9 +741,9 @@ ex:s1 exv:newProperty1 ex:s2 .
     "http://example.org": [
       {
         "kind": "domain_range",
-        "rule": "predicate_not_known",
+        "rule": "predicate_not_property",
         "level": "error",
-        "message": "predicate of an unknown type",
+        "message": "the predicate is not a valid property",
         "subject": ":s1",
         "predicate": "<http://example.org/vocab#newProperty1>",
         "object": ":s2"
@@ -711,7 +753,6 @@ ex:s1 exv:newProperty1 ex:s2 .
   "generated": "2025-11-10T14:18:28.0234613+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -779,7 +820,6 @@ ex:d3 a lci:SpaceTimeIndividual .
   "generated": "2025-11-10T16:14:43.3033204+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -814,7 +854,6 @@ ex:e1 a lci:Thing ;
   "generated": "2025-11-11T11:16:30.7635267+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -860,7 +899,6 @@ ex:e1 a lci:Thing ;
   "generated": "2025-11-12T11:42:50.3071298+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 
 			errorAssertion: assert.NoError,
@@ -877,7 +915,6 @@ ex:e1 a lci:Thing ;
 
 			rp, err := validate.Validate(st, validate.KindDomainRange)
 			assert.NoError(t, err)
-			fmt.Println(rp)
 
 			var want validate.ValidateReport
 			require.NoError(t, json.Unmarshal([]byte(tt.expected), &want))
@@ -967,8 +1004,6 @@ func Test_ExampleValidation(t *testing.T) {
 
 			rp, err := validate.Validate(st, validate.KindRdfType, validate.KindDomainRange)
 			assert.NoError(t, err)
-
-			fmt.Println(rp)
 
 			var want validate.ValidateReport
 			require.NoError(t, json.Unmarshal([]byte(tt.expected), &want))
@@ -1155,7 +1190,6 @@ func Test_TermCollectionValidation(t *testing.T) {
 
 			rp, err := validate.Validate(st, validate.KindDomainRange)
 			assert.NoError(t, err)
-			fmt.Println(rp)
 
 			var want validate.ValidateReport
 			require.NoError(t, json.Unmarshal([]byte(tt.expected), &want))
@@ -1330,7 +1364,6 @@ func Test_LiteralCollectionValidation(t *testing.T) {
 
 			rp, err := validate.Validate(st, validate.KindDomainRange)
 			assert.NoError(t, err)
-			fmt.Println(rp)
 
 			var want validate.ValidateReport
 			require.NoError(t, json.Unmarshal([]byte(tt.expected), &want))
@@ -1349,7 +1382,6 @@ func Test_LiteralCollectionValidation(t *testing.T) {
 					t.Fatalf("unordered findings mismatch for subject %s\nwant=%v\ngot =%v", subj, wantSet, gotSet)
 				}
 			}
-
 		})
 	}
 }
@@ -1397,7 +1429,6 @@ func Test_FunctionalPropValidation(t *testing.T) {
   "generated": "2025-11-14T11:19:43.7088649+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 			errorAssertion: assert.NoError,
 		},
@@ -1435,7 +1466,6 @@ func Test_FunctionalPropValidation(t *testing.T) {
   "generated": "2025-11-14T11:19:43.7088649+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 			errorAssertion: assert.NoError,
 		},
@@ -1482,7 +1512,6 @@ func Test_FunctionalPropValidation(t *testing.T) {
   "generated": "2025-11-14T15:02:08.2579142+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 			errorAssertion: assert.NoError,
 		},
@@ -1514,7 +1543,6 @@ func Test_FunctionalPropValidation(t *testing.T) {
   "generated": "2025-11-14T15:00:43.3137982+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 			errorAssertion: assert.NoError,
 		},
@@ -1560,7 +1588,6 @@ func Test_FunctionalPropValidation(t *testing.T) {
   "generated": "2025-11-14T15:23:54.8271281+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 			errorAssertion: assert.NoError,
 		},
@@ -1616,7 +1643,6 @@ ex:aliceMail2 a ex:EmailAccount .
   "generated": "2025-11-14T16:25:41.6774104+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 			errorAssertion: assert.NoError,
 		},
@@ -1673,7 +1699,6 @@ ex:bob   a ex:Person ;
   "generated": "2025-11-14T16:27:44.1743056+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 			errorAssertion: assert.NoError,
 		},
@@ -1723,7 +1748,6 @@ ex:bobWork   a ex:Email .
   "generated": "2025-11-17T09:53:16.2778506+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 			errorAssertion: assert.NoError,
 		},
@@ -1773,7 +1797,6 @@ ex:org3 a lci:Organization ;
   "generated": "2025-11-18T10:30:25.8052878+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 			errorAssertion: assert.NoError,
 		},
@@ -1822,7 +1845,6 @@ ex:org5 a lci:Organization ;
   "generated": "2025-11-18T13:34:40.0278205+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 			errorAssertion: assert.NoError,
 		},
@@ -1854,7 +1876,6 @@ ex:org7 a lci:Organization ;
   "generated": "2025-11-18T13:48:29.1056711+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 			errorAssertion: assert.NoError,
 		},
@@ -1906,7 +1927,6 @@ ex:m2 ex:specialPowerClassOf ex:mo1 .
   "generated": "2025-11-25T09:24:54.6355768+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 			errorAssertion: assert.NoError,
 		},
@@ -1943,7 +1963,6 @@ ex:m2 sso:assembledGroupOccurrenceOf ex:mo1 .
   "generated": "2025-11-18T15:36:37.2180193+08:00"
 }`,
 			graphAssertion: func(t *testing.T, graph sst.NamedGraph) {
-
 			},
 			errorAssertion: assert.NoError,
 		},
@@ -1956,7 +1975,6 @@ ex:m2 sso:assembledGroupOccurrenceOf ex:mo1 .
 
 			rp, err := validate.Validate(st, validate.KindFunctionalProperty)
 			assert.NoError(t, err)
-			fmt.Println(rp)
 
 			var want validate.ValidateReport
 			require.NoError(t, json.Unmarshal([]byte(tt.expected), &want))

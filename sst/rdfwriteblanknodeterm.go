@@ -53,21 +53,21 @@ func (c inlineBlankNodeTerm) turtleSerialize() string {
 			for _, triple := range triples {
 				if triple.Pred != prevP {
 					if serialized.Len() > 1 {
-						serialized.WriteString(" ;\n\t")
+						serialized.WriteString(" ;\n  ")
 					} else {
-						serialized.WriteString("\n\t")
+						serialized.WriteString("\n  ")
 					}
 					lastNL = serialized.Len() - 1
 					prevP = triple.Pred
 					serialized.WriteString(serializeTerm(triple.Pred, c.writercontext.writer))
-					serialized.WriteRune('\t')
+					serialized.WriteString(" ")
 					serialized.WriteString(serializeTerm(triple.Obj, c.writercontext.writer))
 				} else {
 					serializedObj := serializeTerm(triple.Obj, c.writercontext.writer)
 					if serialized.Len()+len(serializedObj)-lastNL <= lineLen {
 						serialized.WriteString(", ")
 					} else {
-						serialized.WriteString(",\n\t\t")
+						serialized.WriteString(",\n    ")
 						lastNL = serialized.Len() - 2
 					}
 					serialized.WriteString(serializeTerm(triple.Obj, c.writercontext.writer))

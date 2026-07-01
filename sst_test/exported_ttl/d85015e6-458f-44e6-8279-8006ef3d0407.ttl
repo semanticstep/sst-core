@@ -1,0 +1,13 @@
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:d85015e6-458f-44e6-8279-8006ef3d0407#> .
+@prefix ns2: <urn:uuid:03431413-2c10-4be9-b144-30d4d91343c1#> .
+
+<urn:uuid:d85015e6-458f-44e6-8279-8006ef3d0407> a owl:Ontology .
+:5e84e17e-f307-488e-9d6d-81846fa97496 a sso:ClassSystem ,
+    ns2:a7f0e0f6-8448-4096-b652-55c850b3344a ;
+  sso:id "test2" ;
+  rdfs:label "test2" .

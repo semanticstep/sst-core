@@ -51,9 +51,13 @@ type Dataset interface {
 	// Dataset an error errBranchNotFound is returned.
 	CommitDetailsByBranch(ctx context.Context, branch string) (*CommitDetails, error)
 
-	// SetBranch moves or sets a branch Name to the revision of this Dataset that was created in the specified commit.
+	// SetBranchCommit moves or sets a branch Name to the revision of this Dataset that was created in the specified commit.
 	// If this branch Name was set before to another revision of this Dataset, it is removed from that revision.
-	SetBranch(ctx context.Context, commit Hash, branch string) error
+	SetBranchCommit(ctx context.Context, commit Hash, branch string) error
+
+	// SetBranchRevision moves or sets a branch Name to the revision of this Dataset identified by the given datasetRevision.
+	// If this branch Name was set before to another revision of this Dataset, it is removed from that revision.
+	SetBranchRevision(ctx context.Context, datasetRevision Hash, branch string) error
 
 	// RemoveBranch deletes a dataset branch from the repository.
 	RemoveBranch(ctx context.Context, branch string) error
@@ -72,6 +76,10 @@ type Dataset interface {
 	// CheckoutRevision returns a new Stage that is based on the given DatasetRevision.
 	// This is useful when a DatasetRevision exists that is not associated with a branch name.
 	CheckoutRevision(ctx context.Context, datasetRevision Hash, mode TriplexMode) (Stage, error)
+
+	// CommitForRevision returns the commit hash that created the given dataset revision hash.
+	// If the dataset revision is not found in this repository, ErrDatasetRevisionNotFound is returned.
+	CommitForRevision(ctx context.Context, datasetRevision Hash) (Hash, error)
 
 	// FindCommonParentRevision searches for a common ancestor of commit revision1 and commit revision2
 	// of this Dataset and returns its common parent commit revision Hash.

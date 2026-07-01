@@ -1,0 +1,436 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:3c7d3691-c082-41e4-bd6a-2a7b36a50374#> .
+
+<urn:uuid:3c7d3691-c082-41e4-bd6a-2a7b36a50374> a owl:Ontology .
+:063d69a9-dc2a-424b-a0cc-b10945e98fc5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :96c65068-6bad-485b-b121-ad352ef2180f ;
+  sso:id "PB" ;
+  rdfs:comment "protection system related to mechanical impacts or effects" ;
+  rdfs:label "mechanical protection system" .
+:0bb72d2e-dd88-425f-b907-35bc60da531c a lci:ClassOfIndividual ,
+    :b966430b-e86f-46d3-984e-27a4afd6b6d5 ;
+  sso:id "C" ;
+  rdfs:comment "technical system designed to shape objects or materials by separating" ;
+  rdfs:label "separating shaping system" .
+:0f03f0c4-7874-4a0f-b714-ee7e161140d0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :58c308dd-c9bf-462d-bc8e-48b74300e436 ;
+  sso:id "FD" ;
+  rdfs:comment "separating substance system using density means" ;
+  rdfs:label "density separating substance system" .
+:1176a349-b8b0-4447-8db7-0de056b94776 a lci:ClassOfIndividual ,
+    :b966430b-e86f-46d3-984e-27a4afd6b6d5 ;
+  sso:id "D" ;
+  rdfs:comment "technical system designed to shape objects or materials by moulding" ;
+  rdfs:label "moulding shaping system" .
+:1482b62d-75fb-46c4-a9d7-c66052321dc0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2ae206e3-d3d8-4985-b448-140647a33f52 ;
+  sso:id "KH" ;
+  rdfs:comment "manipulating system for break and/or disconnect electric energy flow" ;
+  rdfs:label "electric power switching system" .
+:158a9fc7-4ac7-4e69-9b94-82c6a7ba9da2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :96c65068-6bad-485b-b121-ad352ef2180f ;
+  sso:id "PC" ;
+  rdfs:comment "protection system related to chemical effects" ;
+  rdfs:label "chemical protection system" .
+:16db9edf-89f9-4571-9463-a095eafadda9 a lci:ClassOfIndividual ,
+    :b966430b-e86f-46d3-984e-27a4afd6b6d5 ;
+  sso:id "Q" ;
+  rdfs:comment "technical system designed for storing" ;
+  rdfs:label "storage system" .
+:1eb3228e-fea4-4e96-bea7-98097ce71f50 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :16db9edf-89f9-4571-9463-a095eafadda9 ;
+  sso:id "QF" ;
+  rdfs:comment "storage system of mechanical energy" ;
+  rdfs:label "mechanical energy storage system" .
+:22c1eacc-80b5-4b4d-96c4-2ace9513e847 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2ae206e3-d3d8-4985-b448-140647a33f52 ;
+  sso:id "KJ" ;
+  rdfs:comment "manipulating system for adjusting signal flow" ;
+  rdfs:label "signal manipulating system" .
+:2365e134-ae0d-4785-a50d-529dfb0af7cb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9e47672-1277-407e-b6a7-8ce94e6cbe6e ;
+  sso:id "HE" ;
+  rdfs:comment "supply system providing electrical energy" ;
+  rdfs:label "power supply system" .
+:2376d63a-9e34-4cb9-a02d-ba66f8a60605 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :835e59b4-3a8f-457b-ae16-98007fa7fa80 ;
+  sso:id "BC" ;
+  rdfs:comment "merging system using chemical means" ;
+  rdfs:label "chemical merging system" .
+:2ae206e3-d3d8-4985-b448-140647a33f52 a lci:ClassOfIndividual ,
+    :b966430b-e86f-46d3-984e-27a4afd6b6d5 ;
+  sso:id "K" ;
+  rdfs:comment "technical systems designed to adjust flow or an applied quantity" ;
+  rdfs:label "manipulating system" .
+:2ec217eb-5e20-44a0-b138-6fb191dd5f10 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d976814c-7129-41d3-ad5e-20a354f2caee ;
+  sso:id "JA" ;
+  rdfs:comment "transportation system transporting process gas" ;
+  rdfs:label "process gas transporting system" .
+:2fd7dfac-0b34-4548-be8f-f097f60792a4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :16db9edf-89f9-4571-9463-a095eafadda9 ;
+  sso:id "QG" ;
+  rdfs:comment "storage system of thermal energy" ;
+  rdfs:label "thermal energy storage system" .
+:3070e140-c9ab-40e6-b98a-9d63fc135248 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a38cddbe-2e70-4858-a711-dde5cabbf3ac ;
+  sso:id "MA" ;
+  rdfs:comment "information presenting system in an audible form only" ;
+  rdfs:label "audio system" .
+:34c81cfa-df83-4333-b9a6-cb0bbf8ed22a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8111030c-83e0-4115-a25b-6748ecd4dd64 ;
+  sso:id "EE" ;
+  rdfs:comment "treatment system using multiple means" ;
+  rdfs:label "multiple means treatment system" .
+:3c2de2c3-1c65-4f2c-a9f4-64d7799aee29 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :96c65068-6bad-485b-b121-ad352ef2180f ;
+  sso:id "PA" ;
+  rdfs:comment "protection system related to thermal effects" ;
+  rdfs:label "thermal protection system" .
+:3f2181f6-7e0c-4966-a05e-45246ddd084c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9e47672-1277-407e-b6a7-8ce94e6cbe6e ;
+  sso:id "HJ" ;
+  rdfs:comment "supply system providing air exchange" ;
+  rdfs:label "ventilation system" .
+:40c10ce6-fd1e-4528-8efc-0fbd33e50016 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9e47672-1277-407e-b6a7-8ce94e6cbe6e ;
+  sso:id "HB" ;
+  rdfs:comment "supply system providing liquid" ;
+  rdfs:label "liquid supply system" .
+:41c21479-5306-4912-a822-4c4f7cfe8f42 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0bb72d2e-dd88-425f-b907-35bc60da531c ;
+  sso:id "CD" ;
+  rdfs:comment "separating shaping system using electromagnetic means" ;
+  rdfs:label "electromagnetic separation system" .
+:49a41bcd-9dd8-4b08-a0ac-ac9974a19c28 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a38cddbe-2e70-4858-a711-dde5cabbf3ac ;
+  sso:id "MD" ;
+  rdfs:comment "Information presenting system in a tactile form" ;
+  rdfs:label "tactile system" .
+:54409f62-cbec-4656-8f4e-cfc96ae34770 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2ae206e3-d3d8-4985-b448-140647a33f52 ;
+  sso:id "KK" ;
+  rdfs:comment "manipulating system for adjusting the order of objects" ;
+  rdfs:label "sorting system" .
+:58c308dd-c9bf-462d-bc8e-48b74300e436 a lci:ClassOfIndividual ,
+    :b966430b-e86f-46d3-984e-27a4afd6b6d5 ;
+  sso:id "F" ;
+  rdfs:comment "technical system designed to change substance constitution by separating material" ;
+  rdfs:label "separating substance system" .
+:5a335a76-c18f-4212-96fa-5b639898c0e7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1176a349-b8b0-4447-8db7-0de056b94776 ;
+  sso:id "DB" ;
+  rdfs:comment "moulding shaping system using consolidation" ;
+  rdfs:label "consolidation system" .
+:5cf7c46a-98f0-492f-ad81-14746e7e1e78 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8111030c-83e0-4115-a25b-6748ecd4dd64 ;
+  sso:id "ED" ;
+  rdfs:comment "treatment system using electromagnetic means" ;
+  rdfs:label "electromagnetic treatment system" .
+:5fac52e4-97de-4dfd-8300-d317fff2d663 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9e47672-1277-407e-b6a7-8ce94e6cbe6e ;
+  sso:id "HF" ;
+  rdfs:comment "supply system providing mechanical energy" ;
+  rdfs:label "mechanical energy supply system" .
+:602f2a73-d1f4-45b6-aad8-7bc880295b4a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :96c65068-6bad-485b-b121-ad352ef2180f ;
+  sso:id "PD" ;
+  rdfs:comment "protection system related to electrical effects" ;
+  rdfs:label "electrical protection system" .
+:60642d99-cb91-4f33-909f-c5e8fda137a4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9e47672-1277-407e-b6a7-8ce94e6cbe6e ;
+  sso:id "HA" ;
+  rdfs:comment "supply system providing process gas" ;
+  rdfs:label "process gas supply system" .
+:6213ec22-c885-4bd8-8710-27d3d336f7fa a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a38cddbe-2e70-4858-a711-dde5cabbf3ac ;
+  sso:id "MB" ;
+  rdfs:comment "information presenting system in both a visible and audible form" ;
+  rdfs:label "audio-visual system" .
+:62f51ebf-89a1-41a5-b380-5f2b362b5871 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :96c65068-6bad-485b-b121-ad352ef2180f ;
+  sso:id "PE" ;
+  rdfs:comment "protection system related to radiation effects" ;
+  rdfs:label "radiation protection system" .
+:6565d2b6-03e2-4278-93cd-80e9bf8c668e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8111030c-83e0-4115-a25b-6748ecd4dd64 ;
+  sso:id "EC" ;
+  rdfs:comment "treatment system using chemical means" ;
+  rdfs:label "chemical treatment system" .
+:6c16079a-8544-4de0-8e8c-a97a5ad3de2d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :58c308dd-c9bf-462d-bc8e-48b74300e436 ;
+  sso:id "FC" ;
+  rdfs:comment "separating substance system using chemical means" ;
+  rdfs:label "chemical separating substance system" .
+:6c643b84-cda8-4c15-b629-da8248c2d420 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8111030c-83e0-4115-a25b-6748ecd4dd64 ;
+  sso:id "EB" ;
+  rdfs:comment "treatment system using thermal means" ;
+  rdfs:label "thermal treatment system" .
+:74310449-a508-4ef9-9d4e-1297b4e92721 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d976814c-7129-41d3-ad5e-20a354f2caee ;
+  sso:id "JH" ;
+  rdfs:comment "transportation system transporting information" ;
+  rdfs:label "information transporting system" .
+:75755c98-6fa4-4e7f-90b0-fde406db3fce a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2ae206e3-d3d8-4985-b448-140647a33f52 ;
+  sso:id "KF" ;
+  rdfs:comment "manipulating system for transforming electric energy flow characteristics" ;
+  rdfs:label "electric power transforming system" .
+:77b67c38-dea1-470f-9076-c1ca59f9aa14 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :16db9edf-89f9-4571-9463-a095eafadda9 ;
+  sso:id "QB" ;
+  rdfs:comment "storage system of liquids" ;
+  rdfs:label "liquid storage system" .
+:7a2b8b1f-7820-4a07-ac3f-749ea82e749e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2ae206e3-d3d8-4985-b448-140647a33f52 ;
+  sso:id "KB" ;
+  rdfs:comment "manipulating system for adjusting forces" ;
+  rdfs:label "force manipulating system" .
+:7c54b6d5-7341-4d26-a139-98e7af824b2a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d976814c-7129-41d3-ad5e-20a354f2caee ;
+  sso:id "JK" ;
+  rdfs:comment "transportation system transporting waste" ;
+  rdfs:label "waste transporting system" .
+:7c91b818-4755-4ced-a724-4a033efb911a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2ae206e3-d3d8-4985-b448-140647a33f52 ;
+  sso:id "KG" ;
+  rdfs:comment "manipulating system for regulating electric energy flow characteristics" ;
+  rdfs:label "electric power regulating system" .
+:7e30fd52-8dd0-476b-b597-2ba0344875e8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8111030c-83e0-4115-a25b-6748ecd4dd64 ;
+  sso:id "EA" ;
+  rdfs:comment "treatment system using mechanical means" ;
+  rdfs:label "mechanical treatment system" .
+:8111030c-83e0-4115-a25b-6748ecd4dd64 a lci:ClassOfIndividual ,
+    :b966430b-e86f-46d3-984e-27a4afd6b6d5 ;
+  sso:id "E" ;
+  rdfs:comment "technical system designed to modify objects while retaining their constitution and overall shape" ;
+  rdfs:label "treatment system" .
+:8121f086-6831-47c2-82b0-7494fe0682d1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d976814c-7129-41d3-ad5e-20a354f2caee ;
+  sso:id "JJ" ;
+  rdfs:comment "transportation system transporting ventilation air" ;
+  rdfs:label "ventilation transporting system" .
+:835e59b4-3a8f-457b-ae16-98007fa7fa80 a lci:ClassOfIndividual ,
+    :b966430b-e86f-46d3-984e-27a4afd6b6d5 ;
+  sso:id "B" ;
+  rdfs:comment "technical system designed to merge objects, materials or substances" ;
+  rdfs:label "merging system" .
+:83e59da6-0bab-4ebf-887a-b601d4ee4a19 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9e47672-1277-407e-b6a7-8ce94e6cbe6e ;
+  sso:id "HG" ;
+  rdfs:comment "supply system providing thermal energy" ;
+  rdfs:label "thermal energy supply system" .
+:87ddb105-24be-4983-9c60-a071740ac575 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c64d759c-53af-4a94-b618-99afa02f0934 ;
+  sso:id "AB" ;
+  rdfs:comment "construction system for providing a base support" ;
+  rdfs:label "foundation system" .
+:9063bf65-66b7-482b-95db-dfdc994a8895 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9e47672-1277-407e-b6a7-8ce94e6cbe6e ;
+  sso:id "HC" ;
+  rdfs:comment "supply system providing solid matter" ;
+  rdfs:label "solid matter supply system" .
+:950f84b4-3775-4d5d-804e-30ca0d57819d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c64d759c-53af-4a94-b618-99afa02f0934 ;
+  sso:id "AA" ;
+  rdfs:comment "construction system for providing a load support" ;
+  rdfs:label "support frame system" .
+:956152e0-0852-42ff-a94a-885e24ee15df a lci:ClassOfIndividual ;
+  rdfs:subClassOf :58c308dd-c9bf-462d-bc8e-48b74300e436 ;
+  sso:id "FB" ;
+  rdfs:comment "separating substance system using thermal means" ;
+  rdfs:label "thermal separating substance system" .
+:964921f7-b600-46d2-b41c-a00df2508ab8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d976814c-7129-41d3-ad5e-20a354f2caee ;
+  sso:id "JC" ;
+  rdfs:comment "transportation system transporting solid matter" ;
+  rdfs:label "solid matter transporting system" .
+:96c65068-6bad-485b-b121-ad352ef2180f a lci:ClassOfIndividual ,
+    :b966430b-e86f-46d3-984e-27a4afd6b6d5 ;
+  sso:id "P" ;
+  rdfs:comment "technical system designed to provide prevention or protection against unwanted conditions" ;
+  rdfs:label "protection system" .
+:990506f9-136f-4015-8231-11a7b0ee1fec a lci:ClassOfIndividual ;
+  rdfs:subClassOf :16db9edf-89f9-4571-9463-a095eafadda9 ;
+  sso:id "QH" ;
+  rdfs:comment "storage system of information" ;
+  rdfs:label "information storage system" .
+:994832e1-a32c-4c9e-bc00-be1fd44308fe a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c64d759c-53af-4a94-b618-99afa02f0934 ;
+  sso:id "AC" ;
+  rdfs:comment "construction system for providing access" ;
+  rdfs:label "access system" .
+:9cb37287-d263-497d-9434-6eeb129cb6e0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d976814c-7129-41d3-ad5e-20a354f2caee ;
+  sso:id "JE" ;
+  rdfs:comment "transportation system transporting electrical energy" ;
+  rdfs:label "electrical power transporting system" .
+:9f0f166d-548d-4837-9d70-5fa7de8bdb2c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :96c65068-6bad-485b-b121-ad352ef2180f ;
+  sso:id "PF" ;
+  rdfs:comment "protection system related to contamination effects" ;
+  rdfs:label "contamination protection system" .
+:a1489775-27da-4881-bc9b-8620861a254c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9e47672-1277-407e-b6a7-8ce94e6cbe6e ;
+  sso:id "HJ" ;
+  rdfs:comment "supply system providing lighting" ;
+  rdfs:label "lighting system" .
+:a38cddbe-2e70-4858-a711-dde5cabbf3ac a lci:ClassOfIndividual ,
+    :b966430b-e86f-46d3-984e-27a4afd6b6d5 ;
+  sso:id "M" ;
+  rdfs:comment "technical system which presents information" ;
+  rdfs:label "information presenting system" .
+:a8471c03-9033-4063-bf01-d032b1ca8bdd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :16db9edf-89f9-4571-9463-a095eafadda9 ;
+  sso:id "QE" ;
+  rdfs:comment "storage system of electric energy" ;
+  rdfs:label "electric energy storage system" .
+:a86ea6eb-243f-4b65-b3a9-7e231dec6112 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d976814c-7129-41d3-ad5e-20a354f2caee ;
+  sso:id "JG" ;
+  rdfs:comment "transportation system transporting thermal energy" ;
+  rdfs:label "thermal energy transporting system" .
+:a95f1491-2323-4c63-807a-12eddecfdf76 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d976814c-7129-41d3-ad5e-20a354f2caee ;
+  sso:id "JF" ;
+  rdfs:comment "transportation system transporting mechanical energy" ;
+  rdfs:label "mechanical power transporting system" .
+:aba9b433-8f34-4fe6-93b6-d12911d92c1c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :16db9edf-89f9-4571-9463-a095eafadda9 ;
+  sso:id "QC" ;
+  rdfs:comment "storage system of solids" ;
+  rdfs:label "solid matter storage system" .
+:acc20cc7-b39a-4a6e-b5cc-86446c29fbc7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9e47672-1277-407e-b6a7-8ce94e6cbe6e ;
+  sso:id "HD" ;
+  rdfs:comment "supply system providing multiphase matter" ;
+  rdfs:label "multiphase supply system" .
+:ad190b8e-dd7b-4cf0-8691-17a10cdc82b2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0bb72d2e-dd88-425f-b907-35bc60da531c ;
+  sso:id "CB" ;
+  rdfs:comment "shaping system for separating using thermal means" ;
+  rdfs:label "thermal separation system" .
+:af7c422a-1106-4c83-8d10-9a4cc1e80642 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c64d759c-53af-4a94-b618-99afa02f0934 ;
+  sso:id "AD" ;
+  rdfs:comment "construction system for providing cover" ;
+  rdfs:label "housing system" .
+:b32eac86-f650-4b92-9b48-a80f76e3ca89 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a38cddbe-2e70-4858-a711-dde5cabbf3ac ;
+  sso:id "MC" ;
+  rdfs:comment "information presenting system in a visible form only" ;
+  rdfs:label "visual system" .
+:b6bf95ed-95bb-4c01-a6c0-9525b3444168 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :835e59b4-3a8f-457b-ae16-98007fa7fa80 ;
+  sso:id "BB" ;
+  rdfs:comment "thermal merging system" ;
+  rdfs:label "thermal merging system" .
+:b966430b-e86f-46d3-984e-27a4afd6b6d5 a sso:ClassSystem ;
+  sso:id "IEC81346-14_technical_system" ;
+  rdfs:label "IEC 81346-14 Classes of technical systems" .
+:bd0ecde2-4096-42ec-b00c-c4031978d525 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0bb72d2e-dd88-425f-b907-35bc60da531c ;
+  sso:id "CC" ;
+  rdfs:comment "separating shaping system using chemical means" ;
+  rdfs:label "chemical separation system" .
+:c334b0bb-71bd-4f78-8195-8a1931689662 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2ae206e3-d3d8-4985-b448-140647a33f52 ;
+  sso:id "KA" ;
+  rdfs:comment "manipulating system for adjusting matter flow" ;
+  rdfs:label "matter flow manipulating system" .
+:c3b4821d-7d77-40c8-a285-6b94cefe7e52 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :58c308dd-c9bf-462d-bc8e-48b74300e436 ;
+  sso:id "FG" ;
+  rdfs:comment "separating system using biological means" ;
+  rdfs:label "biological separating system" .
+:c42f4800-7798-4db3-867e-7614b5ed83b4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0bb72d2e-dd88-425f-b907-35bc60da531c ;
+  sso:id "CA" ;
+  rdfs:comment "separating shaping system using mechanical means" ;
+  rdfs:label "mechanical separation system" .
+:c4e6325b-bbbd-42ee-89c3-4e6045d62436 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :16db9edf-89f9-4571-9463-a095eafadda9 ;
+  sso:id "QD" ;
+  rdfs:comment "storage system of multiphase matter" ;
+  rdfs:label "multiphase matter storage system" .
+:c565f55a-fc9a-4bc2-85c0-9e163213869d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :58c308dd-c9bf-462d-bc8e-48b74300e436 ;
+  sso:id "FD" ;
+  rdfs:comment "separating substance system using electromagnetic means" ;
+  rdfs:label "electromagnetic separating substance system" .
+:c64d759c-53af-4a94-b618-99afa02f0934 a lci:ClassOfIndividual ,
+    :b966430b-e86f-46d3-984e-27a4afd6b6d5 ;
+  sso:id "A" ;
+  rdfs:comment "technical system designed to form structural support" ;
+  rdfs:label "construction system" .
+:c9e47672-1277-407e-b6a7-8ce94e6cbe6e a lci:ClassOfIndividual ,
+    :b966430b-e86f-46d3-984e-27a4afd6b6d5 ;
+  sso:id "H" ;
+  rdfs:label "supply system" .
+:caeff6bf-c6e6-445d-9763-1da804dbab85 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9e47672-1277-407e-b6a7-8ce94e6cbe6e ;
+  sso:id "HH" ;
+  rdfs:comment "supply system providing information" ;
+  rdfs:label "information supply system" .
+:cd8b0fe7-038c-47c1-b6e5-0519d9e6ae85 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :58c308dd-c9bf-462d-bc8e-48b74300e436 ;
+  sso:id "FA" ;
+  rdfs:comment "separating substance system using geometrical means" ;
+  rdfs:label "geometrical separating substance system" .
+:d42726ac-4b6e-4b2f-be23-17e41337fac3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :835e59b4-3a8f-457b-ae16-98007fa7fa80 ;
+  sso:id "BA" ;
+  rdfs:comment "merging system using mechanical means" ;
+  rdfs:label "mechanical merging system" .
+:d976814c-7129-41d3-ad5e-20a354f2caee a lci:ClassOfIndividual ,
+    :b966430b-e86f-46d3-984e-27a4afd6b6d5 ;
+  sso:id "J" ;
+  rdfs:comment "technical system which brings something from one place to another" ;
+  rdfs:label "transportation system" .
+:db95a561-f656-4251-8fd9-80f8f74cb270 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :16db9edf-89f9-4571-9463-a095eafadda9 ;
+  sso:id "QA" ;
+  rdfs:comment "storage system of gas" ;
+  rdfs:label "gas storage system" .
+:dd46b45c-9d26-493b-aa35-ba92679d63d8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d976814c-7129-41d3-ad5e-20a354f2caee ;
+  sso:id "JB" ;
+  rdfs:comment "transportation system transporting liquid" ;
+  rdfs:label "liquid transporting system" .
+:e3604fd8-d085-4a82-aec6-8253f9e37789 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :96c65068-6bad-485b-b121-ad352ef2180f ;
+  sso:id "PG" ;
+  rdfs:comment "protection system related to acoustic effects" ;
+  rdfs:label "acoustic protection system" .
+:e66d7e6e-7ab6-45f9-af86-37ffc6e487f9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1176a349-b8b0-4447-8db7-0de056b94776 ;
+  sso:id "DA" ;
+  rdfs:comment "moulding shaping system using deformation" ;
+  rdfs:label "deformation system" .
+:e7fb1507-71a1-481c-a0bf-76ebaacd87de a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2ae206e3-d3d8-4985-b448-140647a33f52 ;
+  sso:id "KE" ;
+  rdfs:comment "manipulating system for adjusting pressure" ;
+  rdfs:label "pressure manipulating system" .
+:ed534652-3f9a-4d11-b472-a807af7b8a1c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d976814c-7129-41d3-ad5e-20a354f2caee ;
+  sso:id "JD" ;
+  rdfs:comment "transportation system transporting multiphase matter" ;
+  rdfs:label "multiphase transporting system" .
+:f2cef421-5290-4546-9788-859777a39caf a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2ae206e3-d3d8-4985-b448-140647a33f52 ;
+  sso:id "KD" ;
+  rdfs:comment "manipulating system for adjusting position of objects" ;
+  rdfs:label "positioning system" .
+:fc1ae438-4330-4e5d-8089-a1fc510e7515 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2ae206e3-d3d8-4985-b448-140647a33f52 ;
+  sso:id "KC" ;
+  rdfs:comment "manipulating system for adjusting speed" ;
+  rdfs:label "speed manipulating system" .

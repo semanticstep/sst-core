@@ -4,23 +4,22 @@ package sst_test
 
 import (
 	"context"
+	"path/filepath"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/defaultderive"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestLocalBasicCreateNamedGraph(t *testing.T) {
 	// Tests creating a single NamedGraph, committing it, and verifying RepositoryInfo statistics.
-	dir := "./TestLocalBasicRepo"
+	dir := filepath.Join(t.TempDir(), t.Name())
 
 	// Clean up old test data
-	removeFolder(dir)
-	defer removeFolder(dir)
 
 	// Open repo
 	repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", false)
@@ -44,19 +43,17 @@ func TestLocalBasicCreateNamedGraph(t *testing.T) {
 	stats, err := repo.Info(context.TODO(), "")
 	assert.NoError(t, err)
 
-	assert.Equal(t, stats.NumberOfDatasets, 1)
-	assert.Equal(t, stats.NumberOfDatasetRevisions, 1)
-	assert.Equal(t, stats.NumberOfNamedGraphRevisions, 1)
-	assert.Equal(t, stats.NumberOfCommits, 0)
+	assert.Equal(t, stats.NumberOfDatasets, int64(1))
+	assert.Equal(t, stats.NumberOfDatasetRevisions, int64(1))
+	assert.Equal(t, stats.NumberOfNamedGraphRevisions, int64(1))
+	assert.Equal(t, stats.NumberOfCommits, int64(0))
 }
 
 func TestLocalBasicModifyNamedGraph(t *testing.T) {
 	// Tests modifying an existing NamedGraph, committing the changes, and verifying RepositoryInfo statistics.
-	dir := "./TestLocalBasicRepo"
+	dir := filepath.Join(t.TempDir(), t.Name())
 
 	// Clean up old test data
-	removeFolder(dir)
-	defer removeFolder(dir)
 
 	// Open repo
 	repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", false)
@@ -85,19 +82,17 @@ func TestLocalBasicModifyNamedGraph(t *testing.T) {
 	stats, err := repo.Info(context.TODO(), "")
 	assert.NoError(t, err)
 
-	assert.Equal(t, stats.NumberOfDatasets, 1)
-	assert.Equal(t, stats.NumberOfDatasetRevisions, 1)
-	assert.Equal(t, stats.NumberOfNamedGraphRevisions, 1)
-	assert.Equal(t, stats.NumberOfCommits, 0)
+	assert.Equal(t, stats.NumberOfDatasets, int64(1))
+	assert.Equal(t, stats.NumberOfDatasetRevisions, int64(1))
+	assert.Equal(t, stats.NumberOfNamedGraphRevisions, int64(1))
+	assert.Equal(t, stats.NumberOfCommits, int64(0))
 }
 
 func TestLocalBasicMultipleNamedGraphs(t *testing.T) {
 	// Tests creating multiple NamedGraphs, committing them together, and verifying RepositoryInfo statistics.
-	dir := "./TestLocalBasicRepo"
+	dir := filepath.Join(t.TempDir(), t.Name())
 
 	// Clean up old test data
-	removeFolder(dir)
-	defer removeFolder(dir)
 
 	// Open repo
 	repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", false)
@@ -126,8 +121,8 @@ func TestLocalBasicMultipleNamedGraphs(t *testing.T) {
 	stats, err := repo.Info(context.TODO(), "")
 	assert.NoError(t, err)
 
-	assert.Equal(t, stats.NumberOfDatasets, 2)
-	assert.Equal(t, stats.NumberOfDatasetRevisions, 2)
-	assert.Equal(t, stats.NumberOfNamedGraphRevisions, 2)
-	assert.Equal(t, stats.NumberOfCommits, 0)
+	assert.Equal(t, stats.NumberOfDatasets, int64(2))
+	assert.Equal(t, stats.NumberOfDatasetRevisions, int64(2))
+	assert.Equal(t, stats.NumberOfNamedGraphRevisions, int64(2))
+	assert.Equal(t, stats.NumberOfCommits, int64(0))
 }

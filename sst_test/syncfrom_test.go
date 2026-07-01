@@ -5,18 +5,19 @@ package sst_test
 import (
 	"bufio"
 	"context"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/sst_test/testutil"
+	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -305,11 +306,6 @@ func TestLocalFullRepository_SyncFrom(t *testing.T) {
 		_, _, err := stage.Commit(context.TODO(), "Initial commit", sst.DefaultBranch)
 		require.NoError(t, err)
 
-		// Get source log count
-		sourceLogs, err := sourceRepo.Log(context.TODO(), nil, nil)
-		require.NoError(t, err)
-		sourceLogCount := len(sourceLogs)
-
 		// Create empty target repository
 		targetRepo := createOrOpenLocalRepository(t, targetDir, "target@test.com", "target")
 		defer targetRepo.Close()
@@ -318,11 +314,22 @@ func TestLocalFullRepository_SyncFrom(t *testing.T) {
 		err = targetRepo.SyncFrom(context.TODO(), sourceRepo)
 		assert.NoError(t, err)
 
-		// Verify log bucket was NOT synced (target should have no logs or different logs)
+		// Verify source log bucket was NOT synced (target should not contain source commit logs)
 		targetLogs, err := targetRepo.Log(context.TODO(), nil, nil)
 		assert.NoError(t, err)
-		// Log bucket should be excluded, so target logs should be different or empty
-		assert.NotEqual(t, sourceLogCount, len(targetLogs))
+
+		hasSourceCommitLog := false
+		hasSyncFromLog := false
+		for _, entry := range targetLogs {
+			switch entry.Fields["type"] {
+			case "commit":
+				hasSourceCommitLog = true
+			case "sync_from":
+				hasSyncFromLog = true
+			}
+		}
+		assert.False(t, hasSourceCommitLog, "source commit logs must not be copied to target")
+		assert.True(t, hasSyncFromLog, "target should record sync_from in its own log")
 	})
 
 	t.Run("sync_from_unsupported_repository_type_local", func(t *testing.T) {
@@ -549,7 +556,7 @@ func TestLocalFullRepository_SyncFrom_WithBranchFilter(t *testing.T) {
 
 		ds, err := sourceRepo.Dataset(context.TODO(), sst.IRI(ngID.URN()))
 		require.NoError(t, err)
-		err = ds.SetBranch(context.TODO(), commitHash1, "master")
+		err = ds.SetBranchCommit(context.TODO(), commitHash1, "master")
 		require.NoError(t, err)
 
 		// Create feature branch
@@ -562,7 +569,7 @@ func TestLocalFullRepository_SyncFrom_WithBranchFilter(t *testing.T) {
 
 		commitHash2, _, err := stage2.Commit(context.TODO(), "Commit on feature", "feature")
 		require.NoError(t, err)
-		err = ds.SetBranch(context.TODO(), commitHash2, "feature")
+		err = ds.SetBranchCommit(context.TODO(), commitHash2, "feature")
 		require.NoError(t, err)
 
 		targetRepo := createOrOpenLocalRepository(t, targetDir, "target@test.com", "target")
@@ -599,7 +606,7 @@ func TestLocalFullRepository_SyncFrom_WithBranchFilter(t *testing.T) {
 
 		ds, err := sourceRepo.Dataset(context.TODO(), sst.IRI(ngID.URN()))
 		require.NoError(t, err)
-		err = ds.SetBranch(context.TODO(), commitHash1, "master")
+		err = ds.SetBranchCommit(context.TODO(), commitHash1, "master")
 		require.NoError(t, err)
 
 		// Create feature branch
@@ -612,7 +619,7 @@ func TestLocalFullRepository_SyncFrom_WithBranchFilter(t *testing.T) {
 
 		commitHash2, _, err := stage2.Commit(context.TODO(), "Commit on feature", "feature")
 		require.NoError(t, err)
-		err = ds.SetBranch(context.TODO(), commitHash2, "feature")
+		err = ds.SetBranchCommit(context.TODO(), commitHash2, "feature")
 		require.NoError(t, err)
 
 		targetRepo := createOrOpenLocalRepository(t, targetDir, "target@test.com", "target")
@@ -652,7 +659,7 @@ func TestLocalFullRepository_SyncFrom_WithBranchFilter(t *testing.T) {
 
 		dsA, err := sourceRepo.Dataset(context.TODO(), sst.IRI(ngIDA.URN()))
 		require.NoError(t, err)
-		err = dsA.SetBranch(context.TODO(), commitHash1, "master")
+		err = dsA.SetBranchCommit(context.TODO(), commitHash1, "master")
 		require.NoError(t, err)
 
 		// Create dataset B on feature branch
@@ -667,7 +674,7 @@ func TestLocalFullRepository_SyncFrom_WithBranchFilter(t *testing.T) {
 
 		dsB, err := sourceRepo.Dataset(context.TODO(), sst.IRI(ngIDB.URN()))
 		require.NoError(t, err)
-		err = dsB.SetBranch(context.TODO(), commitHash2, "feature")
+		err = dsB.SetBranchCommit(context.TODO(), commitHash2, "feature")
 		require.NoError(t, err)
 
 		targetRepo := createOrOpenLocalRepository(t, targetDir, "target@test.com", "target")
@@ -713,7 +720,7 @@ func TestLocalFullRepository_SyncFrom_WithBranchFilter(t *testing.T) {
 
 		dsA, err := sourceRepo.Dataset(context.TODO(), sst.IRI(ngIDA.URN()))
 		require.NoError(t, err)
-		err = dsA.SetBranch(context.TODO(), commitHash1, "master")
+		err = dsA.SetBranchCommit(context.TODO(), commitHash1, "master")
 		require.NoError(t, err)
 
 		// Create dataset A on feature branch
@@ -726,7 +733,7 @@ func TestLocalFullRepository_SyncFrom_WithBranchFilter(t *testing.T) {
 
 		commitHash2, _, err := stage2.Commit(context.TODO(), "Commit A on feature", "feature")
 		require.NoError(t, err)
-		err = dsA.SetBranch(context.TODO(), commitHash2, "feature")
+		err = dsA.SetBranchCommit(context.TODO(), commitHash2, "feature")
 		require.NoError(t, err)
 
 		// Create dataset B (not in filter)
@@ -919,7 +926,7 @@ func TestSyncFrom_Remote(t *testing.T) {
 
 		ds, err := sourceRepo.Dataset(context.TODO(), sst.IRI(ngID.URN()))
 		require.NoError(t, err)
-		err = ds.SetBranch(context.TODO(), commitHash1, "master")
+		err = ds.SetBranchCommit(context.TODO(), commitHash1, "master")
 		require.NoError(t, err)
 
 		// Create feature branch
@@ -932,7 +939,7 @@ func TestSyncFrom_Remote(t *testing.T) {
 
 		commitHash2, _, err := stage2.Commit(context.TODO(), "Commit on feature", "feature")
 		require.NoError(t, err)
-		err = ds.SetBranch(context.TODO(), commitHash2, "feature")
+		err = ds.SetBranchCommit(context.TODO(), commitHash2, "feature")
 		require.NoError(t, err)
 
 		targetDir := filepath.Join(t.TempDir(), "target")
@@ -1007,4 +1014,433 @@ func TestSyncFrom_Remote(t *testing.T) {
 		assert.Error(t, err)
 		assert.Nil(t, ds2)
 	})
+}
+
+func TestLocalFullRepository_SyncFrom_LogEntry(t *testing.T) {
+	sourceDir := t.TempDir()
+	targetDir := t.TempDir()
+
+	sourceRepo := createOrOpenLocalRepository(t, sourceDir, "source@test.com", "source")
+	defer sourceRepo.Close()
+
+	ngID := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a370")
+	stage := sourceRepo.OpenStage(sst.DefaultTriplexMode)
+	graph := stage.CreateNamedGraph(sst.IRI(ngID.URN()))
+	main := graph.CreateIRINode("main")
+	main.AddStatement(rdf.Type, lci.Organization)
+	main.AddStatement(rdfs.Label, sst.String("Sync Log Test"))
+	_, _, err := stage.Commit(context.TODO(), "Initial commit", sst.DefaultBranch)
+	require.NoError(t, err)
+
+	targetRepo := createOrOpenLocalRepository(t, targetDir, "target@test.com", "target")
+	defer targetRepo.Close()
+
+	ctx := sstauth.ContextWithSstUserInfo(context.TODO(), &sstauth.SstUserInfo{Email: "sync-user@test.com"})
+	err = targetRepo.SyncFrom(ctx, sourceRepo)
+	require.NoError(t, err)
+
+	logs, err := targetRepo.Log(ctx, nil, nil)
+	require.NoError(t, err)
+
+	var syncLogs []sst.RepositoryLogEntry
+	for _, entry := range logs {
+		if entry.Fields["type"] == "sync_from" {
+			syncLogs = append(syncLogs, entry)
+		}
+	}
+	require.Len(t, syncLogs, 1)
+
+	entry := syncLogs[0]
+	assert.Equal(t, "sync-user@test.com", entry.Fields["author"])
+	assert.Equal(t, sourceRepo.URL(), entry.Fields["from_repo_url"])
+	assert.NotEmpty(t, entry.Fields["timestamp"])
+	assert.Equal(t, "1", entry.Fields["affected_count"])
+	assert.Equal(t, ngID.URN(), entry.Fields["dataset_0"])
+	assert.Equal(t, sst.DefaultBranch, entry.Fields["branch_0"])
+	assert.NotEmpty(t, entry.Fields["ds_revision_0"])
+
+	// Re-sync should not create another log entry because revisions already exist.
+	err = targetRepo.SyncFrom(ctx, sourceRepo)
+	require.NoError(t, err)
+
+	logsAfterResync, err := targetRepo.Log(ctx, nil, nil)
+	require.NoError(t, err)
+
+	syncLogCount := 0
+	for _, logEntry := range logsAfterResync {
+		if logEntry.Fields["type"] == "sync_from" {
+			syncLogCount++
+		}
+	}
+	assert.Equal(t, 1, syncLogCount)
+}
+
+func TestLocalFullRepository_SyncFrom_LogEntry_OnlyNewDataset(t *testing.T) {
+	sourceDir := t.TempDir()
+	targetDir := t.TempDir()
+
+	sourceRepo := createOrOpenLocalRepository(t, sourceDir, "source@test.com", "source")
+	defer sourceRepo.Close()
+
+	ngID1 := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a371")
+	stage := sourceRepo.OpenStage(sst.DefaultTriplexMode)
+	graph1 := stage.CreateNamedGraph(sst.IRI(ngID1.URN()))
+	main1 := graph1.CreateIRINode("main")
+	main1.AddStatement(rdf.Type, lci.Organization)
+	_, _, err := stage.Commit(context.TODO(), "First dataset commit", sst.DefaultBranch)
+	require.NoError(t, err)
+
+	targetRepo := createOrOpenLocalRepository(t, targetDir, "target@test.com", "target")
+	defer targetRepo.Close()
+
+	ctx := sstauth.ContextWithSstUserInfo(context.TODO(), &sstauth.SstUserInfo{Email: "sync-user@test.com"})
+	err = targetRepo.SyncFrom(ctx, sourceRepo)
+	require.NoError(t, err)
+
+	ngID2 := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a372")
+	graph2 := stage.CreateNamedGraph(sst.IRI(ngID2.URN()))
+	main2 := graph2.CreateIRINode("main")
+	main2.AddStatement(rdf.Type, lci.Person)
+	_, _, err = stage.Commit(context.TODO(), "Second dataset commit", sst.DefaultBranch)
+	require.NoError(t, err)
+
+	err = targetRepo.SyncFrom(ctx, sourceRepo)
+	require.NoError(t, err)
+
+	logs, err := targetRepo.Log(ctx, nil, nil)
+	require.NoError(t, err)
+
+	var syncLogs []sst.RepositoryLogEntry
+	for _, entry := range logs {
+		if entry.Fields["type"] == "sync_from" {
+			syncLogs = append(syncLogs, entry)
+		}
+	}
+	require.Len(t, syncLogs, 2)
+
+	for _, logEntry := range syncLogs {
+		assert.Equal(t, "sync-user@test.com", logEntry.Fields["author"])
+	}
+
+	datasets := []string{syncLogs[0].Fields["dataset_0"], syncLogs[1].Fields["dataset_0"]}
+	assert.Contains(t, datasets, ngID1.URN())
+	assert.Contains(t, datasets, ngID2.URN())
+	assert.Equal(t, ngID2.URN(), syncLogs[0].Fields["dataset_0"])
+}
+
+func TestLocalFullRepository_SyncFrom_LogEntry_WithImportDependencies(t *testing.T) {
+	sourceDir := t.TempDir()
+	targetDir := t.TempDir()
+
+	sourceRepo := createOrOpenLocalRepository(t, sourceDir, "source@test.com", "source")
+	defer sourceRepo.Close()
+
+	ngIDA := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a381")
+	ngIDB := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a382")
+	ngIDC := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a383")
+	ngIDD := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a384")
+
+	stage := sourceRepo.OpenStage(sst.DefaultTriplexMode)
+
+	ngC := stage.CreateNamedGraph(sst.IRI(ngIDC.URN()))
+	mainC := ngC.CreateIRINode("mainC")
+	mainC.AddStatement(rdf.Type, lci.Organization)
+
+	ngB := stage.CreateNamedGraph(sst.IRI(ngIDB.URN()))
+	ngB.AddImport(ngC)
+	mainB := ngB.CreateIRINode("mainB")
+	mainB.AddStatement(rdf.Type, lci.Organization)
+
+	ngA := stage.CreateNamedGraph(sst.IRI(ngIDA.URN()))
+	ngA.AddImport(ngB)
+	mainA := ngA.CreateIRINode("mainA")
+	mainA.AddStatement(rdf.Type, lci.Organization)
+
+	ngD := stage.CreateNamedGraph(sst.IRI(ngIDD.URN()))
+	mainD := ngD.CreateIRINode("mainD")
+	mainD.AddStatement(rdf.Type, lci.Organization)
+
+	_, _, err := stage.Commit(context.TODO(), "Create datasets with imports", sst.DefaultBranch)
+	require.NoError(t, err)
+
+	targetRepo := createOrOpenLocalRepository(t, targetDir, "target@test.com", "target")
+	defer targetRepo.Close()
+
+	ctx := sstauth.ContextWithSstUserInfo(context.TODO(), &sstauth.SstUserInfo{Email: "sync-user@test.com"})
+	err = targetRepo.SyncFrom(ctx, sourceRepo, sst.WithDatasetIRIs(sst.IRI(ngIDA.URN())))
+	require.NoError(t, err)
+
+	logs, err := targetRepo.Log(ctx, nil, nil)
+	require.NoError(t, err)
+
+	var syncLogs []sst.RepositoryLogEntry
+	for _, entry := range logs {
+		if entry.Fields["type"] == "sync_from" {
+			syncLogs = append(syncLogs, entry)
+		}
+	}
+	require.Len(t, syncLogs, 1)
+
+	entry := syncLogs[0]
+	assert.Equal(t, "sync-user@test.com", entry.Fields["author"])
+	assert.Equal(t, "3", entry.Fields["affected_count"])
+
+	loggedDatasets := make([]string, 3)
+	for i := 0; i < 3; i++ {
+		loggedDatasets[i] = entry.Fields[fmt.Sprintf("dataset_%d", i)]
+	}
+	assert.Contains(t, loggedDatasets, ngIDA.URN())
+	assert.Contains(t, loggedDatasets, ngIDB.URN())
+	assert.Contains(t, loggedDatasets, ngIDC.URN())
+	assert.NotContains(t, loggedDatasets, ngIDD.URN())
+}
+
+func TestSyncFrom_Remote_LogEntry(t *testing.T) {
+	transportCreds, err := testutil.TestTransportCreds()
+	require.NoError(t, err)
+
+	authCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
+	syncCtx := sstauth.ContextWithSstUserInfo(authCtx, &sstauth.SstUserInfo{Email: "sync-user@test.com"})
+
+	t.Run("local_to_remote_sync_from_log", func(t *testing.T) {
+		sourceDir := filepath.Join(t.TempDir(), "source")
+		sourceRepo := createOrOpenLocalRepository(t, sourceDir, "source@test.com", "source")
+		defer sourceRepo.Close()
+
+		ngID := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a391")
+		stage := sourceRepo.OpenStage(sst.DefaultTriplexMode)
+		graph := stage.CreateNamedGraph(sst.IRI(ngID.URN()))
+		main := graph.CreateIRINode("main")
+		main.AddStatement(rdf.Type, lci.Organization)
+		_, _, err := stage.Commit(context.TODO(), "Initial commit", sst.DefaultBranch)
+		require.NoError(t, err)
+
+		targetDir := filepath.Join(t.TempDir(), "target")
+		os.RemoveAll(targetDir)
+		url := testutil.ServerServe(t, targetDir)
+		url = "passthrough:///" + url
+
+		remoteRepo, err := sst.OpenRemoteRepository(authCtx, url, transportCreds)
+		require.NoError(t, err)
+		defer remoteRepo.Close()
+
+		err = remoteRepo.SyncFrom(syncCtx, sourceRepo)
+		require.NoError(t, err)
+
+		logs, err := remoteRepo.Log(syncCtx, nil, nil)
+		require.NoError(t, err)
+
+		var syncLogs []sst.RepositoryLogEntry
+		for _, entry := range logs {
+			if entry.Fields["type"] == "sync_from" {
+				syncLogs = append(syncLogs, entry)
+			}
+		}
+		require.Len(t, syncLogs, 1)
+		assert.Equal(t, sourceRepo.URL(), syncLogs[0].Fields["from_repo_url"])
+		assert.Equal(t, "1", syncLogs[0].Fields["affected_count"])
+		assert.Equal(t, ngID.URN(), syncLogs[0].Fields["dataset_0"])
+	})
+
+	t.Run("remote_to_local_sync_from_log", func(t *testing.T) {
+		remoteDir := filepath.Join(t.TempDir(), "remote")
+		remoteRepo := createOrOpenLocalRepository(t, remoteDir, "remote@test.com", "remote")
+
+		ngID := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a392")
+		stage := remoteRepo.OpenStage(sst.DefaultTriplexMode)
+		graph := stage.CreateNamedGraph(sst.IRI(ngID.URN()))
+		main := graph.CreateIRINode("main")
+		main.AddStatement(rdf.Type, lci.Organization)
+		_, _, err := stage.Commit(context.TODO(), "Remote commit", sst.DefaultBranch)
+		require.NoError(t, err)
+		remoteRepo.Close()
+
+		url := testutil.ServerServe(t, remoteDir)
+		url = "passthrough:///" + url
+
+		remoteRepoClient, err := sst.OpenRemoteRepository(authCtx, url, transportCreds)
+		require.NoError(t, err)
+		defer remoteRepoClient.Close()
+
+		targetDir := filepath.Join(t.TempDir(), "target")
+		targetRepo := createOrOpenLocalRepository(t, targetDir, "target@test.com", "target")
+		defer targetRepo.Close()
+
+		err = targetRepo.SyncFrom(syncCtx, remoteRepoClient)
+		require.NoError(t, err)
+
+		logs, err := targetRepo.Log(syncCtx, nil, nil)
+		require.NoError(t, err)
+
+		var syncLogs []sst.RepositoryLogEntry
+		for _, entry := range logs {
+			if entry.Fields["type"] == "sync_from" {
+				syncLogs = append(syncLogs, entry)
+			}
+		}
+		require.Len(t, syncLogs, 1)
+		assert.Equal(t, "sync-user@test.com", syncLogs[0].Fields["author"])
+		assert.Equal(t, remoteRepoClient.URL(), syncLogs[0].Fields["from_repo_url"])
+		assert.Equal(t, "1", syncLogs[0].Fields["affected_count"])
+		assert.Equal(t, ngID.URN(), syncLogs[0].Fields["dataset_0"])
+	})
+
+	t.Run("remote_to_local_with_import_dependencies", func(t *testing.T) {
+		remoteDir := filepath.Join(t.TempDir(), "remote")
+		remoteRepo := createOrOpenLocalRepository(t, remoteDir, "remote@test.com", "remote")
+
+		ngIDA := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a393")
+		ngIDB := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a394")
+		ngIDC := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a395")
+		ngIDD := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a396")
+
+		stage := remoteRepo.OpenStage(sst.DefaultTriplexMode)
+
+		ngC := stage.CreateNamedGraph(sst.IRI(ngIDC.URN()))
+		mainC := ngC.CreateIRINode("mainC")
+		mainC.AddStatement(rdf.Type, lci.Organization)
+
+		ngB := stage.CreateNamedGraph(sst.IRI(ngIDB.URN()))
+		ngB.AddImport(ngC)
+		mainB := ngB.CreateIRINode("mainB")
+		mainB.AddStatement(rdf.Type, lci.Organization)
+
+		ngA := stage.CreateNamedGraph(sst.IRI(ngIDA.URN()))
+		ngA.AddImport(ngB)
+		mainA := ngA.CreateIRINode("mainA")
+		mainA.AddStatement(rdf.Type, lci.Organization)
+
+		ngD := stage.CreateNamedGraph(sst.IRI(ngIDD.URN()))
+		mainD := ngD.CreateIRINode("mainD")
+		mainD.AddStatement(rdf.Type, lci.Organization)
+
+		_, _, err := stage.Commit(context.TODO(), "Create datasets with imports", sst.DefaultBranch)
+		require.NoError(t, err)
+		remoteRepo.Close()
+
+		url := testutil.ServerServe(t, remoteDir)
+		url = "passthrough:///" + url
+
+		remoteRepoClient, err := sst.OpenRemoteRepository(authCtx, url, transportCreds)
+		require.NoError(t, err)
+		defer remoteRepoClient.Close()
+
+		targetDir := filepath.Join(t.TempDir(), "target")
+		targetRepo := createOrOpenLocalRepository(t, targetDir, "target@test.com", "target")
+		defer targetRepo.Close()
+
+		err = targetRepo.SyncFrom(syncCtx, remoteRepoClient, sst.WithDatasetIRIs(sst.IRI(ngIDA.URN())))
+		require.NoError(t, err)
+
+		dsB, err := targetRepo.Dataset(syncCtx, sst.IRI(ngIDB.URN()))
+		require.NoError(t, err)
+		require.NotNil(t, dsB)
+		branchesB, err := dsB.Branches(syncCtx)
+		require.NoError(t, err)
+		assert.Contains(t, branchesB, sst.DefaultBranch)
+
+		dsC, err := targetRepo.Dataset(syncCtx, sst.IRI(ngIDC.URN()))
+		require.NoError(t, err)
+		require.NotNil(t, dsC)
+
+		dsD, err := targetRepo.Dataset(syncCtx, sst.IRI(ngIDD.URN()))
+		assert.Error(t, err)
+		assert.Nil(t, dsD)
+
+		logs, err := targetRepo.Log(syncCtx, nil, nil)
+		require.NoError(t, err)
+
+		var syncLogs []sst.RepositoryLogEntry
+		for _, entry := range logs {
+			if entry.Fields["type"] == "sync_from" {
+				syncLogs = append(syncLogs, entry)
+			}
+		}
+		require.Len(t, syncLogs, 1)
+		assert.Equal(t, "sync-user@test.com", syncLogs[0].Fields["author"])
+		assert.Equal(t, "3", syncLogs[0].Fields["affected_count"])
+
+		loggedDatasets := make([]string, 3)
+		for i := 0; i < 3; i++ {
+			loggedDatasets[i] = syncLogs[0].Fields[fmt.Sprintf("dataset_%d", i)]
+		}
+		assert.Contains(t, loggedDatasets, ngIDA.URN())
+		assert.Contains(t, loggedDatasets, ngIDB.URN())
+		assert.Contains(t, loggedDatasets, ngIDC.URN())
+	})
+}
+
+func TestLocalFullRepository_SyncFrom_CollectImportedDatasets_SkipMissingBranch(t *testing.T) {
+	sourceDir := t.TempDir()
+	targetDir := t.TempDir()
+
+	sourceRepo := createOrOpenLocalRepository(t, sourceDir, "source@test.com", "source")
+	defer sourceRepo.Close()
+
+	ngIDA := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a397")
+	ngIDB := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a398")
+	ngIDC := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a399")
+	ngIDD := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a39a")
+
+	stage := sourceRepo.OpenStage(sst.DefaultTriplexMode)
+
+	ngC := stage.CreateNamedGraph(sst.IRI(ngIDC.URN()))
+	mainC := ngC.CreateIRINode("mainC")
+	mainC.AddStatement(rdf.Type, lci.Organization)
+
+	ngB := stage.CreateNamedGraph(sst.IRI(ngIDB.URN()))
+	ngB.AddImport(ngC)
+	mainB := ngB.CreateIRINode("mainB")
+	mainB.AddStatement(rdf.Type, lci.Organization)
+
+	ngA := stage.CreateNamedGraph(sst.IRI(ngIDA.URN()))
+	ngA.AddImport(ngB)
+	mainA := ngA.CreateIRINode("mainA")
+	mainA.AddStatement(rdf.Type, lci.Organization)
+
+	// Dataset D exists but only on feature branch, not master.
+	ngD := stage.CreateNamedGraph(sst.IRI(ngIDD.URN()))
+	mainD := ngD.CreateIRINode("mainD")
+	mainD.AddStatement(rdf.Type, lci.Organization)
+
+	_, _, err := stage.Commit(context.TODO(), "Create datasets", sst.DefaultBranch)
+	require.NoError(t, err)
+
+	dsD, err := sourceRepo.Dataset(context.TODO(), sst.IRI(ngIDD.URN()))
+	require.NoError(t, err)
+	stageD, err := dsD.CheckoutBranch(context.TODO(), sst.DefaultBranch, sst.DefaultTriplexMode)
+	require.NoError(t, err)
+	mainD2 := stageD.NamedGraph(sst.IRI(ngIDD.URN())).CreateIRINode("mainD2")
+	mainD2.AddStatement(rdf.Type, lci.Person)
+	commitHashFeature, _, err := stageD.Commit(context.TODO(), "Feature only commit", "feature")
+	require.NoError(t, err)
+	err = dsD.SetBranchCommit(context.TODO(), commitHashFeature, "feature")
+	require.NoError(t, err)
+	err = dsD.RemoveBranch(context.TODO(), sst.DefaultBranch)
+	require.NoError(t, err)
+
+	targetRepo := createOrOpenLocalRepository(t, targetDir, "target@test.com", "target")
+	defer targetRepo.Close()
+
+	// List D before A so missing master on D must not abort import expansion for A.
+	err = targetRepo.SyncFrom(context.TODO(), sourceRepo,
+		sst.WithBranch("master"),
+		sst.WithDatasetIRIs(sst.IRI(ngIDD.URN()), sst.IRI(ngIDA.URN())),
+	)
+	require.NoError(t, err)
+
+	dsA, err := targetRepo.Dataset(context.TODO(), sst.IRI(ngIDA.URN()))
+	require.NoError(t, err)
+	require.NotNil(t, dsA)
+
+	dsB, err := targetRepo.Dataset(context.TODO(), sst.IRI(ngIDB.URN()))
+	require.NoError(t, err)
+	require.NotNil(t, dsB)
+
+	dsC, err := targetRepo.Dataset(context.TODO(), sst.IRI(ngIDC.URN()))
+	require.NoError(t, err)
+	require.NotNil(t, dsC)
+
+	_, err = targetRepo.Dataset(context.TODO(), sst.IRI(ngIDD.URN()))
+	assert.Error(t, err)
 }

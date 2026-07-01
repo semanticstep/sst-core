@@ -15,24 +15,6 @@ import (
 	"google.golang.org/grpc/credentials"
 )
 
-// displayOpenSuperRepositories prints the list of currently opened SuperRepositories
-func displayOpenSuperRepositories() {
-	if len(interactiveConfig.SuperRepositoryAliases) == 0 {
-		fmt.Println("No SuperRepositories are currently open.")
-		return
-	}
-	fmt.Print("Currently opened SuperRepositories: ")
-	first := true
-	for alias := range interactiveConfig.SuperRepositories {
-		if !first {
-			fmt.Print(", ")
-		}
-		fmt.Print(alias)
-		first = false
-	}
-	fmt.Println()
-}
-
 // handleOpenLocalSuperRepository handles opening a local SuperRepository
 func handleOpenLocalSuperRepository(args []string) {
 	var superRepoPath, alias string
@@ -68,7 +50,7 @@ func handleOpenLocalSuperRepository(args []string) {
 
 	// Validate path
 	if err := utils.ValidatePath(superRepoPath); err != nil {
-		fmt.Printf("Invalid path: %v\n", err)
+		utils.PrintCLIProblem("validate path", err)
 		return
 	}
 
@@ -96,7 +78,6 @@ func handleOpenLocalSuperRepository(args []string) {
 
 	// Confirm success
 	fmt.Printf("SuperRepository '%s' (local) opened successfully.\n", alias)
-	displayOpenSuperRepositories()
 }
 
 // handleOpenRemoteSuperRepository handles opening a remote SuperRepository
@@ -138,7 +119,6 @@ func handleOpenRemoteSuperRepository(args []string) {
 	realProvider := utils.GetRealProvider()
 	constructCtx := sstauth.ContextWithAuthProvider(ctx, realProvider)
 
-	utils.MuteLog()
 	var panicErr any
 	var superRepository sst.SuperRepository
 	func() {
@@ -150,7 +130,6 @@ func handleOpenRemoteSuperRepository(args []string) {
 
 		superRepository, err = sst.OpenRemoteSuperRepository(constructCtx, superRepoURL, grpc.WithTransportCredentials(creds))
 	}()
-	utils.RestoreLog()
 	if panicErr != nil {
 		fmt.Printf("Cannot connect to remote SuperRepository at '%s'.\n", superRepoURL)
 		fmt.Println("Please check that the URL is correct and your network is available.")
@@ -173,7 +152,6 @@ func handleOpenRemoteSuperRepository(args []string) {
 
 	// Confirm success
 	fmt.Printf("SuperRepository '%s' (remote) opened successfully.\n", alias)
-	displayOpenSuperRepositories()
 }
 
 // handleCloseSuperRepository handles closing a SuperRepository based on its alias
@@ -245,11 +223,9 @@ func handleSuperRepositoryGet(superRepoAlias string, args []string) {
 	}
 
 	// Get repository from SuperRepository
-	utils.MuteLog()
 	repository, err := superRepository.Get(context.TODO(), repoName)
-	utils.RestoreLog()
 	if err != nil {
-		fmt.Printf("Error getting repository '%s' from SuperRepository '%s': %v\n", repoName, superRepoAlias, err)
+		utils.PrintCLIProblem("get repository", err)
 		return
 	}
 
@@ -338,11 +314,9 @@ func handleSuperRepositoryCreate(superRepoAlias string, args []string) {
 	}
 
 	// Create repository in SuperRepository
-	utils.MuteLog()
 	repository, err := superRepository.Create(ctx, repoName)
-	utils.RestoreLog()
 	if err != nil {
-		fmt.Printf("Error creating repository '%s' in SuperRepository '%s': %v\n", repoName, superRepoAlias, err)
+		utils.PrintCLIProblem("create repository", err)
 		return
 	}
 
@@ -414,11 +388,9 @@ func handleSuperRepositoryDelete(superRepoAlias string, args []string) {
 	}
 
 	// Delete repository from SuperRepository
-	utils.MuteLog()
 	err := superRepository.Delete(ctx, repoName)
-	utils.RestoreLog()
 	if err != nil {
-		fmt.Printf("Error deleting repository '%s' from SuperRepository '%s': %v\n", repoName, superRepoAlias, err)
+		utils.PrintCLIProblem("delete repository", err)
 		return
 	}
 
@@ -470,11 +442,9 @@ func handleSuperRepositoryList(superRepoAlias string, args []string) {
 	}
 
 	// List repositories
-	utils.MuteLog()
 	repoNames, err := superRepository.List(ctx)
-	utils.RestoreLog()
 	if err != nil {
-		fmt.Printf("Error listing repositories in SuperRepository '%s': %v\n", superRepoAlias, err)
+		utils.PrintCLIProblem("list repositories", err)
 		return
 	}
 
@@ -489,7 +459,7 @@ func handleSuperRepositoryList(superRepoAlias string, args []string) {
 		lines = append(lines, fmt.Sprintf("- %s", name))
 	}
 
-	fmt.Printf("Repositories in SuperRepository '%s':\n", superRepoAlias)
+	fmt.Printf("- Repositories in SuperRepository '%s':\n", superRepoAlias)
 	utils.PaginateOutput(lines, 20)
 }
 
@@ -504,9 +474,9 @@ func handleSuperRepositoryInfo(superRepoAlias string) {
 	repoType := interactiveConfig.SuperRepositoryTypes[superRepoAlias]
 	location := interactiveConfig.SuperRepositoryLocations[superRepoAlias]
 
-	fmt.Printf("SuperRepository: %s\n", superRepoAlias)
-	fmt.Printf("  Type: %s\n", repoType)
-	fmt.Printf("  Location: %s\n", location)
+	fmt.Printf("- SuperRepository: %s\n", superRepoAlias)
+	fmt.Printf("- Type: %s\n", repoType)
+	fmt.Printf("- Location: %s\n", location)
 
 	// List repositories
 	ctx := context.TODO()
@@ -521,15 +491,13 @@ func handleSuperRepositoryInfo(superRepoAlias string) {
 		}
 	}
 
-	utils.MuteLog()
 	repoNames, err := superRepository.List(ctx)
-	utils.RestoreLog()
 	if err != nil {
-		fmt.Printf("  Error listing repositories: %v\n", err)
+		fmt.Println("- " + utils.ExplainCLIError("list repositories", err))
 	} else {
-		fmt.Printf("  Repositories: %d\n", len(repoNames))
+		fmt.Printf("- Repositories: %d\n", len(repoNames))
 		if len(repoNames) > 0 {
-			fmt.Print("    ")
+			fmt.Print("  - ")
 			for i, name := range repoNames {
 				if i > 0 {
 					fmt.Print(", ")

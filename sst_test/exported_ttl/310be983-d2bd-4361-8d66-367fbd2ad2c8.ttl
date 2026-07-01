@@ -1,0 +1,98 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:310be983-d2bd-4361-8d66-367fbd2ad2c8#> .
+
+<urn:uuid:310be983-d2bd-4361-8d66-367fbd2ad2c8> a owl:Ontology .
+:175d407e-cf58-4529-a5c7-925c323f43ad a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "C" ;
+  rdfs:comment "Space system which forms and separates space horizontally" ;
+  rdfs:label "Slab system" .
+:1cea0c51-2d93-4d08-870f-cff7c06a4b3b a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "S" ;
+  rdfs:comment "Fit-out system which equips a construction entity and its spaces with fittings and equipment" ;
+  rdfs:label "Arrangement system" .
+:28c6143a-d872-4b43-98c1-224b1bb6cc47 a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "D" ;
+  rdfs:comment "Space system which terminates a construction entity upwards" ;
+  rdfs:label "Roof system" .
+:2d2cd7eb-1e3b-4395-81b1-8e16cad123ff a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "F" ;
+  rdfs:comment "Installation system which supplies domestic water, technical water or other liquid" ;
+  rdfs:label "Water and fluid system" .
+:344dae05-5b37-4202-8fd6-607162a1af95 a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "P" ;
+  rdfs:comment "Installation system which protects any object from danger and damage" ;
+  rdfs:label "Security and safety system" .
+:3af8b559-3435-409f-8101-a6a547259278 a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "K" ;
+  rdfs:comment "Installation system which supplies electrical energy" ;
+  rdfs:label "Electrical system" .
+:4564b237-64ca-4a3f-82d3-7386713cd746 a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "N" ;
+  rdfs:comment "Installation system which transports goods or persons" ;
+  rdfs:label "Transportation system" .
+:59251610-7edf-4bdb-8504-271414240289 a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "E" ;
+  rdfs:comment "Installation system which supplies technical gases or technical air" ;
+  rdfs:label "Gas and air system" .
+:5c26dd06-3833-4bd2-ac94-af2405b8e55f a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "B" ;
+  rdfs:comment "Space system which forms and separates space vertically" ;
+  rdfs:label "Wall system" .
+:5d78cce6-bd74-43f9-a0af-2173031ebf49 a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "Q" ;
+  rdfs:comment "Installation system for light management" ;
+  rdfs:label "Lighting system" .
+:61643090-0fed-4092-b79b-be42bb625c9d a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "M" ;
+  rdfs:comment "Installation system which provides communications between persons or technical systems" ;
+  rdfs:label "Information and communication system" .
+:61ea083d-7796-4fd2-ac74-99590c9cadf1 a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "L" ;
+  rdfs:comment "Installation system which controls, adjusts and monitors technical systems in a context" ;
+  rdfs:label "Automation system" .
+:8e6c2a05-b015-4c99-b29e-acc977686d33 a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "R" ;
+  rdfs:comment "Installation system guiding and directing track-bound vehicles" ;
+  rdfs:label "Railroad system" .
+:b78d659d-5053-45ef-b917-b12571946e0c a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "G" ;
+  rdfs:comment "Installation system which discharges liquid or disposes of waste" ;
+  rdfs:label "Drainage and waste system" .
+:d7772c81-00d2-496d-844e-f18ee9a0dc0a a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "H" ;
+  rdfs:comment "Installation system which supplies cooling and/or heating" ;
+  rdfs:label "Cooling and/or heating system" .
+:e29fcb5d-5bbe-47c7-93f2-6671267317d9 a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "A" ;
+  rdfs:comment "Space system which terminates a construction entity downwards" ;
+  rdfs:label "Ground system" .
+:fa480e3f-1915-4937-9ce9-42bf6a258197 a sso:ClassSystem ;
+  sso:id "ISO81346-12_A1_inherent_building_function" ;
+  rdfs:comment "x" ;
+  rdfs:label "ISO 81346-12 Table A.1 — Classes of functional buiding systems based on inherent functions" .
+:fc3b9f67-c066-4d45-b5a8-94a0d8cabea9 a lci:ClassOfIndividual ,
+    :fa480e3f-1915-4937-9ce9-42bf6a258197 ;
+  sso:id "J" ;
+  rdfs:comment "Installation system which supplies air exchange" ;
+  rdfs:label "Ventilation system" .

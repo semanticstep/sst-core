@@ -20,16 +20,16 @@ func (g *namedGraph) allocateTriplexes(count int) {
 	g.triplexStorage = make([]triplex, count)
 }
 
+// createAllocatedNode creates or retrieves an IBNode of the given type in this NamedGraph
+// and reserves the specified number of triplex slots for it.
+// The node is positioned at triplexStart in the graph's triplex storage.
+// It panics if the graph is nil, if the fragment is duplicated, or on any other fatal error.
 func (g *namedGraph) createAllocatedNode(
 	fragment string, ibFlag ibNodeFlag,
 	triplexStart, allocatedTriplexCnt int,
-) (sub IBNode, triplexEnd int, err error) {
+) (sub IBNode, triplexEnd int) {
 	if g == nil {
-		// switch fragment {
-		// case string(staticRdfGraph.baseIRI) + "#" + rdfFirstProperty.fragment:
-		// 	return &rdfFirstProperty.ibNode, triplexStart, nil
-		// }
-		panic("nil namedGraph")
+		panicf("createAllocatedNode: nil namedGraph for fragment=%q ibFlag=%v", fragment, ibFlag)
 	}
 
 	var s *ibNode
@@ -40,17 +40,17 @@ func (g *namedGraph) createAllocatedNode(
 	} else {
 		IsUuidFragment = false
 	}
-	err = nil
 
 	switch ibFlag {
 	case iriNodeType:
 		if g.stringNodes == nil {
-			panic("err")
+			panicf("createAllocatedNode: stringNodes map is nil for fragment=%q", fragment)
 		}
 		if IsUuidFragment {
 			if ib, found := g.uuidNodes[id]; found {
 				s = &ib.ibNode
 			} else {
+				var err error
 				s, err = g.createIriUUIDNode(id)
 				if err != nil {
 					panic(err)
@@ -60,6 +60,7 @@ func (g *namedGraph) createAllocatedNode(
 			if ib, found := g.stringNodes[fragment]; found {
 				s = &ib.ibNode
 			} else {
+				var err error
 				s, err = g.createIRIStringNode(fragment)
 				if err != nil {
 					panic(err)
@@ -71,13 +72,10 @@ func (g *namedGraph) createAllocatedNode(
 			s = g.createBlankUUIDNode()
 		}
 	}
-	if err != nil {
-		panic(err)
-	}
 	// triplexStart = end ?
 	s.triplexStart = triplexOffset(triplexStart)
 	s.triplexEnd = s.triplexStart
-	return s, triplexStart + allocatedTriplexCnt, nil
+	return s, triplexStart + allocatedTriplexCnt
 }
 
 // Len implements sort.Interface.Len() method.
@@ -357,7 +355,8 @@ func triplexComparator(triplexes []triplex) func(i int, j int) bool {
 		case resourceTypeLiteralCollection:
 			return compareLiteralCollections(h1.t.asLiteralCollection(), h2.t.asLiteralCollection()) < 0
 		}
-		panic("not implemented") // TODO Implement this
+		panicf("unhandled resource type %v in triplexComparator", rt1)
+		panic("unreachable")
 	}
 }
 
@@ -446,13 +445,13 @@ func lessIBNodeThan(gc *graphWritingContext, ib1, ib2 IBNode) bool {
 			if gc == nil {
 				return bytes.Compare(ib1.id[:], ib2.id[:]) < 0
 			} else {
-				// fmt.Println("compare blank node uuid:", gc.blankNodeSubPred[ib1.ID()], gc.blankNodeSubPred[ib2.ID()], gc.blankNodeSubPred[ib1.ID()] < gc.blankNodeSubPred[ib2.ID()])
 				return gc.blankNodeSubPred[ib1.ID()] < gc.blankNodeSubPred[ib2.ID()]
 			}
 		}
 	}
 
-	panic(ib1)
+	panicf("unexpected IBNode type %T", ib1)
+	panic("unreachable")
 }
 
 func asIBNode(IB IBNode) *ibNode {
@@ -465,7 +464,7 @@ func asIBNode(IB IBNode) *ibNode {
 	case *ibNodeUuid:
 		ib = &ib1Impl.ibNode
 	default:
-		panic("Not a valid IBNode")
+		panicf("unexpected IBNode type %T", ib1Impl)
 	}
 	return ib
 }
@@ -542,7 +541,7 @@ func (t *ibNode) forMemberNodeRange(fromTriples, toTriple int, c func(p IBNode, 
 	}
 	triplexes := t.ng.triplexStorage[int(t.triplexStart)+fromTriples : rangeEnd]
 	if len(triplexes) != 0 && t.typeOf != &termCollectionResourceType.ibNode {
-		fmt.Println(t.iriOrID())
+		GlobalLogger.Debug("iriOrID", zap.String("value", t.iriOrID()))
 		panic("TermCollection expected")
 	}
 	for _, tx := range triplexes {
@@ -652,7 +651,7 @@ func (t *ibNode) appendUniqueNodeTriple(p IBNode, o IBNode) {
 	case *ibNodeString:
 		subjectString = t.IRI().String()
 	case *ibNodeUuid:
-		subjectString = t.ID().String()
+		subjectString = t.asUuidIBNode().id.String()
 	}
 
 	var objectString string
@@ -660,7 +659,7 @@ func (t *ibNode) appendUniqueNodeTriple(p IBNode, o IBNode) {
 	case *ibNodeString:
 		objectString = o.IRI().String()
 	case *ibNodeUuid:
-		objectString = o.ID().String()
+		objectString = o.asUuidIBNode().id.String()
 	}
 
 	GlobalLogger.Debug("appendUniqueNodeTriple", zap.String("sub", subjectString), zap.String("pred", p.iriOrID()), zap.String("obj", objectString))
@@ -685,7 +684,7 @@ func (t *ibNode) appendUniqueLiteralTriple(p IBNode, o Literal) {
 	case *ibNodeString:
 		subjectString = t.IRI().String()
 	case *ibNodeUuid:
-		subjectString = t.ID().String()
+		subjectString = t.asUuidIBNode().id.String()
 	}
 
 	objectString := literalToString(o)
@@ -694,29 +693,8 @@ func (t *ibNode) appendUniqueLiteralTriple(p IBNode, o Literal) {
 
 	literal := objectToLiteral(o)
 	if p.Is(rdfFirst) {
-		triplexes := t.ng.triplexStorage[t.triplexStart:t.triplexEnd]
-		for i, tx := range triplexes {
-			if tx.p.Is(rdfFirst) && tx.t == nil {
-				rdfNg := t.ng.stage.referencedGraphByURI("http://www.w3.org/1999/02/22-rdf-syntax-ns")
-				var rdfFirst IBNode
-				rdfFirst = rdfNg.GetIRINodeByFragment("first")
-				if rdfFirst == nil {
-					rdfFirst = rdfNg.CreateIRINode("first")
-				}
-				var rdfFirstIBNode *ibNode
-				switch rdfFirst := rdfFirst.(type) {
-				case *ibNodeString:
-					rdfFirstIBNode = &rdfFirst.ibNode
-				case *ibNode:
-					rdfFirstIBNode = rdfFirst
-				default:
-					panic(fmt.Sprintf("unexpected rdfFirst type %T", rdfFirst))
-				}
-				triplexes[i] = triplex{p: rdfFirstIBNode, t: &literal.typedResource}
-				return
-			}
-		}
-		panic(literal)
+		fillRdfFirstPlaceholder(t, &literal.typedResource)
+		return
 	}
 	appendTriplex(t, triplex{p: p.(*ibNode), t: &literal.typedResource}, subjectTriplexKind)
 	if p.arePredicateTriplexesTracked() {
@@ -730,7 +708,7 @@ func (t *ibNode) appendUniqueLiteralCollectionTriple(p IBNode, c LiteralCollecti
 	case *ibNodeString:
 		subjectString = t.IRI().String()
 	case *ibNodeUuid:
-		subjectString = t.ID().String()
+		subjectString = t.asUuidIBNode().id.String()
 	}
 
 	var objectString string
@@ -742,10 +720,41 @@ func (t *ibNode) appendUniqueLiteralCollectionTriple(p IBNode, c LiteralCollecti
 
 	GlobalLogger.Debug("appendUniqueLiteralTriple", zap.String("sub", subjectString), zap.String("pred", p.IRI().String()), zap.String("obj", objectString))
 
+	if p.Is(rdfFirst) {
+		fillRdfFirstPlaceholder(t, &c.(*literalCollection).typedResource)
+		return
+	}
 	appendTriplex(t, triplex{p: p.(*ibNode), t: &c.(*literalCollection).typedResource}, subjectTriplexKind)
 	if p.arePredicateTriplexesTracked() {
 		appendTriplex(p.(*ibNode), triplex{p: t, t: &c.(*literalCollection).typedResource}, predicateTriplexKind)
 	}
+}
+
+// fillRdfFirstPlaceholder searches for an rdf:first placeholder triplex (where tx.p is rdf:first
+// and tx.t is nil) in the given ibNode and fills it with obj. It panics if no placeholder is found.
+func fillRdfFirstPlaceholder(t *ibNode, obj *typedResource) {
+	triplexes := t.ng.triplexStorage[t.triplexStart:t.triplexEnd]
+	for i, tx := range triplexes {
+		if tx.p.Is(rdfFirst) && tx.t == nil {
+			rdfNg := t.ng.stage.referencedGraphByURI("http://www.w3.org/1999/02/22-rdf-syntax-ns")
+			rdfFirstNode := rdfNg.GetIRINodeByFragment("first")
+			if rdfFirstNode == nil {
+				rdfFirstNode = rdfNg.CreateIRINode("first")
+			}
+			var rdfFirstIBNode *ibNode
+			switch rf := rdfFirstNode.(type) {
+			case *ibNodeString:
+				rdfFirstIBNode = &rf.ibNode
+			case *ibNode:
+				rdfFirstIBNode = rf
+			default:
+				panic(fmt.Sprintf("unexpected rdfFirst type %T", rdfFirstNode))
+			}
+			triplexes[i] = triplex{p: rdfFirstIBNode, t: obj}
+			return
+		}
+	}
+	panic("rdf:first placeholder not found for term collection member")
 }
 
 type termCollectionSortByMembers ibNode

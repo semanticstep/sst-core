@@ -1,0 +1,47 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:9c94ef7a-77c7-4b22-b9e7-5da70fa38d28#> .
+
+<urn:uuid:9c94ef7a-77c7-4b22-b9e7-5da70fa38d28> a owl:Ontology .
+:2ad0ba7c-e861-45ec-b514-19615af60b09 a lci:ClassOfIndividual ,
+    :c3f8017c-980d-4d34-90e0-87d49010ce0d ;
+  sso:id "B" ;
+  rdfs:comment "Power supply system transporting electric power" ;
+  rdfs:label "Electrical transporting system" .
+:452b5250-5053-4f65-bf65-8b55f2227290 a lci:ClassOfIndividual ,
+    :c3f8017c-980d-4d34-90e0-87d49010ce0d ;
+  sso:id "C" ;
+  rdfs:comment "Power supply system transporting energy or energy carrier, excluding electric energy" ;
+  rdfs:label "Transporting system" .
+:87ac9666-b7a3-4541-92ab-b79232e27cdf a lci:ClassOfIndividual ,
+    :c3f8017c-980d-4d34-90e0-87d49010ce0d ;
+  sso:id "F" ;
+  rdfs:comment "Power supply system managing energy supply and generation" ;
+  rdfs:label "Managing system" .
+:87ed95c2-0114-4efe-91de-33f0ae79f3d1 a lci:ClassOfIndividual ,
+    :c3f8017c-980d-4d34-90e0-87d49010ce0d ;
+  sso:id "D" ;
+  rdfs:comment "Power supply system supporting the energy production process" ;
+  rdfs:label "Supporting system" .
+:b4be9b08-ad0a-4ecd-b89f-3b5ef65633f3 a lci:ClassOfIndividual ,
+    :c3f8017c-980d-4d34-90e0-87d49010ce0d ;
+  sso:id "H" ;
+  rdfs:comment "Power supply system disposing of residues or waste" ;
+  rdfs:label "Disposing system" .
+:c3f8017c-980d-4d34-90e0-87d49010ce0d a sso:ClassSystem ;
+  sso:id "ISO81346-10_Power_supply_systems" ;
+  rdfs:label "ISO 81346-10 Classes for power supply systems" .
+:e919c142-0d7a-4f64-8b1a-b199b6be8dad a lci:ClassOfIndividual ,
+    :c3f8017c-980d-4d34-90e0-87d49010ce0d ;
+  sso:id "E" ;
+  rdfs:comment "Power supply system for collecting and storing energy for subsequent retrieval" ;
+  rdfs:label "Storing system" .
+:ff40de02-85a9-4ddd-b376-72dd4c32d547 a lci:ClassOfIndividual ,
+    :c3f8017c-980d-4d34-90e0-87d49010ce0d ;
+  sso:id "A" ;
+  rdfs:comment "Power supply system transforming energy or energy carrier" ;
+  rdfs:label "Energy transforming system" .

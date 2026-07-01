@@ -3,9 +3,11 @@
 package sst
 
 import (
+	"bufio"
+	"bytes"
 	"context"
+	"crypto/sha256"
 	"errors"
-	"fmt"
 	"io"
 	"sort"
 	"strings"
@@ -85,27 +87,20 @@ type (
 		// if this NG is committed already, checkedOutCommits value will be set to the latest commit Hash
 		checkedOutCommits []Hash
 
-		// checkedOutNGRevision - to indicate NGRevision of this NG
-		// if this NG is new created and not been committed, checkedOutNGRevision value is emptyHash
-		// if this NG is committed already, checkedOutNGRevision value will be set to the its generated NGRevisionHash in Commit process.
-		// usages:
-		// 	0. can be got by Info() and Revision()
-		// 	1. can be set by SetCommitAndRevisions
-		// 	2. can be set by checkoutCommon
-		// 	3. updated by Stage.commit
-		// 	4. used in Stage.commit to indicate new created NG by emptyHash
-		// 	5. if this NG is not modified and need to be record in bbolt DSR bucket,
-		// 	   need this to retrieve its NGRevisionHash, otherwise there is no way to know about this.
-		//     e.g. NG-A imports NG-B, NG-B is modified, NG-A is not modified, in this condition, NG-A need to generate a new DSR.
-		//          In new NG-A DSR, NG-A's NG-Revision-Hash is needed.
-		//          Although NG-A NamedGraph-Revision-Hash can be recalculated again by its content, NG-A is not modified.
-		//          Code now will only calculate NG-Revision-Hash for modified NGs.
-		checkedOutNGRevision Hash
+		// checkedOutNGRevisions - NGRevision(s) corresponding to checkedOutCommits.
+		// Length matches checkedOutCommits (0, 1, or more).
+		// For merged NGs this holds the NG-Revision of each parent commit.
+		checkedOutNGRevisions []Hash
 
-		checkedOutDSRevision Hash
+		// checkedOutDSRevisions - Dataset Revision(s) corresponding to checkedOutCommits.
+		// Length matches checkedOutCommits (0, 1, or more).
+		// For merged NGs this holds the DS-Revision of each parent commit.
+		checkedOutDSRevisions []Hash
 
-		// checkedOutCommit, checkedOutNGRevision and checkedOutDSRevision only correct when this namedGraph is not modified
-		// after checkout. If modified, these three values will be updated during commit.
+		// checkedOutCommit, checkedOutNGRevisions and checkedOutDSRevisions only correct when this namedGraph is not modified
+		// after checkout. If modified, these values will be updated during commit.
+		// checkedOutCommit, checkedOutNGRevisions and checkedOutDSRevisions only correct when this namedGraph is not modified
+		// after checkout. If modified, these values will be updated during commit.
 	}
 )
 
@@ -223,15 +218,36 @@ type NamedGraph interface {
 
 	// AddImport adds the NamedGraph ng to this NamedGraph.
 	// When exporting to rdf/ttl, this is indicated by owl:imports.
-	// Panic will be called if ng is already imported by this NamedGraph.
+	// Returns ErrNamedGraphAlreadyImported if ng is already imported by this NamedGraph.
+	// Returns ErrNamedGraphImportCycle if adding the import would create a cycle.
+	// Returns ErrStagesAreNotTheSame if ng belongs to a different Stage.
 	AddImport(ng NamedGraph) error
 
 	// RemoveImport removes the NamedGraph ng from this NamedGraph.
-	// Panic will be called if ng is not imported by this NamedGraph.
+	// Returns ErrNamedGraphNotImported if ng is not imported by this NamedGraph.
+	// Returns ErrStagesAreNotTheSame if ng belongs to a different Stage.
 	RemoveImport(ng NamedGraph) error
 
 	// DirectImports returns directly imported NamedGraphs.
 	DirectImports() []NamedGraph
+
+	// Diff compares this NamedGraph with graph2 and returns their differences as a
+	// slice of DiffTriple. The comparison direction is "graph2 minus this":
+	//   - TripleAdded (+1)   : the triple exists in graph2 but not in this.
+	//   - TripleRemoved (-1) : the triple exists in this but not in graph2.
+	//   - TripleEqual (0)    : the triple exists in both.
+	//
+	// The returned slice groups import-level changes first, followed by content-level
+	// (triple) changes. For each changed owl:imports entry, synthetic DiffTriple rows
+	// are emitted with the IRI and DatasetRevision hash combined in the Obj field:
+	//
+	//   Added import:   "+ <baseIRI> owl:imports <iri> #<hash>"
+	//   Removed import: "- <baseIRI> owl:imports <iri> #<hash>"
+	//   Modified import (same IRI, different revision):
+	//                   "- <baseIRI> owl:imports <iri> #<oldHash>"
+	//                   "+                             #<newHash>"
+	// An error is returned if the two NamedGraph IRIs differ or if serialization fails.
+	Diff(graph2 NamedGraph) ([]DiffTriple, error)
 
 	// FindCommonParentRevision searches for a common ancestor of this and the other NamedGraph and returns this.
 	// For this, the two NamedGraphs must have the same IRI and needs to be opened in different Stages
@@ -250,9 +266,7 @@ type NamedGraph interface {
 	// If fragment is non-empty, it will be used for the new IRI of Node.
 	// TODO: The NG Node (fragment="") cannot be moved, it will result in panic.
 	// The function checks access permissions and ensures both graphs belong to the same stage before moving.
-	// Returns an error if access is denied or the graphs are not in the same stage.
-	// Note: MoveIBNode can also be used to renamed the fragment of an IRI Node within the same NamedGraph.
-	MoveIBNode(s IBNode, fragment string) error
+	MoveIBNode(s IBNode, fragment string)
 
 	// SstWrite writes NamedGraph into given writer using SST file format.
 	SstWrite(w io.Writer) error
@@ -308,15 +322,14 @@ type NamedGraph interface {
 	//       In all other cases, SST takes care of all the correct parent commits when making a new commit.
 	SetCommits(Commits ...Hash)
 
-	// not implemented
-	// GetIBNodesByType(typeID IRI, c ForEachNode) error
-	// GetIBNodesByKind(kindIDs []IRI, c ForEachNode) error
-	// GetIBNodeByID(id rdfTypeSubject) (IBNode, error)
-	// GetIBNodeByObjectValue(value IBNode, c ForEachPredicateNode) error
-	// GetIBNodeByPredicateValue(p rdfTypePredicate, value IBNode, c ForEachNode) error
-
 	allocateTriplexes(count int)
-	createAllocatedNode(fragment string, ibFlag ibNodeFlag, triplexStart int, allocatedTriplexCnt int) (IBNode, int, error)
+
+	// createAllocatedNode creates or retrieves an IBNode of the given type in this NamedGraph
+	// and reserves the specified number of triplex slots for it.
+	// The node is positioned at triplexStart in the graph's triplex storage.
+	// It panics if the graph is nil, if the fragment is duplicated, or on any other fatal error.
+	createAllocatedNode(fragment string, ibFlag ibNodeFlag, triplexStart int, allocatedTriplexCnt int) (IBNode, int)
+
 	getNgNumber() int
 
 	// method for debugging purpose that prints out the content of this NamedGraph into os.Stderr.
@@ -540,10 +553,10 @@ func (g *namedGraph) Equal(ng NamedGraph) bool {
 		case *ibNodeString:
 			toIBNode, found = ngIml.stringNodes[fromIBNode.Fragment()]
 		case *ibNodeUuid:
-			toIBNode, found = ngIml.uuidNodes[fromIBNode.ID()]
+			toIBNode, found = ngIml.uuidNodes[fromIBNode.asUuidIBNode().id]
 		}
 		if !found {
-			panic("not correct")
+			panicf("IBNode %s not found in target NamedGraph %s during Equal", fromIBNode.iriOrID(), ngIml.IRI())
 		}
 
 		if !fromIBNode.Equal(toIBNode) {
@@ -598,12 +611,16 @@ func (s *ibNode) Equal(ib IBNode) bool {
 	return err == nil
 }
 
-func iriToUUID(baseIRI IRI) uuid.UUID {
+// iriToUUID converts a NamedGraph base IRI into a UUID for internal storage.
+// If the IRI is a urn:uuid, the embedded UUID is parsed and returned directly.
+// Otherwise, a deterministic type 5 UUID is derived from the IRI string using
+// uuid.NameSpaceURL, ensuring that the same custom IRI always maps to the same UUID.
+func iriToUUID(baseIRI IRI) (uuid.UUID, error) {
 	s := strings.TrimSuffix(string(baseIRI), "#")
 	if after, ok := strings.CutPrefix(s, "urn:uuid:"); ok {
-		return uuid.MustParse(after)
+		return uuid.Parse(after)
 	}
-	return uuid.NewSHA1(uuid.NameSpaceURL, []byte(s))
+	return uuid.NewSHA1(uuid.NameSpaceURL, []byte(s)), nil
 }
 
 func newNamedGraphIRI(stage *stage, baseIRI IRI, isReferenced bool, trackPredicates bool) *namedGraph {
@@ -620,7 +637,10 @@ func newNamedGraphIRI(stage *stage, baseIRI IRI, isReferenced bool, trackPredica
 	}
 
 	baseIRI = IRI(strings.TrimRight(string(baseIRI), "#"))
-	newUUID := iriToUUID(baseIRI)
+	newUUID, err := iriToUUID(baseIRI)
+	if err != nil {
+		panic(err)
+	}
 
 	graph := namedGraph{
 		baseIRI: baseIRI.String(),
@@ -631,47 +651,18 @@ func newNamedGraphIRI(stage *stage, baseIRI IRI, isReferenced bool, trackPredica
 			// if this is a local NG, the modified flag should be true.
 			modified: !isReferenced,
 		},
-		stage:                stage,
-		id:                   newUUID,
-		stringNodes:          map[string]*ibNodeString{},
-		uuidNodes:            map[uuid.UUID]*ibNodeUuid{},
-		triplexStorage:       []triplex{},
-		triplexKinds:         []uint{},
-		directImports:        map[uuid.UUID]*namedGraph{},
-		isImportedBy:         map[uuid.UUID]*namedGraph{},
-		checkedOutNGRevision: emptyHash,
-		checkedOutDSRevision: emptyHash,
-		checkedOutCommits:    []Hash{},
+		stage:                 stage,
+		id:                    newUUID,
+		stringNodes:           map[string]*ibNodeString{},
+		uuidNodes:             map[uuid.UUID]*ibNodeUuid{},
+		triplexStorage:        []triplex{},
+		triplexKinds:          []uint{},
+		directImports:         map[uuid.UUID]*namedGraph{},
+		isImportedBy:          map[uuid.UUID]*namedGraph{},
+		checkedOutNGRevisions: []Hash{},
+		checkedOutDSRevisions: []Hash{},
+		checkedOutCommits:     []Hash{},
 	}
-	return &graph
-}
-
-func newNamedGraphUUID(stage *stage, id uuid.UUID, isReferenced bool, trackPredicates bool) *namedGraph {
-	// generate baseIRI from uuid
-	baseIRI := fmt.Sprintf("urn:uuid:%s", id.String())
-
-	graph := namedGraph{
-		baseIRI: baseIRI,
-		flags: namedGraphFlags{
-			isReferenced:    isReferenced,
-			trackPredicates: trackPredicates,
-			// if this is a referenced NG, the modified should be false.
-			// if this is a local NG, the modified flag should be true.
-			modified: !isReferenced,
-		},
-		stage:                stage,
-		id:                   id,
-		stringNodes:          map[string]*ibNodeString{},
-		uuidNodes:            map[uuid.UUID]*ibNodeUuid{},
-		triplexStorage:       []triplex{},
-		triplexKinds:         []uint{},
-		directImports:        map[uuid.UUID]*namedGraph{},
-		isImportedBy:         map[uuid.UUID]*namedGraph{},
-		checkedOutNGRevision: emptyHash,
-		checkedOutDSRevision: emptyHash,
-		checkedOutCommits:    []Hash{},
-	}
-
 	return &graph
 }
 
@@ -721,15 +712,36 @@ type NamedGraphInfo struct {
 	// If the NamedGraph was checked out from an SST Repository with history then there is exactly one NamedGraph.
 	// After one or several MoveAndMerge invocations there might be several Commit entries.
 	// After a successful invocation of the Stage method Commit() on a repository with history support; there will be exactly one entry.
-	Commits []Hash
+	CheckedOutCommits []Hash
 
-	// the NamedGraph Revision Hash of this NamedGraph
-	// If this is a new NamedGraph, NamedGraphRevision and DatasetRevision will be HashNil() value.
-	// Otherwise if the NamedGraph is loaded from a Repository with history,
-	// then the NamedGraphRevision and DatasetRevision reflect the revision stored in the Repository.
+	// CheckedOutNGRevisions holds the NamedGraph Revision Hash for each entry in Commits.
+	// Length matches Commits. For merged NGs this contains the NG-Revision of each parent.
+	CheckedOutNGRevisions []Hash
+
+	// CheckedOutDSRevisions holds the Dataset Revision Hash for each entry in Commits.
+	// Length matches Commits. For merged NGs this contains the DS-Revision of each parent.
+	CheckedOutDSRevisions []Hash
+
+	// NamedGraphRevision is the actual SHA256 hash of this NamedGraph's SST serialization.
+	//
+	// Behavior:
+	//  - If IsModified is true: the hash is calculated on-the-fly from the current
+	//    in-memory content when Info() is called.
+	//  - If IsModified is false: the hash reflects the most recent checkout or
+	//    commit revision stored in the repository.
+	//  - If this is a new empty NamedGraph or it has been deleted: HashNil().
 	NamedGraphRevision Hash
 
-	// the Dataset Revision Hash of this NamedGraph's corresponding Dataset
+	// DatasetRevision is the actual SHA256 hash of this NamedGraph's Dataset Revision.
+	// It is computed as sha256(NamedGraphRevision + all-imported-NamedGraph-Revisions...).
+	//
+	// Behavior:
+	//  - If IsModified is true: the hash is calculated on-the-fly from the current
+	//    in-memory content (including recursively calculated revisions of modified imports)
+	//    when Info() is called.
+	//  - If IsModified is false: the hash reflects the most recent checkout or
+	//    commit revision stored in the repository.
+	//  - If this is a new empty NamedGraph: HashNil().
 	DatasetRevision Hash
 }
 
@@ -776,6 +788,14 @@ func (g *namedGraph) Info() NamedGraphInfo {
 		panic(err)
 	}
 
+	var ngRev, dsRev Hash
+	if g.flags.modified {
+		ngRev, dsRev = g.calculateCurrentRevisions()
+	} else {
+		ngRev = g.lastCheckedOutNGRevision()
+		dsRev = g.lastCheckedOutDSRevision()
+	}
+
 	return NamedGraphInfo{
 		Iri:                           g.IRI(),
 		Id:                            g.ID(),
@@ -791,10 +811,59 @@ func (g *namedGraph) Info() NamedGraphInfo {
 		NumberOfPredicateTriples:      numberOfPredicateTriples,
 		NumberOfObjectTriples:         numberOfObjectTriples,
 		NumberOfTermCollectionTriples: numberOfTermCollectionTriples,
-		Commits:                       g.checkedOutCommits,
-		NamedGraphRevision:            g.checkedOutNGRevision,
-		DatasetRevision:               g.checkedOutDSRevision,
+		CheckedOutCommits:             g.checkedOutCommits,
+		CheckedOutNGRevisions:         g.checkedOutNGRevisions,
+		CheckedOutDSRevisions:         g.checkedOutDSRevisions,
+		NamedGraphRevision:            ngRev,
+		DatasetRevision:               dsRev,
 	}
+}
+
+func (g *namedGraph) lastCheckedOutNGRevision() Hash {
+	if len(g.checkedOutNGRevisions) > 0 {
+		return g.checkedOutNGRevisions[len(g.checkedOutNGRevisions)-1]
+	}
+	return emptyHash
+}
+
+func (g *namedGraph) lastCheckedOutDSRevision() Hash {
+	if len(g.checkedOutDSRevisions) > 0 {
+		return g.checkedOutDSRevisions[len(g.checkedOutDSRevisions)-1]
+	}
+	return emptyHash
+}
+
+// calculateCurrentRevisions computes the actual NamedGraphRevision and DatasetRevision
+// based on the current in-memory content. This mirrors the logic in commitNewVersion
+// without persisting to the repository.
+func (g *namedGraph) calculateCurrentRevisions() (ngRev Hash, dsRev Hash) {
+	if g.flags.deleted || g.IsEmpty() {
+		ngRev = emptyHash
+	} else {
+		var buf bytes.Buffer
+		bw := bufio.NewWriter(&buf)
+		err := g.SstWrite(bw)
+		if err != nil {
+			panic(err)
+		}
+		_ = bw.Flush()
+		ngRev = sha256.Sum256(buf.Bytes())
+	}
+
+	dsHasher := sha256.New()
+	dsHasher.Write(ngRev[:])
+	for _, importedNG := range g.allImports() {
+		importImpl := importedNG.(*namedGraph)
+		var importNGRev Hash
+		if importImpl.flags.modified {
+			importNGRev, _ = importImpl.calculateCurrentRevisions()
+		} else {
+			importNGRev = importImpl.lastCheckedOutNGRevision()
+		}
+		dsHasher.Write(importNGRev[:])
+	}
+	dsRev = BytesToHash(dsHasher.Sum(nil))
+	return
 }
 
 func (g *namedGraph) ID() uuid.UUID {
@@ -843,7 +912,7 @@ func (g *namedGraph) Empty() {
 	}
 
 	if len(g.uuidNodes) != 0 {
-		panic("NamedGraph empty failed.")
+		panicf("NamedGraph %s Empty: %d uuidNodes remain after deletion", g.IRI(), len(g.uuidNodes))
 	}
 
 	g.flags.modified = true
@@ -1012,6 +1081,8 @@ func (g *namedGraph) CreateBlankNode(types ...Term) IBNode {
 	return s
 }
 
+// createBlankUUIDNode creates a new blank node with a random type 4 UUID.
+// This is the runtime creation path; the UUID is not persisted in SST files.
 func (g *namedGraph) createBlankUUIDNode() *ibNode {
 	d := newUuidNode(g, uuid.New(), nil, blankNodeType|uuidNode)
 	g.uuidNodes[d.id] = d
@@ -1178,6 +1249,7 @@ func (g *namedGraph) RemoveImport(ng NamedGraph) error {
 
 	delete(g.directImports, ng.ID())
 	delete(ng.(*namedGraph).isImportedBy, g.id)
+	g.flags.modified = true
 	return nil
 }
 
@@ -1196,6 +1268,7 @@ func (g *namedGraph) AddImport(ng NamedGraph) error {
 
 	g.directImports[ng.ID()] = ng.(*namedGraph)
 	ng.(*namedGraph).isImportedBy[g.id] = g
+	g.flags.modified = true
 	return nil
 }
 
@@ -1260,13 +1333,13 @@ func (g *namedGraph) allImports() []NamedGraph {
 	return out
 }
 
-func (g *namedGraph) MoveIBNode(s IBNode, mergedFragment string) error {
+func (g *namedGraph) MoveIBNode(s IBNode, mergedFragment string) {
 	err := g.assertAccess()
 	if err != nil {
-		return err
+		panic(err)
 	}
 	s.OwningGraph().(*namedGraph).assertSameStageGraph(g)
-	return s.OwningGraph().(*namedGraph).moveNodeToNamedGraph(g, s.(*ibNode), mergedFragment)
+	s.OwningGraph().(*namedGraph).moveNodeToNamedGraph(g, s.(*ibNode), mergedFragment)
 }
 
 func (g *namedGraph) IsEmpty() bool {
@@ -1279,7 +1352,7 @@ func (g *namedGraph) IsModified() bool {
 
 func (g *namedGraph) assertSameStageGraph(o *namedGraph) {
 	if o == nil {
-		panic("input NamedGraph is nil")
+		panicf("input NamedGraph is nil")
 	}
 
 	if g.stage != o.stage {
@@ -1504,33 +1577,3 @@ func getSortedTriplesIBNodes(g *namedGraph) (sortedNodes []IBNode, err error) {
 	}
 	return
 }
-
-// ForGraphOfType answers IBNode's for a given named graph and type.
-// func (g *namedGraph) GetIBNodesByType(typeID IRI, c ForEachNode) error {
-// 	panic("missing") // TODO
-// }
-
-// ForGraphOfKind answers IBNode's for a given named graph and kinds.
-// func (g *namedGraph) GetIBNodesByKind(kindIDs []IRI, c ForEachNode) error {
-// 	panic("missing") // TODO
-// }
-
-// ForGraphByFragment answers subject IBNode for a given named graph and fragment.
-// func (g *namedGraph) IRINode(fragment string) (IBNode, error) {
-// 	return g.IRINode(fragment)
-// }
-
-// ForGraphByID answers IBNode for a given named graph and id.
-// func (g *namedGraph) GetIBNodeByID(id rdfTypeSubject) (IBNode, error) {
-// 	panic("missing") // TODO
-// }
-
-// ForGraphObjectValue answers predicate and subject pairs for a given named graph and object value.
-// func (g *namedGraph) GetIBNodeByObjectValue(value IBNode, c ForEachPredicateNode) error {
-// 	panic("missing") // TODO
-// }
-
-// ForGraphPredicateValue answers IBNode's for a given named graph, predicate and object value.
-// func (g *namedGraph) GetIBNodeByPredicateValue(p rdfTypePredicate, value IBNode, c ForEachNode) error {
-// 	panic("missing") // TODO
-// }

@@ -1,0 +1,11 @@
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:41a9a6d3-2b20-4ff8-95c5-4c4f00286981#> .
+
+<urn:uuid:41a9a6d3-2b20-4ff8-95c5-4c4f00286981> a owl:Ontology .
+:73497f3a-bb04-47a2-8646-7484a94cb536 a sso:ClassSystem ;
+  sso:id "ISO81346-10_construction_complexes" ;
+  rdfs:label "ISO 81346-10 Classes for construction complexes" .

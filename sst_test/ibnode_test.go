@@ -13,6 +13,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
@@ -20,7 +21,6 @@ import (
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
 	"github.com/semanticstep/sst-core/vocabularies/xsd"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -755,6 +755,84 @@ ex:uuid1 a lci:Organization;
 			tt.graphAssertion(t, st.NamedGraphs()[0])
 
 			st.Dump()
+		})
+	}
+}
+
+func Test_BlankNodeNoFragment(t *testing.T) {
+	testCases := []struct {
+		name    string
+		content string
+	}{
+		{
+			name: "multi-line blank node",
+			content: `
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix ssrep: <http://ontology.semanticstep.net/rep#> .
+@prefix ssqau: <http://ontology.semanticstep.net/qau#> .
+
+<http://example.org/test-part>
+    rdf:type <http://example.org/Part> ;
+    ssrep:lengthValue [
+        a ssqau:Length ;
+        ssqau:milliMetre 1170.686
+    ] .
+`,
+		},
+		{
+			name: "compact single-line blank node",
+			content: `
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix ssrep: <http://ontology.semanticstep.net/rep#> .
+@prefix ssqau: <http://ontology.semanticstep.net/qau#> .
+
+<http://example.org/test-part>
+    rdf:type <http://example.org/Part> ;
+    ssrep:lengthValue [ a ssqau:Length ; ssqau:milliMetre 1170.686 ] .
+`,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			st, err := sst.RdfRead(fromTurtleContent(t, tc.content), sst.RdfFormatTurtle, sst.StrictHandler, sst.DefaultTriplexMode)
+			assert.NoError(t, err)
+
+			graph := st.NamedGraphs()[0]
+			var blankNode sst.IBNode
+			graph.ForBlankNodes(func(node sst.IBNode) error {
+				blankNode = node
+				return nil
+			})
+			assert.NotNil(t, blankNode, "expected a blank node in the test data")
+
+			foundType := false
+			foundValue := false
+			blankNode.ForAll(func(_ int, s, p sst.IBNode, o sst.Term) error {
+				if p.IRI().String() == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" {
+					if ib, ok := o.(sst.IBNode); ok && ib.IRI().String() == "http://ontology.semanticstep.net/qau#Length" {
+						foundType = true
+					}
+				}
+				if p.IRI().String() == "http://ontology.semanticstep.net/qau#milliMetre" {
+					if val, ok := o.(sst.Double); ok && float64(val) == 1170.686 {
+						foundValue = true
+					}
+				}
+				return nil
+			})
+			assert.True(t, foundType, "expected blank node to have rdf:type ssqau:Length")
+			assert.True(t, foundValue, "expected blank node to have ssqau:milliMetre 1170.686")
+
+			assert.Panics(t, func() {
+				_ = blankNode.Fragment()
+			}, "blank node does not have a fragment")
+
+			assert.Panics(t, func() {
+				_ = blankNode.IRI()
+			}, "blank node does not have an IRI")
 		})
 	}
 }

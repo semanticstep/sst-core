@@ -6,11 +6,10 @@ import (
 	"fmt"
 	"os"
 	"sort"
-	"strings"
 
-	"github.com/semanticstep/sst-core/cli/cmd/utils"
-	"github.com/semanticstep/sst-core/sst"
 	"github.com/blevesearch/bleve/v2"
+	"github.com/semanticstep/sst-core/sst"
+	"github.com/semanticstep/sst-core/cli/cmd/utils"
 )
 
 func handleCommits(datasetAlias, command string, args []string) {
@@ -33,11 +32,9 @@ func handleCommits(datasetAlias, command string, args []string) {
 			}
 		}
 
-		utils.MuteLog()
-		commits, err := dataset.LeafCommits(authCtx)
-		utils.RestoreLog()
+		commits, err := utils.ListCommitsEntryHashes(authCtx, dataset)
 		if err != nil {
-			fmt.Printf("Error retrieving leaf commits: %v\n", err)
+			utils.PrintCLIProblem("list commits", err)
 			return
 		}
 
@@ -57,7 +54,7 @@ func handleCommits(datasetAlias, command string, args []string) {
 		}
 		return
 
-	case "commitsbyhash":
+	case "commitdetailsbyhash":
 		if len(args) == 0 {
 			fmt.Println("Error: Missing commit hash.")
 			return
@@ -66,20 +63,20 @@ func handleCommits(datasetAlias, command string, args []string) {
 
 		hashBytes, err := sst.StringToHash(hashInput)
 		if err != nil {
-			fmt.Printf("Error: Invalid commit hash: %v\n", err)
+			fmt.Println(utils.FormatCLIProblem("parse commit hash", "invalid commit hash"))
 			return
 		}
 
 		commitDetails, err := dataset.CommitDetailsByHash(authCtx, hashBytes)
 		if err != nil {
-			fmt.Printf("Error retrieving commit details: %v\n", err)
+			utils.PrintCLIProblem("get commit details", err)
 			return
 		}
 
 		utils.PrintCommitDetails(commitDetails)
 		return
 
-	case "commitsbybranch":
+	case "commitdetailsbybranch":
 		if len(args) == 0 {
 			fmt.Println("Error: Missing branch name.")
 			return
@@ -95,11 +92,7 @@ func handleCommits(datasetAlias, command string, args []string) {
 
 		commitDetails, err := dataset.CommitDetailsByBranch(authCtx, branch)
 		if err != nil {
-			if strings.Contains(err.Error(), "branch not found") {
-				fmt.Printf("Error: Branch '%s' does not exist.\n", branch)
-			} else {
-				fmt.Printf("Error retrieving commit details for branch '%s': %v\n", branch, err)
-			}
+			utils.PrintCLIProblem("get commit details by branch", err)
 			return
 		}
 
@@ -107,7 +100,7 @@ func handleCommits(datasetAlias, command string, args []string) {
 		return
 
 	default:
-		fmt.Println("Unknown commit command. Available commands: listcommits, commitsbyhash <hash>, commitsbybranch <branch>")
+		fmt.Println("Unknown commit command. Available commands: listcommits, commitdetailsbyhash <hash>, commitdetailsbybranch <branch>")
 	}
 }
 
@@ -141,7 +134,7 @@ func handleCheckoutCommit(datasetAlias string, args []string) {
 
 	hash, err := sst.StringToHash(commitID)
 	if err != nil {
-		fmt.Printf("Error: Invalid commit hash: %v\n", err)
+		fmt.Println(utils.FormatCLIProblem("parse commit hash", "invalid commit hash"))
 		return
 	}
 
@@ -152,11 +145,9 @@ func handleCheckoutCommit(datasetAlias string, args []string) {
 
 	authCtx := utils.GetAuthContext(dataset.Repository(), interactiveConfig.AuthContexts)
 
-	utils.MuteLog()
 	stage, err := dataset.CheckoutCommit(authCtx, hash, sst.DefaultTriplexMode)
-	utils.RestoreLog()
 	if err != nil {
-		fmt.Printf("Error: Failed to checkout commit %s: %v\n", commitID, err)
+		utils.PrintCLIProblem("checkout commit", err)
 		return
 	}
 
@@ -168,7 +159,62 @@ func handleCheckoutCommit(datasetAlias string, args []string) {
 
 	interactiveConfig.StageCommits[stageAlias] = hash
 
-	fmt.Printf("CheckoutCommit successful. Stage '%s' created for commit %s.\n", stageAlias, commitID)
+	fmt.Printf("Stage '%s' (commit %s) opened successfully.\n", stageAlias, commitID)
+}
+
+func handleCheckoutRevision(datasetAlias string, args []string) {
+	dataset, exists := interactiveConfig.Datasets[datasetAlias]
+	if !exists {
+		fmt.Printf("Error: Dataset alias '%s' not found.\n", datasetAlias)
+		return
+	}
+
+	if len(args) < 1 {
+		fmt.Println("Error: Missing arguments. Use '<dataset-alias>.checkoutrevision <dataset-revision-hash>'.")
+		return
+	}
+
+	revisionID := args[0]
+	aliasResult, err := utils.GetAlias(args, "stage")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	stageAlias := aliasResult.Alias
+
+	success := false
+	defer func() {
+		if success {
+			aliasResult.Confirm()
+		}
+	}()
+
+	hash, err := sst.StringToHash(revisionID)
+	if err != nil {
+		fmt.Println(utils.FormatCLIProblem("parse revision hash", "invalid revision hash"))
+		return
+	}
+
+	if _, exists := interactiveConfig.Stages[stageAlias]; exists {
+		fmt.Printf("Error: Stage alias '%s' already exists.\n", stageAlias)
+		return
+	}
+
+	authCtx := utils.GetAuthContext(dataset.Repository(), interactiveConfig.AuthContexts)
+
+	stage, err := dataset.CheckoutRevision(authCtx, hash, sst.DefaultTriplexMode)
+	if err != nil {
+		utils.PrintCLIProblem("checkout revision", err)
+		return
+	}
+
+	success = true
+
+	interactiveConfig.Stages[stageAlias] = stage
+	interactiveConfig.StageAliases = append(interactiveConfig.StageAliases, stageAlias)
+	interactiveConfig.StageRevisions[stageAlias] = hash
+
+	fmt.Printf("Stage '%s' (revision %s) opened successfully.\n", stageAlias, revisionID)
 }
 
 func handleCheckoutBranch(datasetAlias string, args []string) {
@@ -206,12 +252,10 @@ func handleCheckoutBranch(datasetAlias string, args []string) {
 
 	authCtx := utils.GetAuthContext(dataset.Repository(), interactiveConfig.AuthContexts)
 
-	utils.MuteLog()
 	stage, err := dataset.CheckoutBranch(authCtx, branchName, sst.DefaultTriplexMode)
-	utils.RestoreLog()
 
 	if err != nil {
-		fmt.Printf("Error: Failed to checkout branch '%s': %v\n", branchName, err)
+		utils.PrintCLIProblem("checkout branch", err)
 		return
 	}
 
@@ -223,7 +267,93 @@ func handleCheckoutBranch(datasetAlias string, args []string) {
 
 	interactiveConfig.StageBranches[stageAlias] = branchName
 
-	fmt.Printf("CheckoutBranch successful. Stage '%s' created for branch '%s'.\n", stageAlias, branchName)
+	fmt.Printf("Stage '%s' opened successfully.\n", stageAlias)
+}
+
+func handleSetBranchCommit(datasetAlias string, args []string) {
+	dataset, exists := interactiveConfig.Datasets[datasetAlias]
+	if !exists {
+		fmt.Printf("Error: Dataset alias '%s' not found.\n", datasetAlias)
+		return
+	}
+
+	if len(args) < 2 {
+		fmt.Println("Usage: <dataset-alias>.setbranchcommit <commit-hash> <branch-name>")
+		return
+	}
+
+	commitInput := args[0]
+	branchName := args[1]
+
+	hash, err := sst.StringToHash(commitInput)
+	if err != nil {
+		fmt.Println(utils.FormatCLIProblem("parse commit hash", "invalid commit hash"))
+		return
+	}
+
+	authCtx := utils.GetAuthContext(dataset.Repository(), interactiveConfig.AuthContexts)
+
+	if err := dataset.SetBranchCommit(authCtx, hash, branchName); err != nil {
+		utils.PrintCLIProblem("set branch commit", err)
+		return
+	}
+
+	fmt.Printf("SetBranchCommit successful. Branch '%s' now points to commit %s.\n", branchName, hash)
+}
+
+func handleSetBranchRevision(datasetAlias string, args []string) {
+	dataset, exists := interactiveConfig.Datasets[datasetAlias]
+	if !exists {
+		fmt.Printf("Error: Dataset alias '%s' not found.\n", datasetAlias)
+		return
+	}
+
+	if len(args) < 2 {
+		fmt.Println("Usage: <dataset-alias>.setbranchrevision <dataset-revision-hash> <branch-name>")
+		return
+	}
+
+	revisionInput := args[0]
+	branchName := args[1]
+
+	hash, err := sst.StringToHash(revisionInput)
+	if err != nil {
+		fmt.Println(utils.FormatCLIProblem("parse revision hash", "invalid revision hash"))
+		return
+	}
+
+	authCtx := utils.GetAuthContext(dataset.Repository(), interactiveConfig.AuthContexts)
+
+	if err := dataset.SetBranchRevision(authCtx, hash, branchName); err != nil {
+		utils.PrintCLIProblem("set branch revision", err)
+		return
+	}
+
+	fmt.Printf("SetBranchRevision successful. Branch '%s' now points to revision %s.\n", branchName, hash)
+}
+
+func handleRemoveBranch(datasetAlias string, args []string) {
+	dataset, exists := interactiveConfig.Datasets[datasetAlias]
+	if !exists {
+		fmt.Printf("Error: Dataset alias '%s' not found.\n", datasetAlias)
+		return
+	}
+
+	if len(args) < 1 {
+		fmt.Println("Usage: <dataset-alias>.removebranch <branch-name>")
+		return
+	}
+
+	branchName := args[0]
+
+	authCtx := utils.GetAuthContext(dataset.Repository(), interactiveConfig.AuthContexts)
+
+	if err := dataset.RemoveBranch(authCtx, branchName); err != nil {
+		utils.PrintCLIProblem("remove branch", err)
+		return
+	}
+
+	fmt.Printf("RemoveBranch successful. Branch '%s' removed.\n", branchName)
 }
 
 func handleListField(alias string) {
@@ -247,7 +377,7 @@ func handleListField(alias string) {
 
 	result, err := bleveIndex.SearchInContext(authCtx, req)
 	if err != nil {
-		fmt.Printf("Error listing fields: %v\n", err)
+		utils.PrintCLIProblem("list index fields", err)
 		return
 	}
 
@@ -263,9 +393,9 @@ func handleListField(alias string) {
 		return
 	}
 
-	fmt.Println("Available searchable fields:")
+	fmt.Println("- Available searchable fields:")
 	for field := range fieldSet {
-		fmt.Printf(" - %s\n", field)
+		fmt.Printf("  - %s\n", field)
 	}
 }
 
@@ -282,12 +412,12 @@ func handleDiff(datasetAlias string, args []string) {
 
 	hash1, err := sst.StringToHash(args[0])
 	if err != nil {
-		fmt.Printf("Invalid hash1: %v\n", err)
+		fmt.Println(utils.FormatCLIProblem("compute diff", "invalid hash"))
 		return
 	}
 	hash2, err := sst.StringToHash(args[1])
 	if err != nil {
-		fmt.Printf("Invalid hash2: %v\n", err)
+		fmt.Println(utils.FormatCLIProblem("compute diff", "invalid hash"))
 		return
 	}
 
@@ -296,10 +426,10 @@ func handleDiff(datasetAlias string, args []string) {
 
 	tris, err := utils.SstDiffTriples(ctx, repo, hash1, hash2, true)
 	if err != nil {
-		fmt.Printf("Error while computing diff: %v\n", err)
+		utils.PrintCLIProblem("compute diff", err)
 		return
 	}
-	fmt.Println("DiffTriples:")
+	fmt.Println("- DiffTriples:")
 	utils.PrintDiffTriples(tris)
 }
 
@@ -343,12 +473,10 @@ func handleBranches(datasetAlias string, args []string) {
 
 	authCtx := utils.GetAuthContext(dataset.Repository(), interactiveConfig.AuthContexts)
 
-	utils.MuteLog()
 	branches, err := dataset.Branches(authCtx)
-	utils.RestoreLog()
 
 	if err != nil {
-		fmt.Printf("Error retrieving branches: %v\n", err)
+		utils.PrintCLIProblem("list branches", err)
 		return
 	}
 
@@ -364,9 +492,9 @@ func handleBranches(datasetAlias string, args []string) {
 	}
 	sort.Strings(branchNames)
 
-	fmt.Println("Branches:")
+	fmt.Println("- Branches:")
 	for _, branchName := range branchNames {
-		fmt.Printf("  %s: %s\n", branchName, branches[branchName])
+		fmt.Printf("  - %s: %s\n", branchName, branches[branchName])
 	}
 }
 
@@ -385,11 +513,9 @@ func handleLeafCommits(datasetAlias string, args []string) {
 
 	authCtx := utils.GetAuthContext(dataset.Repository(), interactiveConfig.AuthContexts)
 
-	utils.MuteLog()
 	leafCommits, err := dataset.LeafCommits(authCtx)
-	utils.RestoreLog()
 	if err != nil {
-		fmt.Printf("Error retrieving leaf commits: %v\n", err)
+		utils.PrintCLIProblem("list leaf commits", err)
 		return
 	}
 
@@ -398,8 +524,8 @@ func handleLeafCommits(datasetAlias string, args []string) {
 		return
 	}
 
-	fmt.Println("Leaf Commits:")
+	fmt.Println("- Leaf Commits:")
 	for _, commit := range leafCommits {
-		fmt.Printf("  %s\n", commit)
+		fmt.Printf("  - %s\n", commit)
 	}
 }

@@ -426,3 +426,78 @@ func TestMultipleTrailingSemicolons(t *testing.T) {
 		t.Fatalf("Expected 3 triples, got %d: %v", len(triples), triples)
 	}
 }
+
+// TestTildeAsNodeFragment tests using '~' as node fragment in prefixed names
+func TestTildeAsNodeFragment(t *testing.T) {
+	// Test using '~' in prefixed name as node fragment
+	ttl := `@prefix ex: <http://example.org/> .
+ex:test\~node ex:predicate ex:object .`
+
+	dec := newTripleReader(bytes.NewBufferString(ttl), RdfFormatTurtle)
+	triples, err := dec.readAll()
+	if err != nil {
+		t.Fatalf("Failed to parse: %v", err)
+	}
+
+	// We should have 1 triple
+	if len(triples) != 1 {
+		t.Fatalf("Expected 1 triple, got %d: %v", len(triples), triples)
+	}
+
+	// Verify the subject has the tilde in the IRI
+	subj, ok := triples[0].Subj.(IRI)
+	if !ok {
+		t.Fatalf("Expected IRI subject, got %T", triples[0].Subj)
+	}
+	expected := "http://example.org/test~node"
+	if string(subj) != expected {
+		t.Fatalf("Expected subject %q, got %q", expected, subj)
+	}
+}
+
+// TestTildeInLocalName tests using escaped '~' (\~) in various positions in local names
+func TestTildeInLocalName(t *testing.T) {
+	// Test various uses of escaped '~' in local names
+	// Note: ~ must be escaped as \~ in Turtle local names
+	ttl := `@prefix ex: <http://example.org/> .
+ex:node\~1 ex:prop\~erty ex:value\~test .
+<http://example.org/iri~test> ex:predicate <http://example.org/other~iri> .`
+
+	dec := newTripleReader(bytes.NewBufferString(ttl), RdfFormatTurtle)
+	triples, err := dec.readAll()
+	if err != nil {
+		t.Fatalf("Failed to parse: %v", err)
+	}
+
+	// We should have 2 triples
+	if len(triples) != 2 {
+		t.Fatalf("Expected 2 triples, got %d: %v", len(triples), triples)
+	}
+
+	// Verify first triple subject has tilde (unescaped in IRI)
+	subj1, ok := triples[0].Subj.(IRI)
+	if !ok {
+		t.Fatalf("Expected IRI subject, got %T", triples[0].Subj)
+	}
+	if string(subj1) != "http://example.org/node~1" {
+		t.Fatalf("Expected subject 'http://example.org/node~1', got %q", subj1)
+	}
+
+	// Verify first triple predicate has tilde (unescaped in IRI)
+	pred1, ok := triples[0].Pred.(IRI)
+	if !ok {
+		t.Fatalf("Expected IRI predicate, got %T", triples[0].Pred)
+	}
+	if string(pred1) != "http://example.org/prop~erty" {
+		t.Fatalf("Expected predicate 'http://example.org/prop~erty', got %q", pred1)
+	}
+
+	// Verify first triple object has tilde (unescaped in IRI)
+	obj1, ok := triples[0].Obj.(IRI)
+	if !ok {
+		t.Fatalf("Expected IRI object, got %T", triples[0].Obj)
+	}
+	if string(obj1) != "http://example.org/value~test" {
+		t.Fatalf("Expected object 'http://example.org/value~test', got %q", obj1)
+	}
+}

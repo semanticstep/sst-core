@@ -1,0 +1,61 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:3e61b50d-8a14-4bf8-8bdb-1a84ca27ea8c#> .
+
+<urn:uuid:3e61b50d-8a14-4bf8-8bdb-1a84ca27ea8c> a owl:Ontology .
+:10d95789-4f97-480d-aaff-56ad85b279cb a lci:ClassOfIndividual ,
+    :4e57379c-be22-4a26-a204-e91425e10d97 ;
+  sso:id "NationalLaw" ;
+  rdfs:label "National Law" .
+:1c614ed6-acde-45e5-a0a2-28b9dcf7c66b a lci:ClassOfIndividual ,
+    :4e57379c-be22-4a26-a204-e91425e10d97 ;
+  sso:id "NewsPaper" ;
+  rdfs:label "News Paper" .
+:3b5f6585-3dc1-4f83-82d7-940f576f0946 a lci:ClassOfIndividual ,
+    :4e57379c-be22-4a26-a204-e91425e10d97 ;
+  sso:id "Handbook" ;
+  rdfs:label "Handbook" .
+:4e57379c-be22-4a26-a204-e91425e10d97 a sso:ClassSystem ;
+  sso:id "DocumentTypes" ;
+  rdfs:label "DocumentTypes" .
+:8f3f6dac-4564-4741-a71c-2cebd7864164 a lci:PhysicalProperty ,
+    lci:PropertyDefinition ,
+    owl:ObjectProperty ,
+    :4e57379c-be22-4a26-a204-e91425e10d97 ;
+  rdfs:range lci:InformationObject ;
+  sso:id "Sucessor" .
+:9a95859e-e1e6-4af8-9ef3-a33a868adc04 a lci:PhysicalProperty ,
+    lci:PropertyDefinition ,
+    owl:DatatypeProperty ,
+    owl:FunctionalProperty ,
+    :4e57379c-be22-4a26-a204-e91425e10d97 ;
+  rdfs:range xsd:boolean ;
+  sso:id "DeJure" ;
+  rdfs:label "De Jure Document Class" .
+:c1da2140-b8c1-46ee-9b7d-048a05866542 a lci:ClassOfIndividual ,
+    :4e57379c-be22-4a26-a204-e91425e10d97 ;
+  sso:id "Report" ;
+  rdfs:label "Report" .
+:c30f7ff6-97cb-42d7-a75c-f08a14fca888 a lci:PhysicalProperty ,
+    lci:PropertyDefinition ,
+    owl:ObjectProperty ,
+    :4e57379c-be22-4a26-a204-e91425e10d97 ;
+  rdfs:range lci:InformationObject ;
+  sso:id "Predecessor" .
+:cd4c037e-ad8a-409e-868c-ad36b6f64ea5 a lci:ClassOfIndividual ,
+    :4e57379c-be22-4a26-a204-e91425e10d97 ;
+  sso:id "Standard" ;
+  rdfs:label "Standard" .
+:e5dcc897-f7a9-4413-8d66-0e1e6bca6401 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cd4c037e-ad8a-409e-868c-ad36b6f64ea5 ;
+  sso:id "InternationalStandard" ;
+  rdfs:label "International Standard" .
+:fba82425-9d68-4aed-aaae-b3d9ed751834 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cd4c037e-ad8a-409e-868c-ad36b6f64ea5 ;
+  sso:id "InhouseStandard" ;
+  rdfs:comment "Company specific standard" ;
+  rdfs:label "Inhouse Standard" .

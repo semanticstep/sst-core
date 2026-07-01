@@ -1,0 +1,68 @@
+@prefix lci:	<http://ontology.semanticstep.net/lci#> .
+@prefix sso:	<http://ontology.semanticstep.net/sso#> .
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:	<http://www.w3.org/2002/07/owl#> .
+@prefix :	<urn:uuid:287d42fa-467e-48b9-a811-5fb61b7f864a#> .
+@prefix ns5:	<urn:uuid:3bb9a425-8630-4122-9353-06555d407e7e#> .
+@prefix ns2:	<urn:uuid:35e87482-dec5-433b-8603-dcbe9358d766#> .
+
+<urn:uuid:287d42fa-467e-48b9-a811-5fb61b7f864a>	a	owl:Ontology ;
+	owl:imports	<urn:uuid:35e87482-dec5-433b-8603-dcbe9358d766> .
+:0903802f-005b-4eea-af14-7fe1d2233bde	a	sso:FunctionOccurrence ;
+	sso:refDes81346_2_inherent_function	"=W5" ;
+	rdfs:label	"Conveyer" .
+:0c1ce789-9cab-4fe6-acd3-2ac19b64b1f5	a	sso:BreakdownSystem ,
+			ns5:e3f646fd-7f0b-44f4-af7c-b765e2ad000b ;
+	sso:hasBreakdown	:36ba86b1-e953-4fd0-b268-0b18e68fdb32 ;
+	rdfs:comment	"IEC 81346-1: Annex H; Example of reference designations within a system" ;
+	ns2:d1972c72-8df5-4c58-b7b8-3e0f217d9d5b	"Material handling plant" .
+:1b7b95e8-9920-4ba5-8a05-587a119dcfe9	a	sso:FunctionOccurrence ;
+	sso:refDes81346_2_inherent_function	"=W4" ;
+	rdfs:label	"Conveyer" .
+:20a3a871-8350-496c-baa9-d787dec69d19	a	sso:FunctionOccurrence ;
+	sso:refDes81346_2_inherent_function	"=W2" ;
+	rdfs:label	"Product loading" .
+:2708d36a-d503-4add-a12a-801dc8034b01	a	sso:FunctionOccurrence ;
+	sso:refDes81346_2_inherent_function	"=W1" ;
+	rdfs:label	"Conveyer" .
+:36ba86b1-e953-4fd0-b268-0b18e68fdb32	a	sso:FunctionOccurrence ;
+	sso:hasBreakdownOccurrence	:20a3a871-8350-496c-baa9-d787dec69d19 ,
+			:3e1210be-9d75-4f9a-b221-8ca577a4779b ,
+			:618f9337-75d9-4d76-b5e7-e67fe01299f2 ,
+			:78a7c2ca-9e1c-410e-bd91-d7937d3df673 ,
+			:d6248e10-d771-48d9-9f9d-d98011f7dae5 ,
+			"aw3:f85fdf38-3a14-477d-b669-bf7643d10e81" ;
+	sso:refDes1	"<=Material handline plant>" .
+:3e1210be-9d75-4f9a-b221-8ca577a4779b	a	sso:FunctionOccurrence ;
+	sso:refDes81346_2_inherent_function	"=C2" ;
+	rdfs:label	"Product storing" .
+:4e56e2eb-924a-47a7-93c7-2fbe095fd9a0	a	sso:FunctionOccurrence ;
+	sso:refDes81346_2_inherent_function	"=H1" ;
+	rdfs:label	"Crusher" .
+:618f9337-75d9-4d76-b5e7-e67fe01299f2	a	sso:FunctionOccurrence ;
+	sso:refDes81346_2_inherent_function	"=W1" ;
+	rdfs:label	"Material receiving" .
+:78a7c2ca-9e1c-410e-bd91-d7937d3df673	a	sso:FunctionOccurrence ;
+	sso:hasBreakdownOccurrence	:0903802f-005b-4eea-af14-7fe1d2233bde ,
+			:1b7b95e8-9920-4ba5-8a05-587a119dcfe9 ,
+			:2708d36a-d503-4add-a12a-801dc8034b01 ,
+			:4e56e2eb-924a-47a7-93c7-2fbe095fd9a0 ,
+			:a56c0ce2-3d13-4823-a3b4-bcf055d9aceb ,
+			:c8049bff-8285-4cae-be63-e213b126fdfe ,
+			:e699fc96-a89f-40ff-aecc-fac651fa24c3 ;
+	sso:refDes81346_2_inherent_function	"=H1" ;
+	rdfs:label	"Material processing" .
+:a56c0ce2-3d13-4823-a3b4-bcf055d9aceb	a	sso:FunctionOccurrence ;
+	sso:refDes81346_2_inherent_function	"=W3" ;
+	rdfs:label	"Elevator" .
+:c8049bff-8285-4cae-be63-e213b126fdfe	a	sso:FunctionOccurrence ;
+	sso:refDes81346_2_inherent_function	"=H2" ;
+	rdfs:label	"Sieve" .
+:d6248e10-d771-48d9-9f9d-d98011f7dae5	a	sso:FunctionOccurrence ;
+	sso:refDes81346_2_inherent_function	"=C1" ;
+	rdfs:label	"Material storing" .
+:e699fc96-a89f-40ff-aecc-fac651fa24c3	a	sso:FunctionOccurrence ;
+	sso:refDes81346_2_inherent_function	"=W2" ;
+	rdfs:label	"Conveyer" .

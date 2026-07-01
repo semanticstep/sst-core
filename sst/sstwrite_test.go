@@ -336,17 +336,13 @@ func PrintNamedGraphInfo(info NamedGraphInfo) {
 	fmt.Printf("- Number of Object Triples: %d\n", info.NumberOfObjectTriples)
 	fmt.Printf("- Number of TermCollection Triples: %d\n", info.NumberOfTermCollectionTriples)
 
-	fmt.Printf("- Commit Hash: %s\n", info.Commits)
+	fmt.Printf("- Commit Hash: %s\n", info.CheckedOutCommits)
 	fmt.Printf("- NamedGraph Revision Hash: %s\n", info.NamedGraphRevision)
 	fmt.Printf("- Dataset Revision Hash: %s\n", info.DatasetRevision)
 }
 
 func Test_SstWrite_fullKindsNodes(t *testing.T) {
-	testName := filepath.Join("./testdata/" + t.Name())
-	defer func() {
-		removeFolder(testName + ".sst")
-		removeFolder(testName + ".ttl")
-	}()
+	testName := filepath.Join(t.TempDir(), t.Name())
 	t.Run("write", func(t *testing.T) {
 		// AtomicLevel.SetLevel(zap.DebugLevel) // Enable debug logging for the test
 		ng := testFullKindsNodes(t, uuid.MustParse("0c20d026-3fda-4e35-ab7d-88ba6cc0c5fc"))

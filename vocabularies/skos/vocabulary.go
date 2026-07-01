@@ -6,6 +6,7 @@ package skos
 
 import (
 	"reflect"
+
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
@@ -44,7 +45,7 @@ var Collection = collectionI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: COREVocabulary, Name: "Collection"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -72,7 +73,7 @@ var Concept = conceptI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: COREVocabulary, Name: "Concept"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -90,9 +91,10 @@ type KindConceptScheme interface {
 
 type conceptSchemeI struct{ sst.ElementInfo }
 
-func (conceptSchemeI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23ConceptScheme()   {}
-func (conceptSchemeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
-func (conceptSchemeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23ConceptScheme() {}
+func (conceptSchemeI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23ConceptScheme() {}
+func (conceptSchemeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
+func (conceptSchemeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23ConceptScheme() {
+}
 
 var conceptSchemeKindInterface reflect.Type
 
@@ -100,7 +102,7 @@ var ConceptScheme = conceptSchemeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: COREVocabulary, Name: "ConceptScheme"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -118,19 +120,23 @@ type KindOrderedCollection interface {
 
 type orderedCollectionI struct{ sst.ElementInfo }
 
-func (orderedCollectionI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23OrderedCollection()   {}
-func (orderedCollectionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
-func (orderedCollectionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23Collection()        {}
-func (orderedCollectionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23OrderedCollection() {}
+func (orderedCollectionI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23OrderedCollection() {
+}
+func (orderedCollectionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (orderedCollectionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23Collection() {
+}
+func (orderedCollectionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23OrderedCollection() {
+}
 
 var orderedCollectionKindInterface reflect.Type
 
 var OrderedCollection = orderedCollectionI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "OrderedCollection"},
-	ASubtypeOf:        []sst.ElementInformer{Collection},
+	Element:    sst.Element{Vocabulary: COREVocabulary, Name: "OrderedCollection"},
+	ASubtypeOf: []sst.ElementInformer{Collection},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -156,13 +162,13 @@ func (altLabelI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23
 var altLabelKindInterface reflect.Type
 
 var AltLabel = altLabelI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "altLabel"},
-	ADomain:           rdfs.Resource,
-	ARange:            rdfs.Literal,
-	ASubPropertyOf:    rdfs.Label,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "altLabel"},
+	ADomain:        rdfs.Resource,
+	ARange:         rdfs.Literal,
+	ASubPropertyOf: rdfs.Label,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -180,25 +186,27 @@ type KindBroadMatch interface {
 
 type broadMatchI struct{ sst.ElementInfo }
 
-func (broadMatchI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23broadMatch()          {}
-func (broadMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
-func (broadMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23broadMatch()        {}
-func (broadMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23broader()           {}
-func (broadMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23broaderTransitive() {}
-func (broadMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23mappingRelation()   {}
-func (broadMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation()  {}
+func (broadMatchI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23broadMatch()   {}
+func (broadMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()  {}
+func (broadMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23broadMatch() {}
+func (broadMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23broader()    {}
+func (broadMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23broaderTransitive() {
+}
+func (broadMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23mappingRelation() {}
+func (broadMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {
+}
 
 var broadMatchKindInterface reflect.Type
 
 var BroadMatch = broadMatchI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "broadMatch"},
-	ADomain:           Concept,
-	ARange:            Concept,
-	ASubPropertyOf:    MappingRelation,
-	AnInverseOf:       NarrowMatch,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "broadMatch"},
+	ADomain:        Concept,
+	ARange:         Concept,
+	ASubPropertyOf: MappingRelation,
+	AnInverseOf:    NarrowMatch,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -227,14 +235,14 @@ func (broaderI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23s
 var broaderKindInterface reflect.Type
 
 var Broader = broaderI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "broader"},
-	ADomain:           Concept,
-	ARange:            Concept,
-	ASubPropertyOf:    BroaderTransitive,
-	AnInverseOf:       Narrower,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "broader"},
+	ADomain:        Concept,
+	ARange:         Concept,
+	ASubPropertyOf: BroaderTransitive,
+	AnInverseOf:    Narrower,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -254,22 +262,26 @@ type KindBroaderTransitive interface {
 
 type broaderTransitiveI struct{ sst.ElementInfo }
 
-func (broaderTransitiveI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23broaderTransitive()   {}
-func (broaderTransitiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
-func (broaderTransitiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23broaderTransitive() {}
-func (broaderTransitiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation()  {}
+func (broaderTransitiveI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23broaderTransitive() {
+}
+func (broaderTransitiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (broaderTransitiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23broaderTransitive() {
+}
+func (broaderTransitiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {
+}
 
 var broaderTransitiveKindInterface reflect.Type
 
 var BroaderTransitive = broaderTransitiveI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "broaderTransitive"},
-	ADomain:           Concept,
-	ARange:            Concept,
-	ASubPropertyOf:    SemanticRelation,
-	AnInverseOf:       NarrowerTransitive,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "broaderTransitive"},
+	ADomain:        Concept,
+	ARange:         Concept,
+	ASubPropertyOf: SemanticRelation,
+	AnInverseOf:    NarrowerTransitive,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -297,11 +309,11 @@ func (changeNoteI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_
 var changeNoteKindInterface reflect.Type
 
 var ChangeNote = changeNoteI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "changeNote"},
-	ASubPropertyOf:    Note,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "changeNote"},
+	ASubPropertyOf: Note,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -319,22 +331,23 @@ type KindCloseMatch interface {
 
 type closeMatchI struct{ sst.ElementInfo }
 
-func (closeMatchI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23closeMatch()         {}
-func (closeMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
-func (closeMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23closeMatch()       {}
-func (closeMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23mappingRelation()  {}
-func (closeMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {}
+func (closeMatchI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23closeMatch()        {}
+func (closeMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (closeMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23closeMatch()      {}
+func (closeMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23mappingRelation() {}
+func (closeMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {
+}
 
 var closeMatchKindInterface reflect.Type
 
 var CloseMatch = closeMatchI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "closeMatch"},
-	ADomain:           Concept,
-	ARange:            Concept,
-	ASubPropertyOf:    MappingRelation,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "closeMatch"},
+	ADomain:        Concept,
+	ARange:         Concept,
+	ASubPropertyOf: MappingRelation,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -360,11 +373,11 @@ func (definitionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_
 var definitionKindInterface reflect.Type
 
 var Definition = definitionI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "definition"},
-	ASubPropertyOf:    Note,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "definition"},
+	ASubPropertyOf: Note,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -382,19 +395,20 @@ type KindEditorialNote interface {
 
 type editorialNoteI struct{ sst.ElementInfo }
 
-func (editorialNoteI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23editorialNote()   {}
-func (editorialNoteI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
-func (editorialNoteI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23editorialNote() {}
-func (editorialNoteI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23note()          {}
+func (editorialNoteI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23editorialNote() {}
+func (editorialNoteI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
+func (editorialNoteI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23editorialNote() {
+}
+func (editorialNoteI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23note() {}
 
 var editorialNoteKindInterface reflect.Type
 
 var EditorialNote = editorialNoteI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "editorialNote"},
-	ASubPropertyOf:    Note,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "editorialNote"},
+	ASubPropertyOf: Note,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -412,23 +426,24 @@ type KindExactMatch interface {
 
 type exactMatchI struct{ sst.ElementInfo }
 
-func (exactMatchI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23exactMatch()         {}
-func (exactMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
-func (exactMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23closeMatch()       {}
-func (exactMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23exactMatch()       {}
-func (exactMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23mappingRelation()  {}
-func (exactMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {}
+func (exactMatchI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23exactMatch()        {}
+func (exactMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (exactMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23closeMatch()      {}
+func (exactMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23exactMatch()      {}
+func (exactMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23mappingRelation() {}
+func (exactMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {
+}
 
 var exactMatchKindInterface reflect.Type
 
 var ExactMatch = exactMatchI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "exactMatch"},
-	ADomain:           Concept,
-	ARange:            Concept,
-	ASubPropertyOf:    CloseMatch,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "exactMatch"},
+	ADomain:        Concept,
+	ARange:         Concept,
+	ASubPropertyOf: CloseMatch,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -454,11 +469,11 @@ func (exampleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23n
 var exampleKindInterface reflect.Type
 
 var Example = exampleI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "example"},
-	ASubPropertyOf:    Note,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "example"},
+	ASubPropertyOf: Note,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -476,20 +491,21 @@ type KindHasTopConcept interface {
 
 type hasTopConceptI struct{ sst.ElementInfo }
 
-func (hasTopConceptI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23hasTopConcept()   {}
-func (hasTopConceptI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
-func (hasTopConceptI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23hasTopConcept() {}
+func (hasTopConceptI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23hasTopConcept() {}
+func (hasTopConceptI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
+func (hasTopConceptI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23hasTopConcept() {
+}
 
 var hasTopConceptKindInterface reflect.Type
 
 var HasTopConcept = hasTopConceptI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "hasTopConcept"},
-	ADomain:           ConceptScheme,
-	ARange:            Concept,
-	AnInverseOf:       TopConceptOf,
+	Element:     sst.Element{Vocabulary: COREVocabulary, Name: "hasTopConcept"},
+	ADomain:     ConceptScheme,
+	ARange:      Concept,
+	AnInverseOf: TopConceptOf,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -517,13 +533,13 @@ func (hiddenLabelI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore
 var hiddenLabelKindInterface reflect.Type
 
 var HiddenLabel = hiddenLabelI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "hiddenLabel"},
-	ADomain:           rdfs.Resource,
-	ARange:            rdfs.Literal,
-	ASubPropertyOf:    rdfs.Label,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "hiddenLabel"},
+	ADomain:        rdfs.Resource,
+	ARange:         rdfs.Literal,
+	ASubPropertyOf: rdfs.Label,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -549,11 +565,11 @@ func (historyNoteI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore
 var historyNoteKindInterface reflect.Type
 
 var HistoryNote = historyNoteI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "historyNote"},
-	ASubPropertyOf:    Note,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "historyNote"},
+	ASubPropertyOf: Note,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -579,10 +595,10 @@ var inSchemeKindInterface reflect.Type
 
 var InScheme = inSchemeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: COREVocabulary, Name: "inScheme"},
-	ARange:            ConceptScheme,
+	ARange:  ConceptScheme,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -600,21 +616,24 @@ type KindMappingRelation interface {
 
 type mappingRelationI struct{ sst.ElementInfo }
 
-func (mappingRelationI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23mappingRelation()    {}
-func (mappingRelationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
-func (mappingRelationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23mappingRelation()  {}
-func (mappingRelationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {}
+func (mappingRelationI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23mappingRelation() {
+}
+func (mappingRelationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (mappingRelationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23mappingRelation() {
+}
+func (mappingRelationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {
+}
 
 var mappingRelationKindInterface reflect.Type
 
 var MappingRelation = mappingRelationI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "mappingRelation"},
-	ADomain:           Concept,
-	ARange:            Concept,
-	ASubPropertyOf:    SemanticRelation,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "mappingRelation"},
+	ADomain:        Concept,
+	ARange:         Concept,
+	ASubPropertyOf: SemanticRelation,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -640,10 +659,10 @@ var memberKindInterface reflect.Type
 
 var Member = memberI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: COREVocabulary, Name: "member"},
-	ADomain:           Collection,
+	ADomain: Collection,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -669,11 +688,11 @@ var memberListKindInterface reflect.Type
 
 var MemberList = memberListI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: COREVocabulary, Name: "memberList"},
-	ADomain:           OrderedCollection,
-	ARange:            rdf.List,
+	ADomain: OrderedCollection,
+	ARange:  rdf.List,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -691,24 +710,27 @@ type KindNarrowMatch interface {
 
 type narrowMatchI struct{ sst.ElementInfo }
 
-func (narrowMatchI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrowMatch()          {}
-func (narrowMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
-func (narrowMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23mappingRelation()    {}
-func (narrowMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrowMatch()        {}
-func (narrowMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrower()           {}
-func (narrowMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrowerTransitive() {}
-func (narrowMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation()   {}
+func (narrowMatchI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrowMatch() {}
+func (narrowMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (narrowMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23mappingRelation() {
+}
+func (narrowMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrowMatch() {}
+func (narrowMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrower()    {}
+func (narrowMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrowerTransitive() {
+}
+func (narrowMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {
+}
 
 var narrowMatchKindInterface reflect.Type
 
 var NarrowMatch = narrowMatchI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "narrowMatch"},
-	ADomain:           Concept,
-	ARange:            Concept,
-	ASubPropertyOf:    Narrower,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "narrowMatch"},
+	ADomain:        Concept,
+	ARange:         Concept,
+	ASubPropertyOf: Narrower,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -728,22 +750,23 @@ type KindNarrower interface {
 
 type narrowerI struct{ sst.ElementInfo }
 
-func (narrowerI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrower()             {}
-func (narrowerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
-func (narrowerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrower()           {}
-func (narrowerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrowerTransitive() {}
-func (narrowerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation()   {}
+func (narrowerI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrower()    {}
+func (narrowerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (narrowerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrower()  {}
+func (narrowerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrowerTransitive() {
+}
+func (narrowerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {}
 
 var narrowerKindInterface reflect.Type
 
 var Narrower = narrowerI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "narrower"},
-	ADomain:           Concept,
-	ARange:            Concept,
-	ASubPropertyOf:    NarrowerTransitive,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "narrower"},
+	ADomain:        Concept,
+	ARange:         Concept,
+	ASubPropertyOf: NarrowerTransitive,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -763,21 +786,25 @@ type KindNarrowerTransitive interface {
 
 type narrowerTransitiveI struct{ sst.ElementInfo }
 
-func (narrowerTransitiveI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrowerTransitive()   {}
-func (narrowerTransitiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
-func (narrowerTransitiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrowerTransitive() {}
-func (narrowerTransitiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation()   {}
+func (narrowerTransitiveI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrowerTransitive() {
+}
+func (narrowerTransitiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (narrowerTransitiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23narrowerTransitive() {
+}
+func (narrowerTransitiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {
+}
 
 var narrowerTransitiveKindInterface reflect.Type
 
 var NarrowerTransitive = narrowerTransitiveI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "narrowerTransitive"},
-	ADomain:           Concept,
-	ARange:            Concept,
-	ASubPropertyOf:    SemanticRelation,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "narrowerTransitive"},
+	ADomain:        Concept,
+	ARange:         Concept,
+	ASubPropertyOf: SemanticRelation,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -807,7 +834,7 @@ var Notation = notationI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: COREVocabulary, Name: "notation"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -835,7 +862,7 @@ var Note = noteI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: COREVocabulary, Name: "note"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -861,13 +888,13 @@ func (prefLabelI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_2
 var prefLabelKindInterface reflect.Type
 
 var PrefLabel = prefLabelI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "prefLabel"},
-	ADomain:           rdfs.Resource,
-	ARange:            rdfs.Literal,
-	ASubPropertyOf:    rdfs.Label,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "prefLabel"},
+	ADomain:        rdfs.Resource,
+	ARange:         rdfs.Literal,
+	ASubPropertyOf: rdfs.Label,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -893,13 +920,13 @@ func (relatedI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23s
 var relatedKindInterface reflect.Type
 
 var Related = relatedI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "related"},
-	ADomain:           Concept,
-	ARange:            Concept,
-	ASubPropertyOf:    SemanticRelation,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "related"},
+	ADomain:        Concept,
+	ARange:         Concept,
+	ASubPropertyOf: SemanticRelation,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -917,23 +944,25 @@ type KindRelatedMatch interface {
 
 type relatedMatchI struct{ sst.ElementInfo }
 
-func (relatedMatchI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23relatedMatch()       {}
-func (relatedMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
-func (relatedMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23mappingRelation()  {}
-func (relatedMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23related()          {}
-func (relatedMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23relatedMatch()     {}
-func (relatedMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {}
+func (relatedMatchI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23relatedMatch() {}
+func (relatedMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()  {}
+func (relatedMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23mappingRelation() {
+}
+func (relatedMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23related()      {}
+func (relatedMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23relatedMatch() {}
+func (relatedMatchI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {
+}
 
 var relatedMatchKindInterface reflect.Type
 
 var RelatedMatch = relatedMatchI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "relatedMatch"},
-	ADomain:           Concept,
-	ARange:            Concept,
-	ASubPropertyOf:    Related,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "relatedMatch"},
+	ADomain:        Concept,
+	ARange:         Concept,
+	ASubPropertyOf: Related,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -959,11 +988,11 @@ func (scopeNoteI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_2
 var scopeNoteKindInterface reflect.Type
 
 var ScopeNote = scopeNoteI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "scopeNote"},
-	ASubPropertyOf:    Note,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "scopeNote"},
+	ASubPropertyOf: Note,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -981,19 +1010,21 @@ type KindSemanticRelation interface {
 
 type semanticRelationI struct{ sst.ElementInfo }
 
-func (semanticRelationI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation()   {}
-func (semanticRelationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
-func (semanticRelationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {}
+func (semanticRelationI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {
+}
+func (semanticRelationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (semanticRelationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcore_23semanticRelation() {
+}
 
 var semanticRelationKindInterface reflect.Type
 
 var SemanticRelation = semanticRelationI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: COREVocabulary, Name: "semanticRelation"},
-	ADomain:           Concept,
-	ARange:            Concept,
+	ADomain: Concept,
+	ARange:  Concept,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1019,13 +1050,13 @@ func (topConceptOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2004_2F02_2Fskos_2Fcor
 var topConceptOfKindInterface reflect.Type
 
 var TopConceptOf = topConceptOfI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: COREVocabulary, Name: "topConceptOf"},
-	ADomain:           Concept,
-	ARange:            ConceptScheme,
-	ASubPropertyOf:    InScheme,
+	Element:        sst.Element{Vocabulary: COREVocabulary, Name: "topConceptOf"},
+	ADomain:        Concept,
+	ARange:         ConceptScheme,
+	ASubPropertyOf: InScheme,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 

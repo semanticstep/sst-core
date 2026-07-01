@@ -18,6 +18,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/blevesearch/bleve/v2"
+	"github.com/blevesearch/bleve/v2/search/query"
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/defaultderive"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
@@ -27,19 +30,12 @@ import (
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
-	"github.com/blevesearch/bleve/v2"
-	"github.com/blevesearch/bleve/v2/search/query"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_NPE(t *testing.T) {
-	testName := "Test_ReadTTLsIntoLocalFullRepositoryRepo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	//dir := filepath.Join(testName)
-	os.RemoveAll(dir)
-	defer os.RemoveAll(dir)
-
 	repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 	if err != nil {
 		panic(err)
@@ -55,8 +51,7 @@ func Test_Time(t *testing.T) {
 
 func Test_Commit(t *testing.T) {
 	t.Skip("no repo")
-	testName := "Test_ReadTTLsIntoLocalFullRepositoryRepo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	//dir := filepath.Join(testName)
 	//defer os.RemoveAll(dir)
 
@@ -86,8 +81,7 @@ func Test_Commit(t *testing.T) {
 func Test_Unique(t *testing.T) {
 	t.Skip("no repo")
 
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 
 	//defer os.RemoveAll(dir)
 
@@ -97,7 +91,6 @@ func Test_Unique(t *testing.T) {
 		And this can be searched in bleve
 	*/
 	t.Run("initialize", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -276,12 +269,10 @@ func createSearchRequest(mixQuery *query.BooleanQuery, fc filterConditions) {
 
 func Test_ReadTTLsIntoLocalFullRepositoryAndCheckout(t *testing.T) {
 	dir := filepath.Join("./testdata/" + "TestReadTTLsWriteToSSTs")
-	dirRepo := filepath.Join("./testdata/" + "TestReadTTLsWriteToSSTsRepo")
+	dirRepo := filepath.Join(t.TempDir(), t.Name())
 	ngMain := uuid.MustParse("fa33ec5c-2ce1-47a4-9676-ffec196b046b")
 
-	defer os.RemoveAll(dirRepo)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dirRepo)
 
 		repo, err := sst.CreateLocalRepository(dirRepo, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -351,16 +342,13 @@ func Test_ReadTTLsIntoLocalFullRepositoryAndCheckout(t *testing.T) {
 }
 
 func Test_ReadTTLsIntoLocalFullRepository(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 
 	// ngAIRI := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361")
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 	// ngDIRI := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a364")
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		generatedFiles := []string{
 			"./testdata/" + "Test_CreateEphemeralStage_DiamondCase" + "NGB",
@@ -427,20 +415,14 @@ func Test_ReadTTLsIntoLocalFullRepository(t *testing.T) {
 }
 
 func Test_LocalFullRepository_MoveAndMergeBetweenTwoRepos(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir1 := filepath.Join("./testdata/" + testName + "1")
-	dir2 := filepath.Join("./testdata/" + testName + "2")
+	dir1 := filepath.Join(t.TempDir(), t.Name()+"1")
+	dir2 := filepath.Join(t.TempDir(), t.Name()+"2")
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
 	var commitHash sst.Hash
 	var modifiedDSIDs []uuid.UUID
 
-	defer os.RemoveAll(dir1)
-	defer os.RemoveAll(dir2)
-
 	t.Run("write_dir_1", func(t *testing.T) {
-		removeFolder(dir1)
-		removeFolder(dir2)
 
 		repo, err := sst.CreateLocalRepository(dir1, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -531,16 +513,13 @@ func Test_LocalFullRepository_MoveAndMergeBetweenTwoRepos(t *testing.T) {
 }
 
 func Test_LocalFullRepository_UUIDNamedGraph(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
 	var commitHash sst.Hash
 	var modifiedDSIDs []uuid.UUID
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -622,6 +601,63 @@ func Test_LocalFullRepository_UUIDNamedGraph(t *testing.T) {
 		cd.Dump()
 	})
 
+	t.Run("CommitForRevision", func(t *testing.T) {
+		repo, err := sst.OpenLocalRepository(dir, "default@semanticstep.net", "default")
+		if err != nil {
+			panic(err)
+		}
+		defer repo.Close()
+
+		ds, err := repo.Dataset(context.TODO(), ngCIRI)
+		if err != nil {
+			panic(err)
+		}
+
+		cd, err := ds.CommitDetailsByHash(context.TODO(), commitHash)
+		assert.NoError(t, err)
+		datasetRevisionHash, ok := cd.DatasetRevisions[ngCIRI]
+		assert.True(t, ok, "dataset revision should exist in commit details")
+
+		foundCommitHash, err := ds.CommitForRevision(context.TODO(), datasetRevisionHash)
+		assert.NoError(t, err)
+		assert.Equal(t, commitHash, foundCommitHash, "CommitForRevision should return the original commit hash")
+
+		_, err = ds.CommitForRevision(context.TODO(), sst.BytesToHash([]byte("non-existent-revision")))
+		assert.ErrorIs(t, err, sst.ErrDatasetRevisionNotFound)
+	})
+
+	t.Run("SetBranchRevision", func(t *testing.T) {
+		repo, err := sst.OpenLocalRepository(dir, "default@semanticstep.net", "default")
+		if err != nil {
+			panic(err)
+		}
+		defer repo.Close()
+
+		ds, err := repo.Dataset(context.TODO(), ngCIRI)
+		if err != nil {
+			panic(err)
+		}
+
+		cd, err := ds.CommitDetailsByHash(context.TODO(), commitHash)
+		assert.NoError(t, err)
+		datasetRevisionHash, ok := cd.DatasetRevisions[ngCIRI]
+		assert.True(t, ok, "dataset revision should exist in commit details")
+
+		err = ds.SetBranchRevision(context.TODO(), datasetRevisionHash, "revisionBranch")
+		assert.NoError(t, err)
+
+		branchCommitHashMap, err := ds.Branches(context.TODO())
+		assert.NoError(t, err)
+		assert.Equal(t, commitHash, branchCommitHashMap["revisionBranch"], "branch should point to the commit that created the revision")
+
+		err = ds.SetBranchRevision(context.TODO(), sst.BytesToHash([]byte("non-existent-revision")), "revisionBranch2")
+		assert.ErrorIs(t, err, sst.ErrDatasetRevisionNotFound)
+
+		// Clean up so that subsequent subtests see the expected branch state.
+		err = ds.RemoveBranch(context.TODO(), "revisionBranch")
+		assert.NoError(t, err)
+	})
+
 	t.Run("setBranch", func(t *testing.T) {
 		repo, err := sst.OpenLocalRepository(dir, "default@semanticstep.net", "default")
 		if err != nil {
@@ -634,7 +670,7 @@ func Test_LocalFullRepository_UUIDNamedGraph(t *testing.T) {
 			panic(err)
 		}
 
-		err = ds.SetBranch(context.TODO(), commitHash, "testBranch")
+		err = ds.SetBranchCommit(context.TODO(), commitHash, "testBranch")
 		if err != nil {
 			panic(err)
 		}
@@ -725,13 +761,10 @@ func Test_LocalFullRepository_UUIDNamedGraph(t *testing.T) {
 }
 
 func Test_LocalFullRepository_IRINamedGraph(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	testIri := "http://ontology.semanticstep.net/abc#"
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -776,14 +809,11 @@ func Test_LocalFullRepository_IRINamedGraph(t *testing.T) {
 }
 
 func Test_LocalFullRepository_NGBImportNGC(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -842,15 +872,12 @@ func Test_LocalFullRepository_NGBImportNGC(t *testing.T) {
 }
 
 func Test_LocalFullRepository_NGAImportsNGBImportsNGC(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -927,16 +954,13 @@ func Test_LocalFullRepository_NGAImportsNGBImportsNGC(t *testing.T) {
 }
 
 func Test_LocalFullRepository_DiamondCase(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 	ngDIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a364").URN())
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -1035,17 +1059,13 @@ func Test_LocalFullRepository_DiamondCase(t *testing.T) {
 }
 
 func Test_LocalFullRepository_DiamondCaseCreateANDOpenLocalFullRepository(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 	ngDIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a364").URN())
 
-	defer os.RemoveAll(dir)
-
 	t.Run("create", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -1143,8 +1163,7 @@ func Test_LocalFullRepository_DiamondCaseCreateANDOpenLocalFullRepository(t *tes
 }
 
 func Test_LocalFullRepository_NGAImportsNGBReferencedNGC(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f61aaa10").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f61aaa20").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f61aaa30").URN())
@@ -1157,9 +1176,7 @@ func Test_LocalFullRepository_NGAImportsNGBReferencedNGC(t *testing.T) {
 
 	// uuid30 := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613ad30")
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -1221,7 +1238,7 @@ func Test_LocalFullRepository_NGAImportsNGBReferencedNGC(t *testing.T) {
 			panic("got nil NamedGraph")
 		}
 
-		aw1File, err := os.Create("./testdata/aw10.ttl")
+		aw1File, err := os.Create(filepath.Join(t.TempDir(), "aw10.ttl"))
 		if err != nil {
 			panic(err)
 		}
@@ -1255,7 +1272,7 @@ func Test_LocalFullRepository_NGAImportsNGBReferencedNGC(t *testing.T) {
 			panic("got nil NamedGraph")
 		}
 
-		aw2File, err := os.Create("./testdata/aw20.ttl")
+		aw2File, err := os.Create(filepath.Join(t.TempDir(), "aw20.ttl"))
 		if err != nil {
 			panic(err)
 		}
@@ -1289,7 +1306,7 @@ func Test_LocalFullRepository_NGAImportsNGBReferencedNGC(t *testing.T) {
 			panic("got nil NamedGraph")
 		}
 
-		aw3File, err := os.Create("./testdata/aw30.ttl")
+		aw3File, err := os.Create(filepath.Join(t.TempDir(), "aw30.ttl"))
 		if err != nil {
 			panic(err)
 		}
@@ -1301,15 +1318,12 @@ func Test_LocalFullRepository_NGAImportsNGBReferencedNGC(t *testing.T) {
 }
 
 func Test_LocalRepository_BleveCount(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 
 	query := bleve.NewMatchAllQuery()
 	searchRequest := bleve.NewSearchRequest(query)
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -1341,6 +1355,7 @@ func Test_LocalRepository_BleveCount(t *testing.T) {
 
 		err = ds.RemoveBranch(context.TODO(), sst.DefaultBranch)
 		assert.NoError(t, err)
+		sst.FlushBleveIndex(repo)
 		// openedIndex.Delete(randomGraphID.String())
 
 		searchResults2, err := repo.Bleve().SearchInContext(context.TODO(), searchRequest)

@@ -8,18 +8,20 @@ import (
 	"sort"
 	"time"
 
-	"github.com/semanticstep/sst-core/sst"
 	"github.com/blevesearch/bleve/v2"
+	"github.com/semanticstep/sst-core/sst"
 )
 
 func PrintRepositoryInfo(info sst.RepositoryInfo) {
 	fmt.Printf("- URL: %s\n", info.URL)
-	if info.AccessRight != "" {
-		fmt.Printf("- AccessRight: %s\n", info.AccessRight)
-	}
+	fmt.Printf("- AccessRight: %s\n", info.AccessRight.String())
 	fmt.Printf("- MasterDBSize: %d\n", info.MasterDBSize)
 	fmt.Printf("- DerivedDBSize: %d\n", info.DerivedDBSize)
 	fmt.Printf("- DocumentDBSize: %d\n", info.DocumentDBSize)
+	if info.MaxRepositorySize > 0 || info.ActualRepositorySize > 0 {
+		fmt.Printf("- ActualRepositorySize: %d\n", info.ActualRepositorySize)
+		fmt.Printf("- MaxRepositorySize: %d\n", info.MaxRepositorySize)
+	}
 	fmt.Printf("- Number of Datasets: %d\n", info.NumberOfDatasets)
 	fmt.Printf("- Number of Datasets In Branch: %d\n", info.NumberOfDatasetsInBranch)
 	fmt.Printf("- Number of Dataset Revisions: %d\n", info.NumberOfDatasetRevisions)
@@ -41,14 +43,14 @@ func PrintStageInfo(stage sst.Stage) {
 	localGraphs := stage.NamedGraphs()
 	for _, ng := range localGraphs {
 		ibNodeCount := ng.IRINodeCount() + ng.BlankNodeCount()
-		fmt.Printf("  %s: %d IBNodes\n", ng.IRI(), ibNodeCount)
+		fmt.Printf("  - %s: %d IBNodes\n", ng.IRI(), ibNodeCount)
 	}
 
 	fmt.Printf("- Number of referenced graphs: %d\n", info.NumberOfReferencedGraphs)
 	refGraphs := stage.ReferencedGraphs()
 	for _, ng := range refGraphs {
 		ibNodeCount := ng.IRINodeCount() + ng.BlankNodeCount()
-		fmt.Printf("  %s: %d IBNodes\n", ng.IRI(), ibNodeCount)
+		fmt.Printf("  - %s: %d IBNodes\n", ng.IRI(), ibNodeCount)
 	}
 
 	fmt.Printf("- Total number of triples: %d\n", info.TotalNumberOfTriples)
@@ -70,57 +72,57 @@ func PrintNamedGraphInfo(info sst.NamedGraphInfo) {
 	fmt.Printf("- Number of Object Triples: %d\n", info.NumberOfObjectTriples)
 	fmt.Printf("- Number of TermCollection Triples: %d\n", info.NumberOfTermCollectionTriples)
 
-	fmt.Printf("- Commit Hash: %s\n", info.Commits)
+	fmt.Printf("- Commit Hash: %s\n", info.CheckedOutCommits)
 	fmt.Printf("- NamedGraph Revision Hash: %s\n", info.NamedGraphRevision)
 	fmt.Printf("- Dataset Revision Hash: %s\n", info.DatasetRevision)
 }
 
 func PrintCommitDetails(details *sst.CommitDetails) {
-	fmt.Printf("Commit Hash: %s\n", details.Commit)
-	fmt.Printf("Author: %s\n", details.Author)
-	fmt.Printf("Date: %s\n", details.AuthorDate.UTC().Format(time.RFC3339))
-	fmt.Printf("Message: %s\n", details.Message)
+	fmt.Printf("- Commit Hash: %s\n", details.Commit)
+	fmt.Printf("- Author: %s\n", details.Author)
+	fmt.Printf("- Date: %s\n", details.AuthorDate.UTC().Format(time.RFC3339))
+	fmt.Printf("- Message: %s\n", details.Message)
 
 	// Dataset Revisions
 	if len(details.DatasetRevisions) > 0 {
-		fmt.Println("Dataset Revisions:")
+		fmt.Println("- Dataset Revisions:")
 		for id, hash := range details.DatasetRevisions {
-			fmt.Printf("  %s::%s\n", id, hash)
+			fmt.Printf("  - %s::%s\n", id, hash)
 		}
 	} else {
-		fmt.Println("Dataset Revisions: {}")
+		fmt.Println("- Dataset Revisions: {}")
 	}
 
 	// NamedGraph Revisions
 	if len(details.NamedGraphRevisions) > 0 {
-		fmt.Println("NamedGraph Revisions:")
+		fmt.Println("- NamedGraph Revisions:")
 		for id, hash := range details.NamedGraphRevisions {
-			fmt.Printf("  %s::%s\n", id, hash)
+			fmt.Printf("  - %s::%s\n", id, hash)
 		}
 	} else {
-		fmt.Println("NamedGraph Revisions: {}")
+		fmt.Println("- NamedGraph Revisions: {}")
 	}
 
 	// Parent Commits
 	if len(details.ParentCommits) > 0 {
-		fmt.Println("Parent Commits:")
+		fmt.Println("- Parent Commits:")
 		for dsID, parentList := range details.ParentCommits {
-			fmt.Printf("  %s:\n", dsID)
+			fmt.Printf("  - %s:\n", dsID)
 			for _, parent := range parentList {
 				fmt.Printf("    - %s\n", parent)
 			}
 		}
 	} else {
-		fmt.Println("Parent Commits: {}")
+		fmt.Println("- Parent Commits: {}")
 	}
 }
 
 func PrintNamedGraphDetails(alias string, namedGraph sst.NamedGraph) {
-	fmt.Printf("%s, IRI: %s\n", alias, namedGraph.IRI())
+	fmt.Printf("NamedGraph '%s' (IRI '%s') opened successfully.\n", alias, namedGraph.IRI())
 }
 
 func PrintIBNodeDetails(alias string, node sst.IBNode) {
-	fmt.Printf("%s: IRI: %s\n", alias, node.IRI())
+	fmt.Printf("IBNode '%s' (IRI '%s') opened successfully.\n", alias, node.IRI())
 }
 
 func ListCommitHistoryHashOnly(dataset sst.Dataset, commit sst.Hash, visited map[string]bool, ctx context.Context) {
@@ -138,7 +140,7 @@ func ListCommitHistoryHashOnly(dataset sst.Dataset, commit sst.Hash, visited map
 	// Retrieve commit details to access parent commits
 	commitDetails, err := dataset.CommitDetailsByHash(ctx, commit)
 	if err != nil {
-		fmt.Printf("Error retrieving details for commit %s: %v\n", commit.String(), err)
+		fmt.Println(ExplainCLIError("get commit details", err))
 		return
 	}
 
@@ -160,7 +162,7 @@ func ListCommitHistoryDetailed(dataset sst.Dataset, commit sst.Hash, visited map
 	// Retrieve the details of the current commit
 	commitDetails, err := dataset.CommitDetailsByHash(ctx, commit)
 	if err != nil {
-		fmt.Printf("Error retrieving details for commit %s: %v\n", commit.String(), err)
+		fmt.Println(ExplainCLIError("get commit details", err))
 		return
 	}
 
@@ -174,6 +176,47 @@ func ListCommitHistoryDetailed(dataset sst.Dataset, commit sst.Hash, visited map
 	}
 }
 
+// ListCommitsEntryHashes returns commit hashes used as roots when walking history like
+// interactive `listcommits`: all [Dataset.LeafCommits], then unique branch tips from
+// [Dataset.Branches] (branch names sorted). The same commit hash appears at most once.
+func ListCommitsEntryHashes(ctx context.Context, ds sst.Dataset) ([]sst.Hash, error) {
+	seen := make(map[string]struct{})
+	var roots []sst.Hash
+
+	leaves, err := ds.LeafCommits(ctx)
+	if err != nil {
+		return nil, err
+	}
+	for _, h := range leaves {
+		k := h.String()
+		if _, dup := seen[k]; dup {
+			continue
+		}
+		seen[k] = struct{}{}
+		roots = append(roots, h)
+	}
+
+	branches, err := ds.Branches(ctx)
+	if err != nil {
+		return nil, err
+	}
+	names := make([]string, 0, len(branches))
+	for n := range branches {
+		names = append(names, n)
+	}
+	sort.Strings(names)
+	for _, n := range names {
+		h := branches[n]
+		k := h.String()
+		if _, dup := seen[k]; dup {
+			continue
+		}
+		seen[k] = struct{}{}
+		roots = append(roots, h)
+	}
+	return roots, nil
+}
+
 func PrintSearchResult(result *bleve.SearchResult) {
 	whitelist := map[string]bool{
 		"id":      true,
@@ -182,43 +225,43 @@ func PrintSearchResult(result *bleve.SearchResult) {
 		"type":    true,
 	}
 
-	fmt.Printf("%d matches, showing %d through %d, took %v\n",
+	fmt.Printf("- %d matches, showing %d through %d, took %v\n",
 		result.Total, len(result.Hits), len(result.Hits), result.Took)
 
 	for i, hit := range result.Hits {
-		fmt.Printf("%3d. %s (score: %.6f)\n", i+1, hit.ID, hit.Score)
+		fmt.Printf("  - %3d. %s (score: %.6f)\n", i+1, hit.ID, hit.Score)
 
 		for field, val := range hit.Fields {
 			if !whitelist[field] {
 				continue
 			}
 
-			fmt.Printf("    %s: %v\n", field, val)
+			fmt.Printf("      - %s: %v\n", field, val)
 		}
 	}
 }
 
 // PrintSearchResultAllFields prints all fields from search results
 func PrintSearchResultAllFields(result *bleve.SearchResult) {
-	fmt.Printf("%d matches, showing %d through %d, took %v\n",
+	fmt.Printf("- %d matches, showing %d through %d, took %v\n",
 		result.Total, len(result.Hits), len(result.Hits), result.Took)
 
 	for i, hit := range result.Hits {
-		fmt.Printf("%3d. %s (score: %.6f)\n", i+1, hit.ID, hit.Score)
+		fmt.Printf("  - %3d. %s (score: %.6f)\n", i+1, hit.ID, hit.Score)
 
 		// Print all fields
 		for field, val := range hit.Fields {
-			fmt.Printf("    %s: %v\n", field, val)
+			fmt.Printf("      - %s: %v\n", field, val)
 		}
 	}
 }
 
 func PrintDocumentInfo(doc *sst.DocumentInfo) {
-	fmt.Printf("%s\n", doc.Hash.String())
-	fmt.Printf("  MIME TYPE: %s\n", doc.MIMEType)
-	fmt.Printf("  AUTHOR:    %s\n", doc.Author)
-	fmt.Printf("  TIMESTAMP: %s\n", doc.Timestamp.UTC().Format(time.RFC3339))
-	fmt.Printf("  SIZE:      %s (%d bytes)\n", HumanBytes(doc.Size), doc.Size)
+	fmt.Printf("- Hash: %s\n", doc.Hash.String())
+	fmt.Printf("  - MIME TYPE: %s\n", doc.MIMEType)
+	fmt.Printf("  - AUTHOR:    %s\n", doc.Author)
+	fmt.Printf("  - TIMESTAMP: %s\n", doc.Timestamp.UTC().Format(time.RFC3339))
+	fmt.Printf("  - SIZE:      %s (%d bytes)\n", HumanBytes(doc.Size), doc.Size)
 }
 
 func PrintDocumentList(docs []sst.DocumentInfo) {
@@ -232,10 +275,10 @@ func PrintDocumentList(docs []sst.DocumentInfo) {
 	})
 
 	for _, doc := range docs {
-		fmt.Printf("%s\n", doc.Hash.String())
-		fmt.Printf("  MIME TYPE: %s\n", doc.MIMEType)
-		fmt.Printf("  AUTHOR:    %s\n", doc.Author)
-		fmt.Printf("  TIMESTAMP: %s\n", doc.Timestamp.UTC().Format(time.RFC3339))
-		fmt.Printf("  SIZE:      %s (%d bytes)\n", HumanBytes(doc.Size), doc.Size)
+		fmt.Printf("- Hash: %s\n", doc.Hash.String())
+		fmt.Printf("  - MIME TYPE: %s\n", doc.MIMEType)
+		fmt.Printf("  - AUTHOR:    %s\n", doc.Author)
+		fmt.Printf("  - TIMESTAMP: %s\n", doc.Timestamp.UTC().Format(time.RFC3339))
+		fmt.Printf("  - SIZE:      %s (%d bytes)\n", HumanBytes(doc.Size), doc.Size)
 	}
 }

@@ -26,11 +26,12 @@ type InteractiveConfig struct {
 	DatasetAliases []string
 
 	// --- Stages ---
-	Stages        map[string]sst.Stage // stageAlias -> Stage
-	StageBranches map[string]string    // stageAlias -> branch name (e.g. "master")
-	StageCommits  map[string]sst.Hash  // stageAlias -> commit hash
-	StageSources  map[string]string    // stageAlias -> source file path (for rdfread/imported stages)
-	StageAliases  []string
+	Stages         map[string]sst.Stage // stageAlias -> Stage
+	StageBranches  map[string]string    // stageAlias -> branch name (e.g. "master")
+	StageCommits   map[string]sst.Hash  // stageAlias -> commit hash
+	StageRevisions map[string]sst.Hash  // stageAlias -> dataset revision hash
+	StageSources   map[string]string    // stageAlias -> source file path (for rdfread/imported stages)
+	StageAliases   []string
 
 	// --- NamedGraphs ---
 	NamedGraphs       map[string]sst.NamedGraph // namedgraphAlias -> NamedGraph
@@ -41,8 +42,8 @@ type InteractiveConfig struct {
 	IBNodeAliases []string
 
 	// --- Auth ---
-	SuperAuthContexts map[string]context.Context        // superAlias -> AuthContext
-	AuthContexts map[sst.Repository]context.Context // repo -> AuthContext
+	SuperAuthContexts map[string]context.Context         // superAlias -> AuthContext
+	AuthContexts      map[sst.Repository]context.Context // repo -> AuthContext
 }
 
 var interactiveConfig = &InteractiveConfig{
@@ -56,15 +57,16 @@ var interactiveConfig = &InteractiveConfig{
 
 	Datasets: make(map[string]sst.Dataset),
 
-	Stages:        make(map[string]sst.Stage),
-	StageBranches: make(map[string]string),
-	StageCommits:  make(map[string]sst.Hash),
-	StageSources:  make(map[string]string),
+	Stages:         make(map[string]sst.Stage),
+	StageBranches:  make(map[string]string),
+	StageCommits:   make(map[string]sst.Hash),
+	StageRevisions: make(map[string]sst.Hash),
+	StageSources:   make(map[string]string),
 
 	NamedGraphs: make(map[string]sst.NamedGraph),
 
 	IBNodes: make(map[string]sst.IBNode),
 
 	SuperAuthContexts: make(map[string]context.Context),
-	AuthContexts: make(map[sst.Repository]context.Context),
+	AuthContexts:      make(map[sst.Repository]context.Context),
 }

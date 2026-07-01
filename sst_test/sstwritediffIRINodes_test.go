@@ -8,14 +8,15 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+	"text/tabwriter"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -49,9 +50,18 @@ func readAndWriteDiff(t *testing.T, testName string) []sst.DiffTriple {
 	defer out.Close()
 
 	diffTriples, err := sst.SstWriteDiff(bufio.NewReader(bufioFrom), bufio.NewReader(bufioTo), out, true)
+	tw := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
 	for _, val := range diffTriples {
-		fmt.Println(val)
+		flagStr := "="
+		if val.Flag < 0 {
+			flagStr = "-"
+		}
+		if val.Flag > 0 {
+			flagStr = "+"
+		}
+		fmt.Fprintf(tw, "%s\t%s\t%s\t%s\n", flagStr, val.Sub, val.Pred, val.Obj)
 	}
+	tw.Flush()
 	if err != nil {
 		t.Fatalf("failed to write diff: %v", err)
 	}
@@ -420,7 +430,7 @@ func TestWriteDiffAddMultipleTriples(t *testing.T) {
 		assert.Equal(t, "lci:Organization", diffTriples[0].Obj)
 
 		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[1].Flag)
-		assert.Equal(t, ":John", diffTriples[1].Sub)
+		assert.Equal(t, "", diffTriples[1].Sub)
 		assert.Equal(t, "rep:mappingTarget", diffTriples[1].Pred)
 		assert.Equal(t, "lci:Person", diffTriples[1].Obj)
 		assert.Equal(t, 2, len(diffTriples))
@@ -503,12 +513,12 @@ func TestWriteDiffRemoveMultipleTriples(t *testing.T) {
 		assert.Equal(t, "lci:Individual", diffTriples[0].Obj)
 
 		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[1].Flag)
-		assert.Equal(t, ":John", diffTriples[1].Sub)
+		assert.Equal(t, "", diffTriples[1].Sub)
 		assert.Equal(t, "rep:mappingSource", diffTriples[1].Pred)
 		assert.Equal(t, "lci:Organization", diffTriples[1].Obj)
 
 		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[2].Flag)
-		assert.Equal(t, ":John", diffTriples[2].Sub)
+		assert.Equal(t, "", diffTriples[2].Sub)
 		assert.Equal(t, "rep:mappingTarget", diffTriples[2].Pred)
 		assert.Equal(t, "lci:Person", diffTriples[2].Obj)
 
@@ -609,7 +619,7 @@ func TestWriteDiffAddMultipleIRINodesWithTriples(t *testing.T) {
 		assert.Equal(t, "lci:Individual", diffTriples[0].Obj)
 
 		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[1].Flag)
-		assert.Equal(t, ":John", diffTriples[1].Sub)
+		assert.Equal(t, "", diffTriples[1].Sub)
 		assert.Equal(t, "rep:mappingSource", diffTriples[1].Pred)
 		assert.Equal(t, "lci:Organization", diffTriples[1].Obj)
 
@@ -619,7 +629,7 @@ func TestWriteDiffAddMultipleIRINodesWithTriples(t *testing.T) {
 		assert.Equal(t, "lci:Individual", diffTriples[2].Obj)
 
 		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[3].Flag)
-		assert.Equal(t, ":Linda", diffTriples[3].Sub)
+		assert.Equal(t, "", diffTriples[3].Sub)
 		assert.Equal(t, "rep:mappingSource", diffTriples[3].Pred)
 		assert.Equal(t, "lci:Organization", diffTriples[3].Obj)
 
@@ -629,12 +639,12 @@ func TestWriteDiffAddMultipleIRINodesWithTriples(t *testing.T) {
 		assert.Equal(t, "lci:Individual", diffTriples[4].Obj)
 
 		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[5].Flag)
-		assert.Equal(t, ":Mark", diffTriples[5].Sub)
-		assert.Equal(t, "rdf:type", diffTriples[5].Pred)
+		assert.Equal(t, "", diffTriples[5].Sub)
+		assert.Equal(t, "", diffTriples[5].Pred)
 		assert.Equal(t, "lci:Person", diffTriples[5].Obj)
 
 		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[6].Flag)
-		assert.Equal(t, ":Mark", diffTriples[6].Sub)
+		assert.Equal(t, "", diffTriples[6].Sub)
 		assert.Equal(t, "rep:mappingSource", diffTriples[6].Pred)
 		assert.Equal(t, "lci:Organization", diffTriples[6].Obj)
 
@@ -714,7 +724,7 @@ func TestWriteDiffRemoveMultipleIRINodesWithTriples(t *testing.T) {
 		assert.Equal(t, "lci:Individual", diffTriples[0].Obj)
 
 		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[1].Flag)
-		assert.Equal(t, ":John", diffTriples[1].Sub)
+		assert.Equal(t, "", diffTriples[1].Sub)
 		assert.Equal(t, "rep:mappingSource", diffTriples[1].Pred)
 		assert.Equal(t, "lci:Organization", diffTriples[1].Obj)
 
@@ -724,7 +734,7 @@ func TestWriteDiffRemoveMultipleIRINodesWithTriples(t *testing.T) {
 		assert.Equal(t, "lci:Individual", diffTriples[2].Obj)
 
 		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[3].Flag)
-		assert.Equal(t, ":Linda", diffTriples[3].Sub)
+		assert.Equal(t, "", diffTriples[3].Sub)
 		assert.Equal(t, "rep:mappingSource", diffTriples[3].Pred)
 		assert.Equal(t, "lci:Organization", diffTriples[3].Obj)
 
@@ -734,12 +744,12 @@ func TestWriteDiffRemoveMultipleIRINodesWithTriples(t *testing.T) {
 		assert.Equal(t, "lci:Individual", diffTriples[4].Obj)
 
 		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[5].Flag)
-		assert.Equal(t, ":Mark", diffTriples[5].Sub)
-		assert.Equal(t, "rdf:type", diffTriples[5].Pred)
+		assert.Equal(t, "", diffTriples[5].Sub)
+		assert.Equal(t, "", diffTriples[5].Pred)
 		assert.Equal(t, "lci:Person", diffTriples[5].Obj)
 
 		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[6].Flag)
-		assert.Equal(t, ":Mark", diffTriples[6].Sub)
+		assert.Equal(t, "", diffTriples[6].Sub)
 		assert.Equal(t, "rep:mappingSource", diffTriples[6].Pred)
 		assert.Equal(t, "lci:Organization", diffTriples[6].Obj)
 
@@ -804,7 +814,7 @@ func TestWriteDiffDeleteThenAddAnIRINode(t *testing.T) {
 		assert.Equal(t, "lci:Person", diffTriples[1].Obj)
 
 		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[2].Flag)
-		assert.Equal(t, ":Lisa", diffTriples[2].Sub)
+		assert.Equal(t, "", diffTriples[2].Sub)
 		assert.Equal(t, "rdfs:label", diffTriples[2].Pred)
 		assert.Equal(t, "lci:Person", diffTriples[2].Obj)
 		assert.Equal(t, 3, len(diffTriples))
@@ -844,15 +854,15 @@ func TestWriteDiffDeleteThenAddATriple(t *testing.T) {
 
 	t.Run("ReadAndWriteDiff", func(t *testing.T) {
 		diffTriples := readAndWriteDiff(t, testName)
-		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[0].Flag)
+		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[0].Flag)
 		assert.Equal(t, ":Lisa", diffTriples[0].Sub)
 		assert.Equal(t, "rdfs:label", diffTriples[0].Pred)
-		assert.Equal(t, "lci:Activity", diffTriples[0].Obj)
+		assert.Equal(t, "lci:Person", diffTriples[0].Obj)
 
-		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[1].Flag)
-		assert.Equal(t, ":Lisa", diffTriples[1].Sub)
-		assert.Equal(t, "rdfs:label", diffTriples[1].Pred)
-		assert.Equal(t, "lci:Person", diffTriples[1].Obj)
+		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[1].Flag)
+		assert.Equal(t, "", diffTriples[1].Sub)
+		assert.Equal(t, "", diffTriples[1].Pred)
+		assert.Equal(t, "lci:Activity", diffTriples[1].Obj)
 		assert.Equal(t, 2, len(diffTriples))
 	})
 
@@ -896,19 +906,19 @@ func TestWriteDiffDeleteTriplesThenAddTriples(t *testing.T) {
 		assert.Equal(t, "lci:Activity", diffTriples[0].Obj)
 
 		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[1].Flag)
-		assert.Equal(t, ":Lisa", diffTriples[1].Sub)
-		assert.Equal(t, "rdfs:comment", diffTriples[1].Pred)
+		assert.Equal(t, "", diffTriples[1].Sub)
+		assert.Equal(t, "", diffTriples[1].Pred)
 		assert.Equal(t, "lci:ActualIndividual", diffTriples[1].Obj)
 
-		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[2].Flag)
-		assert.Equal(t, ":Lisa", diffTriples[2].Sub)
+		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[2].Flag)
+		assert.Equal(t, "", diffTriples[2].Sub)
 		assert.Equal(t, "rdfs:label", diffTriples[2].Pred)
-		assert.Equal(t, "lci:Activity", diffTriples[2].Obj)
+		assert.Equal(t, "lci:Person", diffTriples[2].Obj)
 
-		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[3].Flag)
-		assert.Equal(t, ":Lisa", diffTriples[3].Sub)
-		assert.Equal(t, "rdfs:label", diffTriples[3].Pred)
-		assert.Equal(t, "lci:Person", diffTriples[3].Obj)
+		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[3].Flag)
+		assert.Equal(t, "", diffTriples[3].Sub)
+		assert.Equal(t, "", diffTriples[3].Pred)
+		assert.Equal(t, "lci:Activity", diffTriples[3].Obj)
 		assert.Equal(t, 4, len(diffTriples))
 	})
 

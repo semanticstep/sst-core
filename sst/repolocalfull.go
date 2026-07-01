@@ -12,7 +12,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -20,19 +19,15 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/blevesearch/bleve/v2"
-	"github.com/blevesearch/bleve/v2/document"
-	"github.com/blevesearch/bleve/v2/search/query"
-	"github.com/blevesearch/bleve/v2/size"
-	index "github.com/blevesearch/bleve_index_api"
 	"github.com/google/uuid"
 	fs "github.com/relab/wrfs"
 	"github.com/semanticstep/sst-core/bboltproto"
 	"github.com/semanticstep/sst-core/sstauth"
 	"go.etcd.io/bbolt"
-	"go.uber.org/multierr"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/oauth"
@@ -40,7 +35,7 @@ import (
 
 type (
 	hashT [sha256.Size]byte
-	// upgradeRef interface{ UpgradeRef() CommitRef }
+	// upgradeRef interface{ UpgradeRef() CommitRef }.
 )
 
 var (
@@ -57,7 +52,7 @@ var (
 )
 
 // createLeafCommitRef creates a leaf commit reference in the dataset bucket.
-// Key: refLeafPrefix (0x02) + commitHash, Value: commitHash
+// Key: refLeafPrefix (0x02) + commitHash, Value: commitHash.
 func createLeafCommitRef(dsBucket *bbolt.Bucket, commitHash []byte) error {
 	leafKey := bytesToRefKey(commitHash, refLeafPrefix)
 	return dsBucket.Put(leafKey, commitHash)
@@ -92,7 +87,7 @@ func deleteBranchCommitRef(dsBucket *bbolt.Bucket, branchName string) error {
 // It creates a leaf commit reference for the given commit and deletes the branch reference.
 // This is used for:
 // 1. Converting old commit to leaf when new commit has no parent (normal commit)
-// 2. Converting new commit to leaf for deleted NamedGraph
+// 2. Converting new commit to leaf for deleted NamedGraph.
 func convertBranchCommitToLeaf(dsBucket *bbolt.Bucket, branchName string, commitHash []byte) error {
 	// Create leaf commit reference
 	if err := createLeafCommitRef(dsBucket, commitHash); err != nil {
@@ -126,17 +121,26 @@ func commitExistsInBucketC(commitsBucket *bbolt.Bucket, commitHash []byte) bool 
 	return commitBucket != nil
 }
 
+// quotaState holds the per-repository quota bookkeeping fields.
+// It is allocated only when the repository belongs to a SuperRepository.
+type quotaState struct {
+	writeMu           sync.Mutex // serializes quota-check-and-write for DocumentSet/Commit
+	documentSizeBytes atomic.Int64
+}
+
 // localFullRepository and related types implement bbolt based LocalFull repository.
 //
 // See [storageDB] for bbolt database layout.
 type localFullRepository struct {
 	stateControl
-	sr         SuperRepository
-	url        *url.URL
-	config     repoConfig
-	authInfo   *sstauth.SstUserInfo
-	bleveIndex bleve.Index // getter method Bleve()
-	db         *bbolt.DB
+	quota       *quotaState // nil when the repository is not part of a SuperRepository
+	sr          SuperRepository
+	url         *url.URL
+	config      repoConfig
+	authInfo    *sstauth.SstUserInfo
+	bleveIndex  bleve.Index // getter method Bleve()
+	db          *bbolt.DB
+	accessRight sstauth.AccessMode // fixed at open/create time from filesystem probe
 }
 
 func (r *localFullRepository) SuperRepository() SuperRepository {
@@ -176,13 +180,13 @@ func (r *localFullRepository) RegisterIndexHandler(sdi *SSTDeriveInfo) error {
 	bleveInfoPath := filepath.Join(blevePath, bleveInfoName)
 
 	if sdi.isEmpty() {
-		log.Println("RegisterIndexHandler an empty SSTDeriveInfo will delete bleve!")
+		GlobalLogger.Info("RegisterIndexHandler received empty SSTDeriveInfo, deleting bleve index")
 		err := os.RemoveAll(blevePath)
 		if err != nil {
-			GlobalLogger.Error("", zap.Error(err))
+			GlobalLogger.Error("failed to remove bleve index", zap.Error(err))
 			return err
 		}
-		log.Println(blevePath + " index has been deleted!")
+		GlobalLogger.Info("bleve index deleted", zap.String("path", blevePath))
 		return nil
 	}
 
@@ -196,9 +200,9 @@ func (r *localFullRepository) RegisterIndexHandler(sdi *SSTDeriveInfo) error {
 		// Checks if the saved bleve is the same as the newly provided
 		file, err := os.Open(bleveInfoPath)
 		if err != nil {
-			GlobalLogger.Error("", zap.Error(err))
+			GlobalLogger.Warn("failed to open bleve info file, will rebuild index", zap.Error(err))
 			bleve.Close()
-			return (err)
+			return r.buildBleveIndex()
 		}
 		defer file.Close()
 
@@ -209,9 +213,9 @@ func (r *localFullRepository) RegisterIndexHandler(sdi *SSTDeriveInfo) error {
 
 		err = decoder.Decode(&p)
 		if err != nil {
-			GlobalLogger.Error("", zap.Error(err))
+			GlobalLogger.Warn("failed to decode bleve info, will rebuild index", zap.Error(err))
 			bleve.Close()
-			return (err)
+			return r.buildBleveIndex()
 		}
 
 		same := (p.DerivePackageName == sdi.DerivePackageName) && (p.DerivePackageVersion == sdi.DerivePackageVersion)
@@ -230,21 +234,29 @@ func (r *localFullRepository) RegisterIndexHandler(sdi *SSTDeriveInfo) error {
 				}
 				return nil, nil
 			}
-			r.bleveIndex = bleve
+			r.bleveIndex = newHealthAwareIndex(bleve)
+			r.config.bleveIndexUpdater = newDefaultBleveIndexUpdater(r.bleveIndex.(*healthAwareIndex))
 		} else {
 			// if same is false, it will recreate all in index.bleve
-			r.caching()
+			bleve.Close()
+			if err := r.buildBleveIndex(); err != nil {
+				GlobalLogger.Error("failed to rebuild bleve index", zap.Error(err))
+				return fmt.Errorf("failed to rebuild bleve index: %w", err)
+			}
 		}
 	} else {
 		// If there is no index folder before, create a new one
-		r.caching()
+		if err := r.buildBleveIndex(); err != nil {
+			GlobalLogger.Error("failed to create bleve index", zap.Error(err))
+			return fmt.Errorf("failed to create bleve index: %w", err)
+		}
 	}
 	return nil
 }
 
 // After register, the building index work should be taken care of by caching().
 // This will do all the Index work and caching it.
-func (r *localFullRepository) caching() bleve.Index {
+func (r *localFullRepository) buildBleveIndex() error {
 	indexDir := filepath.Join(r.config.repositoryDir, indexBleveDir)
 	bleveInfoPath := filepath.Join(indexDir, bleveInfoName)
 
@@ -256,52 +268,53 @@ func (r *localFullRepository) caching() bleve.Index {
 	// Check if the directory exists
 	if _, err := os.Stat(indexDir); os.IsNotExist(err) {
 		// Directory does not exist, create it
-		err := os.MkdirAll(indexDir, os.ModePerm)
-		if err != nil {
-			GlobalLogger.Error("", zap.Error(err))
-			return nil
+		if err := os.MkdirAll(indexDir, os.ModePerm); err != nil {
+			GlobalLogger.Error("failed to create bleve index directory", zap.Error(err))
+			return fmt.Errorf("failed to create bleve index directory: %w", err)
 		}
-		log.Println("Directory created:", indexDir)
+		GlobalLogger.Info("bleve index directory created", zap.String("path", indexDir))
 	} else if err != nil {
-		GlobalLogger.Error("", zap.Error(err))
-		return nil
+		GlobalLogger.Error("failed to stat bleve index directory", zap.Error(err))
+		return fmt.Errorf("failed to stat bleve index directory: %w", err)
 	} else {
 		// Directory exists, removeAll
-		log.Println("Directory already exists:", indexDir)
-		err := os.RemoveAll(indexDir)
-		if err != nil {
-			GlobalLogger.Error("", zap.Error(err))
-			return nil
+		GlobalLogger.Info("removing existing bleve index directory", zap.String("path", indexDir))
+		if err := os.RemoveAll(indexDir); err != nil {
+			GlobalLogger.Error("failed to remove old bleve index directory", zap.Error(err))
+			return fmt.Errorf("failed to remove old bleve index directory: %w", err)
 		}
-		log.Println(indexDir + " Old index has been deleted!")
+		GlobalLogger.Info("old bleve index directory removed", zap.String("path", indexDir))
 	}
 
 	// creates a new bleve index
 	bi, err := bleve.New(indexDir, r.config.deriveInfo.DefaultIndexMapping())
 	if err != nil {
-		GlobalLogger.Error("", zap.Error(err))
-		return nil
+		GlobalLogger.Error("failed to create bleve index", zap.Error(err))
+		return fmt.Errorf("failed to create bleve index: %w", err)
 	}
 	//  create JSON data for saving deriveInfo
 	jsonData, err := json.MarshalIndent(r.config.deriveInfo, "", "    ")
 	if err != nil {
-		GlobalLogger.Error("", zap.Error(err))
-		return nil
+		GlobalLogger.Error("failed to marshal derive info", zap.Error(err))
+		bi.Close()
+		return fmt.Errorf("failed to marshal derive info: %w", err)
 	}
 
 	// Create a JSON file
 	file, err := os.Create(bleveInfoPath)
 	if err != nil {
-		GlobalLogger.Error("", zap.Error(err))
-		return nil
+		GlobalLogger.Error("failed to create bleve info file", zap.Error(err))
+		bi.Close()
+		return fmt.Errorf("failed to create bleve info file: %w", err)
 	}
 	defer file.Close()
 
 	// put data into JSON file
 	_, err = file.Write(jsonData)
 	if err != nil {
-		GlobalLogger.Error("", zap.Error(err))
-		return nil
+		GlobalLogger.Error("failed to write bleve info file", zap.Error(err))
+		bi.Close()
+		return fmt.Errorf("failed to write bleve info file: %w", err)
 	}
 
 	// set PreCommitCondition for update
@@ -310,270 +323,20 @@ func (r *localFullRepository) caching() bleve.Index {
 		return stagePreCommitConstraints(r, bi, &batchUpdateBatched, stage)
 	}
 
-	err = r.view(func(rFS fs.FS) error {
-		return rebuildIndex(r, bi, rFS)
-	})
+	r.bleveIndex = newHealthAwareIndex(bi)
 
-	if err != nil {
-		GlobalLogger.Error("", zap.Error(err))
-		return nil
+	// Use the default asynchronous Bleve updater.
+	r.config.bleveIndexUpdater = newDefaultBleveIndexUpdater(r.bleveIndex.(*healthAwareIndex))
+
+	if err := r.view(func(rFS fs.FS) error {
+		return rebuildIndex(context.Background(), r, bi, rFS)
+	}); err != nil {
+		GlobalLogger.Error("failed to rebuild index", zap.Error(err))
+		bi.Close()
+		return fmt.Errorf("failed to rebuild index: %w", err)
 	}
 
-	r.bleveIndex = bi
-	return bi
-}
-
-type batchPreCondition struct {
-	id    string
-	query query.Query
-}
-
-type indexBatch struct {
-	index         bleve.Index
-	repo          Repository
-	batch         *bleve.Batch
-	preConditions []batchPreCondition
-	advancedSize  uint64
-}
-
-func rebuildIndex(r Repository, idx bleve.Index, repFS fs.FS) error {
-	batch := indexBatch{index: idx, repo: r, batch: idx.NewBatch()}
-	err := fs.WalkDir(repFS, ".", func(p string, d fs.DirEntry, err error) error {
-		if err != nil {
-			return err
-		}
-		if p == "." {
-			return nil
-		}
-		if d.IsDir() || strings.IndexByte(p, '.') >= 0 {
-			return fs.SkipDir
-		}
-		id, e := uuid.Parse(d.Name())
-		if e != nil {
-			return nil
-		}
-		ds, e := r.Dataset(context.TODO(), IRI(id.URN()))
-		if e != nil {
-			return e
-		}
-		st, e := ds.CheckoutBranch(context.TODO(), DefaultBranch, DefaultTriplexMode)
-		if e != nil {
-			if strings.Contains(e.Error(), ErrBranchNotFound.Error()) {
-				e = nil
-			} else {
-				return e
-			}
-		} else {
-			graph := st.NamedGraph(IRI(id.URN()))
-
-			// get commit info from ds
-			commitDetails, e := ds.CommitDetailsByBranch(context.TODO(), DefaultBranch)
-
-			if e != nil {
-				err = updateIndexForGraph(graph, &batch, false)
-			} else {
-				commitInfo := commitInfo{}
-				commitInfo.CommitHash = commitDetails.Commit.String()
-				commitInfo.CommitAuthor = commitDetails.Author
-				commitInfo.CommitTime = commitDetails.AuthorDate.UTC().Format(time.RFC3339)
-				commitInfo.CommitMessage = commitDetails.Message
-
-				err = updateIndexForGraph(graph, &batch, false, commitInfo)
-			}
-
-			if err != nil {
-				return err
-			}
-			err = indexBatchIfOverThreshold(&batch)
-			if err != nil {
-				return err
-			}
-		}
-
-		return nil
-	})
-	if err != nil {
-		return err
-	}
-	return indexAndCheckPreConditions(r, &batch)
-}
-
-const (
-	deleteSearchSize           = 1024
-	maxBatchDocSize            = 16 * 1024 * 1024
-	gitIgnoreFileName          = ".gitignore"
-	sstIndexVersionFieldPrefix = "version.sst."
-	sstIndexVersion            = "00f6ebdc40e6"
-	ssoIndexVersionFieldPrefix = "version.sso."
-	ssoIndexVersion            = "691e05692807"
-)
-
-var errUnsatisfiedConstraint = errors.New("unsatisfied constraint")
-
-func indexBatchIfOverThreshold(batch *indexBatch) error {
-	if batch.batch.TotalDocsSize()+batch.advancedSize > maxBatchDocSize {
-		err := batch.index.Batch(batch.batch)
-		if err != nil {
-			return err
-		}
-		batch.batch.Reset()
-		batch.advancedSize = 0
-	}
 	return nil
-}
-
-type commitInfo struct {
-	CommitHash    string
-	CommitAuthor  string
-	CommitTime    string
-	CommitMessage string
-}
-
-func updateIndexForGraph(graph NamedGraph, batch *indexBatch, withOriginal bool, commitInfo ...commitInfo) error {
-	var id string
-	var data map[string]interface{}
-	var preConditionQueries []query.Query
-	var err error
-
-	switch v := batch.repo.(type) {
-	case *localFullRepository:
-		id, data, preConditionQueries, err = v.config.deriveInfo.DeriveDocuments(batch.repo, graph)
-	case *localBasicRepository:
-		id, data, preConditionQueries, err = v.config.deriveInfo.DeriveDocuments(batch.repo, graph)
-	default:
-		log.Println("Unknown repository type")
-	}
-
-	if err != nil {
-		GlobalLogger.Error("", zap.Error(err))
-		return err
-	}
-
-	if commitInfo != nil {
-		data["commitHash"] = commitInfo[0].CommitHash
-		data["commitAuthor"] = commitInfo[0].CommitAuthor
-		data["commitTime"] = commitInfo[0].CommitTime
-		data["commitMessage"] = commitInfo[0].CommitMessage
-	}
-
-	doc := document.NewDocument(id)
-	err = batch.index.Mapping().MapDocument(doc, data)
-	if err != nil {
-		return err
-	}
-	if withOriginal {
-		docBytes, err := json.Marshal(data)
-		if err != nil {
-			return err
-		}
-		doc.AddField(document.NewTextFieldWithIndexingOptions("_original", nil, docBytes, index.StoreField))
-	}
-	err = batch.batch.IndexAdvanced(doc)
-	if err != nil {
-		return err
-	}
-	batch.advancedSize += uint64(doc.Size() + len(id) + size.SizeOfString)
-	for _, pcq := range preConditionQueries {
-		batch.preConditions = append(batch.preConditions, batchPreCondition{id: id, query: pcq})
-	}
-	return nil
-}
-
-func indexAndCheckPreConditions(repo Repository, batch *indexBatch) error {
-	err := batch.index.Batch(batch.batch)
-	if err != nil {
-		return err
-	}
-	if repo.Bleve() != nil {
-		for _, c := range batch.preConditions {
-			err := checkPreCondition(repo, batch.index, c.id, c.query)
-			if err != nil {
-				return err
-			}
-		}
-	}
-	return nil
-}
-
-func checkPreCondition(repo Repository, overrideIndex bleve.Index, selfID string, q query.Query) (err error) {
-	request := bleve.NewSearchRequest(q)
-	result, err := repo.Bleve().Search(request)
-	if err != nil {
-		return err
-	}
-	var hits, overridden map[string]struct{}
-	if overrideIndex != nil {
-		result, err := overrideIndex.Search(request)
-		if err != nil {
-			return err
-		}
-		if len(result.Hits) > 0 {
-			overridden = make(map[string]struct{}, len(result.Hits))
-			for _, h := range result.Hits {
-				overridden[h.ID] = struct{}{}
-			}
-		}
-	}
-	if len(result.Hits) > 0 {
-		hits = make(map[string]struct{}, len(result.Hits)+len(overridden))
-		var isOverridden func(id string) (bool, error)
-		if overrideIndex != nil {
-			oi, err2 := overrideIndex.Advanced()
-			if err2 != nil {
-				return err2
-			}
-			oir, err2 := oi.Reader()
-			if err2 != nil {
-				return err2
-			}
-			defer multierr.AppendFunc(&err, func() error { return oir.Close() })
-			isOverridden = func(id string) (bool, error) {
-				doc, err := oir.Document(id)
-				if err != nil {
-					return false, err
-				}
-				return doc != nil, nil
-			}
-		} else {
-			isOverridden = func(id string) (bool, error) { return false, nil }
-		}
-		for _, h := range result.Hits {
-			skip, err := isOverridden(h.ID)
-			if err != nil {
-				return err
-			}
-			if !skip {
-				hits[h.ID] = struct{}{}
-			}
-		}
-		for id, h := range overridden {
-			hits[id] = h
-		}
-	} else {
-		hits = overridden
-	}
-	delete(hits, selfID)
-	if len(hits) > 0 {
-		ids := make([]string, 0, len(hits))
-		for id := range hits {
-			ids = append(ids, id)
-		}
-		return fmt.Errorf(
-			"unique id + idOwner + mainType constraint violated for root node of Dataset: cannot write: %s conflicts:%v query=%s: %w",
-			selfID, ids, queryToPrettyString(q), errUnsatisfiedConstraint,
-		)
-	}
-	return
-}
-func queryToPrettyString(q query.Query) string {
-	if q == nil {
-		return "<nil>"
-	}
-	b, err := json.MarshalIndent(q, "", "  ")
-	if err == nil {
-		return string(b)
-	}
-	return fmt.Sprintf("<%T>", q)
 }
 
 func (r *localFullRepository) Bleve() bleve.Index {
@@ -584,6 +347,28 @@ func (r *localFullRepository) Bleve() bleve.Index {
 	defer r.leave()
 
 	return r.bleveIndex
+}
+
+// RebuildBleveIndex closes the current index, removes the index directory,
+// and rebuilds it from scratch. The repository remains usable for BBolt
+// operations during the rebuild, but search is unavailable.
+func (r *localFullRepository) RebuildBleveIndex() error {
+	if err := r.enter(); err != nil {
+		return err
+	}
+	defer r.leave()
+
+	if r.config.bleveIndexUpdater != nil {
+		r.config.bleveIndexUpdater.close()
+		r.config.bleveIndexUpdater = nil
+	}
+
+	if r.bleveIndex != nil {
+		r.bleveIndex.Close()
+		r.bleveIndex = nil
+	}
+
+	return r.buildBleveIndex()
 }
 
 func (r *localFullRepository) DatasetIDs(ctx context.Context) ([]uuid.UUID, error) {
@@ -706,7 +491,6 @@ func (r *localFullRepository) datasetByID(ctx context.Context, id uuid.UUID) (di
 
 		return ErrDatasetNotFound
 	})
-
 	if err != nil {
 		return
 	}
@@ -715,7 +499,10 @@ func (r *localFullRepository) datasetByID(ctx context.Context, id uuid.UUID) (di
 }
 
 func (r *localFullRepository) Dataset(ctx context.Context, iri IRI) (di Dataset, err error) {
-	id := iriToUUID(iri)
+	id, err := iriToUUID(iri)
+	if err != nil {
+		return nil, err
+	}
 	return r.datasetByID(ctx, id)
 }
 
@@ -839,11 +626,23 @@ func (r *localFullRepository) CommitDetails(ctx context.Context, hashes []Hash) 
 
 		return nil
 	})
-
 	if err != nil {
 		return results, wrapError(err)
 	}
 	return results, nil
+}
+
+func (r *localFullRepository) CheckoutCommit(ctx context.Context, commitID Hash, mode TriplexMode) (Stage, error) {
+	if err := r.enter(); err != nil {
+		return nil, wrapError(err)
+	}
+	defer r.leave()
+
+	cds, err := r.CommitDetails(ctx, []Hash{commitID})
+	if err != nil || len(cds) == 0 || cds[0] == nil {
+		return nil, wrapError(ErrCommitNotFound)
+	}
+	return checkoutCommitFromCommitDetails(ctx, r, commitID, mode, cds[0])
 }
 
 func (r *localFullRepository) Close() error {
@@ -855,6 +654,12 @@ func (r *localFullRepository) Close() error {
 
 	// Wait for all operations that have been entered to exit
 	r.wg.Wait()
+
+	// Close the Bleve index updater so the background worker drains
+	// before the Bleve index itself is closed.
+	if r.config.bleveIndexUpdater != nil {
+		r.config.bleveIndexUpdater.close()
+	}
 
 	// Close the bleveIndex and bbolt
 	if r.bleveIndex != nil {
@@ -957,7 +762,7 @@ func (d *localFullDataset) IRI() IRI {
 	return d.iri
 }
 
-func (d *localFullDataset) SetBranch(ctx context.Context, commit Hash, branch string) error {
+func (d *localFullDataset) SetBranchCommit(ctx context.Context, commit Hash, branch string) error {
 	if err := d.r.enter(); err != nil {
 		return wrapError(err)
 	}
@@ -997,7 +802,7 @@ func (d *localFullDataset) SetBranch(ctx context.Context, commit Hash, branch st
 		if found {
 			if err := specifiedDsBucket.Put(bytesToRefKey(stringAsImmutableBytes(branch), refBranchPrefix), commit[:]); err != nil {
 				GlobalLogger.Error("", zap.Error(err))
-				return (err)
+				return err
 			}
 			// due to leaf commit being moved to a branch, delete the leaf ref
 			// this is not needed if the commit is already been pointed by a branch
@@ -1048,8 +853,23 @@ func (d *localFullDataset) SetBranch(ctx context.Context, commit Hash, branch st
 
 		return writeRepositoryLogEntry(repoLogBucket, fields)
 	})
+	if err != nil {
+		return wrapError(err)
+	}
 
-	return wrapError(err)
+	if d.r.config.bleveIndexUpdater != nil {
+		d.r.config.bleveIndexUpdater.updateAfterSetBranch(ctx, d.r, d.id, branch)
+	}
+
+	return nil
+}
+
+func (d *localFullDataset) SetBranchRevision(ctx context.Context, datasetRevision Hash, branch string) error {
+	commit, err := d.CommitForRevision(ctx, datasetRevision)
+	if err != nil {
+		return wrapError(err)
+	}
+	return d.SetBranchCommit(ctx, commit, branch)
 }
 
 func (d *localFullDataset) RemoveBranch(ctx context.Context, branch string) error {
@@ -1121,14 +941,14 @@ func (d *localFullDataset) RemoveBranch(ctx context.Context, branch string) erro
 				// do nothing, as other branches are still pointing to this commit
 			} else {
 				GlobalLogger.Error("commit is still stored as leaf commit, but no branch is pointing to it, this should not happen",
-					zap.String("dataset", d.id.String()), zap.String("branch", branch), zap.String("commit", (BytesToHash(commitBytes)).String()))
+					zap.String("dataset", d.id.String()), zap.String("branch", branch), zap.String("commit", BytesToHash(commitBytes).String()))
 			}
 		} else {
 			// else if not found, means no branch is pointing to this commit anymore
 			// add it as a leaf commit
 			if err := newDsBucket.Put(bytesToRefKey(commitBytes, refLeafPrefix), commitBytes); err != nil {
 				GlobalLogger.Error("", zap.Error(err))
-				return (err)
+				return err
 			}
 		}
 
@@ -1155,19 +975,12 @@ func (d *localFullDataset) RemoveBranch(ctx context.Context, branch string) erro
 
 		return writeRepositoryLogEntry(repoLogBucket, fields)
 	})
-
 	if err != nil {
 		return wrapError(err)
 	}
 
-	if d.r.bleveIndex != nil {
-		if branch == DefaultBranch {
-			err = d.r.bleveIndex.Delete(d.id.String())
-			if err != nil {
-				return wrapError(err)
-			}
-			GlobalLogger.Info("bleve index deleted for dataset", zap.String("dataset", d.id.String()))
-		}
+	if d.r.config.bleveIndexUpdater != nil {
+		d.r.config.bleveIndexUpdater.updateAfterRemoveBranch(ctx, d.r, d.id, branch)
 	}
 
 	return nil
@@ -1203,10 +1016,8 @@ func (d *localFullDataset) Branches(ctx context.Context) (map[string]Hash, error
 				branchCommitHashMap[string(k[1:])] = BytesToHash(v)
 			} else if len(k) > 0 && k[0] == '\x01' {
 				// fmt.Printf("%stag name: %s latest _Commit_SHA: %x\n", indent, k[1:], v)
-
 			} else if len(k) > 0 && k[0] == '\x02' {
 				// fmt.Printf("%s_Commit_SHA_: %s latest _Commit_SHA: %x\n", indent, k[1:], v)
-
 			} else {
 				// fmt.Printf("%sKey: %s, Value: %x\n", indent, k, v)
 				GlobalLogger.Error("unknown value in Dataset Bucket", zap.String("key", string(k)))
@@ -1217,7 +1028,6 @@ func (d *localFullDataset) Branches(ctx context.Context) (map[string]Hash, error
 
 		return nil
 	})
-
 	if err != nil {
 		return branchCommitHashMap, wrapError(err)
 	}
@@ -1423,21 +1233,22 @@ func checkoutRevisionCommon(ds *localFullDataset, dsRevision Hash, commitHash Ha
 				defaultNG.checkedOutCommits = []Hash{BytesToHash(commitHashBytes)}
 			}
 		}
-		defaultNG.checkedOutDSRevision = dsRevision
-		defaultNG.checkedOutNGRevision = Hash(ngHash)
+		defaultNG.checkedOutDSRevisions = []Hash{dsRevision}
+		defaultNG.checkedOutNGRevisions = []Hash{Hash(ngHash)}
 		// defaultNG.flags.modified = false
 
 		// handle imported NGs
 		var importedNGActualHash []byte
 		var importedNGContent []byte
 		for importedNGID, importedNGHash := range importedNGAndHash {
-			if importedNGHash != emptyHash {
-				// find importedNGContent from bucketNGR
-				importedNGActualHash, importedNGContent = tx.Bucket(keyNamedGraphRevisions).Cursor().Seek(importedNGHash[:])
-				if importedNGHash != BytesToHash(importedNGActualHash) {
-					GlobalLogger.Error("NamedGraphRevision not found", zap.Error(errNamedGraphRevisionNotFound))
-					return errNamedGraphRevisionNotFound
-				}
+			if importedNGHash == emptyHash {
+				continue
+			}
+			// find importedNGContent from bucketNGR
+			importedNGActualHash, importedNGContent = tx.Bucket(keyNamedGraphRevisions).Cursor().Seek(importedNGHash[:])
+			if importedNGHash != BytesToHash(importedNGActualHash) {
+				GlobalLogger.Error("NamedGraphRevision not found", zap.Error(errNamedGraphRevisionNotFound))
+				return errNamedGraphRevisionNotFound
 			}
 			dgFile := byteFileReader{keyedFile: keyedFile{importedNGID}, byteReader: bytes.NewReader(importedNGContent)}
 			defer dgFile.Close()
@@ -1445,12 +1256,12 @@ func checkoutRevisionCommon(ds *localFullDataset, dsRevision Hash, commitHash Ha
 			ng, err := SstRead(bufio.NewReader(dgFile), DefaultTriplexMode)
 			if err != nil {
 				GlobalLogger.Error("", zap.Error(err))
-				return (err)
+				return err
 			}
 			_, err = st.MoveAndMerge(context.TODO(), ng.Stage())
 			if err != nil {
 				GlobalLogger.Error("", zap.Error(err))
-				return (err)
+				return err
 			}
 			importedNG := st.localGraphs[importedNGID]
 
@@ -1462,58 +1273,24 @@ func checkoutRevisionCommon(ds *localFullDataset, dsRevision Hash, commitHash Ha
 			}
 
 			var importedNGCommitHash []byte
-			subDsr := tx.Bucket(keyDatasetRevisions).Bucket(importedDatasetRevisionHash[:])
-			if subDsr == nil {
-				GlobalLogger.Error("DatasetRevision not found for imported NG", zap.Error(errDatasetRevisionMissing))
+			commitHash, err := findCommitHashForDatasetRevision(tx, importedNGID, importedDatasetRevisionHash)
+			if err != nil {
+				if err == ErrDatasetRevisionNotFound {
+					GlobalLogger.Error("DatasetRevision not found for imported NG", zap.Error(errDatasetRevisionMissing))
+				} else {
+					GlobalLogger.Error("findCommitHashForDatasetRevision error", zap.Error(err))
+				}
 				// return errDatasetRevisionMissing
 			} else {
-				importedNGCommitHash = subDsr.Get([]byte{0x02})
-				GlobalLogger.Info("imported NG commit hash found in DSR", zap.String("importedNGID", importedNGID.String()),
+				importedNGCommitHash = commitHash[:]
+				GlobalLogger.Info("imported NG commit hash found", zap.String("importedNGID", importedNGID.String()),
 					zap.String("importedDatasetRevisionHash", importedDatasetRevisionHash.String()),
-					zap.String("importedNGCommitHash", BytesToHash(importedNGCommitHash).String()))
-
-				// if not found, need to iterate all commits to find it
-				if importedNGCommitHash == nil {
-					GlobalLogger.Info("imported NG commit not found in DSR, iterating all commits to find it", zap.String("importedNGID", importedNGID.String()),
-						zap.String("importedDatasetRevisionHash", importedDatasetRevisionHash.String()))
-					// iterate all commits to find it
-					err = tx.Bucket(keyCommits).ForEach(func(k, v []byte) error {
-						// In bbolt, if v==nil, k is a subBucket name.
-						if v != nil {
-							return nil
-						}
-						cb := tx.Bucket(keyCommits).Bucket(k) // commit subBucket
-						if cb == nil {
-							return nil
-						}
-
-						found := false
-
-						_ = cb.ForEach(func(kk, vv []byte) error {
-							if len(kk) > 0 && kk[0] == '\x00' {
-								if bytes.Equal(kk[1:], importedNGID[:]) {
-									if bytes.Equal(vv[:32], importedDatasetRevisionHash[:]) {
-										found = true
-										return nil
-									}
-								}
-							}
-							return nil
-						})
-
-						if found {
-							importedNGCommitHash = k // k is commit SHA
-							return nil
-						}
-
-						return nil
-					})
-				}
+					zap.String("importedNGCommitHash", commitHash.String()))
 			}
 
 			importedNG.checkedOutCommits = []Hash{BytesToHash(importedNGCommitHash)}
-			importedNG.checkedOutDSRevision = importedDatasetRevisionHash
-			importedNG.checkedOutNGRevision = importedNGHash
+			importedNG.checkedOutDSRevisions = []Hash{importedDatasetRevisionHash}
+			importedNG.checkedOutNGRevisions = []Hash{importedNGHash}
 			// importedNG.flags.modified = false
 		}
 		for _, ng := range st.localGraphs {
@@ -1522,7 +1299,6 @@ func checkoutRevisionCommon(ds *localFullDataset, dsRevision Hash, commitHash Ha
 
 		return nil
 	})
-
 	if err != nil {
 		return st, wrapError(err)
 	}
@@ -1570,7 +1346,6 @@ func (d *localFullDataset) CheckoutCommit(ctx context.Context, commitID Hash, mo
 	defer d.r.leave()
 
 	s, err := checkoutCommon(d, commitID)
-
 	if err != nil {
 		if err == ErrDatasetHasBeenDeleted {
 			return nil, err
@@ -1656,12 +1431,79 @@ func (d *localFullDataset) CommitDetailsByBranch(ctx context.Context, branch str
 	return d.CommitDetailsByHash(ctx, commitHash)
 }
 
+func (d *localFullDataset) CommitForRevision(ctx context.Context, datasetRevision Hash) (Hash, error) {
+	if err := d.r.enter(); err != nil {
+		return HashNil(), wrapError(err)
+	}
+	defer d.r.leave()
+
+	var commitHash Hash
+	err := d.r.db.View(func(tx *bbolt.Tx) error {
+		var err error
+		commitHash, err = findCommitHashForDatasetRevision(tx, d.id, datasetRevision)
+		return err
+	})
+	if err != nil {
+		return HashNil(), wrapError(err)
+	}
+	return commitHash, nil
+}
+
+func findCommitHashForDatasetRevision(tx *bbolt.Tx, dsID uuid.UUID, dsRevision Hash) (Hash, error) {
+	subDsr := tx.Bucket(keyDatasetRevisions).Bucket(dsRevision[:])
+	if subDsr != nil {
+		commitHashBytes := subDsr.Get([]byte{0x02})
+		if commitHashBytes != nil {
+			return BytesToHash(commitHashBytes), nil
+		}
+	}
+
+	// Fallback: scan all commits to find the one containing this dataset revision.
+	var commitHash Hash
+	var found bool
+
+	err := tx.Bucket(keyCommits).ForEach(func(k, v []byte) error {
+		// In bbolt, if v==nil, k is a subBucket name.
+		if v != nil {
+			return nil
+		}
+		cb := tx.Bucket(keyCommits).Bucket(k) // commit subBucket
+		if cb == nil {
+			return nil
+		}
+
+		_ = cb.ForEach(func(kk, vv []byte) error {
+			if len(kk) > 0 && kk[0] == '\x00' {
+				if bytes.Equal(kk[1:], dsID[:]) {
+					if len(vv) >= 32 && bytes.Equal(vv[:32], dsRevision[:]) {
+						commitHash = BytesToHash(k) // k is commit SHA
+						found = true
+						return nil
+					}
+				}
+			}
+			return nil
+		})
+
+		return nil
+	})
+	if err != nil {
+		return HashNil(), err
+	}
+
+	if !found {
+		return HashNil(), ErrDatasetRevisionNotFound
+	}
+
+	return commitHash, nil
+}
+
 // bucket manipulation for commit:
 //  1. calculate NamedGraph-Revision-Hash for each modified NG and put into bucketNGR.
 //     bucketNGR (NamedGraph Revision): key: NG-Revision-Hash, value: sst file content
-//     for each modified NG, update its stage.localGraphs[id].checkedOutNGRevision to the new NG-Revision-Hash
+//     for each modified NG, update its stage.localGraphs[id].checkedOutNGRevisions to the new NG-Revision-Hash
 //  2. calculate Dataset-Revision-Hash for each modified Dataset and put into bucketDSR.
-//     for each modified Dataset, update its stage.localGraphs[id].checkedOutDSRevision to the new Dataset-Revision-Hash
+//     for each modified Dataset, update its stage.localGraphs[id].checkedOutDSRevisions to the new Dataset-Revision-Hash
 //  3. create a new commit in bucketCommit, with all modified Dataset and commit info.
 //  4. update bucketDataset with new commit Hash (and branch if any)
 //  5. update Repository Log bucket
@@ -1678,14 +1520,18 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 	}
 	defer r.leave()
 
-	// handle bleve
-	var pcNotifier postCommitNotifier
+	if r.quota != nil {
+		r.quota.writeMu.Lock()
+		defer r.quota.writeMu.Unlock()
+	}
+
+	// handle bleve pre-commit constraints (the returned notifier is not used here;
+	// LocalFullRepository performs branch-gated re-indexing via bleveIndexUpdater).
 	if r.config.preCommitCondition != nil {
-		pcn, err := r.config.preCommitCondition(stage)
+		_, err := r.config.preCommitCondition(stage)
 		if err != nil {
 			return HashNil(), nil, err
 		}
-		pcNotifier = pcn
 	}
 	var newCommitID Hash
 	var commitTime time.Time
@@ -1716,6 +1562,12 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 	modifiedDSsMap := stage.modifiedDatasets()
 	// fmt.Println("modifiedDSsMap:", modifiedDSsMap)
 
+	// Capture pre-commit BBolt file size for quota delta calculation.
+	var preBboltSize int64
+	if fi, err := os.Stat(r.db.Path()); err == nil {
+		preBboltSize = fi.Size()
+	}
+
 	err := r.db.Update(func(tx *bbolt.Tx) error {
 		/* Start Filling Bucket NGR (NamedGraph Revision) */
 		bucketNgr, err := tx.CreateBucketIfNotExists(keyNamedGraphRevisions)
@@ -1724,7 +1576,7 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 		}
 		modifiedNGHashes := make([]Hash, len(modifiedNGIDs))
 		if len(modifiedNGIDs) > 0 {
-			err = stage.writeStageToSstFilesMatched(localFullFsOf(
+			err = stage.writeStageToSstFilesWithIDMatched(localFullFsOf(
 				bucketNgr, modifiedNGIDs, modifiedNGHashes,
 			), func(ngID uuid.UUID) bool {
 				if _, found := deletedNGIDs[ngID]; found {
@@ -1734,7 +1586,16 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 			})
 			if err != nil {
 				GlobalLogger.Error("", zap.Error(err))
-				return (err)
+				return err
+			}
+		}
+
+		// Quota check after the heavy BBolt write but before committing metadata.
+		// tx.Size() reflects the database file size after the NGR writes.
+		if r.sr != nil {
+			bboltDelta := tx.Size() - preBboltSize
+			if err := r.checkQuota(ctx, bboltDelta, 0); err != nil {
+				return err
 			}
 		}
 
@@ -1743,12 +1604,13 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 		for i, value := range modifiedNGIDs {
 			modifiedNgMap[value] = modifiedNGHashes[i]
 			// after each commit, need update the checkedOutNGHash of the loadedGraph in the stage
-			stage.localGraphs[value].checkedOutNGRevision = modifiedNGHashes[i]
+			stage.localGraphs[value].checkedOutNGRevisions = []Hash{modifiedNGHashes[i]}
 		}
 
 		// set deleted NG Hash to emptyHash
 		for key := range deletedNGIDs {
 			modifiedNgMap[key] = emptyHash
+			stage.localGraphs[key].checkedOutNGRevisions = []Hash{emptyHash}
 		}
 
 		/* Finish Filling Bucket NGR (NamedGraph Revision) */
@@ -1774,23 +1636,23 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 			tempDsrStruct.allImportsNGIdAndNGHash = make(map[uuid.UUID]Hash)
 			// generate a Hash as dsr
 			dsHasher := sha256.New()
-			ngHash := stage.localGraphs[i].checkedOutNGRevision
+			ngHash := stage.localGraphs[i].lastCheckedOutNGRevision()
 			// dsHasher.Write(i[:])
 			dsHasher.Write(ngHash[:])
-			tempDirectImportsNGIdAndNGHash := make(map[uuid.UUID]Hash)
+			tempAllImportsNGIdAndNGHash := make(map[uuid.UUID]Hash)
 
 			// use all imported NGRevision hash to calculate the DatasetRevision hash, as long as it is imported,
 			// no matter directly or indirectly imported.
 			for _, importedNG := range stage.localGraphs[i].allImports() {
 				// means this graph is new created, not loaded from another Repository
-				if importedNG.(*namedGraph).checkedOutNGRevision == emptyHash {
+				if importedNG.(*namedGraph).lastCheckedOutNGRevision() == emptyHash {
 					// use new generated Hash
-					importedNG.(*namedGraph).checkedOutNGRevision = modifiedNgMap[importedNG.(*namedGraph).id]
+					importedNG.(*namedGraph).checkedOutNGRevisions = []Hash{modifiedNgMap[importedNG.(*namedGraph).id]}
 				}
-				tempDirectImportsNGIdAndNGHash[importedNG.(*namedGraph).id] = stage.localGraphs[importedNG.(*namedGraph).id].checkedOutNGRevision
+				tempAllImportsNGIdAndNGHash[importedNG.(*namedGraph).id] = stage.localGraphs[importedNG.(*namedGraph).id].lastCheckedOutNGRevision()
 			}
-			tempDsrStruct.directImportsNGIdAndNGHash = tempDirectImportsNGIdAndNGHash
-			for _, hash := range tempDirectImportsNGIdAndNGHash {
+			tempDsrStruct.directImportsNGIdAndNGHash = tempAllImportsNGIdAndNGHash
+			for _, hash := range tempAllImportsNGIdAndNGHash {
 				// dsHasher.Write(id[:])
 				dsHasher.Write(hash[:])
 			}
@@ -1798,17 +1660,17 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 			dsHash := dsHasher.Sum(nil)
 
 			// if current NG's Dataset Hash is emptyHash, means new created
-			if stage.localGraphs[i].checkedOutDSRevision == emptyHash {
-				stage.localGraphs[i].checkedOutDSRevision = BytesToHash(dsHash)
+			if stage.localGraphs[i].lastCheckedOutDSRevision() == emptyHash {
+				stage.localGraphs[i].checkedOutDSRevisions = []Hash{BytesToHash(dsHash)}
 				tempDsrStruct.generatedDSHash = BytesToHash(dsHash)
 			} else {
 				// if it is modified, update
 				if _, found := modifiedDSsMap[i]; found {
 					tempDsrStruct.generatedDSHash = BytesToHash(dsHash)
-					stage.localGraphs[i].checkedOutDSRevision = BytesToHash(dsHash)
+					stage.localGraphs[i].checkedOutDSRevisions = []Hash{BytesToHash(dsHash)}
 				} else {
 					// not modified, use before
-					tempDsrStruct.generatedDSHash = stage.localGraphs[i].checkedOutDSRevision
+					tempDsrStruct.generatedDSHash = stage.localGraphs[i].lastCheckedOutDSRevision()
 				}
 			}
 
@@ -1846,7 +1708,7 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 			// put current default NG-SHA
 			defaultNGSha := modifiedNgMap[id]
 			if defaultNGSha == zeroHash {
-				defaultNGSha = stage.localGraphs[id].checkedOutNGRevision
+				defaultNGSha = stage.localGraphs[id].lastCheckedOutNGRevision()
 			}
 
 			// 	1. Default NG SHA hash (cardinality 1)
@@ -1855,7 +1717,7 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 			err = datasetRevision.Put([]byte{0x00}, defaultNGSha[:])
 			if err != nil {
 				GlobalLogger.Error("", zap.Error(err))
-				return (err)
+				return err
 			}
 
 			// 	2. Directly imported DSs (one by one) (cardinality 0 to *):
@@ -1869,7 +1731,7 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 				err := datasetRevision.Put(iDToPrefixedKey(importsDsID, dsPrefix), hashBytes)
 				if err != nil {
 					GlobalLogger.Error("", zap.Error(err))
-					return (err)
+					return err
 				}
 				// fmt.Println("  Imported DS ID:", importsDsID.String(), " DS Hash:", hash.String())
 			}
@@ -1883,7 +1745,7 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 				err := datasetRevision.Put(iDToPrefixedKey(id, ngPrefix), hashBytes)
 				if err != nil {
 					GlobalLogger.Error("", zap.Error(err))
-					return (err)
+					return err
 				}
 			}
 		}
@@ -1898,7 +1760,6 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 
 		commitTime = r.config.timeNow()
 		unixCommitTime := commitTime.Unix()
-		fmt.Printf("***** commit at %+v *****\n", commitTime)
 
 		// start computing the SHA256 checksum
 		commitHasher := sha256.New()
@@ -1952,7 +1813,7 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 			bucketDs, err := tx.CreateBucketIfNotExists(keyDatasets)
 			if err != nil {
 				GlobalLogger.Error("", zap.Error(err))
-				return (err)
+				return err
 			}
 			subBucketDs := bucketDs.Bucket(id[:])
 			// Get commits bucket (Bucket C) for validating commit hashes
@@ -2020,7 +1881,7 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 			err = bucketNewCommit.Put(iDToPrefixedKey(id, commitDsPrefix), value)
 			if err != nil {
 				GlobalLogger.Error("", zap.Error(err))
-				return (err)
+				return err
 			}
 
 		}
@@ -2052,12 +1913,12 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 			bucketDs, err := tx.CreateBucketIfNotExists(keyDatasets)
 			if err != nil {
 				GlobalLogger.Error("", zap.Error(err))
-				return (err)
+				return err
 			}
 			newDsBucket, err := createDatasetBucketIfNotExists(bucketDs, dsID)
 			if err != nil {
 				GlobalLogger.Error("", zap.Error(err))
-				return (err)
+				return err
 			}
 
 			// Store IRI for Version 5 UUIDs
@@ -2065,7 +1926,7 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 				err = putDatasetIRI(newDsBucket, dsID, stage.localGraphs[dsID].baseIRI)
 				if err != nil {
 					GlobalLogger.Error("failed to store IRI for Version 5 UUID", zap.Error(err), zap.String("dsID", dsID.String()))
-					return (err)
+					return err
 				}
 			}
 
@@ -2128,7 +1989,7 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 			err = datasetRevision.Put([]byte{0x02}, commitHashBytes)
 			if err != nil {
 				GlobalLogger.Error("", zap.Error(err))
-				return (err)
+				return err
 			}
 
 		}
@@ -2157,7 +2018,6 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 
 		return nil
 	})
-
 	if err != nil {
 		GlobalLogger.Error("", zap.Error(err))
 		return HashNil(), nil, err
@@ -2168,17 +2028,16 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 	commitInfo.CommitAuthor = r.authInfo.Email
 	commitInfo.CommitTime = commitTime.UTC().Format(time.RFC3339)
 	commitInfo.CommitMessage = message
-	fmt.Printf("***** commit info is %+v *****\n", commitInfo)
 
 	modifiedDatasets := make([]uuid.UUID, 0)
 	for key := range modifiedDSsMap {
 		modifiedDatasets = append(modifiedDatasets, key)
 	}
 
-	if pcn, ok := pcNotifier.(commitDocuments); ok {
-		createIndexAfterCommit(r, stage, commitInfo, pcn, modifiedDatasets)
-	} else {
-		GlobalLogger.Info("Post commit notifier is not a commitDocuments, skipping index creation")
+	if r.config.bleveIndexUpdater != nil {
+		// LocalFullRepository does not use pcNotifier for post-commit index flushing;
+		// pass nil so the updater only performs the branch-gated re-indexing.
+		r.config.bleveIndexUpdater.updateAfterCommit(ctx, r, stage, nil, commitInfo, modifiedDatasets, branchName)
 	}
 
 	sort.SliceStable(modifiedDatasets, func(i, j int) bool {
@@ -2186,48 +2045,6 @@ func (r *localFullRepository) commitNewVersion(ctx context.Context, stage *stage
 	})
 
 	return newCommitID, modifiedDatasets, err
-}
-
-func createIndexAfterCommit(repo Repository, stage Stage, commitInfo commitInfo, pcNotifier commitDocuments, modifiedDatasets []uuid.UUID) {
-	var graphIDs []uuid.UUID
-	for _, ng := range stage.NamedGraphs() {
-		for _, id := range modifiedDatasets {
-			if ng.ID() == id {
-				graphIDs = append(graphIDs, ng.ID())
-				break
-			}
-		}
-	}
-
-	bleve := repo.Bleve()
-	if bleve != nil {
-		batch := &indexBatch{index: bleve, repo: repo, batch: bleve.NewBatch()}
-		for _, ngID := range graphIDs {
-			if ngID == uuid.Nil {
-				continue
-			}
-			graph := stage.NamedGraph(IRI(ngID.URN()))
-			if graph == nil {
-				return
-			}
-			brName := DefaultBranch
-			if brName == DefaultBranch {
-				err := updateIndexForGraph(graph, batch, true, commitInfo)
-				if err != nil {
-					return
-				}
-			}
-			err := indexBatchIfOverThreshold(batch)
-			if err != nil {
-				return
-			}
-		}
-		err := indexAndCheckPreConditions(repo, batch)
-		if err != nil {
-			return
-		}
-
-	}
 }
 
 type datasetPushStream struct {
@@ -2444,7 +2261,6 @@ func (r *localFullRepository) calculateRepositoryVersionHash() (string, error) {
 
 		return nil
 	})
-
 	if err != nil {
 		return "", fmt.Errorf("failed to calculate version hash: %w", err)
 	}
@@ -2466,7 +2282,7 @@ func (r *localFullRepository) Info(ctx context.Context, branchName string) (Repo
 	}
 
 	// Bleve size
-	var bleveSize int
+	var bleveSize int64
 	if r.bleveIndex != nil {
 		bleveSize, err = r.getBleveSize()
 		if err != nil {
@@ -2513,13 +2329,32 @@ func (r *localFullRepository) Info(ctx context.Context, branchName string) (Repo
 		return RepositoryInfo{}, err
 	}
 
+	// Quota information
+	var actualSize int64
+	if fi, err := os.Stat(r.db.Path()); err == nil {
+		if r.quota != nil {
+			actualSize = fi.Size() + r.quota.documentSizeBytes.Load()
+		}
+	}
+	var maxSize int64
+	if r.sr != nil {
+		name := filepath.Base(r.config.repositoryDir)
+		if q, err := r.sr.GetQuota(ctx, name); err == nil {
+			maxSize = q.MaxSizeBytes
+		}
+	}
+
 	// return RepositoryStatistics
 	return RepositoryInfo{
-		URL:                         r.url.String(),
-		AccessRight:                 "Local Repository",
+		URL: r.url.String(),
+		// AccessRight was fixed at open/create time and never changes
+		// during the lifetime of the repository instance.
+		AccessRight:                 r.accessRight,
 		MasterDBSize:                BboltSize,
 		DerivedDBSize:               bleveSize,
 		DocumentDBSize:              DocumentDBSize,
+		ActualRepositorySize:        actualSize,
+		MaxRepositorySize:           maxSize,
 		NumberOfDatasets:            NumberOfDatasets,
 		NumberOfDatasetsInBranch:    NumberOfDatasetsInBranch,
 		NumberOfDatasetRevisions:    NumberOfDatasetRevisions,
@@ -2550,10 +2385,8 @@ func (r *localFullRepository) Log(ctx context.Context, start, end *int) ([]Repos
 	err := r.db.View(func(tx *bbolt.Tx) error {
 		bucket := tx.Bucket([]byte("log"))
 		if bucket == nil {
-			log.Println("log bucket not found")
 			return nil
 		}
-		log.Println("log bucket found")
 
 		uint64ToKey := func(n uint64) []byte {
 			b := make([]byte, 8)
@@ -2581,7 +2414,11 @@ func (r *localFullRepository) Log(ctx context.Context, start, end *int) ([]Repos
 
 			lastKey, _ := c.Last()
 			if lastKey == nil || bytes.Compare(startKey, lastKey) > 0 {
-				log.Printf("startKey %d is beyond max log key %d", *start, keyToUint64(lastKey))
+				GlobalLogger.Debug(
+					"log start key beyond max",
+					zap.Int("start", *start),
+					zap.Uint64("maxKey", keyToUint64(lastKey)),
+				)
 				return nil // return empty result
 			}
 		}
@@ -2592,7 +2429,11 @@ func (r *localFullRepository) Log(ctx context.Context, start, end *int) ([]Repos
 		} else if start != nil && end != nil {
 			// Validate: in reverse range, start must >= end
 			if *start < *end {
-				log.Printf("Invalid log range: start (%d) < end (%d) in reverse mode", *start, *end)
+				GlobalLogger.Debug(
+					"invalid log range in reverse mode",
+					zap.Int("start", *start),
+					zap.Int("end", *end),
+				)
 				return nil
 			}
 			endKey = uint64ToKey(uint64(*end))
@@ -2619,7 +2460,6 @@ func (r *localFullRepository) Log(ctx context.Context, start, end *int) ([]Repos
 			})
 
 			logKey := keyToUint64(k)
-			log.Printf("log entry: key=%d, fields=%v", logKey, fields)
 
 			results = append(results, RepositoryLogEntry{
 				LogKey: logKey,
@@ -2633,12 +2473,12 @@ func (r *localFullRepository) Log(ctx context.Context, start, end *int) ([]Repos
 	return results, err
 }
 
-func getBboltSize(db *bbolt.DB) (int, error) {
+func getBboltSize(db *bbolt.DB) (int64, error) {
 	info, err := os.Stat(db.Path())
 	if err != nil {
 		return 0, err
 	}
-	return int(info.Size()), nil
+	return info.Size(), nil
 }
 
 func (r *localFullRepository) getBlevePaths() (indexPath string, infoPath string) {
@@ -2647,14 +2487,14 @@ func (r *localFullRepository) getBlevePaths() (indexPath string, infoPath string
 	return blevePath, bleveInfoPath
 }
 
-func (r *localFullRepository) getBleveSize() (int, error) {
+func (r *localFullRepository) getBleveSize() (int64, error) {
 	blevePath, _ := r.getBlevePaths()
 
 	if _, err := os.Stat(blevePath); os.IsNotExist(err) {
 		return 0, fmt.Errorf("bleve index not initialized")
 	}
 
-	var size int
+	var size int64
 	err := filepath.Walk(blevePath, func(_ string, info os.FileInfo, err error) error {
 		if err != nil {
 			// when counting size, if file not exist, just skip
@@ -2667,7 +2507,7 @@ func (r *localFullRepository) getBleveSize() (int, error) {
 		if info == nil || info.IsDir() {
 			return nil
 		}
-		size += int(info.Size())
+		size += info.Size()
 		return nil
 	})
 	if err != nil {
@@ -2676,9 +2516,9 @@ func (r *localFullRepository) getBleveSize() (int, error) {
 	return size, nil
 }
 
-func countDatasets(db *bbolt.DB, branchName string) (int, int, error) {
-	var datasetCount int
-	var datasetCountInBranch int
+func countDatasets(db *bbolt.DB, branchName string) (int64, int64, error) {
+	var datasetCount int64
+	var datasetCountInBranch int64
 	err := db.View(func(tx *bbolt.Tx) error {
 		bucketDS := tx.Bucket(keyDatasets)
 		if bucketDS == nil {
@@ -2726,8 +2566,8 @@ func countDatasets(db *bbolt.DB, branchName string) (int, int, error) {
 	return datasetCount, datasetCountInBranch, err
 }
 
-func countDatasetRevisions(db *bbolt.DB) (int, error) {
-	var count int
+func countDatasetRevisions(db *bbolt.DB) (int64, error) {
+	var count int64
 	err := db.View(func(tx *bbolt.Tx) error {
 		bucket := tx.Bucket(keyDatasetRevisions)
 		if bucket == nil {
@@ -2749,8 +2589,8 @@ func countDatasetRevisions(db *bbolt.DB) (int, error) {
 	return count, err
 }
 
-func countNamedGraphRevisions(db *bbolt.DB) (int, error) {
-	var count int
+func countNamedGraphRevisions(db *bbolt.DB) (int64, error) {
+	var count int64
 	err := db.View(func(tx *bbolt.Tx) error {
 		bucket := tx.Bucket(keyNamedGraphRevisions)
 		if bucket == nil {
@@ -2772,8 +2612,8 @@ func countNamedGraphRevisions(db *bbolt.DB) (int, error) {
 	return count, err
 }
 
-func countCommits(db *bbolt.DB) (int, error) {
-	var count int
+func countCommits(db *bbolt.DB) (int64, error) {
+	var count int64
 	err := db.View(func(tx *bbolt.Tx) error {
 		bucket := tx.Bucket(keyCommits)
 		if bucket == nil {
@@ -2795,8 +2635,8 @@ func countCommits(db *bbolt.DB) (int, error) {
 	return count, err
 }
 
-func countRepositoryLogEntries(db *bbolt.DB) (int, error) {
-	var count int
+func countRepositoryLogEntries(db *bbolt.DB) (int64, error) {
+	var count int64
 	err := db.View(func(tx *bbolt.Tx) error {
 		bucket := tx.Bucket([]byte("log"))
 		if bucket == nil {
@@ -2818,8 +2658,8 @@ func countRepositoryLogEntries(db *bbolt.DB) (int, error) {
 	return count, err
 }
 
-func countDocuments(db *bbolt.DB) (int, error) {
-	var count int
+func countDocuments(db *bbolt.DB) (int64, error) {
+	var count int64
 	err := db.View(func(tx *bbolt.Tx) error {
 		bucket := tx.Bucket([]byte(documentInfoBucket))
 		if bucket == nil {
@@ -2844,7 +2684,60 @@ func countDocuments(db *bbolt.DB) (int, error) {
 	return count, err
 }
 
-func calculateDocumentDBSize(repositoryDir string) (int, error) {
+// initDocumentSize walks the document vault and initializes the atomic counter.
+func (r *localFullRepository) initDocumentSize() error {
+	if r.quota == nil {
+		return nil
+	}
+	size, err := calculateDocumentDBSize(r.config.repositoryDir)
+	if err != nil {
+		return err
+	}
+	r.quota.documentSizeBytes.Store(size)
+	return nil
+}
+
+// checkQuota verifies that writing bboltDelta and docDelta bytes does not exceed
+// the per-repository quota or the SuperRepository total quota.
+// Caller must hold r.quota.writeMu when r.quota is non-nil.
+func (r *localFullRepository) checkQuota(ctx context.Context, bboltDelta, docDelta int64) error {
+	if r.sr == nil || r.quota == nil {
+		return nil
+	}
+
+	name := filepath.Base(r.config.repositoryDir)
+
+	// Per-repository quota.
+	repoQuota, err := r.sr.GetQuota(ctx, name)
+	if err != nil {
+		return err
+	}
+	if repoQuota.MaxSizeBytes > 0 {
+		info, err := os.Stat(r.db.Path())
+		if err != nil {
+			return fmt.Errorf("stat bbolt db: %w", err)
+		}
+		docSize := r.quota.documentSizeBytes.Load()
+		if info.Size()+docSize+bboltDelta+docDelta > repoQuota.MaxSizeBytes {
+			return ErrQuotaExceeded
+		}
+	}
+
+	// SuperRepository total quota (soft limit).
+	totalQuota, err := r.sr.GetTotalQuota(ctx)
+	if err != nil {
+		return err
+	}
+	if totalQuota.MaxSizeBytes > 0 {
+		if totalQuota.ActualSizeBytes+bboltDelta+docDelta > totalQuota.MaxSizeBytes {
+			return ErrQuotaExceeded
+		}
+	}
+
+	return nil
+}
+
+func calculateDocumentDBSize(repositoryDir string) (int64, error) {
 	vaultDir := filepath.Join(repositoryDir, VaultDirName)
 
 	// Check if vault directory exists
@@ -2852,7 +2745,7 @@ func calculateDocumentDBSize(repositoryDir string) (int, error) {
 		return 0, nil // No documents stored yet
 	}
 
-	var size int
+	var size int64
 	err := filepath.Walk(vaultDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			// when counting size, if file not exist, just skip
@@ -2865,7 +2758,7 @@ func calculateDocumentDBSize(repositoryDir string) (int, error) {
 		if info == nil || info.IsDir() {
 			return nil
 		}
-		size += int(info.Size())
+		size += info.Size()
 		return nil
 	})
 	if err != nil {
@@ -2914,6 +2807,11 @@ func (r *localFullRepository) DocumentSet(ctx context.Context, mimeType string, 
 	}
 	defer r.leave()
 
+	if r.quota != nil {
+		r.quota.writeMu.Lock()
+		defer r.quota.writeMu.Unlock()
+	}
+
 	// Step 0: Read content and compute hash
 	var buf bytes.Buffer
 	hasher := sha256.New()
@@ -2954,9 +2852,19 @@ func (r *localFullRepository) DocumentSet(ctx context.Context, mimeType string, 
 		return hash, nil
 	}
 
+	// Step 2.5: Quota check before writing the vault file.
+	if err := r.checkQuota(ctx, 0, size); err != nil {
+		return emptyHash, err
+	}
+
 	// Step 3: Store file
 	if err := storeStreamToVault(&buf, vaultDir, hash); err != nil {
 		return emptyHash, fmt.Errorf("failed to store file: %w", err)
+	}
+
+	// Update document size counter to match physical state.
+	if r.quota != nil {
+		r.quota.documentSizeBytes.Add(size)
 	}
 
 	// Step 4: Store info
@@ -3149,10 +3057,16 @@ func (r *localFullRepository) DocumentDelete(ctx context.Context, hash Hash) err
 	}
 	defer r.leave()
 
+	if r.quota != nil {
+		r.quota.writeMu.Lock()
+		defer r.quota.writeMu.Unlock()
+	}
+
 	vaultDir := filepath.Join(r.config.repositoryDir, VaultDirName)
 	filePath := vaultPath(vaultDir, hash)
 
 	// Step 0: Stat before deletion (for logging size)
+	var deletedSize int64
 	var sizeBytes string
 	if fi, err := os.Stat(filePath); err != nil {
 		if os.IsNotExist(err) {
@@ -3160,12 +3074,18 @@ func (r *localFullRepository) DocumentDelete(ctx context.Context, hash Hash) err
 		}
 		return fmt.Errorf("failed to stat document file: %w", err)
 	} else {
-		sizeBytes = strconv.FormatInt(fi.Size(), 10)
+		deletedSize = fi.Size()
+		sizeBytes = strconv.FormatInt(deletedSize, 10)
 	}
 
 	// Step 1: Delete the file
 	if err := os.Remove(filePath); err != nil {
 		return fmt.Errorf("failed to delete document file: %w", err)
+	}
+
+	// Update document size counter to match physical state.
+	if r.quota != nil {
+		r.quota.documentSizeBytes.Add(-deletedSize)
 	}
 
 	// Step 2: Delete metadata and write deletion log
@@ -3330,21 +3250,21 @@ func collectAllImportedDatasets(
 				commitHashBytes := dsBucket.Get(branchKey)
 				if commitHashBytes == nil {
 					// Branch not found for this dataset, skip
-					return nil
+					continue
 				}
 				commitHash := BytesToHash(commitHashBytes)
 
 				// Get DatasetRevision hash from commit
 				commitBucket := commitsBucket.Bucket(commitHash[:])
 				if commitBucket == nil {
-					return nil // Commit not found, skip
+					continue // Commit not found, skip
 				}
 
 				// Find DatasetRevision hash for this dataset in the commit
 				dsKey := iDToPrefixedKey(dsID, commitDsPrefix)
 				actualDSKey, dsRevisionHashBytes := commitBucket.Cursor().Seek(dsKey)
 				if !bytes.Equal(actualDSKey, dsKey) {
-					return nil // DatasetRevision not found in this commit, skip
+					continue // DatasetRevision not found in this commit, skip
 				}
 
 				dsRevisionHash := BytesToHash(dsRevisionHashBytes[:len(hashT{})])
@@ -3423,6 +3343,11 @@ func (r *localFullRepository) SyncFrom(ctx context.Context, from Repository, opt
 			}
 		}
 
+		existingDSRs, err := snapshotExistingDSRs(r.db)
+		if err != nil {
+			return fmt.Errorf("failed to snapshot existing dataset revisions: %w", err)
+		}
+
 		// Local to local sync
 		// Step 1: Sync NamedGraphRevisions
 		if err := r.syncNamedGraphRevisions(ctx, fromLocal, datasetIDSet, branchName); err != nil {
@@ -3447,6 +3372,10 @@ func (r *localFullRepository) SyncFrom(ctx context.Context, from Repository, opt
 		// Step 5: Sync document_info
 		if err := r.syncDocumentInfo(ctx, fromLocal, datasetIDSet); err != nil {
 			return fmt.Errorf("failed to sync document_info: %w", err)
+		}
+
+		if err := writeSyncFromLogAfterSync(ctx, r, fromLocal.URL(), existingDSRs, branchName); err != nil {
+			return fmt.Errorf("failed to write sync_from log entry: %w", err)
 		}
 
 		return nil
@@ -3868,11 +3797,8 @@ func (r *localFullRepository) syncDatasets(ctx context.Context, from *localFullR
 					}
 
 					// Update BleveIndex if master branch exists
-					if r.bleveIndex != nil {
-						if err := r.updateBleveIndexForDataset(ctx, k, toSubBucket); err != nil {
-							GlobalLogger.Warn("failed to update BleveIndex for dataset", zap.Error(err), zap.String("dataset", uuid.UUID(k).String()))
-							// Don't fail the sync if BleveIndex update fails
-						}
+					if r.config.bleveIndexUpdater != nil {
+						r.config.bleveIndexUpdater.updateAfterSync(ctx, r, uuid.UUID(k), DefaultBranch)
 					}
 
 					return nil
@@ -3912,7 +3838,7 @@ func (r *localFullRepository) syncDatasets(ctx context.Context, from *localFullR
 	})
 }
 
-// datasetsAreIdentical checks if two dataset buckets have identical content
+// datasetsAreIdentical checks if two dataset buckets have identical content.
 func (r *localFullRepository) datasetsAreIdentical(bucket1, bucket2 *bbolt.Bucket) bool {
 	// Compare all key-value pairs
 	seen := make(map[string][]byte)
@@ -3938,65 +3864,6 @@ func (r *localFullRepository) datasetsAreIdentical(bucket1, bucket2 *bbolt.Bucke
 
 	// Check if all keys from bucket1 were found in bucket2
 	return identical && len(seen) == 0
-}
-
-// updateBleveIndexForDataset updates the BleveIndex for a dataset if it's on the master branch
-func (r *localFullRepository) updateBleveIndexForDataset(ctx context.Context, dsIDBytes []byte, dsBucket *bbolt.Bucket) error {
-	// Check if master branch exists
-	masterBranchKey := bytesToRefKey(stringAsImmutableBytes(DefaultBranch), refBranchPrefix)
-	commitHashBytes := dsBucket.Get(masterBranchKey)
-	if commitHashBytes == nil {
-		return nil // No master branch, skip
-	}
-
-	var commitHash Hash
-	copy(commitHash[:], commitHashBytes)
-
-	// Get the dataset
-	var id uuid.UUID
-	copy(id[:], dsIDBytes)
-
-	ds, err := r.Dataset(ctx, IRI(id.URN()))
-	if err != nil {
-		return err
-	}
-
-	// Checkout the master branch
-	st, err := ds.CheckoutBranch(ctx, DefaultBranch, DefaultTriplexMode)
-	if err != nil {
-		if strings.Contains(err.Error(), ErrBranchNotFound.Error()) {
-			return nil // Branch not found, skip
-		}
-		return err
-	}
-
-	// Update index for the graph
-	graph := st.NamedGraph(IRI(id.URN()))
-	if graph == nil {
-		return nil
-	}
-
-	batch := &indexBatch{
-		index: r.bleveIndex,
-		repo:  r,
-		batch: r.bleveIndex.NewBatch(),
-	}
-
-	commitInfo := commitInfo{
-		CommitHash:   commitHash.String(),
-		CommitAuthor: "sync",
-		CommitTime:   time.Now().UTC().Format(time.RFC3339),
-	}
-
-	if err := updateIndexForGraph(graph, batch, true, commitInfo); err != nil {
-		return err
-	}
-
-	if err := indexBatchIfOverThreshold(batch); err != nil {
-		return err
-	}
-
-	return indexAndCheckPreConditions(r, batch)
 }
 
 // syncFromRemote synchronizes data from a RemoteRepository to this LocalFullRepository via gRPC.
@@ -4036,7 +3903,7 @@ func (r *localFullRepository) syncFromRemote(ctx context.Context, fromRemote *re
 	}
 
 	// Create gRPC stream to receive bucket data from server
-	log.Println("gRPC dsClient call SyncTo")
+	GlobalLogger.Debug("gRPC dsClient call SyncTo")
 	stream, err := fromRemote.dsClient.SyncTo(ctx, &bboltproto.SyncToRequest{
 		Metadata: metadata,
 	}, grpcOpts...)
@@ -4047,16 +3914,13 @@ func (r *localFullRepository) syncFromRemote(ctx context.Context, fromRemote *re
 	// Track document_info hashes that need file sync
 	documentHashesToSync := make(map[string]bool)
 
-	// Create datasetIDSet for filtering
-	var datasetIDSet map[uuid.UUID]struct{}
-	if len(datasetIDs) > 0 {
-		datasetIDSet = make(map[uuid.UUID]struct{})
-		for _, dsID := range datasetIDs {
-			datasetIDSet[dsID] = struct{}{}
-		}
+	existingDSRs, err := snapshotExistingDSRs(r.db)
+	if err != nil {
+		return fmt.Errorf("failed to snapshot existing dataset revisions: %w", err)
 	}
 
-	// Process streamed bucket data
+	// Process streamed bucket data. Filtering is done server-side in SyncTo;
+	// do not re-filter on the client with an incomplete dataset set.
 	for {
 		resp, err := stream.Recv()
 		if err == io.EOF {
@@ -4069,24 +3933,29 @@ func (r *localFullRepository) syncFromRemote(ctx context.Context, fromRemote *re
 		switch data := resp.Data.(type) {
 		case *bboltproto.SyncToResponse_BucketData:
 			bd := data.BucketData
-			if err := r.processBucketDataFromRemote(ctx, bd, documentHashesToSync, datasetIDSet); err != nil {
+			if err := r.processBucketDataFromRemote(ctx, bd, documentHashesToSync, nil); err != nil {
 				return fmt.Errorf("failed to process bucket data: %w", err)
 			}
 
 		case *bboltproto.SyncToResponse_Complete:
 			complete := data.Complete
-			log.Printf("SyncTo completed: NGR=%d, DSR=%d, DS=%d, Commits=%d, DocInfo=%d",
-				complete.NamedGraphRevisionsSynced,
-				complete.DatasetRevisionsSynced,
-				complete.DatasetsSynced,
-				complete.CommitsSynced,
-				complete.DocumentInfoSynced,
+			GlobalLogger.Debug(
+				"SyncTo completed",
+				zap.Int32("namedGraphRevisions", complete.NamedGraphRevisionsSynced),
+				zap.Int32("datasetRevisions", complete.DatasetRevisionsSynced),
+				zap.Int32("datasets", complete.DatasetsSynced),
+				zap.Int32("commits", complete.CommitsSynced),
+				zap.Int32("documentInfo", complete.DocumentInfoSynced),
 			)
 
 			// Sync actual files for all document_info that were synced
 			if err := r.syncDocumentFilesFromRemote(ctx, fromRemote, documentHashesToSync); err != nil {
 				GlobalLogger.Warn("failed to sync some document files from remote", zap.Error(err))
 				// Don't fail the entire sync if some files fail
+			}
+
+			if err := writeSyncFromLogAfterSync(ctx, r, fromRemote.URL(), existingDSRs, branchName); err != nil {
+				return fmt.Errorf("failed to write sync_from log entry: %w", err)
 			}
 
 			return nil
@@ -4099,10 +3968,14 @@ func (r *localFullRepository) syncFromRemote(ctx context.Context, fromRemote *re
 		// Don't fail the entire sync if some files fail
 	}
 
+	if err := writeSyncFromLogAfterSync(ctx, r, fromRemote.URL(), existingDSRs, branchName); err != nil {
+		return fmt.Errorf("failed to write sync_from log entry: %w", err)
+	}
+
 	return nil
 }
 
-// syncDocumentFilesFromRemote syncs actual document files from remote repository
+// syncDocumentFilesFromRemote syncs actual document files from remote repository.
 func (r *localFullRepository) syncDocumentFilesFromRemote(ctx context.Context, fromRemote *remoteRepository, documentHashes map[string]bool) error {
 	vaultDir := filepath.Join(r.config.repositoryDir, VaultDirName)
 	if err := os.MkdirAll(vaultDir, os.ModePerm); err != nil {
@@ -4215,15 +4088,8 @@ func (r *localFullRepository) processBucketDataFromRemote(ctx context.Context, b
 					}
 				}
 				// Update BleveIndex if master branch exists
-				if r.bleveIndex != nil {
-					// Check if master branch exists in the dataset
-					masterBranchKey := bytesToRefKey(stringAsImmutableBytes(DefaultBranch), refBranchPrefix)
-					if dsBucket.Get(masterBranchKey) != nil {
-						if err := r.updateBleveIndexForDataset(ctx, key, dsBucket); err != nil {
-							GlobalLogger.Warn("failed to update BleveIndex for dataset", zap.Error(err), zap.String("dataset", uuid.UUID(key).String()))
-							// Don't fail the sync if BleveIndex update fails
-						}
-					}
+				if r.config.bleveIndexUpdater != nil {
+					r.config.bleveIndexUpdater.updateAfterSync(ctx, r, uuid.UUID(key), DefaultBranch)
 				}
 			} else if bd.IsBucket && len(bd.SubKey) > 0 {
 				// Check if identical or merge
@@ -4243,14 +4109,11 @@ func (r *localFullRepository) processBucketDataFromRemote(ctx context.Context, b
 					// Current implementation: simplified merge (keep existing if different)
 				}
 				// Update BleveIndex if master branch exists (only if master branch was updated)
-				if r.bleveIndex != nil && bytes.HasPrefix(bd.SubKey, []byte{byte(refBranchPrefix)}) {
+				if r.config.bleveIndexUpdater != nil && bytes.HasPrefix(bd.SubKey, []byte{byte(refBranchPrefix)}) {
 					// Check if this is the master branch
 					masterBranchKey := bytesToRefKey(stringAsImmutableBytes(DefaultBranch), refBranchPrefix)
 					if bytes.Equal(bd.SubKey, masterBranchKey) {
-						if err := r.updateBleveIndexForDataset(ctx, key, dsBucket); err != nil {
-							GlobalLogger.Warn("failed to update BleveIndex for dataset", zap.Error(err), zap.String("dataset", uuid.UUID(key).String()))
-							// Don't fail the sync if BleveIndex update fails
-						}
+						r.config.bleveIndexUpdater.updateAfterSync(ctx, r, uuid.UUID(key), DefaultBranch)
 					}
 				}
 			}
@@ -4465,7 +4328,7 @@ func (r *localFullRepository) syncCommits(ctx context.Context, from *localFullRe
 	})
 }
 
-// commitsAreIdentical checks if two commit buckets have identical content
+// commitsAreIdentical checks if two commit buckets have identical content.
 func (r *localFullRepository) commitsAreIdentical(bucket1, bucket2 *bbolt.Bucket) bool {
 	seen := make(map[string][]byte)
 	err := bucket1.ForEach(func(k, v []byte) error {

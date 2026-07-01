@@ -6,6 +6,7 @@ package ssmeta
 
 import (
 	"reflect"
+
 	"github.com/semanticstep/sst-core/sst"
 )
 
@@ -42,7 +43,7 @@ var AbstractClass = abstractClassI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "AbstractClass"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -60,10 +61,13 @@ type KindAbstractProperty interface {
 
 type abstractPropertyI struct{ sst.ElementInfo }
 
-func (abstractPropertyI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23AbstractProperty()        {}
-func (abstractPropertyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23AbstractProperty()      {}
-func (abstractPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
-func (abstractPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
+func (abstractPropertyI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23AbstractProperty() {
+}
+func (abstractPropertyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23AbstractProperty() {
+}
+func (abstractPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
+}
+func (abstractPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
 
 var abstractPropertyKindInterface reflect.Type
 
@@ -71,7 +75,7 @@ var AbstractProperty = abstractPropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "AbstractProperty"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -89,9 +93,12 @@ type KindConnotationalClass interface {
 
 type connotationalClassI struct{ sst.ElementInfo }
 
-func (connotationalClassI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23ConnotationalClass()   {}
-func (connotationalClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23ConnotationalClass() {}
-func (connotationalClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
+func (connotationalClassI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23ConnotationalClass() {
+}
+func (connotationalClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23ConnotationalClass() {
+}
+func (connotationalClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var connotationalClassKindInterface reflect.Type
 
@@ -99,7 +106,7 @@ var ConnotationalClass = connotationalClassI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "ConnotationalClass"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -127,9 +134,39 @@ var DefinedType = definedTypeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "DefinedType"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
+}}
+
+// Definitions of ssmeta.DummyStepIrClass
+
+type IsDummyStepIrClass interface {
+	sst.ElementInformer
+	AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23DummyStepIrClass()
+}
+
+type KindDummyStepIrClass interface {
+	sst.ElementInformer
+	AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23DummyStepIrClass()
+}
+
+type dummyStepIrClassI struct{ sst.ElementInfo }
+
+func (dummyStepIrClassI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23DummyStepIrClass() {
+}
+func (dummyStepIrClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23DummyStepIrClass() {
+}
+func (dummyStepIrClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+
+var dummyStepIrClassKindInterface reflect.Type
+
+var DummyStepIrClass = dummyStepIrClassI{sst.ElementInfo{
+	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "DummyStepIrClass"},
+
+	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	ADatatype: false, AnIndividual: false,
 }}
 
 // Definitions of ssmeta.Entity
@@ -156,7 +193,7 @@ var Entity = entityI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "Entity"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -175,9 +212,10 @@ type KindEntityInstance interface {
 
 type entityInstanceI struct{ sst.ElementInfo }
 
-func (entityInstanceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23EntityInstance()   {}
-func (entityInstanceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23EntityInstance() {}
-func (entityInstanceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (entityInstanceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23EntityInstance() {}
+func (entityInstanceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23EntityInstance() {
+}
+func (entityInstanceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
 
 var entityInstanceKindInterface reflect.Type
 
@@ -185,7 +223,7 @@ var EntityInstance = entityInstanceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "EntityInstance"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -204,9 +242,11 @@ type KindEnumerationClass interface {
 
 type enumerationClassI struct{ sst.ElementInfo }
 
-func (enumerationClassI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23EnumerationClass()   {}
-func (enumerationClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23EnumerationClass() {}
-func (enumerationClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (enumerationClassI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23EnumerationClass() {
+}
+func (enumerationClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23EnumerationClass() {
+}
+func (enumerationClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
 
 var enumerationClassKindInterface reflect.Type
 
@@ -214,7 +254,7 @@ var EnumerationClass = enumerationClassI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "EnumerationClass"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -232,9 +272,11 @@ type KindEnumerationValue interface {
 
 type enumerationValueI struct{ sst.ElementInfo }
 
-func (enumerationValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23EnumerationValue()   {}
-func (enumerationValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23EnumerationValue() {}
-func (enumerationValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (enumerationValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23EnumerationValue() {
+}
+func (enumerationValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23EnumerationValue() {
+}
+func (enumerationValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
 
 var enumerationValueKindInterface reflect.Type
 
@@ -242,7 +284,7 @@ var EnumerationValue = enumerationValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "EnumerationValue"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -272,7 +314,7 @@ var Field = fieldI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "Field"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -291,10 +333,13 @@ type KindListOfProperties interface {
 
 type listOfPropertiesI struct{ sst.ElementInfo }
 
-func (listOfPropertiesI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23ListOfProperties()    {}
-func (listOfPropertiesI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23ListOfProperties()  {}
-func (listOfPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23List() {}
-func (listOfPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (listOfPropertiesI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23ListOfProperties() {
+}
+func (listOfPropertiesI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23ListOfProperties() {
+}
+func (listOfPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23List() {
+}
+func (listOfPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
 
 var listOfPropertiesKindInterface reflect.Type
 
@@ -302,7 +347,7 @@ var ListOfProperties = listOfPropertiesI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "ListOfProperties"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -330,7 +375,7 @@ var MainClass = mainClassI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "MainClass"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -358,7 +403,7 @@ var OptionClass = optionClassI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "OptionClass"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -376,9 +421,12 @@ type KindPropertyAssignment interface {
 
 type propertyAssignmentI struct{ sst.ElementInfo }
 
-func (propertyAssignmentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23PropertyAssignment()   {}
-func (propertyAssignmentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23PropertyAssignment() {}
-func (propertyAssignmentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
+func (propertyAssignmentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23PropertyAssignment() {
+}
+func (propertyAssignmentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23PropertyAssignment() {
+}
+func (propertyAssignmentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var propertyAssignmentKindInterface reflect.Type
 
@@ -386,7 +434,7 @@ var PropertyAssignment = propertyAssignmentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "PropertyAssignment"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -414,7 +462,7 @@ var Schema = schemaI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "Schema"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -443,7 +491,7 @@ var SelectClass = selectClassI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "SelectClass"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -461,9 +509,12 @@ type KindSingleEntityValue interface {
 
 type singleEntityValueI struct{ sst.ElementInfo }
 
-func (singleEntityValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23SingleEntityValue()   {}
-func (singleEntityValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23SingleEntityValue() {}
-func (singleEntityValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (singleEntityValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23SingleEntityValue() {
+}
+func (singleEntityValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23SingleEntityValue() {
+}
+func (singleEntityValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var singleEntityValueKindInterface reflect.Type
 
@@ -471,7 +522,7 @@ var SingleEntityValue = singleEntityValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "SingleEntityValue"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -490,9 +541,12 @@ type KindSpecialPropertyValue interface {
 
 type specialPropertyValueI struct{ sst.ElementInfo }
 
-func (specialPropertyValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23SpecialPropertyValue()   {}
-func (specialPropertyValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23SpecialPropertyValue() {}
-func (specialPropertyValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
+func (specialPropertyValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23SpecialPropertyValue() {
+}
+func (specialPropertyValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23SpecialPropertyValue() {
+}
+func (specialPropertyValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var specialPropertyValueKindInterface reflect.Type
 
@@ -500,7 +554,7 @@ var SpecialPropertyValue = specialPropertyValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "SpecialPropertyValue"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -519,10 +573,13 @@ type KindStepImMapAttributeSpecial interface {
 
 type stepImMapAttributeSpecialI struct{ sst.ElementInfo }
 
-func (stepImMapAttributeSpecialI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23StepImMapAttributeSpecial()   {}
-func (stepImMapAttributeSpecialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23StepImMapAttributeSpecial() {}
-func (stepImMapAttributeSpecialI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
-func (stepImMapAttributeSpecialI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                           {}
+func (stepImMapAttributeSpecialI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23StepImMapAttributeSpecial() {
+}
+func (stepImMapAttributeSpecialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23StepImMapAttributeSpecial() {
+}
+func (stepImMapAttributeSpecialI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (stepImMapAttributeSpecialI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
 
 var stepImMapAttributeSpecialKindInterface reflect.Type
 
@@ -530,7 +587,7 @@ var StepImMapAttributeSpecial = stepImMapAttributeSpecialI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "StepImMapAttributeSpecial"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -548,18 +605,20 @@ type KindAssignedProperty interface {
 
 type assignedPropertyI struct{ sst.ElementInfo }
 
-func (assignedPropertyI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedProperty()   {}
-func (assignedPropertyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedProperty() {}
-func (assignedPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (assignedPropertyI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedProperty() {
+}
+func (assignedPropertyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedProperty() {
+}
+func (assignedPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
 
 var assignedPropertyKindInterface reflect.Type
 
 var AssignedProperty = assignedPropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "assignedProperty"},
-	ADomain:           PropertyAssignment,
+	ADomain: PropertyAssignment,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -577,19 +636,23 @@ type KindAssignedPropertyMandatory interface {
 
 type assignedPropertyMandatoryI struct{ sst.ElementInfo }
 
-func (assignedPropertyMandatoryI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyMandatory()   {}
-func (assignedPropertyMandatoryI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedProperty()          {}
-func (assignedPropertyMandatoryI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyMandatory() {}
-func (assignedPropertyMandatoryI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
+func (assignedPropertyMandatoryI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyMandatory() {
+}
+func (assignedPropertyMandatoryI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedProperty() {
+}
+func (assignedPropertyMandatoryI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyMandatory() {
+}
+func (assignedPropertyMandatoryI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var assignedPropertyMandatoryKindInterface reflect.Type
 
 var AssignedPropertyMandatory = assignedPropertyMandatoryI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "assignedPropertyMandatory"},
-	ASubtypeOf:        []sst.ElementInformer{AssignedProperty},
+	Element:    sst.Element{Vocabulary: SSMETAVocabulary, Name: "assignedPropertyMandatory"},
+	ASubtypeOf: []sst.ElementInformer{AssignedProperty},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -607,19 +670,23 @@ type KindAssignedPropertyMandatorySet interface {
 
 type assignedPropertyMandatorySetI struct{ sst.ElementInfo }
 
-func (assignedPropertyMandatorySetI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyMandatorySet()   {}
-func (assignedPropertyMandatorySetI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedProperty()             {}
-func (assignedPropertyMandatorySetI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyMandatorySet() {}
-func (assignedPropertyMandatorySetI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                  {}
+func (assignedPropertyMandatorySetI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyMandatorySet() {
+}
+func (assignedPropertyMandatorySetI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedProperty() {
+}
+func (assignedPropertyMandatorySetI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyMandatorySet() {
+}
+func (assignedPropertyMandatorySetI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var assignedPropertyMandatorySetKindInterface reflect.Type
 
 var AssignedPropertyMandatorySet = assignedPropertyMandatorySetI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "assignedPropertyMandatorySet"},
-	ASubtypeOf:        []sst.ElementInformer{AssignedProperty},
+	Element:    sst.Element{Vocabulary: SSMETAVocabulary, Name: "assignedPropertyMandatorySet"},
+	ASubtypeOf: []sst.ElementInformer{AssignedProperty},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -637,19 +704,23 @@ type KindAssignedPropertyOptional interface {
 
 type assignedPropertyOptionalI struct{ sst.ElementInfo }
 
-func (assignedPropertyOptionalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyOptional()   {}
-func (assignedPropertyOptionalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedProperty()         {}
-func (assignedPropertyOptionalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyOptional() {}
-func (assignedPropertyOptionalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
+func (assignedPropertyOptionalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyOptional() {
+}
+func (assignedPropertyOptionalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedProperty() {
+}
+func (assignedPropertyOptionalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyOptional() {
+}
+func (assignedPropertyOptionalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var assignedPropertyOptionalKindInterface reflect.Type
 
 var AssignedPropertyOptional = assignedPropertyOptionalI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "assignedPropertyOptional"},
-	ASubtypeOf:        []sst.ElementInformer{AssignedProperty},
+	Element:    sst.Element{Vocabulary: SSMETAVocabulary, Name: "assignedPropertyOptional"},
+	ASubtypeOf: []sst.ElementInformer{AssignedProperty},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -667,19 +738,23 @@ type KindAssignedPropertyOptionalSet interface {
 
 type assignedPropertyOptionalSetI struct{ sst.ElementInfo }
 
-func (assignedPropertyOptionalSetI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyOptionalSet()   {}
-func (assignedPropertyOptionalSetI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedProperty()            {}
-func (assignedPropertyOptionalSetI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyOptionalSet() {}
-func (assignedPropertyOptionalSetI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
+func (assignedPropertyOptionalSetI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyOptionalSet() {
+}
+func (assignedPropertyOptionalSetI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedProperty() {
+}
+func (assignedPropertyOptionalSetI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23assignedPropertyOptionalSet() {
+}
+func (assignedPropertyOptionalSetI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var assignedPropertyOptionalSetKindInterface reflect.Type
 
 var AssignedPropertyOptionalSet = assignedPropertyOptionalSetI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "assignedPropertyOptionalSet"},
-	ASubtypeOf:        []sst.ElementInformer{AssignedProperty},
+	Element:    sst.Element{Vocabulary: SSMETAVocabulary, Name: "assignedPropertyOptionalSet"},
+	ASubtypeOf: []sst.ElementInformer{AssignedProperty},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -697,9 +772,11 @@ type KindAttributeValues interface {
 
 type attributeValuesI struct{ sst.ElementInfo }
 
-func (attributeValuesI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23attributeValues()   {}
-func (attributeValuesI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23attributeValues() {}
-func (attributeValuesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
+func (attributeValuesI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23attributeValues() {
+}
+func (attributeValuesI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23attributeValues() {
+}
+func (attributeValuesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
 
 var attributeValuesKindInterface reflect.Type
 
@@ -707,7 +784,7 @@ var AttributeValues = attributeValuesI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "attributeValues"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -725,19 +802,22 @@ type KindComplexInstanceValue interface {
 
 type complexInstanceValueI struct{ sst.ElementInfo }
 
-func (complexInstanceValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23complexInstanceValue()   {}
-func (complexInstanceValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23complexInstanceValue() {}
-func (complexInstanceValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
+func (complexInstanceValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23complexInstanceValue() {
+}
+func (complexInstanceValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23complexInstanceValue() {
+}
+func (complexInstanceValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var complexInstanceValueKindInterface reflect.Type
 
 var ComplexInstanceValue = complexInstanceValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "complexInstanceValue"},
-	ADomain:           EntityInstance,
-	ARange:            SingleEntityValue,
+	ADomain: EntityInstance,
+	ARange:  SingleEntityValue,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -766,7 +846,7 @@ var DerivedValue = derivedValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "derivedValue"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -794,7 +874,7 @@ var Directive = directiveI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "directive"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -812,10 +892,13 @@ type KindEmptyAgggregateValue interface {
 
 type emptyAgggregateValueI struct{ sst.ElementInfo }
 
-func (emptyAgggregateValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23emptyAgggregateValue()   {}
-func (emptyAgggregateValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23emptyAgggregateValue() {}
-func (emptyAgggregateValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
-func (emptyAgggregateValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                      {}
+func (emptyAgggregateValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23emptyAgggregateValue() {
+}
+func (emptyAgggregateValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23emptyAgggregateValue() {
+}
+func (emptyAgggregateValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (emptyAgggregateValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
 
 var emptyAgggregateValueKindInterface reflect.Type
 
@@ -823,7 +906,7 @@ var EmptyAgggregateValue = emptyAgggregateValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "emptyAgggregateValue"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -841,19 +924,22 @@ type KindEntityInstanceType interface {
 
 type entityInstanceTypeI struct{ sst.ElementInfo }
 
-func (entityInstanceTypeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23entityInstanceType()   {}
-func (entityInstanceTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23entityInstanceType() {}
-func (entityInstanceTypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
+func (entityInstanceTypeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23entityInstanceType() {
+}
+func (entityInstanceTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23entityInstanceType() {
+}
+func (entityInstanceTypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var entityInstanceTypeKindInterface reflect.Type
 
 var EntityInstanceType = entityInstanceTypeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "entityInstanceType"},
-	ADomain:           EntityInstance,
-	ARange:            Entity,
+	ADomain: EntityInstance,
+	ARange:  Entity,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -882,8 +968,38 @@ var ExternalMap = externalMapI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "externalMap"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
+}}
+
+// Definitions of ssmeta.flag
+
+type IsFlag interface {
+	sst.ElementInformer
+	AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23flag()
+}
+
+type KindFlag interface {
+	sst.ElementInformer
+	AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23flag()
+}
+
+type flagI struct{ sst.ElementInfo }
+
+func (flagI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23flag()          {}
+func (flagI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23flag()        {}
+func (flagI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (flagI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23anySimpleType()    {}
+func (flagI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23boolean()          {}
+
+var flagKindInterface reflect.Type
+
+var Flag = flagI{sst.ElementInfo{
+	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "flag"},
+
+	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	ADatatype: true, AnIndividual: false,
 }}
 
 // Definitions of ssmeta.formClassProperties
@@ -900,18 +1016,21 @@ type KindFormClassProperties interface {
 
 type formClassPropertiesI struct{ sst.ElementInfo }
 
-func (formClassPropertiesI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23formClassProperties()   {}
-func (formClassPropertiesI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23formClassProperties() {}
-func (formClassPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
+func (formClassPropertiesI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23formClassProperties() {
+}
+func (formClassPropertiesI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23formClassProperties() {
+}
+func (formClassPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var formClassPropertiesKindInterface reflect.Type
 
 var FormClassProperties = formClassPropertiesI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "formClassProperties"},
-	ARange:            ListOfProperties,
+	ARange:  ListOfProperties,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -929,18 +1048,21 @@ type KindFormIndividualProperties interface {
 
 type formIndividualPropertiesI struct{ sst.ElementInfo }
 
-func (formIndividualPropertiesI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23formIndividualProperties()   {}
-func (formIndividualPropertiesI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23formIndividualProperties() {}
-func (formIndividualPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
+func (formIndividualPropertiesI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23formIndividualProperties() {
+}
+func (formIndividualPropertiesI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23formIndividualProperties() {
+}
+func (formIndividualPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var formIndividualPropertiesKindInterface reflect.Type
 
 var FormIndividualProperties = formIndividualPropertiesI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "formIndividualProperties"},
-	ARange:            ListOfProperties,
+	ARange:  ListOfProperties,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -958,18 +1080,19 @@ type KindFormProperties interface {
 
 type formPropertiesI struct{ sst.ElementInfo }
 
-func (formPropertiesI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23formProperties()   {}
-func (formPropertiesI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23formProperties() {}
-func (formPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (formPropertiesI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23formProperties() {}
+func (formPropertiesI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23formProperties() {
+}
+func (formPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
 
 var formPropertiesKindInterface reflect.Type
 
 var FormProperties = formPropertiesI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "formProperties"},
-	ARange:            ListOfProperties,
+	ARange:  ListOfProperties,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -997,7 +1120,7 @@ var GoAlias = goAliasI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "goAlias"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1015,10 +1138,13 @@ type KindIndeterminateValue interface {
 
 type indeterminateValueI struct{ sst.ElementInfo }
 
-func (indeterminateValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23indeterminateValue()   {}
-func (indeterminateValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23indeterminateValue() {}
-func (indeterminateValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
-func (indeterminateValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                    {}
+func (indeterminateValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23indeterminateValue() {
+}
+func (indeterminateValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23indeterminateValue() {
+}
+func (indeterminateValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (indeterminateValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
 
 var indeterminateValueKindInterface reflect.Type
 
@@ -1026,7 +1152,7 @@ var IndeterminateValue = indeterminateValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "indeterminateValue"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1054,7 +1180,7 @@ var IsAbstract = isAbstractI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "isAbstract"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1082,7 +1208,7 @@ var IsActive = isActiveI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "isActive"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1110,7 +1236,7 @@ var IsSystem = isSystemI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "isSystem"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1138,7 +1264,7 @@ var OfType = ofTypeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "ofType"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1156,18 +1282,21 @@ type KindSimpleInstanceValue interface {
 
 type simpleInstanceValueI struct{ sst.ElementInfo }
 
-func (simpleInstanceValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23simpleInstanceValue()   {}
-func (simpleInstanceValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23simpleInstanceValue() {}
-func (simpleInstanceValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
+func (simpleInstanceValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23simpleInstanceValue() {
+}
+func (simpleInstanceValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23simpleInstanceValue() {
+}
+func (simpleInstanceValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var simpleInstanceValueKindInterface reflect.Type
 
 var SimpleInstanceValue = simpleInstanceValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "simpleInstanceValue"},
-	ADomain:           EntityInstance,
+	ADomain: EntityInstance,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1185,19 +1314,22 @@ type KindSingleEntityValueType interface {
 
 type singleEntityValueTypeI struct{ sst.ElementInfo }
 
-func (singleEntityValueTypeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23singleEntityValueType()   {}
-func (singleEntityValueTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23singleEntityValueType() {}
-func (singleEntityValueTypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
+func (singleEntityValueTypeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23singleEntityValueType() {
+}
+func (singleEntityValueTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23singleEntityValueType() {
+}
+func (singleEntityValueTypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var singleEntityValueTypeKindInterface reflect.Type
 
 var SingleEntityValueType = singleEntityValueTypeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "singleEntityValueType"},
-	ADomain:           SingleEntityValue,
-	ARange:            Entity,
+	ADomain: SingleEntityValue,
+	ARange:  Entity,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1225,7 +1357,7 @@ var SourceDataset = sourceDatasetI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "sourceDataset"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1243,9 +1375,12 @@ type KindSourceDatasetDateTime interface {
 
 type sourceDatasetDateTimeI struct{ sst.ElementInfo }
 
-func (sourceDatasetDateTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23sourceDatasetDateTime()   {}
-func (sourceDatasetDateTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23sourceDatasetDateTime() {}
-func (sourceDatasetDateTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
+func (sourceDatasetDateTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23sourceDatasetDateTime() {
+}
+func (sourceDatasetDateTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23sourceDatasetDateTime() {
+}
+func (sourceDatasetDateTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var sourceDatasetDateTimeKindInterface reflect.Type
 
@@ -1253,7 +1388,7 @@ var SourceDatasetDateTime = sourceDatasetDateTimeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "sourceDatasetDateTime"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1271,9 +1406,12 @@ type KindSourceDatasetHash256 interface {
 
 type sourceDatasetHash256I struct{ sst.ElementInfo }
 
-func (sourceDatasetHash256I) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23sourceDatasetHash256()   {}
-func (sourceDatasetHash256I) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23sourceDatasetHash256() {}
-func (sourceDatasetHash256I) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
+func (sourceDatasetHash256I) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23sourceDatasetHash256() {
+}
+func (sourceDatasetHash256I) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23sourceDatasetHash256() {
+}
+func (sourceDatasetHash256I) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var sourceDatasetHash256KindInterface reflect.Type
 
@@ -1281,7 +1419,7 @@ var SourceDatasetHash256 = sourceDatasetHash256I{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "sourceDatasetHash256"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1309,7 +1447,7 @@ var SourceSystem = sourceSystemI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "sourceSystem"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1338,7 +1476,7 @@ var StepArmMap = stepArmMapI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "stepArmMap"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1356,10 +1494,14 @@ type KindStepDmEnumerationMap interface {
 
 type stepDmEnumerationMapI struct{ sst.ElementInfo }
 
-func (stepDmEnumerationMapI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepDmEnumerationMap()   {}
-func (stepDmEnumerationMapI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepDmEnumerationMap() {}
-func (stepDmEnumerationMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
-func (stepDmEnumerationMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23label()             {}
+func (stepDmEnumerationMapI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepDmEnumerationMap() {
+}
+func (stepDmEnumerationMapI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepDmEnumerationMap() {
+}
+func (stepDmEnumerationMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (stepDmEnumerationMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23label() {
+}
 
 var stepDmEnumerationMapKindInterface reflect.Type
 
@@ -1367,7 +1509,7 @@ var StepDmEnumerationMap = stepDmEnumerationMapI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "stepDmEnumerationMap"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1396,7 +1538,7 @@ var StepDmMap = stepDmMapI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "stepDmMap"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1414,10 +1556,13 @@ type KindStepImAttributeMap interface {
 
 type stepImAttributeMapI struct{ sst.ElementInfo }
 
-func (stepImAttributeMapI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImAttributeMap()   {}
-func (stepImAttributeMapI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImAttributeMap() {}
-func (stepImAttributeMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
-func (stepImAttributeMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23label()           {}
+func (stepImAttributeMapI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImAttributeMap() {
+}
+func (stepImAttributeMapI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImAttributeMap() {
+}
+func (stepImAttributeMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (stepImAttributeMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23label() {}
 
 var stepImAttributeMapKindInterface reflect.Type
 
@@ -1425,7 +1570,7 @@ var StepImAttributeMap = stepImAttributeMapI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "stepImAttributeMap"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1443,10 +1588,14 @@ type KindStepImDefinedTypeMap interface {
 
 type stepImDefinedTypeMapI struct{ sst.ElementInfo }
 
-func (stepImDefinedTypeMapI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImDefinedTypeMap()   {}
-func (stepImDefinedTypeMapI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImDefinedTypeMap() {}
-func (stepImDefinedTypeMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
-func (stepImDefinedTypeMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23label()             {}
+func (stepImDefinedTypeMapI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImDefinedTypeMap() {
+}
+func (stepImDefinedTypeMapI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImDefinedTypeMap() {
+}
+func (stepImDefinedTypeMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (stepImDefinedTypeMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23label() {
+}
 
 var stepImDefinedTypeMapKindInterface reflect.Type
 
@@ -1454,7 +1603,7 @@ var StepImDefinedTypeMap = stepImDefinedTypeMapI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "stepImDefinedTypeMap"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1472,10 +1621,12 @@ type KindStepImEntityMap interface {
 
 type stepImEntityMapI struct{ sst.ElementInfo }
 
-func (stepImEntityMapI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImEntityMap()   {}
-func (stepImEntityMapI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImEntityMap() {}
-func (stepImEntityMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
-func (stepImEntityMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23label()        {}
+func (stepImEntityMapI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImEntityMap() {
+}
+func (stepImEntityMapI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImEntityMap() {
+}
+func (stepImEntityMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (stepImEntityMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23label()    {}
 
 var stepImEntityMapKindInterface reflect.Type
 
@@ -1483,7 +1634,7 @@ var StepImEntityMap = stepImEntityMapI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "stepImEntityMap"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1501,10 +1652,14 @@ type KindStepImEnumerationMap interface {
 
 type stepImEnumerationMapI struct{ sst.ElementInfo }
 
-func (stepImEnumerationMapI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImEnumerationMap()   {}
-func (stepImEnumerationMapI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImEnumerationMap() {}
-func (stepImEnumerationMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
-func (stepImEnumerationMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23label()             {}
+func (stepImEnumerationMapI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImEnumerationMap() {
+}
+func (stepImEnumerationMapI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImEnumerationMap() {
+}
+func (stepImEnumerationMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (stepImEnumerationMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23label() {
+}
 
 var stepImEnumerationMapKindInterface reflect.Type
 
@@ -1512,7 +1667,7 @@ var StepImEnumerationMap = stepImEnumerationMapI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "stepImEnumerationMap"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1530,18 +1685,21 @@ type KindStepImMapAttributeOrder interface {
 
 type stepImMapAttributeOrderI struct{ sst.ElementInfo }
 
-func (stepImMapAttributeOrderI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImMapAttributeOrder()   {}
-func (stepImMapAttributeOrderI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImMapAttributeOrder() {}
-func (stepImMapAttributeOrderI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (stepImMapAttributeOrderI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImMapAttributeOrder() {
+}
+func (stepImMapAttributeOrderI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImMapAttributeOrder() {
+}
+func (stepImMapAttributeOrderI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var stepImMapAttributeOrderKindInterface reflect.Type
 
 var StepImMapAttributeOrder = stepImMapAttributeOrderI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "stepImMapAttributeOrder"},
-	ADomain:           MainClass,
+	ADomain: MainClass,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1559,18 +1717,21 @@ type KindStepImMapSupertypeOrder interface {
 
 type stepImMapSupertypeOrderI struct{ sst.ElementInfo }
 
-func (stepImMapSupertypeOrderI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImMapSupertypeOrder()   {}
-func (stepImMapSupertypeOrderI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImMapSupertypeOrder() {}
-func (stepImMapSupertypeOrderI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (stepImMapSupertypeOrderI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImMapSupertypeOrder() {
+}
+func (stepImMapSupertypeOrderI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImMapSupertypeOrder() {
+}
+func (stepImMapSupertypeOrderI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
 
 var stepImMapSupertypeOrderKindInterface reflect.Type
 
 var StepImMapSupertypeOrder = stepImMapSupertypeOrderI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "stepImMapSupertypeOrder"},
-	ADomain:           MainClass,
+	ADomain: MainClass,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1588,10 +1749,12 @@ type KindStepImSelectMap interface {
 
 type stepImSelectMapI struct{ sst.ElementInfo }
 
-func (stepImSelectMapI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImSelectMap()   {}
-func (stepImSelectMapI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImSelectMap() {}
-func (stepImSelectMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
-func (stepImSelectMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23label()        {}
+func (stepImSelectMapI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImSelectMap() {
+}
+func (stepImSelectMapI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23stepImSelectMap() {
+}
+func (stepImSelectMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (stepImSelectMapI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23label()    {}
 
 var stepImSelectMapKindInterface reflect.Type
 
@@ -1599,6 +1762,6 @@ var StepImSelectMap = stepImSelectMapI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SSMETAVocabulary, Name: "stepImSelectMap"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}

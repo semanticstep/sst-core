@@ -10,15 +10,15 @@ import (
 	"testing"
 	"time"
 
+	"github.com/blevesearch/bleve/v2"
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/defaultderive"
 	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/sst_test/testutil"
+	"github.com/semanticstep/sst-core/sstauth"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
-	"github.com/blevesearch/bleve/v2"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -59,6 +59,7 @@ func Test_LocalFullRepository_SearchInContext(t *testing.T) {
 		graph := st.CreateNamedGraph(sst.IRI(randomGraphID.URN()))
 		graph.CreateIRINode("test-node", lci.Organization)
 		_, _, err = st.Commit(context.TODO(), "add test data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Search again after commit
@@ -89,6 +90,7 @@ func Test_LocalFullRepository_SearchInContext(t *testing.T) {
 		node2.AddStatement(rdfs.Label, sst.String("Another Organization Beta"))
 
 		_, _, err = st.Commit(context.TODO(), "add organizations", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test Match query
@@ -118,6 +120,7 @@ func Test_LocalFullRepository_SearchInContext(t *testing.T) {
 		node := graph.CreateIRINode("test-org", lci.Organization)
 		node.AddStatement(rdfs.Label, sst.String("Special Test Organization"))
 		_, _, err = st.Commit(context.TODO(), "add data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test Boolean query with must
@@ -149,6 +152,7 @@ func Test_LocalFullRepository_SearchInContext(t *testing.T) {
 		graph := st.CreateNamedGraph(sst.IRI(graphID.URN()))
 		graph.CreateIRINode("exact-match-node", lci.Organization)
 		_, _, err = st.Commit(context.TODO(), "add exact match data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test Term query
@@ -177,6 +181,7 @@ func Test_LocalFullRepository_SearchInContext(t *testing.T) {
 		graph := st.CreateNamedGraph(sst.IRI(graphID.URN()))
 		graph.CreateIRINode("querystring-node", lci.Organization)
 		_, _, err = st.Commit(context.TODO(), "add querystring data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test Query String query
@@ -207,6 +212,7 @@ func Test_LocalFullRepository_SearchInContext(t *testing.T) {
 			node.AddStatement(rdfs.Label, sst.String(fmt.Sprintf("Pagination Test Item %d", i)))
 		}
 		_, _, err = st.Commit(context.TODO(), "add pagination data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test pagination
@@ -244,6 +250,7 @@ func Test_LocalFullRepository_SearchInContext(t *testing.T) {
 		graph.CreateIRINode("sort-node-1", lci.Organization)
 		graph.CreateIRINode("sort-node-2", lci.Organization)
 		_, _, err = st.Commit(context.TODO(), "add sort data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test sorting
@@ -273,6 +280,7 @@ func Test_LocalFullRepository_SearchInContext(t *testing.T) {
 		graph.CreateIRINode("facet-node-1", lci.Organization)
 		graph.CreateIRINode("facet-node-2", lci.Organization)
 		_, _, err = st.Commit(context.TODO(), "add facet data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test with facet
@@ -302,6 +310,7 @@ func Test_LocalFullRepository_SearchInContext(t *testing.T) {
 		graph := st.CreateNamedGraph(sst.IRI(graphID.URN()))
 		graph.CreateIRINode("existing-node", lci.Organization)
 		_, _, err = st.Commit(context.TODO(), "add data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Search for non-existent term
@@ -329,6 +338,7 @@ func Test_LocalFullRepository_SearchInContext(t *testing.T) {
 		graph := st.CreateNamedGraph(sst.IRI(graphID.URN()))
 		graph.CreateIRINode("context-node", lci.Organization)
 		_, _, err = st.Commit(context.TODO(), "add context data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test with context timeout
@@ -773,6 +783,7 @@ func Test_LocalFullRepository_NoCache_VerifyDirectIndexAccess(t *testing.T) {
 	node := graph.CreateIRINode("cache-test", lci.Organization)
 	node.AddStatement(rdfs.Label, sst.String("Cache Removal Test"))
 	_, _, err = st.Commit(context.TODO(), "add cache test data", sst.DefaultBranch)
+	sst.FlushBleveIndex(repo)
 	require.NoError(t, err)
 
 	// Verify search works directly on the index
@@ -819,6 +830,7 @@ func Test_LocalFullRepository_NoCache_SearchResultConsistency(t *testing.T) {
 	node := graph.CreateIRINode("consistency-check", lci.Organization)
 	node.AddStatement(rdfs.Label, sst.String("Consistency Check Node"))
 	_, _, err = st.Commit(context.TODO(), "add data", sst.DefaultBranch)
+	sst.FlushBleveIndex(repo)
 	require.NoError(t, err)
 
 	// Search immediately after commit - should see new data (no stale cache)
@@ -860,6 +872,7 @@ func Test_LocalFullRepository_NoCache_ImmediateIndexUpdate(t *testing.T) {
 	node1 := graph1.CreateIRINode("immediate-update-1", lci.Organization)
 	node1.AddStatement(rdfs.Label, sst.String("AlphaUnique Dataset"))
 	_, _, err = st1.Commit(context.TODO(), "add first dataset", sst.DefaultBranch)
+	sst.FlushBleveIndex(repo)
 	require.NoError(t, err)
 
 	// Search for first dataset - should find it immediately
@@ -878,6 +891,7 @@ func Test_LocalFullRepository_NoCache_ImmediateIndexUpdate(t *testing.T) {
 	node2 := graph2.CreateIRINode("immediate-update-2", lci.Organization)
 	node2.AddStatement(rdfs.Label, sst.String("BetaUnique Dataset"))
 	_, _, err = st2.Commit(context.TODO(), "add second dataset", sst.DefaultBranch)
+	sst.FlushBleveIndex(repo)
 	require.NoError(t, err)
 
 	// Search for second dataset - should find it immediately
@@ -924,6 +938,7 @@ func Test_LocalFullRepository_NoCache_SearchAfterDelete(t *testing.T) {
 	node := graph.CreateIRINode("delete-test", lci.Organization)
 	node.AddStatement(rdfs.Label, sst.String("Delete Test Dataset"))
 	_, _, err = st.Commit(context.TODO(), "add dataset for deletion", sst.DefaultBranch)
+	sst.FlushBleveIndex(repo)
 	require.NoError(t, err)
 
 	// Verify dataset exists in search
@@ -939,6 +954,7 @@ func Test_LocalFullRepository_NoCache_SearchAfterDelete(t *testing.T) {
 	ds, err := repo.Dataset(context.TODO(), sst.IRI(graphID.URN()))
 	require.NoError(t, err)
 	err = ds.RemoveBranch(context.TODO(), sst.DefaultBranch)
+	sst.FlushBleveIndex(repo)
 	require.NoError(t, err)
 
 	// Search for specific dataset - should not find it
@@ -1219,6 +1235,7 @@ func Test_SuperLocalRepository_SearchInContext(t *testing.T) {
 		graph := st.CreateNamedGraph(sst.IRI(randomGraphID.URN()))
 		graph.CreateIRINode("test-node", lci.Organization)
 		_, _, err = st.Commit(context.TODO(), "add test data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Search again after commit
@@ -1254,6 +1271,7 @@ func Test_SuperLocalRepository_SearchInContext(t *testing.T) {
 		node2.AddStatement(rdfs.Label, sst.String("Another Organization Beta"))
 
 		_, _, err = st.Commit(context.TODO(), "add organizations", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test Match query
@@ -1288,6 +1306,7 @@ func Test_SuperLocalRepository_SearchInContext(t *testing.T) {
 		node := graph.CreateIRINode("test-org", lci.Organization)
 		node.AddStatement(rdfs.Label, sst.String("Special Test Organization"))
 		_, _, err = st.Commit(context.TODO(), "add data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test Boolean query with must
@@ -1324,6 +1343,7 @@ func Test_SuperLocalRepository_SearchInContext(t *testing.T) {
 		graph := st.CreateNamedGraph(sst.IRI(graphID.URN()))
 		graph.CreateIRINode("exact-match-node", lci.Organization)
 		_, _, err = st.Commit(context.TODO(), "add exact match data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test Term query
@@ -1357,6 +1377,7 @@ func Test_SuperLocalRepository_SearchInContext(t *testing.T) {
 		graph := st.CreateNamedGraph(sst.IRI(graphID.URN()))
 		graph.CreateIRINode("querystring-node", lci.Organization)
 		_, _, err = st.Commit(context.TODO(), "add querystring data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test Query String query
@@ -1392,6 +1413,7 @@ func Test_SuperLocalRepository_SearchInContext(t *testing.T) {
 			node.AddStatement(rdfs.Label, sst.String(fmt.Sprintf("Pagination Test Item %d", i)))
 		}
 		_, _, err = st.Commit(context.TODO(), "add pagination data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test pagination
@@ -1434,6 +1456,7 @@ func Test_SuperLocalRepository_SearchInContext(t *testing.T) {
 		graph.CreateIRINode("sort-node-1", lci.Organization)
 		graph.CreateIRINode("sort-node-2", lci.Organization)
 		_, _, err = st.Commit(context.TODO(), "add sort data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test sorting
@@ -1468,6 +1491,7 @@ func Test_SuperLocalRepository_SearchInContext(t *testing.T) {
 		graph.CreateIRINode("facet-node-1", lci.Organization)
 		graph.CreateIRINode("facet-node-2", lci.Organization)
 		_, _, err = st.Commit(context.TODO(), "add facet data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test with facet
@@ -1502,6 +1526,7 @@ func Test_SuperLocalRepository_SearchInContext(t *testing.T) {
 		graph := st.CreateNamedGraph(sst.IRI(graphID.URN()))
 		graph.CreateIRINode("existing-node", lci.Organization)
 		_, _, err = st.Commit(context.TODO(), "add data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Search for non-existent term
@@ -1534,6 +1559,7 @@ func Test_SuperLocalRepository_SearchInContext(t *testing.T) {
 		graph := st.CreateNamedGraph(sst.IRI(graphID.URN()))
 		graph.CreateIRINode("context-node", lci.Organization)
 		_, _, err = st.Commit(context.TODO(), "add context data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Test with context timeout
@@ -1570,6 +1596,7 @@ func Test_SuperLocalRepository_SearchInContext(t *testing.T) {
 			node := graph.CreateIRINode(fmt.Sprintf("node-%d", i), lci.Organization)
 			node.AddStatement(rdfs.Label, sst.String(fmt.Sprintf("Repo %d Data", i)))
 			_, _, err = st.Commit(context.TODO(), fmt.Sprintf("add data to repo %d", i), sst.DefaultBranch)
+			sst.FlushBleveIndex(repo)
 			require.NoError(t, err)
 
 			// Search immediately while repo is still open
@@ -2033,6 +2060,7 @@ func Test_SuperRepositories_NoCache_VerifyDirectIndexAccess(t *testing.T) {
 		node := graph.CreateIRINode("cache-test", lci.Organization)
 		node.AddStatement(rdfs.Label, sst.String("Super Local Cache Removal Test"))
 		_, _, err = st.Commit(context.TODO(), "add cache test data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Verify search works directly on the index
@@ -2076,6 +2104,7 @@ func Test_SuperRepositories_NoCache_VerifyDirectIndexAccess(t *testing.T) {
 		node := graph.CreateIRINode("cache-test", lci.Organization)
 		node.AddStatement(rdfs.Label, sst.String("Super Remote Cache Removal Test"))
 		_, _, err = st.Commit(constructCtx, "add cache test data", sst.DefaultBranch)
+		sst.FlushBleveIndex(repo)
 		require.NoError(t, err)
 
 		// Verify search works directly on the index

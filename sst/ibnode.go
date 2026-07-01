@@ -710,6 +710,7 @@ type IBNode interface {
 	// IRI() returns the IRI (Internationalized Resource Identifier) of the IBNode.
 	// If the IBNode is of type IRI Node, it will return its IRI.
 	// If the IBNode is of type blank Node, it will panic.
+	// If the IBNode is invalid or has been deleted, it will panic.
 	IRI() IRI
 
 	// Fragment returns the fragment part of the RDF resource identifier of the IBNode.
@@ -717,10 +718,9 @@ type IBNode interface {
 	// if the IBNode is of type blank Node, it will panic.
 	Fragment() string
 
-	// ID returns the UUID of the ibNode. It checks the type of the ibNode
-	// and retrieves the UUID accordingly.
-	// If the ibNode is of type blank Node, it returns the fragment UUID if it is not nil.
-	// If the ibNode is of type IRI Node, it will panic.
+	// ID returns the UUID of the Blank IBNode.
+	// If the IBNode is a blank node, it returns the UUID.
+	// If the IBNode is an IRI node, it panics; use IRI() to get its identifier.
 	ID() uuid.UUID
 
 	// PrefixedFragment returns the IRI of the IBNode in shorthand notation as
@@ -1380,6 +1380,8 @@ type TermCollection interface {
 	ID() uuid.UUID
 }
 
+// newTermCollection creates a TermCollection backed by a new blank node with a
+// random type 4 UUID, as documented on the TermCollection.ID() interface.
 func newTermCollection(graph *namedGraph, members ...Term) (TermCollection, error) {
 	d := newUuidNode(graph, uuid.New(), &termCollectionResourceType.ibNode, blankNodeType|uuidNode)
 	d.setCollectionMembers(members...)
@@ -1611,7 +1613,7 @@ func (t *ibNode) IRI() IRI {
 
 // iri generates an IRI (Internationalized Resource Identifier) for the ibNodeString.
 // It constructs the IRI based on the node's fragment and base IRI.
-// If the fragment is empty, it returns an empty IRI.
+// If the fragment is empty, it returns the NamedGraph baseIRI (used for the NamedGraph node itself).
 // If the base IRI is empty, it returns the fragment as the IRI.
 // If the fragment is ".", it removes the trailing '#' from the base IRI if present.
 // Otherwise, it appends the fragment to the base IRI.
@@ -1633,12 +1635,11 @@ func (t *ibNodeString) iri() IRI {
 // it also can be an IRI Node
 func (t *ibNodeUuid) iri() IRI {
 	if t.ibNode.flags&nodeTypeBitMask == blankNodeType {
-		panic("blank node does not have an IRI")
-	} else {
-		resourceIDString := t.ng.baseIRI + "#"
-		resourceIDString += t.id.String()
-		return *(*IRI)(unsafe.Pointer(&resourceIDString))
+		panicf("blank node %s in graph %q does not have an IRI", t.id, t.ng.baseIRI)
 	}
+	resourceIDString := t.ng.baseIRI + "#"
+	resourceIDString += t.id.String()
+	return *(*IRI)(unsafe.Pointer(&resourceIDString))
 }
 
 func (t *ibNode) Fragment() string {
@@ -1682,26 +1683,24 @@ func (t *ibNodeString) fragmentComponent() string {
 
 func (t *ibNodeUuid) fragmentComponent() string {
 	if t.flags&nodeTypeBitMask == blankNodeType {
-		panic("blank node does not have a fragment")
-	} else {
-		return t.id.String()
+		panicf("blank node %s in graph %q does not have a fragment", t.id, t.ng.baseIRI)
 	}
+	return t.id.String()
 }
 
 func (t *ibNode) IsUuidFragment() bool {
 	return t.flags&uuidNode == uuidNode
 }
 
-// ID returns the UUID of the ibNode. If the ibNode is of type ibNodeUuid and has a non-nil UUID,
-// it returns the UUID. If the ibNode is of type ibNodeString, it panics with a message indicating
-// that an iri node does not have a UUID. If the ibNode is of any other type, it panics with a
-// message indicating that the ibNode is not a valid type.
+// ID returns the UUID of the Blank IBNode.
+// If the ibNode is a blank node, it returns the UUID.
+// If the ibNode is an IRI node, it panics with a message indicating that IRI nodes
+// should use IRI() to get their identifier.
 func (t *ibNode) ID() uuid.UUID {
-	if t.flags&structTypeBitMask == uuidNode {
+	if t.flags&nodeTypeBitMask == blankNodeType {
 		return t.asUuidIBNode().id
-	} else {
-		panic("this ibNode is a string IBNode, it does not have an UUID")
 	}
+	panic(fmt.Sprintf("IBNode %s in graph %q is an IRI node, use IRI() to get its identifier", t.iriOrID(), t.ng.baseIRI))
 }
 
 func (t *ibNode) copyIBNode() *ibNode {
@@ -1863,7 +1862,7 @@ func (t *ibNode) forAll(callback func(index int, subject, predicate *ibNode, obj
 				err = callback(index, tx.p, t, triplexToObject(tx))
 			}
 		default:
-			panic(k)
+			panicf("unexpected triplexKind %v for node %s", k, t.iriOrID())
 		}
 		return
 	})
@@ -2250,7 +2249,8 @@ func (t *ibNode) addTriple(predicate *ibNode, object Term, asCollection bool, co
 		}
 		return nil
 	default:
-		panic(object.TermKind())
+		panicf("unexpected term kind %v", object.TermKind())
+		panic("unreachable")
 	}
 }
 
@@ -2639,8 +2639,31 @@ func addGrowTriplex(t *ibNode, tx triplex, kind triplexKind) {
 
 func appendTriplex(t *ibNode, tx triplex, kind triplexKind) {
 	if int(t.triplexEnd) >= len(t.ng.triplexStorage) {
-		fmt.Println(t.triplexEnd, " >= ", len(t.ng.triplexStorage))
-		panic("triplexEnd >= len triplexStorage")
+		var objStr string
+		if tx.t == nil {
+			objStr = "nil"
+		} else {
+			switch tx.t.resourceType(false) {
+			case resourceTypeIBNode:
+				objStr = tx.t.asIBNode().iriOrID()
+			case resourceTypeLiteral:
+				objStr = literalToString(tx.t.asLiteral())
+			case resourceTypeLiteralCollection:
+				lc := tx.t.asLiteralCollection()
+				members := make([]string, 0, lc.MemberCount())
+				lc.ForMembers(func(_ int, l Literal) {
+					members = append(members, literalToString(l))
+				})
+				objStr = fmt.Sprintf("LiteralCollection(%v)", members)
+			default:
+				objStr = "unknown"
+			}
+		}
+		panic(fmt.Sprintf(
+			"appendTriplex: triplex storage overflow in graph %q node %q: "+
+				"triplexStart=%d triplexEnd=%d storageLen=%d kind=%v pred=%q obj=%s",
+			t.ng.baseIRI, t.iriOrID(), t.triplexStart, t.triplexEnd, len(t.ng.triplexStorage), kind, tx.p.iriOrID(), objStr,
+		))
 	}
 	t.ng.triplexStorage[t.triplexEnd] = tx
 	t.triplexEnd++

@@ -4,22 +4,20 @@ package sst_test
 
 import (
 	"context"
-	"fmt"
-	"os"
+	"path/filepath"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/defaultderive"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestLocalFullRepositoryInfo1(t *testing.T) {
-	path := "./testLocalFullRepo1"
-	removeFolder(path)
-	defer removeFolder(path)
+	path := filepath.Join(t.TempDir(), t.Name())
+
 	repo, err := sst.CreateLocalRepository(path, "default@semanticstep.net", "default", true)
 	assert.NoError(t, err)
 	defer repo.Close()
@@ -29,13 +27,13 @@ func TestLocalFullRepositoryInfo1(t *testing.T) {
 	stats, err := repo.Info(context.TODO(), "")
 	assert.NoError(t, err)
 
-	assert.Greater(t, stats.MasterDBSize, 0, "BboltSize should be greater than 0")
-	assert.GreaterOrEqual(t, stats.DerivedDBSize, 0, "BleveSize should be greater or equal to 0")
-	assert.GreaterOrEqual(t, stats.NumberOfDatasets, 0, "NumberOfDatasets should be greater or equal to 0")
-	assert.GreaterOrEqual(t, stats.NumberOfDatasetRevisions, 0, "NumberOfDatasetRevisions should be greater or equal to 0")
-	assert.GreaterOrEqual(t, stats.NumberOfNamedGraphRevisions, 0, "NumberOfNamedGraphRevisions should be greater or equal to 0")
-	assert.GreaterOrEqual(t, stats.NumberOfCommits, 0, "NumberOfCommits should be greater or equal to 0")
-	assert.GreaterOrEqual(t, stats.NumberOfRepositoryLogs, 0, "NumberOfDatasetLog should be greater or equal to 0")
+	assert.Greater(t, stats.MasterDBSize, int64(0), "BboltSize should be greater than 0")
+	assert.GreaterOrEqual(t, stats.DerivedDBSize, int64(0), "BleveSize should be greater or equal to 0")
+	assert.GreaterOrEqual(t, stats.NumberOfDatasets, int64(0), "NumberOfDatasets should be greater or equal to 0")
+	assert.GreaterOrEqual(t, stats.NumberOfDatasetRevisions, int64(0), "NumberOfDatasetRevisions should be greater or equal to 0")
+	assert.GreaterOrEqual(t, stats.NumberOfNamedGraphRevisions, int64(0), "NumberOfNamedGraphRevisions should be greater or equal to 0")
+	assert.GreaterOrEqual(t, stats.NumberOfCommits, int64(0), "NumberOfCommits should be greater or equal to 0")
+	assert.GreaterOrEqual(t, stats.NumberOfRepositoryLogs, int64(0), "NumberOfDatasetLog should be greater or equal to 0")
 
 	t.Log("BboltSize:", stats.MasterDBSize)
 	t.Log("BleveSize:", stats.DerivedDBSize)
@@ -79,13 +77,9 @@ func TestLocalFullRepositoryInfo1(t *testing.T) {
 //
 // Each test resets the repository environment to ensure no data from previous tests affects the results.
 func TestLocalFullRepositoryInfo2(t *testing.T) {
-	path := "./testLocalFullRepo2"
-	defer removeFolder(path)
-
 	// Helper function to reset test environment
-	setupTestEnvironment := func() sst.Repository {
-		removeFolder(path) // Clean up old data
-		repo, err := sst.CreateLocalRepository(path, "default@semanticstep.net", "default", true)
+	setupTestEnvironment := func(t *testing.T) sst.Repository {
+		repo, err := sst.CreateLocalRepository(filepath.Join(t.TempDir(), t.Name()), "default@semanticstep.net", "default", true)
 		assert.NoError(t, err)
 		repo.RegisterIndexHandler(defaultderive.DeriveInfo()) // Bleve
 		return repo
@@ -93,7 +87,7 @@ func TestLocalFullRepositoryInfo2(t *testing.T) {
 
 	// Create 1 NamedGraph, commit 1 time
 	t.Run("TestCase1", func(t *testing.T) {
-		repository := setupTestEnvironment() // Initialize a new repository
+		repository := setupTestEnvironment(t) // Initialize a new repository
 		defer repository.Close()
 
 		ngIDC := uuid.New()
@@ -114,15 +108,15 @@ func TestLocalFullRepositoryInfo2(t *testing.T) {
 		t.Logf("RepositoryInfo: %+v", stats)
 
 		// Verify statistics
-		assert.Equal(t, stats.NumberOfDatasets, 1)
-		assert.Equal(t, stats.NumberOfDatasetRevisions, 1)
-		assert.Equal(t, stats.NumberOfNamedGraphRevisions, 1)
-		assert.Equal(t, stats.NumberOfCommits, 1)
+		assert.Equal(t, stats.NumberOfDatasets, int64(1))
+		assert.Equal(t, stats.NumberOfDatasetRevisions, int64(1))
+		assert.Equal(t, stats.NumberOfNamedGraphRevisions, int64(1))
+		assert.Equal(t, stats.NumberOfCommits, int64(1))
 	})
 
 	// Create 1 NamedGraph, commit 1 time, modify it, then commit again
 	t.Run("TestCase2", func(t *testing.T) {
-		repository := setupTestEnvironment() // Initialize a new repository
+		repository := setupTestEnvironment(t) // Initialize a new repository
 		defer repository.Close()
 
 		ngIDC := uuid.New()
@@ -145,15 +139,15 @@ func TestLocalFullRepositoryInfo2(t *testing.T) {
 
 		t.Logf("RepositoryInfo: %+v", stats)
 
-		assert.Equal(t, stats.NumberOfDatasets, 1)
-		assert.Equal(t, stats.NumberOfDatasetRevisions, 2)
-		assert.Equal(t, stats.NumberOfNamedGraphRevisions, 2)
-		assert.Equal(t, stats.NumberOfCommits, 2)
+		assert.Equal(t, stats.NumberOfDatasets, int64(1))
+		assert.Equal(t, stats.NumberOfDatasetRevisions, int64(2))
+		assert.Equal(t, stats.NumberOfNamedGraphRevisions, int64(2))
+		assert.Equal(t, stats.NumberOfCommits, int64(2))
 	})
 
 	// Create 2 NamedGraphs, commit 1 time
 	t.Run("TestCase3", func(t *testing.T) {
-		repository := setupTestEnvironment() // Initialize a new repository
+		repository := setupTestEnvironment(t) // Initialize a new repository
 		defer repository.Close()
 
 		ngIDC1 := uuid.New()
@@ -179,15 +173,15 @@ func TestLocalFullRepositoryInfo2(t *testing.T) {
 		t.Logf("RepositoryInfo: %+v", stats)
 
 		// Verify statistics
-		assert.Equal(t, stats.NumberOfDatasets, 2)
-		assert.Equal(t, stats.NumberOfDatasetRevisions, 2)
-		assert.Equal(t, stats.NumberOfNamedGraphRevisions, 2)
-		assert.Equal(t, stats.NumberOfCommits, 1)
+		assert.Equal(t, stats.NumberOfDatasets, int64(2))
+		assert.Equal(t, stats.NumberOfDatasetRevisions, int64(2))
+		assert.Equal(t, stats.NumberOfNamedGraphRevisions, int64(2))
+		assert.Equal(t, stats.NumberOfCommits, int64(1))
 	})
 
 	// Create 2 NamedGraphs, commit 1 time, modify one NamedGraph, then commit again
 	t.Run("TestCase4", func(t *testing.T) {
-		repository := setupTestEnvironment() // Initialize a new repository
+		repository := setupTestEnvironment(t) // Initialize a new repository
 		defer repository.Close()
 
 		ngIDC1 := uuid.New()
@@ -217,15 +211,15 @@ func TestLocalFullRepositoryInfo2(t *testing.T) {
 		t.Logf("RepositoryInfo: %+v", stats)
 
 		// Verify statistics
-		assert.Equal(t, stats.NumberOfDatasets, 2)
-		assert.Equal(t, stats.NumberOfDatasetRevisions, 3)
-		assert.Equal(t, stats.NumberOfNamedGraphRevisions, 3)
-		assert.Equal(t, stats.NumberOfCommits, 2)
+		assert.Equal(t, stats.NumberOfDatasets, int64(2))
+		assert.Equal(t, stats.NumberOfDatasetRevisions, int64(3))
+		assert.Equal(t, stats.NumberOfNamedGraphRevisions, int64(3))
+		assert.Equal(t, stats.NumberOfCommits, int64(2))
 	})
 
 	// Create 2 NamedGraphs, commit 1 time, modify both NamedGraphs, then commit again
 	t.Run("TestCase5", func(t *testing.T) {
-		repository := setupTestEnvironment() // Initialize a new repository
+		repository := setupTestEnvironment(t) // Initialize a new repository
 		defer repository.Close()
 
 		ngIDC1 := uuid.New()
@@ -256,26 +250,9 @@ func TestLocalFullRepositoryInfo2(t *testing.T) {
 		t.Logf("RepositoryInfo: %+v", stats)
 
 		// Verify statistics
-		assert.Equal(t, stats.NumberOfDatasets, 2)
-		assert.Equal(t, stats.NumberOfDatasetRevisions, 4)
-		assert.Equal(t, stats.NumberOfNamedGraphRevisions, 4)
-		assert.Equal(t, stats.NumberOfCommits, 2)
+		assert.Equal(t, stats.NumberOfDatasets, int64(2))
+		assert.Equal(t, stats.NumberOfDatasetRevisions, int64(4))
+		assert.Equal(t, stats.NumberOfNamedGraphRevisions, int64(4))
+		assert.Equal(t, stats.NumberOfCommits, int64(2))
 	})
-}
-
-func removeFolder(dir string) {
-	// check and delete old dir
-	if _, err := os.Stat(dir); err == nil {
-		err := os.RemoveAll(dir)
-		if err != nil {
-			fmt.Printf("Failed to delete %s: %s\n", dir, err)
-		} else {
-			fmt.Printf("%s has been deleted successfully\n", dir)
-		}
-	} else if os.IsNotExist(err) {
-		fmt.Println(dir + " - This file or directory does not exist.")
-	} else {
-		fmt.Printf("Error checking if file exists: %s\n", err)
-	}
-
 }

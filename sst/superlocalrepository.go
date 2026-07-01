@@ -4,9 +4,9 @@ package sst
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -62,6 +62,24 @@ type SuperRepository interface {
 	// Returns an error if index registration fails.
 	RegisterIndexHandler(*SSTDeriveInfo) error
 
+	// GetQuota returns the per-repository quota for the named sub-repository.
+	GetQuota(ctx context.Context, name string) (RepositoryQuota, error)
+
+	// SetQuota sets the per-repository quota for the named sub-repository.
+	SetQuota(ctx context.Context, name string, maxSizeBytes int64) error
+
+	// GetTotalQuota returns the aggregate quota across all sub-repositories.
+	GetTotalQuota(ctx context.Context) (RepositoryQuota, error)
+
+	// SetTotalQuota sets the aggregate quota across all sub-repositories.
+	SetTotalQuota(ctx context.Context, maxSizeBytes int64) error
+
+	// GetMaxRepositoryCount returns the maximum number of sub-repositories, or 0 for unlimited.
+	GetMaxRepositoryCount(ctx context.Context) int
+
+	// SetMaxRepositoryCount sets the maximum number of sub-repositories.
+	SetMaxRepositoryCount(ctx context.Context, count int) error
+
 	// Close releases all resources, including closing all opened sub-Repositories.
 	// Any error encountered while closing individual repositories is returned.
 	Close() error
@@ -71,9 +89,22 @@ type localSuperRepository struct {
 	rootDir    string
 	deriveInfo *SSTDeriveInfo
 
-	mu    sync.RWMutex
-	repos map[string]Repository // opened repo in memory
-	known map[string]struct{}   // repos that stored in the disk
+	mu        sync.RWMutex
+	repos     map[string]Repository // opened repo in memory
+	known     map[string]struct{}   // repos that stored in the disk
+	quotas    quotasConfig
+	quotaPath string
+}
+
+// quotasConfig is persisted to quotaPath in the SuperRepository root.
+type quotasConfig struct {
+	Total        quotaEntry            `json:"_total"`
+	MaxRepoCount int                   `json:"_maxRepoCount"`
+	Repos        map[string]quotaEntry `json:"repos,omitempty"`
+}
+
+type quotaEntry struct {
+	MaxSizeBytes int64 `json:"maxSizeBytes"`
 }
 
 // NewLocalSuperRepository creates or opens a local SuperRepository at the specified directory.
@@ -95,6 +126,9 @@ func NewLocalSuperRepository(rootDir string) (*localSuperRepository, error) {
 		rootDir: rootDir,
 		repos:   make(map[string]Repository),
 		known:   make(map[string]struct{}),
+		quotas: quotasConfig{
+			Repos: make(map[string]quotaEntry),
+		},
 	}
 
 	// 2) scan rootDir
@@ -111,6 +145,12 @@ func NewLocalSuperRepository(rootDir string) (*localSuperRepository, error) {
 		s.known[name] = struct{}{}
 	}
 
+	// 3) load quotas
+	s.quotaPath = filepath.Join(rootDir, "super-repo-quotas.json")
+	if err := s.loadQuotas(); err != nil {
+		return nil, fmt.Errorf("load quotas: %w", err)
+	}
+
 	// create default repo if not exists
 	if _, err = s.Create(context.Background(), defaultSuperRepoName); err != nil &&
 		!strings.Contains(err.Error(), "already exists") {
@@ -118,6 +158,60 @@ func NewLocalSuperRepository(rootDir string) (*localSuperRepository, error) {
 	}
 
 	return s, nil
+}
+
+func (s *localSuperRepository) loadQuotas() error {
+	data, err := os.ReadFile(s.quotaPath)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return nil
+		}
+		return err
+	}
+	if err := json.Unmarshal(data, &s.quotas); err != nil {
+		return err
+	}
+	if s.quotas.Repos == nil {
+		s.quotas.Repos = make(map[string]quotaEntry)
+	}
+	return nil
+}
+
+func (s *localSuperRepository) saveQuotasLocked() error {
+	data, err := json.MarshalIndent(s.quotas, "", "  ")
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(s.quotaPath, data, 0o600)
+}
+
+// calculateRepoSizeLocked returns the on-disk size of the named repository in bytes.
+// It accounts for the BBolt database file and the document vault.
+// Caller must NOT hold s.mu.
+func (s *localSuperRepository) calculateRepoSizeLocked(name string) (int64, error) {
+	dir := s.repoDir(name)
+	var total int64
+	err := filepath.WalkDir(dir, func(path string, d os.DirEntry, err error) error {
+		if err != nil {
+			if os.IsNotExist(err) {
+				return nil
+			}
+			return err
+		}
+		if d.IsDir() {
+			return nil
+		}
+		info, err := d.Info()
+		if err != nil {
+			return err
+		}
+		total += info.Size()
+		return nil
+	})
+	if err != nil {
+		return 0, err
+	}
+	return total, nil
 }
 
 func (s *localSuperRepository) repoDir(name string) string {
@@ -164,6 +258,10 @@ func (s *localSuperRepository) Get(ctx context.Context, name string) (Repository
 		}
 		return nil, fmt.Errorf("open repo %q: %w", name, err)
 	}
+	lfr := r.(*localFullRepository)
+	lfr.sr = s
+	lfr.quota = &quotaState{}
+	_ = lfr.initDocumentSize()
 
 	if s.deriveInfo != nil {
 		err = r.RegisterIndexHandler(s.deriveInfo)
@@ -185,28 +283,47 @@ func (s *localSuperRepository) Create(ctx context.Context, name string) (Reposit
 		return nil, fmt.Errorf("empty repository name")
 	}
 
-	s.mu.RLock()
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
 	if _, ok := s.known[name]; ok {
-		s.mu.RUnlock()
 		return nil, fmt.Errorf("repository %q already exists", name)
 	}
-	s.mu.RUnlock()
+
+	// Count quota check.
+	if s.quotas.MaxRepoCount > 0 && len(s.known)+1 > s.quotas.MaxRepoCount {
+		return nil, ErrQuotaExceeded
+	}
+
+	const emptyRepoSize = 32 * 1024
+
+	// Total size quota check (soft).
+	if s.quotas.Total.MaxSizeBytes > 0 {
+		currentTotal, err := s.calculateTotalSizeLocked()
+		if err != nil {
+			return nil, fmt.Errorf("calculate total size: %w", err)
+		}
+		if currentTotal+emptyRepoSize > s.quotas.Total.MaxSizeBytes {
+			return nil, ErrQuotaExceeded
+		}
+	}
 
 	dir := s.repoDir(name)
 	r, err := CreateLocalRepository(dir, "default@semanticstep.net", name, true)
 	if err != nil {
 		return nil, err
 	}
-	r.(*localFullRepository).sr = s
+	lfr := r.(*localFullRepository)
+	lfr.sr = s
+	lfr.quota = &quotaState{}
+	_ = lfr.initDocumentSize()
 
 	if s.deriveInfo != nil {
-		r.RegisterIndexHandler(s.deriveInfo)
+		_ = r.RegisterIndexHandler(s.deriveInfo)
 	}
 
-	s.mu.Lock()
 	s.repos[name] = r
 	s.known[name] = struct{}{}
-	s.mu.Unlock()
 
 	return r, nil
 }
@@ -224,6 +341,11 @@ func (s *localSuperRepository) Delete(ctx context.Context, name string) error {
 	_, existed := s.known[name]
 	if existed {
 		delete(s.known, name)
+	}
+	// Remove any per-repo quota entry for the deleted repository.
+	if _, ok := s.quotas.Repos[name]; ok {
+		delete(s.quotas.Repos, name)
+		_ = s.saveQuotasLocked()
 	}
 	s.mu.Unlock()
 
@@ -262,6 +384,76 @@ func (s *localSuperRepository) List(ctx context.Context) ([]string, error) {
 	return names, nil
 }
 
+func (s *localSuperRepository) GetQuota(ctx context.Context, name string) (RepositoryQuota, error) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
+	q, ok := s.quotas.Repos[name]
+	if !ok {
+		return RepositoryQuota{}, nil
+	}
+	actual, err := s.calculateRepoSizeLocked(name)
+	if err != nil {
+		return RepositoryQuota{}, err
+	}
+	return RepositoryQuota{MaxSizeBytes: q.MaxSizeBytes, ActualSizeBytes: actual}, nil
+}
+
+func (s *localSuperRepository) SetQuota(ctx context.Context, name string, maxSizeBytes int64) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	s.quotas.Repos[name] = quotaEntry{MaxSizeBytes: maxSizeBytes}
+	return s.saveQuotasLocked()
+}
+
+func (s *localSuperRepository) GetTotalQuota(ctx context.Context) (RepositoryQuota, error) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
+	actual, err := s.calculateTotalSizeLocked()
+	if err != nil {
+		return RepositoryQuota{}, err
+	}
+	return RepositoryQuota{MaxSizeBytes: s.quotas.Total.MaxSizeBytes, ActualSizeBytes: actual}, nil
+}
+
+func (s *localSuperRepository) SetTotalQuota(ctx context.Context, maxSizeBytes int64) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	s.quotas.Total = quotaEntry{MaxSizeBytes: maxSizeBytes}
+	return s.saveQuotasLocked()
+}
+
+func (s *localSuperRepository) GetMaxRepositoryCount(ctx context.Context) int {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return s.quotas.MaxRepoCount
+}
+
+func (s *localSuperRepository) SetMaxRepositoryCount(ctx context.Context, count int) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	s.quotas.MaxRepoCount = count
+	return s.saveQuotasLocked()
+}
+
+// calculateTotalSizeLocked returns the aggregate on-disk size of all known repositories.
+// Caller must hold s.mu for reading.
+func (s *localSuperRepository) calculateTotalSizeLocked() (int64, error) {
+	var total int64
+	for name := range s.known {
+		sz, err := s.calculateRepoSizeLocked(name)
+		if err != nil {
+			return 0, err
+		}
+		total += sz
+	}
+	return total, nil
+}
+
 // Close releases all resources by closing all opened child repositories.
 func (s *localSuperRepository) Close() error {
 	s.mu.Lock()
@@ -292,7 +484,6 @@ func (s *repoManagerService) ListRepos(
 	ctx context.Context,
 	req *bboltproto.ListReposRequest,
 ) (*bboltproto.ListReposReply, error) {
-
 	names, err := s.super.List(ctx)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "list repos: %v", err)
@@ -311,16 +502,83 @@ func (s *repoManagerService) CreateRepo(
 	}
 
 	if _, err := s.super.Create(ctx, name); err != nil {
+		if errors.Is(err, ErrQuotaExceeded) {
+			return nil, status.Errorf(codes.ResourceExhausted, "create repo %q: %v", name, err)
+		}
 		return nil, status.Errorf(codes.Internal, "create repo %q: %v", name, err)
 	}
 	return &bboltproto.CreateRepoReply{Name: name}, nil
+}
+
+func (s *repoManagerService) GetRepoQuota(
+	ctx context.Context,
+	req *bboltproto.GetRepoQuotaRequest,
+) (*bboltproto.GetRepoQuotaResponse, error) {
+	q, err := s.super.GetQuota(ctx, req.GetName())
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "get quota: %v", err)
+	}
+	return &bboltproto.GetRepoQuotaResponse{
+		MaxSizeBytes:    q.MaxSizeBytes,
+		ActualSizeBytes: q.ActualSizeBytes,
+	}, nil
+}
+
+func (s *repoManagerService) SetRepoQuota(
+	ctx context.Context,
+	req *bboltproto.SetRepoQuotaRequest,
+) (*bboltproto.SetRepoQuotaResponse, error) {
+	if err := s.super.SetQuota(ctx, req.GetName(), req.GetMaxSizeBytes()); err != nil {
+		return nil, status.Errorf(codes.Internal, "set quota: %v", err)
+	}
+	return &bboltproto.SetRepoQuotaResponse{}, nil
+}
+
+func (s *repoManagerService) GetSuperQuota(
+	ctx context.Context,
+	req *bboltproto.GetSuperQuotaRequest,
+) (*bboltproto.GetSuperQuotaResponse, error) {
+	q, err := s.super.GetTotalQuota(ctx)
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "get super quota: %v", err)
+	}
+	return &bboltproto.GetSuperQuotaResponse{
+		MaxSizeBytes:    q.MaxSizeBytes,
+		ActualSizeBytes: q.ActualSizeBytes,
+	}, nil
+}
+
+func (s *repoManagerService) SetSuperQuota(
+	ctx context.Context,
+	req *bboltproto.SetSuperQuotaRequest,
+) (*bboltproto.SetSuperQuotaResponse, error) {
+	if err := s.super.SetTotalQuota(ctx, req.GetMaxSizeBytes()); err != nil {
+		return nil, status.Errorf(codes.Internal, "set super quota: %v", err)
+	}
+	return &bboltproto.SetSuperQuotaResponse{}, nil
+}
+
+func (s *repoManagerService) GetMaxRepoCount(
+	ctx context.Context,
+	req *bboltproto.GetMaxRepoCountRequest,
+) (*bboltproto.GetMaxRepoCountResponse, error) {
+	return &bboltproto.GetMaxRepoCountResponse{Count: int32(s.super.GetMaxRepositoryCount(ctx))}, nil
+}
+
+func (s *repoManagerService) SetMaxRepoCount(
+	ctx context.Context,
+	req *bboltproto.SetMaxRepoCountRequest,
+) (*bboltproto.SetMaxRepoCountResponse, error) {
+	if err := s.super.SetMaxRepositoryCount(ctx, int(req.GetCount())); err != nil {
+		return nil, status.Errorf(codes.Internal, "set max repo count: %v", err)
+	}
+	return &bboltproto.SetMaxRepoCountResponse{}, nil
 }
 
 func (s *repoManagerService) DeleteRepo(
 	ctx context.Context,
 	req *bboltproto.DeleteRepoRequest,
 ) (*bboltproto.DeleteRepoReply, error) {
-
 	name := strings.TrimSpace(req.GetName())
 	if name == "" {
 		return nil, status.Errorf(codes.InvalidArgument, "empty repo name")
@@ -377,21 +635,21 @@ func NewSuperServer(c *RepositoryServerConfig, opts ...grpc.ServerOption) (*Supe
 
 	dsService := datasetServiceServer{r: r, sr: super, clientID: c.ClientID, TimeNow: time.Now}
 	bboltproto.RegisterDatasetServiceServer(s, &dsService)
-	log.Println("datasetService has been registered")
+	GlobalLogger.Info("datasetService has been registered")
 
 	refService := refServiceServer{R: r, sr: super}
 	bboltproto.RegisterRefServiceServer(s, &refService)
-	log.Println("refService has been registered")
+	GlobalLogger.Info("refService has been registered")
 
 	commitService := commitServiceServer{r: r, sr: super}
 	bboltproto.RegisterCommitServiceServer(s, &commitService)
-	log.Println("commitService has been registered")
+	GlobalLogger.Info("commitService has been registered")
 
 	bleveproto.RegisterIndexServiceServer(s, initIndexServiceServer(r, super))
-	log.Println("IndexService has been registered")
+	GlobalLogger.Info("IndexService has been registered")
 
 	bboltproto.RegisterRepoManagerServiceServer(s, newRepoManagerService(super))
-	log.Println("RepoManagerService has been registered")
+	GlobalLogger.Info("RepoManagerService has been registered")
 
 	reflection.Register(s)
 
@@ -405,7 +663,7 @@ func NewSuperServer(c *RepositoryServerConfig, opts ...grpc.ServerOption) (*Supe
 
 // GracefulStopAndClose gracefully stops the gRPC server and closes the repository.
 func (s SuperRepositoryServer) GracefulStopAndClose() error {
-	log.Println("gPRC server call GracefulStopAndClose")
+	GlobalLogger.Info("gRPC server call GracefulStopAndClose")
 	s.GracefulStop()
 
 	var err error

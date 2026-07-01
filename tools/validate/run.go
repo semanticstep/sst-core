@@ -3,7 +3,6 @@
 package validate
 
 import (
-	"bufio"
 	"bytes"
 	"encoding/json"
 	"errors"
@@ -18,7 +17,7 @@ import (
 	"github.com/semanticstep/sst-core/sst"
 	"go.uber.org/zap"
 
-	// _ "github.com/semanticstep/sst-core/vocabularies/dict" // include vocabularies
+	// _ "github.com/semanticstep/sst-core/vocabularies/dict" // include vocabularies.
 	flag "github.com/spf13/pflag"
 )
 
@@ -70,28 +69,23 @@ func (l outputLog) Log(level LogLevel, t sst.IBNode, v ...any) error {
 	switch level {
 	case InfoEnterLevel:
 		if *verbose {
-			// _, err = fmt.Printf("entering%s\n", valuesToLogString(l.g, v...))
 			sst.GlobalLogger.Debug("entering" + valuesToLogString(l.g, v...))
 		}
 	case InfoLeaveLevel:
 		if *verbose {
-			// _, err = fmt.Printf("leaving%s\n", valuesToLogString(l.g, v...))
 			sst.GlobalLogger.Debug("leaving" + valuesToLogString(l.g, v...))
 		}
 	case InfoLevel:
 		if *verbose {
-			// _, err = fmt.Println(ibNodeValuesToLogString(l.g, sst.IBNode(t), v...))
 			sst.GlobalLogger.Debug("", zap.String("IBNode", ibNodeValuesToLogString(l.g, sst.IBNode(t), v...)))
 		}
 	case WarnLevel:
 		if !*quiet {
-			// _, err = fmt.Printf("WARN %s\n", ibNodeValuesToLogString(l.g, sst.IBNode(t), v...))
 			sst.GlobalLogger.Debug("", zap.String("IBNode", ibNodeValuesToLogString(l.g, sst.IBNode(t), v...)))
 		}
 	case ErrorLevel:
 		errorsEncountered++
 		if !*quiet {
-			// _, err = fmt.Printf("ERROR %s\n", ibNodeValuesToLogString(l.g, sst.IBNode(t), v...))
 			sst.GlobalLogger.Debug("", zap.String("IBNode", ibNodeValuesToLogString(l.g, sst.IBNode(t), v...)))
 		}
 	}
@@ -103,28 +97,23 @@ func (l outputLog) LogForGraph(level LogLevel, t sst.NamedGraph, v ...any) error
 	switch level {
 	case InfoEnterLevel:
 		if !*quiet {
-			// _, err = fmt.Printf("starting%s\n", valuesToLogString(l.g, v...))
 			sst.GlobalLogger.Debug("starting" + valuesToLogString(l.g, v...))
 		}
 	case InfoLeaveLevel:
 		if !*quiet {
-			// _, err = fmt.Printf("finished%s\n", valuesToLogString(l.g, v...))
 			sst.GlobalLogger.Debug("finished" + valuesToLogString(l.g, v...))
 		}
 	case InfoLevel:
 		if !*quiet {
-			// _, err = fmt.Printf("%s%s\n", sst.NamedGraph(t).IRI(), valuesToLogString(l.g, v...))
 			sst.GlobalLogger.Debug("", zap.String("NamedGraph", sst.NamedGraph(t).IRI().String()+valuesToLogString(l.g, v...)))
 		}
 	case WarnLevel:
 		if !*quiet {
-			// _, err = fmt.Printf("WARN %s%s\n", sst.NamedGraph(t).IRI(), valuesToLogString(l.g, v...))
 			sst.GlobalLogger.Debug("", zap.String("WARN", sst.NamedGraph(t).IRI().String()+valuesToLogString(l.g, v...)))
 		}
 	case ErrorLevel:
 		errorsEncountered++
 		if !*quiet {
-			// _, err = fmt.Printf("ERROR %s%s\n", sst.NamedGraph(t).IRI(), valuesToLogString(l.g, v...))
 			sst.GlobalLogger.Debug("", zap.String("ERROR", sst.NamedGraph(t).IRI().String()+valuesToLogString(l.g, v...)))
 		}
 	}
@@ -241,7 +230,7 @@ const (
 	RulePredicateFunctionalProperty        Rule = "predicate_is_functional_property"
 	RulePredicateInverseFunctionalProperty Rule = "predicate_is_inverse_functional_property"
 
-	// RuleRangeMismatch  Rule = "range_mismatch"
+	// RuleRangeMismatch  Rule = "range_mismatch".
 )
 
 type ValidateReport struct {
@@ -257,7 +246,7 @@ type CheckedSummary struct {
 	Properties int `json:"properties"`
 }
 
-// single finding
+// single finding.
 type Finding struct {
 	Kind    ValidationKind `json:"kind"`
 	Rule    Rule           `json:"rule"`
@@ -305,7 +294,7 @@ func (r *ValidateReport) String() string {
 	return buf.String()
 }
 
-// FormatHumanReadable returns a human-readable formatted validation report
+// FormatHumanReadable returns a human-readable formatted validation report.
 func (r *ValidateReport) FormatHumanReadable() string {
 	var buf bytes.Buffer
 
@@ -449,52 +438,12 @@ func (r *ValidateReport) FormatHumanReadable() string {
 	return buf.String()
 }
 
-// FormatSummary returns a concise, single-line summary for each finding.
-func (r *ValidateReport) FormatSummary() string {
-	type entry struct {
-		iri      string
-		findings []Finding
-	}
-	overall := make([]entry, 0, len(r.Findings))
-	for ngIRI, findings := range r.Findings {
-		overall = append(overall, entry{iri: ngIRI, findings: findings})
-	}
-	sort.Slice(overall, func(i, j int) bool { return overall[i].iri < overall[j].iri })
-
-	var buf bytes.Buffer
-	statusText := "VALIDATION PASSED"
-	if !r.Passed {
-		statusText = "VALIDATION FAILED"
-	}
-	buf.WriteString(fmt.Sprintf("Status: %s | Generated: %s\n",
-		statusText, r.Generated.UTC().Format(time.RFC3339)))
-
-	for _, e := range overall {
-		var errors, warnings []Finding
-		for _, f := range e.findings {
-			if f.Level == "error" {
-				errors = append(errors, f)
-			} else if f.Level == "warning" {
-				warnings = append(warnings, f)
-			}
-		}
-		buf.WriteString(fmt.Sprintf("[%s] errors=%d warnings=%d\n",
-			e.iri, len(errors), len(warnings)))
-		for _, f := range errors {
-			buf.WriteString(fmt.Sprintf("  ERROR: %s (Rule: %s, Kind: %s)\n",
-				f.Message, f.Rule, f.Kind))
-		}
-		for _, f := range warnings {
-			buf.WriteString(fmt.Sprintf("  WARN: %s (Rule: %s, Kind: %s)\n",
-				f.Message, f.Rule, f.Kind))
-		}
-	}
-
-	return buf.String()
-}
-
 // Validate runs the specified validation kinds on the given stage and returns a report.
+// If no kinds are specified, all validation kinds are performed by default.
 func Validate(stage sst.Stage, kinds ...ValidationKind) (*ValidateReport, error) {
+	if len(kinds) == 0 {
+		kinds = []ValidationKind{KindRdfType, KindDomainRange, KindFunctionalProperty}
+	}
 	report := NewReport(kinds...)
 	for _, graph := range stage.NamedGraphs() {
 		for _, s := range kinds {
@@ -520,84 +469,4 @@ func Validate(stage sst.Stage, kinds ...ValidationKind) (*ValidateReport, error)
 		}
 	}
 	return &report, nil
-}
-
-func Run(arguments []string) error {
-	flags.Usage = usage
-	err := flags.Parse(arguments)
-	if err != nil {
-		if errors.Is(err, flag.ErrHelp) {
-			return ExitStatusError(1)
-		}
-		return err
-	}
-	if flags.NArg() != 1 {
-		flags.Usage()
-		return ExitStatusError(1)
-	}
-	if *quiet && *verbose {
-		fmt.Fprint(os.Stderr, "ERROR: both quiet and verbose options can not be given\n\n")
-		flags.Usage()
-		return ExitStatusError(1)
-	}
-	if !*quiet {
-		fmt.Println("SST Data Validation")
-	}
-	fileName := flags.Arg(0)
-	file, err := os.Open(fileName)
-	defer func() {
-		e := file.Close()
-		if err == nil {
-			err = e
-		}
-	}()
-	fmt.Println("file:", fileName)
-	st, err := sst.RdfRead(bufio.NewReader(file), sst.RdfFormatTurtle, sst.StrictHandler, sst.DefaultTriplexMode)
-	if err != nil {
-		return err
-	}
-	report := NewReport(KindRdfType, KindDomainRange)
-	graph := st.NamedGraphs()[0]
-	for _, s := range steps.Enums() {
-		switch s {
-		case stepRdfType:
-			err := RdfType(graph, &report, outputLog{graph})
-			if err != nil {
-				return err
-			}
-		case stepDomainRange:
-			err := DomainAndRange(graph, &report, outputLog{graph})
-			if err != nil {
-				return err
-			}
-		case experimentalStepDefinitions:
-			err := ExperimentalNamedGraphForTypeDefinitions(graph, outputLog{graph})
-			if err != nil {
-				return err
-			}
-		case experimentalStepAcyclic:
-			err := ExperimentalNamedGraphForAcyclic(graph, outputLog{graph})
-			if err != nil {
-				return err
-			}
-		case experimentalStepConnected:
-			err := ExperimentalNamedGraphForConnectedGraph(graph, outputLog{graph})
-			if err != nil {
-				return err
-			}
-		}
-	}
-	if steps.Len() == 0 {
-		err := validateAll(graph, &report, outputLog{graph})
-		if err != nil {
-			return err
-		}
-	}
-	if !*quiet {
-		fmt.Println("done")
-	}
-	if errorsEncountered > 0 {
-		return ExitStatusError(1)
-	}
-	return nil
 }

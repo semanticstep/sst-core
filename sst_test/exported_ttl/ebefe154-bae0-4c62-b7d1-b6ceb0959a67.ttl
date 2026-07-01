@@ -1,0 +1,101 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix ssmeta: <http://ontology.semanticstep.net/ssmeta#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:ebefe154-bae0-4c62-b7d1-b6ceb0959a67#> .
+
+<urn:uuid:ebefe154-bae0-4c62-b7d1-b6ceb0959a67> a owl:Ontology .
+:16f8e9fc-d4df-4585-8bfb-52915a2a50a2 a lci:ClassOfIndividual ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  sso:id "M" ;
+  rdfs:comment "aircraft system supplying energy to other systems" ;
+  rdfs:label "Energy supply system" .
+:32f36305-926d-41d5-8865-59b61a894092 a lci:ClassOfIndividual ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  sso:id "D" ;
+  rdfs:comment "aircraft system producing air lift" ;
+  rdfs:label "Lift system" ;
+  :4f7f8ed2-0f08-4548-bea0-6c3ac4301648 "Wing" .
+:347611bf-b52c-4aae-8998-b92c7f4b0968 a lci:ClassOfIndividual ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  sso:id "P" ;
+  rdfs:comment "aircraft system collecting and storing information" ;
+  rdfs:label "Aircraft management system" ;
+  :4f7f8ed2-0f08-4548-bea0-6c3ac4301648 "Health and Usage Monitoring System (HUMS), maintenance" .
+:4141c8f1-61c9-4fdf-8741-177bd2da4405 a lci:ClassOfIndividual ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  sso:id "B" ;
+  rdfs:comment "aircraft system assisting navigation" ;
+  rdfs:label "Navigation system" ;
+  :4f7f8ed2-0f08-4548-bea0-6c3ac4301648 "Mission management" .
+:4f7f8ed2-0f08-4548-bea0-6c3ac4301648 a lci:PhysicalProperty ,
+    lci:PropertyDefinition ,
+    owl:DatatypeProperty ,
+    owl:FunctionalProperty ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  rdfs:range xsd:string ;
+  sso:id "Examples" ;
+  rdfs:label "Examples" .
+:552510d5-b0fc-4197-8668-8e22bea3e3f3 a sso:ClassSystem ;
+  ssmeta:formProperties ( :4f7f8ed2-0f08-4548-bea0-6c3ac4301648 ) ;
+  sso:id "IEC81346-20_A1" ;
+  rdfs:label "IEC 81346-20 A.1 Classes of prime systems for aircrafts" .
+:5c2ca603-470e-4943-b6ba-f712666ec5a3 a lci:ClassOfIndividual ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  sso:id "N" ;
+  rdfs:comment "aircraft system interconnecting systems" ;
+  rdfs:label "Infrastructure system" ;
+  :4f7f8ed2-0f08-4548-bea0-6c3ac4301648 "Harness system, piping distribution system" .
+:7d9098c4-c4fe-479e-8d4c-be5ccf777f1a a lci:ClassOfIndividual ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  sso:id "J" ;
+  rdfs:comment "aircraft system providing activity space" ;
+  rdfs:label "Interior space system" ;
+  :4f7f8ed2-0f08-4548-bea0-6c3ac4301648 "Cabin, cargo, payload" .
+:9c1a9bce-b8bc-40de-a880-f41271d45d43 a lci:ClassOfIndividual ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  sso:id "F" ;
+  rdfs:comment "aircraft system generating speed" ;
+  rdfs:label "Speed system" ;
+  :4f7f8ed2-0f08-4548-bea0-6c3ac4301648 "Motors" .
+:9f5560ef-b861-48ff-aa4c-cdd817363729 a lci:ClassOfIndividual ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  sso:id "G" ;
+  rdfs:comment "aircraft system providing transport space" ;
+  rdfs:label "Body system" ;
+  :4f7f8ed2-0f08-4548-bea0-6c3ac4301648 "Fuselage (inc. doors and windows)" .
+:a7f13f6d-f4dc-4894-84a0-23344243e43f a lci:ClassOfIndividual ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  sso:id "K" ;
+  rdfs:comment "aircraft system providing suitable environment" ;
+  rdfs:label "Environmental system" .
+:bdc77086-99fc-43de-a5e3-aa655af88583 a lci:ClassOfIndividual ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  sso:id "A" ;
+  rdfs:comment "aircraft system providing decision" ;
+  rdfs:label "Decision system" ;
+  :4f7f8ed2-0f08-4548-bea0-6c3ac4301648 "pilot, captain, first officer, passenger, crew, cabin crew, staff" .
+:d8017070-425c-4a75-8986-051f5b39ee4d a lci:ClassOfIndividual ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  sso:id "L" ;
+  rdfs:comment "aircraft system protecting against the effects of undesirable conditions" ;
+  rdfs:label "Protection system" .
+:ddd0eeeb-06ca-4b12-b6a1-7da4ac7ff5df a lci:ClassOfIndividual ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  sso:id "C" ;
+  rdfs:comment "aircraft system for communicating" ;
+  rdfs:label "Communication system" .
+:e5b613ef-2444-4faf-8b5a-475581c795e4 a lci:ClassOfIndividual ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  sso:id "H" ;
+  rdfs:comment "aircraft system carrying the aircraft when not flying" ;
+  rdfs:label "Undercarriage system" ;
+  :4f7f8ed2-0f08-4548-bea0-6c3ac4301648 "Landing gear, pontoon, float" .
+:fff7ee30-d864-4709-8bd0-8a32c3fbfbf7 a lci:ClassOfIndividual ,
+    :552510d5-b0fc-4197-8668-8e22bea3e3f3 ;
+  sso:id "E" ;
+  rdfs:comment "aircraft system controlling orientation" ;
+  rdfs:label "Movement control system" .

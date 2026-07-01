@@ -1,15 +1,15 @@
-@prefix lci:	<http://ontology.semanticstep.net/lci#> .
-@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
-@prefix owl:	<http://www.w3.org/2002/07/owl#> .
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 <urn:uuid:eeeeeeee-eeee-eeee-eeee-eeeeeeeeeee5> {
-@prefix ns1:	<urn:uuid:eeeeeeee-eeee-eeee-eeee-eeeeeeeeeee5#> .
+@prefix ns1: <urn:uuid:eeeeeeee-eeee-eeee-eeee-eeeeeeeeeee5#> .
 
-<urn:uuid:eeeeeeee-eeee-eeee-eeee-eeeeeeeeeee5>	a	owl:Ontology .
-ns1:Adam	a	lci:Person .
-ns1:Jane	a	lci:Person .
-ns1:John	a	lci:Person ;
-	ns1:hasFriend	( ns1:Jane ns1:Adam ) .
-ns1:hasFriend	a	rdf:Property .
+<urn:uuid:eeeeeeee-eeee-eeee-eeee-eeeeeeeeeee5> a owl:Ontology .
+ns1:Adam a lci:Person .
+ns1:Jane a lci:Person .
+ns1:John a lci:Person ;
+  ns1:hasFriend ( ns1:Jane ns1:Adam ) .
+ns1:hasFriend a rdf:Property .
 }

@@ -84,7 +84,10 @@ func (f remoteRepoFS) ReadDir(name string) ([]fs.DirEntry, error) {
 func (f remoteRepoFS) OpenFile(name string, flag int, _ fs.FileMode) (fs.File, error) {
 	nameKey, err := uuid.Parse(name)
 	if err != nil {
-		return nil, &fs.PathError{Op: "open file", Path: name, Err: err}
+		if flag&os.O_TRUNC == 0 {
+			return nil, &fs.PathError{Op: "open file", Path: name, Err: err}
+		}
+		nameKey = uuid.Nil
 	}
 	var content []byte
 	if flag&os.O_TRUNC == 0 {

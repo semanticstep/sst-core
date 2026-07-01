@@ -8,26 +8,21 @@ import (
 	"testing"
 
 	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/sst_test/testutil"
+	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_remoteRepositoryInfo_SingleNamedGraph_SingleCommit(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 
-	defer removeFolder(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
-
 		url := testutil.ServerServe(t, dir)
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
 		repo, err := sst.OpenRemoteRepository(constructCtx, url, transportCreds)
-
 		if err != nil {
 			panic(err)
 		}
@@ -46,9 +41,9 @@ func Test_remoteRepositoryInfo_SingleNamedGraph_SingleCommit(t *testing.T) {
 		stats, err := repo.Info(constructCtx, "")
 		require.NoError(t, err)
 
-		assert.Equal(t, 1, stats.NumberOfDatasets)
-		assert.Equal(t, 1, stats.NumberOfDatasetRevisions)
-		assert.Equal(t, 1, stats.NumberOfNamedGraphRevisions)
-		assert.Equal(t, 1, stats.NumberOfCommits)
+		assert.Equal(t, int64(1), stats.NumberOfDatasets)
+		assert.Equal(t, int64(1), stats.NumberOfDatasetRevisions)
+		assert.Equal(t, int64(1), stats.NumberOfNamedGraphRevisions)
+		assert.Equal(t, int64(1), stats.NumberOfCommits)
 	})
 }

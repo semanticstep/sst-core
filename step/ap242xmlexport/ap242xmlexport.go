@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/step/ap242xmlimport"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
@@ -20,7 +21,6 @@ import (
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/semanticstep/sst-core/vocabularies/ssmeta"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
-	"github.com/google/uuid"
 )
 
 type Header struct {

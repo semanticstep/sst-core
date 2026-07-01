@@ -32,7 +32,7 @@ func TestReadTTLWriteToSST(t *testing.T) {
 
 		ng, err := sst.RdfRead(bufio.NewReader(file), sst.RdfFormatTurtle, sst.StrictHandler, sst.DefaultTriplexMode)
 		if err != nil {
-			log.Panicf(err.Error())
+			t.Fatal(err)
 		}
 
 		out, err := os.Create(ttlFilePath + ".sst")
@@ -100,7 +100,7 @@ func TestReadTTLsWriteToSSTs(t *testing.T) {
 
 			ng, err := sst.RdfRead(bufio.NewReader(file), sst.RdfFormatTurtle, sst.StrictHandler, sst.DefaultTriplexMode)
 			if err != nil {
-				log.Panicf(err.Error())
+				t.Fatal(err)
 			}
 
 			out, err := os.Create(filepath.Join(sstPath, strings.TrimSuffix(entry.Name(), ".ttl")+".sst"))

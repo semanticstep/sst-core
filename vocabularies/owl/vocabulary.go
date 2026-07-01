@@ -6,6 +6,7 @@ package owl
 
 import (
 	"reflect"
+
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
@@ -42,11 +43,11 @@ func (allDifferentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AllD
 var allDifferentKindInterface reflect.Type
 
 var AllDifferent = allDifferentI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "AllDifferent"},
-	ASubtypeOf:        []sst.ElementInformer{rdfs.Resource},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "AllDifferent"},
+	ASubtypeOf: []sst.ElementInformer{rdfs.Resource},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -64,18 +65,21 @@ type KindAllDisjointClasses interface {
 
 type allDisjointClassesI struct{ sst.ElementInfo }
 
-func (allDisjointClassesI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AllDisjointClasses()   {}
-func (allDisjointClassesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()  {}
-func (allDisjointClassesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AllDisjointClasses() {}
+func (allDisjointClassesI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AllDisjointClasses() {
+}
+func (allDisjointClassesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (allDisjointClassesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AllDisjointClasses() {
+}
 
 var allDisjointClassesKindInterface reflect.Type
 
 var AllDisjointClasses = allDisjointClassesI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "AllDisjointClasses"},
-	ASubtypeOf:        []sst.ElementInformer{rdfs.Resource},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "AllDisjointClasses"},
+	ASubtypeOf: []sst.ElementInformer{rdfs.Resource},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -93,18 +97,21 @@ type KindAllDisjointProperties interface {
 
 type allDisjointPropertiesI struct{ sst.ElementInfo }
 
-func (allDisjointPropertiesI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AllDisjointProperties()   {}
-func (allDisjointPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
-func (allDisjointPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AllDisjointProperties() {}
+func (allDisjointPropertiesI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AllDisjointProperties() {
+}
+func (allDisjointPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (allDisjointPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AllDisjointProperties() {
+}
 
 var allDisjointPropertiesKindInterface reflect.Type
 
 var AllDisjointProperties = allDisjointPropertiesI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "AllDisjointProperties"},
-	ASubtypeOf:        []sst.ElementInformer{rdfs.Resource},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "AllDisjointProperties"},
+	ASubtypeOf: []sst.ElementInformer{rdfs.Resource},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -129,11 +136,11 @@ func (annotationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Annota
 var annotationKindInterface reflect.Type
 
 var Annotation = annotationI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "Annotation"},
-	ASubtypeOf:        []sst.ElementInformer{rdfs.Resource},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "Annotation"},
+	ASubtypeOf: []sst.ElementInformer{rdfs.Resource},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -151,19 +158,23 @@ type KindAnnotationProperty interface {
 
 type annotationPropertyI struct{ sst.ElementInfo }
 
-func (annotationPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AnnotationProperty()            {}
-func (annotationPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
-func (annotationPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
-func (annotationPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AnnotationProperty()          {}
+func (annotationPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AnnotationProperty() {
+}
+func (annotationPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
+}
+func (annotationPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (annotationPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AnnotationProperty() {
+}
 
 var annotationPropertyKindInterface reflect.Type
 
 var AnnotationProperty = annotationPropertyI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "AnnotationProperty"},
-	ASubtypeOf:        []sst.ElementInformer{rdf.Property},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "AnnotationProperty"},
+	ASubtypeOf: []sst.ElementInformer{rdf.Property},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -181,20 +192,24 @@ type KindAsymmetricProperty interface {
 
 type asymmetricPropertyI struct{ sst.ElementInfo }
 
-func (asymmetricPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AsymmetricProperty()            {}
-func (asymmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
-func (asymmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
-func (asymmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AsymmetricProperty()          {}
-func (asymmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty()              {}
+func (asymmetricPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AsymmetricProperty() {
+}
+func (asymmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
+}
+func (asymmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (asymmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23AsymmetricProperty() {
+}
+func (asymmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty() {}
 
 var asymmetricPropertyKindInterface reflect.Type
 
 var AsymmetricProperty = asymmetricPropertyI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "AsymmetricProperty"},
-	ASubtypeOf:        []sst.ElementInformer{ObjectProperty},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "AsymmetricProperty"},
+	ASubtypeOf: []sst.ElementInformer{ObjectProperty},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -219,11 +234,11 @@ func (axiomI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Axiom()    
 var axiomKindInterface reflect.Type
 
 var Axiom = axiomI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "Axiom"},
-	ASubtypeOf:        []sst.ElementInformer{rdfs.Resource},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "Axiom"},
+	ASubtypeOf: []sst.ElementInformer{rdfs.Resource},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -249,11 +264,11 @@ func (classI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Class()    
 var classKindInterface reflect.Type
 
 var Class = classI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "Class"},
-	ASubtypeOf:        []sst.ElementInformer{rdfs.Class},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "Class"},
+	ASubtypeOf: []sst.ElementInformer{rdfs.Class},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -280,11 +295,11 @@ func (dataRangeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23DataRan
 var dataRangeKindInterface reflect.Type
 
 var DataRange = dataRangeI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "DataRange"},
-	ASubtypeOf:        []sst.ElementInformer{rdfs.Datatype},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "DataRange"},
+	ASubtypeOf: []sst.ElementInformer{rdfs.Datatype},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -302,19 +317,20 @@ type KindDatatypeProperty interface {
 
 type datatypePropertyI struct{ sst.ElementInfo }
 
-func (datatypePropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23DatatypeProperty()              {}
-func (datatypePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
-func (datatypePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
-func (datatypePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23DatatypeProperty()            {}
+func (datatypePropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23DatatypeProperty() {}
+func (datatypePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
+}
+func (datatypePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (datatypePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23DatatypeProperty()  {}
 
 var datatypePropertyKindInterface reflect.Type
 
 var DatatypeProperty = datatypePropertyI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "DatatypeProperty"},
-	ASubtypeOf:        []sst.ElementInformer{rdf.Property},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "DatatypeProperty"},
+	ASubtypeOf: []sst.ElementInformer{rdf.Property},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -340,11 +356,11 @@ func (deprecatedClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23D
 var deprecatedClassKindInterface reflect.Type
 
 var DeprecatedClass = deprecatedClassI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "DeprecatedClass"},
-	ASubtypeOf:        []sst.ElementInformer{rdfs.Class},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "DeprecatedClass"},
+	ASubtypeOf: []sst.ElementInformer{rdfs.Class},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -362,19 +378,23 @@ type KindDeprecatedProperty interface {
 
 type deprecatedPropertyI struct{ sst.ElementInfo }
 
-func (deprecatedPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23DeprecatedProperty()            {}
-func (deprecatedPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
-func (deprecatedPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
-func (deprecatedPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23DeprecatedProperty()          {}
+func (deprecatedPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23DeprecatedProperty() {
+}
+func (deprecatedPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
+}
+func (deprecatedPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (deprecatedPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23DeprecatedProperty() {
+}
 
 var deprecatedPropertyKindInterface reflect.Type
 
 var DeprecatedProperty = deprecatedPropertyI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "DeprecatedProperty"},
-	ASubtypeOf:        []sst.ElementInformer{rdf.Property},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "DeprecatedProperty"},
+	ASubtypeOf: []sst.ElementInformer{rdf.Property},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -392,19 +412,23 @@ type KindFunctionalProperty interface {
 
 type functionalPropertyI struct{ sst.ElementInfo }
 
-func (functionalPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23FunctionalProperty()            {}
-func (functionalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
-func (functionalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
-func (functionalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23FunctionalProperty()          {}
+func (functionalPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23FunctionalProperty() {
+}
+func (functionalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
+}
+func (functionalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (functionalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23FunctionalProperty() {
+}
 
 var functionalPropertyKindInterface reflect.Type
 
 var FunctionalProperty = functionalPropertyI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "FunctionalProperty"},
-	ASubtypeOf:        []sst.ElementInformer{rdf.Property},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "FunctionalProperty"},
+	ASubtypeOf: []sst.ElementInformer{rdf.Property},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -422,20 +446,25 @@ type KindInverseFunctionalProperty interface {
 
 type inverseFunctionalPropertyI struct{ sst.ElementInfo }
 
-func (inverseFunctionalPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23InverseFunctionalProperty()     {}
-func (inverseFunctionalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
-func (inverseFunctionalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
-func (inverseFunctionalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23InverseFunctionalProperty()   {}
-func (inverseFunctionalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty()              {}
+func (inverseFunctionalPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23InverseFunctionalProperty() {
+}
+func (inverseFunctionalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
+}
+func (inverseFunctionalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (inverseFunctionalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23InverseFunctionalProperty() {
+}
+func (inverseFunctionalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty() {
+}
 
 var inverseFunctionalPropertyKindInterface reflect.Type
 
 var InverseFunctionalProperty = inverseFunctionalPropertyI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "InverseFunctionalProperty"},
-	ASubtypeOf:        []sst.ElementInformer{ObjectProperty},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "InverseFunctionalProperty"},
+	ASubtypeOf: []sst.ElementInformer{ObjectProperty},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -453,20 +482,24 @@ type KindIrreflexiveProperty interface {
 
 type irreflexivePropertyI struct{ sst.ElementInfo }
 
-func (irreflexivePropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23IrreflexiveProperty()           {}
-func (irreflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
-func (irreflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
-func (irreflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23IrreflexiveProperty()         {}
-func (irreflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty()              {}
+func (irreflexivePropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23IrreflexiveProperty() {
+}
+func (irreflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
+}
+func (irreflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (irreflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23IrreflexiveProperty() {
+}
+func (irreflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty() {}
 
 var irreflexivePropertyKindInterface reflect.Type
 
 var IrreflexiveProperty = irreflexivePropertyI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "IrreflexiveProperty"},
-	ASubtypeOf:        []sst.ElementInformer{ObjectProperty},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "IrreflexiveProperty"},
+	ASubtypeOf: []sst.ElementInformer{ObjectProperty},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -492,11 +525,11 @@ func (namedIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23T
 var namedIndividualKindInterface reflect.Type
 
 var NamedIndividual = namedIndividualI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "NamedIndividual"},
-	ASubtypeOf:        []sst.ElementInformer{Thing},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "NamedIndividual"},
+	ASubtypeOf: []sst.ElementInformer{Thing},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -514,18 +547,21 @@ type KindNegativePropertyAssertion interface {
 
 type negativePropertyAssertionI struct{ sst.ElementInfo }
 
-func (negativePropertyAssertionI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23NegativePropertyAssertion()   {}
-func (negativePropertyAssertionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
-func (negativePropertyAssertionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23NegativePropertyAssertion() {}
+func (negativePropertyAssertionI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23NegativePropertyAssertion() {
+}
+func (negativePropertyAssertionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (negativePropertyAssertionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23NegativePropertyAssertion() {
+}
 
 var negativePropertyAssertionKindInterface reflect.Type
 
 var NegativePropertyAssertion = negativePropertyAssertionI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "NegativePropertyAssertion"},
-	ASubtypeOf:        []sst.ElementInformer{rdfs.Resource},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "NegativePropertyAssertion"},
+	ASubtypeOf: []sst.ElementInformer{rdfs.Resource},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -551,11 +587,11 @@ func (nothingI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()  
 var nothingKindInterface reflect.Type
 
 var Nothing = nothingI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "Nothing"},
-	ASubtypeOf:        []sst.ElementInformer{Thing},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "Nothing"},
+	ASubtypeOf: []sst.ElementInformer{Thing},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -573,19 +609,20 @@ type KindObjectProperty interface {
 
 type objectPropertyI struct{ sst.ElementInfo }
 
-func (objectPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty()                {}
-func (objectPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
-func (objectPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
-func (objectPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty()              {}
+func (objectPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty() {}
+func (objectPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
+}
+func (objectPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (objectPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty()    {}
 
 var objectPropertyKindInterface reflect.Type
 
 var ObjectProperty = objectPropertyI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "ObjectProperty"},
-	ASubtypeOf:        []sst.ElementInformer{rdf.Property},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "ObjectProperty"},
+	ASubtypeOf: []sst.ElementInformer{rdf.Property},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -610,11 +647,11 @@ func (ontologyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Ontology
 var ontologyKindInterface reflect.Type
 
 var Ontology = ontologyI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "Ontology"},
-	ASubtypeOf:        []sst.ElementInformer{rdfs.Resource},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "Ontology"},
+	ASubtypeOf: []sst.ElementInformer{rdfs.Resource},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -632,19 +669,20 @@ type KindOntologyProperty interface {
 
 type ontologyPropertyI struct{ sst.ElementInfo }
 
-func (ontologyPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23OntologyProperty()              {}
-func (ontologyPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
-func (ontologyPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
-func (ontologyPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23OntologyProperty()            {}
+func (ontologyPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23OntologyProperty() {}
+func (ontologyPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
+}
+func (ontologyPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (ontologyPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23OntologyProperty()  {}
 
 var ontologyPropertyKindInterface reflect.Type
 
 var OntologyProperty = ontologyPropertyI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "OntologyProperty"},
-	ASubtypeOf:        []sst.ElementInformer{rdf.Property},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "OntologyProperty"},
+	ASubtypeOf: []sst.ElementInformer{rdf.Property},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -662,20 +700,23 @@ type KindReflexiveProperty interface {
 
 type reflexivePropertyI struct{ sst.ElementInfo }
 
-func (reflexivePropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ReflexiveProperty()             {}
-func (reflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
-func (reflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
-func (reflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty()              {}
-func (reflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ReflexiveProperty()           {}
+func (reflexivePropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ReflexiveProperty() {}
+func (reflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
+}
+func (reflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (reflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty() {}
+func (reflexivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ReflexiveProperty() {
+}
 
 var reflexivePropertyKindInterface reflect.Type
 
 var ReflexiveProperty = reflexivePropertyI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "ReflexiveProperty"},
-	ASubtypeOf:        []sst.ElementInformer{ObjectProperty},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "ReflexiveProperty"},
+	ASubtypeOf: []sst.ElementInformer{ObjectProperty},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -702,11 +743,11 @@ func (restrictionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Restr
 var restrictionKindInterface reflect.Type
 
 var Restriction = restrictionI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "Restriction"},
-	ASubtypeOf:        []sst.ElementInformer{Class},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "Restriction"},
+	ASubtypeOf: []sst.ElementInformer{Class},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -724,20 +765,23 @@ type KindSymmetricProperty interface {
 
 type symmetricPropertyI struct{ sst.ElementInfo }
 
-func (symmetricPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23SymmetricProperty()             {}
-func (symmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
-func (symmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
-func (symmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty()              {}
-func (symmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23SymmetricProperty()           {}
+func (symmetricPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23SymmetricProperty() {}
+func (symmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
+}
+func (symmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (symmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty() {}
+func (symmetricPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23SymmetricProperty() {
+}
 
 var symmetricPropertyKindInterface reflect.Type
 
 var SymmetricProperty = symmetricPropertyI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "SymmetricProperty"},
-	ASubtypeOf:        []sst.ElementInformer{ObjectProperty},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "SymmetricProperty"},
+	ASubtypeOf: []sst.ElementInformer{ObjectProperty},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -765,7 +809,7 @@ var Thing = thingI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "Thing"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -783,20 +827,24 @@ type KindTransitiveProperty interface {
 
 type transitivePropertyI struct{ sst.ElementInfo }
 
-func (transitivePropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23TransitiveProperty()            {}
-func (transitivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
-func (transitivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
-func (transitivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty()              {}
-func (transitivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23TransitiveProperty()          {}
+func (transitivePropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23TransitiveProperty() {
+}
+func (transitivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
+}
+func (transitivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (transitivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23ObjectProperty() {}
+func (transitivePropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23TransitiveProperty() {
+}
 
 var transitivePropertyKindInterface reflect.Type
 
 var TransitiveProperty = transitivePropertyI{sst.ElementInfo{
-	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "TransitiveProperty"},
-	ASubtypeOf:        []sst.ElementInformer{ObjectProperty},
+	Element:    sst.Element{Vocabulary: OWLVocabulary, Name: "TransitiveProperty"},
+	ASubtypeOf: []sst.ElementInformer{ObjectProperty},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -822,11 +870,11 @@ var allValuesFromKindInterface reflect.Type
 
 var AllValuesFrom = allValuesFromI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "allValuesFrom"},
-	ADomain:           Restriction,
-	ARange:            rdfs.Class,
+	ADomain: Restriction,
+	ARange:  rdfs.Class,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -844,19 +892,21 @@ type KindAnnotatedProperty interface {
 
 type annotatedPropertyI struct{ sst.ElementInfo }
 
-func (annotatedPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23annotatedProperty()   {}
-func (annotatedPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (annotatedPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23annotatedProperty() {}
+func (annotatedPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23annotatedProperty() {}
+func (annotatedPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (annotatedPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23annotatedProperty() {
+}
 
 var annotatedPropertyKindInterface reflect.Type
 
 var AnnotatedProperty = annotatedPropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "annotatedProperty"},
-	ADomain:           rdfs.Resource,
-	ARange:            rdfs.Resource,
+	ADomain: rdfs.Resource,
+	ARange:  rdfs.Resource,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -882,11 +932,11 @@ var annotatedSourceKindInterface reflect.Type
 
 var AnnotatedSource = annotatedSourceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "annotatedSource"},
-	ADomain:           rdfs.Resource,
-	ARange:            rdfs.Resource,
+	ADomain: rdfs.Resource,
+	ARange:  rdfs.Resource,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -912,11 +962,11 @@ var annotatedTargetKindInterface reflect.Type
 
 var AnnotatedTarget = annotatedTargetI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "annotatedTarget"},
-	ADomain:           rdfs.Resource,
-	ARange:            rdfs.Resource,
+	ADomain: rdfs.Resource,
+	ARange:  rdfs.Resource,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -934,19 +984,21 @@ type KindAssertionProperty interface {
 
 type assertionPropertyI struct{ sst.ElementInfo }
 
-func (assertionPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23assertionProperty()   {}
-func (assertionPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (assertionPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23assertionProperty() {}
+func (assertionPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23assertionProperty() {}
+func (assertionPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (assertionPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23assertionProperty() {
+}
 
 var assertionPropertyKindInterface reflect.Type
 
 var AssertionProperty = assertionPropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "assertionProperty"},
-	ADomain:           NegativePropertyAssertion,
-	ARange:            rdf.Property,
+	ADomain: NegativePropertyAssertion,
+	ARange:  rdf.Property,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -964,19 +1016,22 @@ type KindBackwardCompatibleWith interface {
 
 type backwardCompatibleWithI struct{ sst.ElementInfo }
 
-func (backwardCompatibleWithI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23backwardCompatibleWith()   {}
-func (backwardCompatibleWithI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
-func (backwardCompatibleWithI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23backwardCompatibleWith() {}
+func (backwardCompatibleWithI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23backwardCompatibleWith() {
+}
+func (backwardCompatibleWithI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (backwardCompatibleWithI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23backwardCompatibleWith() {
+}
 
 var backwardCompatibleWithKindInterface reflect.Type
 
 var BackwardCompatibleWith = backwardCompatibleWithI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "backwardCompatibleWith"},
-	ADomain:           Ontology,
-	ARange:            Ontology,
+	ADomain: Ontology,
+	ARange:  Ontology,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -994,19 +1049,22 @@ type KindBottomDataProperty interface {
 
 type bottomDataPropertyI struct{ sst.ElementInfo }
 
-func (bottomDataPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23bottomDataProperty()   {}
-func (bottomDataPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()  {}
-func (bottomDataPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23bottomDataProperty() {}
+func (bottomDataPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23bottomDataProperty() {
+}
+func (bottomDataPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (bottomDataPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23bottomDataProperty() {
+}
 
 var bottomDataPropertyKindInterface reflect.Type
 
 var BottomDataProperty = bottomDataPropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "bottomDataProperty"},
-	ADomain:           Thing,
-	ARange:            rdfs.Literal,
+	ADomain: Thing,
+	ARange:  rdfs.Literal,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1024,19 +1082,22 @@ type KindBottomObjectProperty interface {
 
 type bottomObjectPropertyI struct{ sst.ElementInfo }
 
-func (bottomObjectPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23bottomObjectProperty()   {}
-func (bottomObjectPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
-func (bottomObjectPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23bottomObjectProperty() {}
+func (bottomObjectPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23bottomObjectProperty() {
+}
+func (bottomObjectPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (bottomObjectPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23bottomObjectProperty() {
+}
 
 var bottomObjectPropertyKindInterface reflect.Type
 
 var BottomObjectProperty = bottomObjectPropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "bottomObjectProperty"},
-	ADomain:           Thing,
-	ARange:            Thing,
+	ADomain: Thing,
+	ARange:  Thing,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1062,11 +1123,11 @@ var cardinalityKindInterface reflect.Type
 
 var Cardinality = cardinalityI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "cardinality"},
-	ADomain:           Restriction,
-	ARange:            xsd.NonNegativeInteger,
+	ADomain: Restriction,
+	ARange:  xsd.NonNegativeInteger,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1092,11 +1153,11 @@ var complementOfKindInterface reflect.Type
 
 var ComplementOf = complementOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "complementOf"},
-	ADomain:           Class,
-	ARange:            Class,
+	ADomain: Class,
+	ARange:  Class,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1114,19 +1175,22 @@ type KindDatatypeComplementOf interface {
 
 type datatypeComplementOfI struct{ sst.ElementInfo }
 
-func (datatypeComplementOfI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23datatypeComplementOf()   {}
-func (datatypeComplementOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
-func (datatypeComplementOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23datatypeComplementOf() {}
+func (datatypeComplementOfI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23datatypeComplementOf() {
+}
+func (datatypeComplementOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (datatypeComplementOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23datatypeComplementOf() {
+}
 
 var datatypeComplementOfKindInterface reflect.Type
 
 var DatatypeComplementOf = datatypeComplementOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "datatypeComplementOf"},
-	ADomain:           rdfs.Datatype,
-	ARange:            rdfs.Datatype,
+	ADomain: rdfs.Datatype,
+	ARange:  rdfs.Datatype,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1152,11 +1216,11 @@ var deprecatedKindInterface reflect.Type
 
 var Deprecated = deprecatedI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "deprecated"},
-	ADomain:           rdfs.Resource,
-	ARange:            rdfs.Resource,
+	ADomain: rdfs.Resource,
+	ARange:  rdfs.Resource,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1182,11 +1246,11 @@ var differentFromKindInterface reflect.Type
 
 var DifferentFrom = differentFromI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "differentFrom"},
-	ADomain:           Thing,
-	ARange:            Thing,
+	ADomain: Thing,
+	ARange:  Thing,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1212,11 +1276,11 @@ var disjointUnionOfKindInterface reflect.Type
 
 var DisjointUnionOf = disjointUnionOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "disjointUnionOf"},
-	ADomain:           Class,
-	ARange:            rdf.List,
+	ADomain: Class,
+	ARange:  rdf.List,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1242,11 +1306,11 @@ var disjointWithKindInterface reflect.Type
 
 var DisjointWith = disjointWithI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "disjointWith"},
-	ADomain:           Class,
-	ARange:            Class,
+	ADomain: Class,
+	ARange:  Class,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1272,11 +1336,11 @@ var distinctMembersKindInterface reflect.Type
 
 var DistinctMembers = distinctMembersI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "distinctMembers"},
-	ADomain:           AllDifferent,
-	ARange:            rdf.List,
+	ADomain: AllDifferent,
+	ARange:  rdf.List,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1302,11 +1366,11 @@ var equivalentClassKindInterface reflect.Type
 
 var EquivalentClass = equivalentClassI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "equivalentClass"},
-	ADomain:           rdfs.Class,
-	ARange:            rdfs.Class,
+	ADomain: rdfs.Class,
+	ARange:  rdfs.Class,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1324,19 +1388,22 @@ type KindEquivalentProperty interface {
 
 type equivalentPropertyI struct{ sst.ElementInfo }
 
-func (equivalentPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23equivalentProperty()   {}
-func (equivalentPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()  {}
-func (equivalentPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23equivalentProperty() {}
+func (equivalentPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23equivalentProperty() {
+}
+func (equivalentPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (equivalentPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23equivalentProperty() {
+}
 
 var equivalentPropertyKindInterface reflect.Type
 
 var EquivalentProperty = equivalentPropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "equivalentProperty"},
-	ADomain:           rdf.Property,
-	ARange:            rdf.Property,
+	ADomain: rdf.Property,
+	ARange:  rdf.Property,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1362,11 +1429,11 @@ var hasKeyKindInterface reflect.Type
 
 var HasKey = hasKeyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "hasKey"},
-	ADomain:           Class,
-	ARange:            rdf.List,
+	ADomain: Class,
+	ARange:  rdf.List,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1392,11 +1459,11 @@ var hasSelfKindInterface reflect.Type
 
 var HasSelf = hasSelfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "hasSelf"},
-	ADomain:           Restriction,
-	ARange:            rdfs.Resource,
+	ADomain: Restriction,
+	ARange:  rdfs.Resource,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1422,11 +1489,11 @@ var hasValueKindInterface reflect.Type
 
 var HasValue = hasValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "hasValue"},
-	ADomain:           Restriction,
-	ARange:            rdfs.Resource,
+	ADomain: Restriction,
+	ARange:  rdfs.Resource,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1452,11 +1519,11 @@ var importsKindInterface reflect.Type
 
 var Imports = importsI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "imports"},
-	ADomain:           Ontology,
-	ARange:            Ontology,
+	ADomain: Ontology,
+	ARange:  Ontology,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1482,11 +1549,11 @@ var incompatibleWithKindInterface reflect.Type
 
 var IncompatibleWith = incompatibleWithI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "incompatibleWith"},
-	ADomain:           Ontology,
-	ARange:            Ontology,
+	ADomain: Ontology,
+	ARange:  Ontology,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1512,11 +1579,11 @@ var intersectionOfKindInterface reflect.Type
 
 var IntersectionOf = intersectionOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "intersectionOf"},
-	ADomain:           rdfs.Class,
-	ARange:            rdf.List,
+	ADomain: rdfs.Class,
+	ARange:  rdf.List,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1542,11 +1609,11 @@ var inverseOfKindInterface reflect.Type
 
 var InverseOf = inverseOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "inverseOf"},
-	ADomain:           ObjectProperty,
-	ARange:            ObjectProperty,
+	ADomain: ObjectProperty,
+	ARange:  ObjectProperty,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1572,11 +1639,11 @@ var maxCardinalityKindInterface reflect.Type
 
 var MaxCardinality = maxCardinalityI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "maxCardinality"},
-	ADomain:           Restriction,
-	ARange:            xsd.NonNegativeInteger,
+	ADomain: Restriction,
+	ARange:  xsd.NonNegativeInteger,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1594,19 +1661,22 @@ type KindMaxQualifiedCardinality interface {
 
 type maxQualifiedCardinalityI struct{ sst.ElementInfo }
 
-func (maxQualifiedCardinalityI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23maxQualifiedCardinality()   {}
-func (maxQualifiedCardinalityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
-func (maxQualifiedCardinalityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23maxQualifiedCardinality() {}
+func (maxQualifiedCardinalityI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23maxQualifiedCardinality() {
+}
+func (maxQualifiedCardinalityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (maxQualifiedCardinalityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23maxQualifiedCardinality() {
+}
 
 var maxQualifiedCardinalityKindInterface reflect.Type
 
 var MaxQualifiedCardinality = maxQualifiedCardinalityI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "maxQualifiedCardinality"},
-	ADomain:           Restriction,
-	ARange:            xsd.NonNegativeInteger,
+	ADomain: Restriction,
+	ARange:  xsd.NonNegativeInteger,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1632,11 +1702,11 @@ var membersKindInterface reflect.Type
 
 var Members = membersI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "members"},
-	ADomain:           rdfs.Resource,
-	ARange:            rdf.List,
+	ADomain: rdfs.Resource,
+	ARange:  rdf.List,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1662,11 +1732,11 @@ var minCardinalityKindInterface reflect.Type
 
 var MinCardinality = minCardinalityI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "minCardinality"},
-	ADomain:           Restriction,
-	ARange:            xsd.NonNegativeInteger,
+	ADomain: Restriction,
+	ARange:  xsd.NonNegativeInteger,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1684,19 +1754,22 @@ type KindMinQualifiedCardinality interface {
 
 type minQualifiedCardinalityI struct{ sst.ElementInfo }
 
-func (minQualifiedCardinalityI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23minQualifiedCardinality()   {}
-func (minQualifiedCardinalityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
-func (minQualifiedCardinalityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23minQualifiedCardinality() {}
+func (minQualifiedCardinalityI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23minQualifiedCardinality() {
+}
+func (minQualifiedCardinalityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (minQualifiedCardinalityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23minQualifiedCardinality() {
+}
 
 var minQualifiedCardinalityKindInterface reflect.Type
 
 var MinQualifiedCardinality = minQualifiedCardinalityI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "minQualifiedCardinality"},
-	ADomain:           Restriction,
-	ARange:            xsd.NonNegativeInteger,
+	ADomain: Restriction,
+	ARange:  xsd.NonNegativeInteger,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1722,11 +1795,11 @@ var onClassKindInterface reflect.Type
 
 var OnClass = onClassI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "onClass"},
-	ADomain:           Restriction,
-	ARange:            Class,
+	ADomain: Restriction,
+	ARange:  Class,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1752,11 +1825,11 @@ var onDataRangeKindInterface reflect.Type
 
 var OnDataRange = onDataRangeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "onDataRange"},
-	ADomain:           Restriction,
-	ARange:            rdfs.Datatype,
+	ADomain: Restriction,
+	ARange:  rdfs.Datatype,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1782,11 +1855,11 @@ var onDatatypeKindInterface reflect.Type
 
 var OnDatatype = onDatatypeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "onDatatype"},
-	ADomain:           rdfs.Datatype,
-	ARange:            rdfs.Datatype,
+	ADomain: rdfs.Datatype,
+	ARange:  rdfs.Datatype,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1812,11 +1885,11 @@ var onPropertiesKindInterface reflect.Type
 
 var OnProperties = onPropertiesI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "onProperties"},
-	ADomain:           Restriction,
-	ARange:            rdf.List,
+	ADomain: Restriction,
+	ARange:  rdf.List,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1842,11 +1915,11 @@ var onPropertyKindInterface reflect.Type
 
 var OnProperty = onPropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "onProperty"},
-	ADomain:           Restriction,
-	ARange:            rdf.Property,
+	ADomain: Restriction,
+	ARange:  rdf.Property,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1872,11 +1945,11 @@ var oneOfKindInterface reflect.Type
 
 var OneOf = oneOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "oneOf"},
-	ADomain:           rdfs.Class,
-	ARange:            rdf.List,
+	ADomain: rdfs.Class,
+	ARange:  rdf.List,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1902,11 +1975,11 @@ var priorVersionKindInterface reflect.Type
 
 var PriorVersion = priorVersionI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "priorVersion"},
-	ADomain:           Ontology,
-	ARange:            Ontology,
+	ADomain: Ontology,
+	ARange:  Ontology,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1924,19 +1997,22 @@ type KindPropertyChainAxiom interface {
 
 type propertyChainAxiomI struct{ sst.ElementInfo }
 
-func (propertyChainAxiomI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23propertyChainAxiom()   {}
-func (propertyChainAxiomI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()  {}
-func (propertyChainAxiomI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23propertyChainAxiom() {}
+func (propertyChainAxiomI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23propertyChainAxiom() {
+}
+func (propertyChainAxiomI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (propertyChainAxiomI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23propertyChainAxiom() {
+}
 
 var propertyChainAxiomKindInterface reflect.Type
 
 var PropertyChainAxiom = propertyChainAxiomI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "propertyChainAxiom"},
-	ADomain:           ObjectProperty,
-	ARange:            rdf.List,
+	ADomain: ObjectProperty,
+	ARange:  rdf.List,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1954,19 +2030,22 @@ type KindPropertyDisjointWith interface {
 
 type propertyDisjointWithI struct{ sst.ElementInfo }
 
-func (propertyDisjointWithI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23propertyDisjointWith()   {}
-func (propertyDisjointWithI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
-func (propertyDisjointWithI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23propertyDisjointWith() {}
+func (propertyDisjointWithI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23propertyDisjointWith() {
+}
+func (propertyDisjointWithI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (propertyDisjointWithI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23propertyDisjointWith() {
+}
 
 var propertyDisjointWithKindInterface reflect.Type
 
 var PropertyDisjointWith = propertyDisjointWithI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "propertyDisjointWith"},
-	ADomain:           rdf.Property,
-	ARange:            rdf.Property,
+	ADomain: rdf.Property,
+	ARange:  rdf.Property,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1984,19 +2063,22 @@ type KindQualifiedCardinality interface {
 
 type qualifiedCardinalityI struct{ sst.ElementInfo }
 
-func (qualifiedCardinalityI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23qualifiedCardinality()   {}
-func (qualifiedCardinalityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
-func (qualifiedCardinalityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23qualifiedCardinality() {}
+func (qualifiedCardinalityI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23qualifiedCardinality() {
+}
+func (qualifiedCardinalityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (qualifiedCardinalityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23qualifiedCardinality() {
+}
 
 var qualifiedCardinalityKindInterface reflect.Type
 
 var QualifiedCardinality = qualifiedCardinalityI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "qualifiedCardinality"},
-	ADomain:           Restriction,
-	ARange:            xsd.NonNegativeInteger,
+	ADomain: Restriction,
+	ARange:  xsd.NonNegativeInteger,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2022,11 +2104,11 @@ var sameAsKindInterface reflect.Type
 
 var SameAs = sameAsI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "sameAs"},
-	ADomain:           Thing,
-	ARange:            Thing,
+	ADomain: Thing,
+	ARange:  Thing,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2052,11 +2134,11 @@ var someValuesFromKindInterface reflect.Type
 
 var SomeValuesFrom = someValuesFromI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "someValuesFrom"},
-	ADomain:           Restriction,
-	ARange:            rdfs.Class,
+	ADomain: Restriction,
+	ARange:  rdfs.Class,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2082,11 +2164,11 @@ var sourceIndividualKindInterface reflect.Type
 
 var SourceIndividual = sourceIndividualI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "sourceIndividual"},
-	ADomain:           NegativePropertyAssertion,
-	ARange:            Thing,
+	ADomain: NegativePropertyAssertion,
+	ARange:  Thing,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2112,11 +2194,11 @@ var targetIndividualKindInterface reflect.Type
 
 var TargetIndividual = targetIndividualI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "targetIndividual"},
-	ADomain:           NegativePropertyAssertion,
-	ARange:            Thing,
+	ADomain: NegativePropertyAssertion,
+	ARange:  Thing,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2142,11 +2224,11 @@ var targetValueKindInterface reflect.Type
 
 var TargetValue = targetValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "targetValue"},
-	ADomain:           NegativePropertyAssertion,
-	ARange:            rdfs.Literal,
+	ADomain: NegativePropertyAssertion,
+	ARange:  rdfs.Literal,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2172,11 +2254,11 @@ var topDataPropertyKindInterface reflect.Type
 
 var TopDataProperty = topDataPropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "topDataProperty"},
-	ADomain:           Thing,
-	ARange:            rdfs.Literal,
+	ADomain: Thing,
+	ARange:  rdfs.Literal,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2194,19 +2276,21 @@ type KindTopObjectProperty interface {
 
 type topObjectPropertyI struct{ sst.ElementInfo }
 
-func (topObjectPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23topObjectProperty()   {}
-func (topObjectPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (topObjectPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23topObjectProperty() {}
+func (topObjectPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23topObjectProperty() {}
+func (topObjectPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (topObjectPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23topObjectProperty() {
+}
 
 var topObjectPropertyKindInterface reflect.Type
 
 var TopObjectProperty = topObjectPropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "topObjectProperty"},
-	ADomain:           Thing,
-	ARange:            Thing,
+	ADomain: Thing,
+	ARange:  Thing,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2232,11 +2316,11 @@ var unionOfKindInterface reflect.Type
 
 var UnionOf = unionOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "unionOf"},
-	ADomain:           rdfs.Class,
-	ARange:            rdf.List,
+	ADomain: rdfs.Class,
+	ARange:  rdf.List,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2262,11 +2346,11 @@ var versionIRIKindInterface reflect.Type
 
 var VersionIRI = versionIRII{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "versionIRI"},
-	ADomain:           Ontology,
-	ARange:            Ontology,
+	ADomain: Ontology,
+	ARange:  Ontology,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2292,11 +2376,11 @@ var versionInfoKindInterface reflect.Type
 
 var VersionInfo = versionInfoI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "versionInfo"},
-	ADomain:           rdfs.Resource,
-	ARange:            rdfs.Resource,
+	ADomain: rdfs.Resource,
+	ARange:  rdfs.Resource,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2322,10 +2406,10 @@ var withRestrictionsKindInterface reflect.Type
 
 var WithRestrictions = withRestrictionsI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: OWLVocabulary, Name: "withRestrictions"},
-	ADomain:           rdfs.Datatype,
-	ARange:            rdf.List,
+	ADomain: rdfs.Datatype,
+	ARange:  rdf.List,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}

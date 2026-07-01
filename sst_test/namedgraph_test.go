@@ -17,6 +17,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/semanticstep/sst-core/vocabularies/owl"
@@ -24,7 +25,6 @@ import (
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -53,7 +53,7 @@ func Test_RdfRead(t *testing.T) {
 	path := "./testdata/test"
 	ttlFilePath := "./testdata/Test_RdfRead/33031.ttl"
 
-	os.RemoveAll((path))
+	os.RemoveAll(path)
 	defer os.RemoveAll(path)
 
 	t.Run("Step1", func(t *testing.T) {
@@ -130,7 +130,6 @@ func Test_LocalFullRepository_SingleNGDeleted(t *testing.T) {
 		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
-
 		if err != nil {
 			panic(err)
 		}
@@ -150,8 +149,8 @@ func Test_LocalFullRepository_SingleNGDeleted(t *testing.T) {
 
 		info, err := repo.Info(context.TODO(), "")
 		assert.NoError(t, err)
-		assert.Equal(t, 1, info.NumberOfDatasets)
-		assert.Equal(t, 1, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfDatasets)
+		assert.Equal(t, int64(1), info.NumberOfDatasetsInBranch)
 
 		err = ng.Delete()
 		if err != nil {
@@ -163,8 +162,8 @@ func Test_LocalFullRepository_SingleNGDeleted(t *testing.T) {
 
 		info, err = repo.Info(context.TODO(), "")
 		assert.NoError(t, err)
-		assert.Equal(t, 1, info.NumberOfDatasets)
-		assert.Equal(t, 0, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfDatasets)
+		assert.Equal(t, int64(0), info.NumberOfDatasetsInBranch)
 
 		// fmt.Println(repo.Info(context.TODO(), ""))
 	})
@@ -322,7 +321,6 @@ func Test_LocalFullRepository_ErrNamedGraphImportcycle(t *testing.T) {
 
 		assert.Equal(t, ngD.AddImport(ngA), sst.ErrNamedGraphImportCycle)
 	})
-
 }
 
 func Test_LocalFullRepository_ErrNamedGraphIsImportedDeleted(t *testing.T) {
@@ -592,7 +590,6 @@ func Test_LocalFullRepository_NGBReferencesNGC_DeleteNGC(t *testing.T) {
 		ngB.Dump()
 
 		st.Commit(context.TODO(), "Commit NGC Deleted", sst.DefaultBranch)
-
 	})
 	t.Run("read Dataset B", func(t *testing.T) {
 		repo, err := sst.OpenLocalRepository(dir, "default@semanticstep.net", "default")
@@ -692,7 +689,9 @@ func TestWriteCheckIdentifier(t *testing.T) {
 			fmt.Println("0 ", blank.IRI())
 		})
 		fmt.Println("1 ", blank.ID())
-		fmt.Println("2 ", ib1.ID())
+		assert.Panics(t, func() {
+			fmt.Println("2 ", ib1.ID())
+		})
 		fmt.Println("3 ", ib1.IRI())
 		fmt.Println("4 ", ib1.PrefixedFragment())
 		fmt.Println("5 ", owl.Class.IRI())
@@ -754,7 +753,6 @@ func TestWriteCheckIdentifier(t *testing.T) {
 		if err != nil {
 			log.Panic(err)
 		}
-
 	})
 
 	t.Run("readTTL", func(t *testing.T) {
@@ -836,7 +834,6 @@ func TestWriteOnlyTermCollection(t *testing.T) {
 		if err != nil {
 			log.Panic(err)
 		}
-
 	})
 
 	t.Run("readTTL", func(t *testing.T) {
@@ -914,7 +911,6 @@ func TestWriteOnlyLiteral(t *testing.T) {
 		if err != nil {
 			log.Panic(err)
 		}
-
 	})
 
 	t.Run("readTTL", func(t *testing.T) {
@@ -997,7 +993,6 @@ func TestWriteOnlyLiteralCollection(t *testing.T) {
 		if err != nil {
 			log.Panic(err)
 		}
-
 	})
 
 	t.Run("readTTL", func(t *testing.T) {
@@ -1082,7 +1077,6 @@ func TestWriteOnlyLiteralCollectionTermCollection(t *testing.T) {
 		if err != nil {
 			log.Panic(err)
 		}
-
 	})
 
 	t.Run("readTTL", func(t *testing.T) {
@@ -1189,7 +1183,6 @@ func TestWrite(t *testing.T) {
 		if err != nil {
 			log.Panic(err)
 		}
-
 	})
 
 	t.Run("readTTL", func(t *testing.T) {

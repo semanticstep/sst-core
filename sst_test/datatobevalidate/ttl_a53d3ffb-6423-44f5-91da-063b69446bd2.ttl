@@ -1,0 +1,21 @@
+@prefix lci:	<http://ontology.semanticstep.net/lci#> .
+@prefix sso:	<http://ontology.semanticstep.net/sso#> .
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:	<http://www.w3.org/2002/07/owl#> .
+@prefix :	<urn:uuid:a53d3ffb-6423-44f5-91da-063b69446bd2#> .
+@prefix ns2:	<urn:uuid:aec28ed6-fa13-4061-b220-4ab2bdc6bc73#> .
+@prefix ns7:	<urn:uuid:55bb223f-acee-4ca3-a753-fe99daba16f7#> .
+@prefix ns5:	<urn:uuid:643f9b8c-cf62-412a-9b7e-db7c06ab1486#> .
+
+<urn:uuid:a53d3ffb-6423-44f5-91da-063b69446bd2>	a	owl:Ontology ;
+	owl:imports	<urn:uuid:643f9b8c-cf62-412a-9b7e-db7c06ab1486> ,
+			<urn:uuid:aec28ed6-fa13-4061-b220-4ab2bdc6bc73> .
+:138bd342-db98-4ffe-be80-9dfb786d2afa	a	sso:Part ;
+	lci:hasFeature	:612f187a-e26d-4143-84ed-be85798d069d ;
+	ns2:84865a29-3282-4b9e-bb14-0d44e5d6e9c0	"222" .
+:612f187a-e26d-4143-84ed-be85798d069d	a	sso:PartFeature ,
+			ns7:b66dadb2-e2c7-4369-bedf-06cd1f5a0ebf ;
+	lci:isDefinedBy	ns5:c3d13d42-ae75-4727-8d26-ea127d59fe29 ;
+	sso:id	"B" .

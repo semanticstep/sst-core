@@ -17,6 +17,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
+	"github.com/blevesearch/bleve/v2"
 	phrase "github.com/semanticstep/sst-core/defaultderive/analyzerphrase"
 	separatedkeyword "github.com/semanticstep/sst-core/defaultderive/analyzerseparatedkeyword"
 	"github.com/semanticstep/sst-core/singleton"
@@ -27,12 +28,12 @@ import (
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
-	"github.com/blevesearch/bleve/v2"
 
 	// auto import will import wrong keyword package
 	"github.com/blevesearch/bleve/v2/analysis/analyzer/keyword"
 	"github.com/blevesearch/bleve/v2/mapping"
 	"github.com/blevesearch/bleve/v2/search/query"
+	"go.uber.org/zap"
 )
 
 const (
@@ -573,26 +574,38 @@ func deriveIndexFromNamedGraph(r sst.Repository, g sst.NamedGraph) (gID string,
 					// only punning node will arrive here ??
 					if p.IsValid() {
 						if p.InVocabulary() == nil {
-							fmt.Printf("Punning Node Base : %+v\n\n", p.OwningGraph().IRI())
-							fmt.Printf("Punning Node Fragment : %+v\n\n", p.Fragment())
+							sst.GlobalLogger.Debug("punning node",
+								zap.String("base", p.OwningGraph().IRI().String()),
+								zap.String("fragment", string(p.Fragment())),
+							)
 
 							// loading punning node
 							ds, err := r.Dataset(context.TODO(), p.OwningGraph().IRI())
 							if err != nil {
-								fmt.Printf("Loading %+v punning node %+v failed : %+v\n\n", gID, p.OwningGraph().IRI(), err)
+								sst.GlobalLogger.Debug("loading punning node failed",
+									zap.String("graphID", gID),
+									zap.String("iri", p.OwningGraph().IRI().String()),
+									zap.Error(err),
+								)
 								return nil
 							}
 
 							stage, err := ds.CheckoutBranch(context.TODO(), sst.DefaultBranch, sst.DefaultTriplexMode)
 							if err != nil {
-								fmt.Printf("Loading punning node %+v stage failed : %+v\n\n", p.OwningGraph().IRI(), err)
+								sst.GlobalLogger.Debug("loading punning node stage failed",
+									zap.String("iri", p.OwningGraph().IRI().String()),
+									zap.Error(err),
+								)
 								return nil
 							}
 
 							ng := stage.NamedGraph(p.OwningGraph().IRI())
 							node := ng.GetIRINodeByFragment(p.Fragment())
 							if node == nil {
-								fmt.Printf("%+v fragment node %+v does not exist!\n\n", p.OwningGraph().IRI(), p.Fragment())
+								sst.GlobalLogger.Debug("punning node fragment does not exist",
+									zap.String("iri", p.OwningGraph().IRI().String()),
+									zap.String("fragment", string(p.Fragment())),
+								)
 								return nil
 							}
 
@@ -619,15 +632,20 @@ func deriveIndexFromNamedGraph(r sst.Repository, g sst.NamedGraph) (gID string,
 									// here we treat o2 as a IBNode
 									if o2.(sst.IBNode).IsValid() {
 										if o2.(sst.IBNode).InVocabulary() == nil {
-											fmt.Printf("IdOwner Base : %+v\n\n", o2.(sst.IBNode).OwningGraph().IRI())
-											fmt.Printf("IdOwner Fragment : %+v\n\n", o2.(sst.IBNode).Fragment())
+											sst.GlobalLogger.Debug("idOwner node",
+												zap.String("base", o2.(sst.IBNode).OwningGraph().IRI().String()),
+												zap.String("fragment", string(o2.(sst.IBNode).Fragment())),
+											)
 
 											// is possible atBase2 != atBase ?
 											// here we just consider atBase2 == atBase
 											if o2.(sst.IBNode).OwningGraph().IRI().String() == p.OwningGraph().IRI().String() {
 												node2 := ng.GetIRINodeByFragment(o2.(sst.IBNode).Fragment())
 												if node2 == nil {
-													fmt.Printf("%+v fragment node %+v does not exist!\n\n", p.OwningGraph().IRI(), o2.(sst.IBNode).Fragment())
+													sst.GlobalLogger.Debug("idOwner fragment node does not exist",
+														zap.String("iri", p.OwningGraph().IRI().String()),
+														zap.String("fragment", string(o2.(sst.IBNode).Fragment())),
+													)
 													return nil
 												}
 
@@ -641,7 +659,7 @@ func deriveIndexFromNamedGraph(r sst.Repository, g sst.NamedGraph) (gID string,
 													switch pv.(type) {
 													case sso.KindID:
 														// we just extract id here
-														fmt.Printf("idOwner : %+v\n\n", o.(sst.Literal))
+														sst.GlobalLogger.Debug("idOwner literal", zap.String("value", fmt.Sprintf("%v", o.(sst.Literal))))
 														setDataElement(g, typeSubdocument[0], idOwnerField, o)
 													}
 
@@ -653,7 +671,7 @@ func deriveIndexFromNamedGraph(r sst.Repository, g sst.NamedGraph) (gID string,
 								case rdfs.IsSubPropertyOf:
 									// is possible o2 be self defined node which type is sso:id
 									if o2.(sst.IBNode).Is(sso.ID) {
-										fmt.Printf("id : %+v\n\n", o.(sst.Literal))
+										sst.GlobalLogger.Debug("id literal", zap.String("value", fmt.Sprintf("%v", o.(sst.Literal))))
 										setDataElement(g, typeSubdocument[0], idIDField, o)
 									}
 								}
@@ -859,7 +877,7 @@ func initializeDocumentPartofMap(documentPartofMap map[string]string, g sst.Name
 	})
 
 	if err != nil {
-		fmt.Printf("initialize document map failed %+v", err)
+		sst.GlobalLogger.Warn("initialize document map failed", zap.Error(err))
 	}
 }
 

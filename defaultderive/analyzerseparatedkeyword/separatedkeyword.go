@@ -3,10 +3,10 @@
 package separatedkeyword
 
 import (
-	separated "github.com/semanticstep/sst-core/defaultderive/tokenizerseparated"
 	"github.com/blevesearch/bleve/v2/analysis"
 	"github.com/blevesearch/bleve/v2/analysis/token/lowercase"
 	"github.com/blevesearch/bleve/v2/registry"
+	separated "github.com/semanticstep/sst-core/defaultderive/tokenizerseparated"
 )
 
 const Name = "sepratedkeyword"

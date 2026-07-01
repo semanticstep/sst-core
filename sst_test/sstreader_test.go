@@ -5,10 +5,12 @@ package sst_test
 import (
 	"bufio"
 	"bytes"
+	"strings"
 	"testing"
 
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestRead(t *testing.T) {
@@ -380,4 +382,142 @@ func TestRead(t *testing.T) {
 
 func bb(str string) *bufio.Reader {
 	return bufio.NewReader(bytes.NewBuffer([]byte(str)))
+}
+
+// Test_SstRead_TermCollectionWithLiteralCollectionMember verifies that a term
+// collection whose member is a LiteralCollection can survive an SST write/read
+// round-trip. This exercises fillRdfFirstPlaceholder, which is invoked when
+// SstRead encounters an rdf:first triple whose object is a LiteralCollection.
+func Test_SstRead_TermCollectionWithLiteralCollectionMember(t *testing.T) {
+	turtle := `
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix : <http://example.org#> .
+
+:s1 :p1 ( ( true ) ) .
+`
+	st, err := sst.RdfRead(bufio.NewReader(strings.NewReader(turtle)), sst.RdfFormatTurtle, sst.StrictHandler, sst.DefaultTriplexMode)
+	require.NoError(t, err)
+
+	ng := st.NamedGraphs()[0]
+	s1 := ng.GetIRINodeByFragment("s1")
+	require.NotNil(t, s1)
+
+	var col sst.TermCollection
+	require.NoError(t, s1.ForAll(func(_ int, s, p sst.IBNode, o sst.Term) error {
+		if s == s1 && p.Fragment() == "p1" {
+			if o.TermKind() == sst.TermKindIBNode || o.TermKind() == sst.TermKindTermCollection {
+				col, _ = o.(sst.IBNode).AsCollection()
+			}
+		}
+		return nil
+	}))
+	require.NotNil(t, col)
+	require.Equal(t, 1, col.MemberCount())
+
+	member := col.Member(0)
+	require.Equal(t, sst.TermKindLiteralCollection, member.TermKind())
+	lc := member.(sst.LiteralCollection)
+	require.Equal(t, 1, lc.MemberCount())
+	require.Equal(t, sst.Boolean(true), lc.Member(0))
+
+	// Round-trip through SST binary format. This exercises fillRdfFirstPlaceholder.
+	var buf bytes.Buffer
+	require.NoError(t, ng.SstWrite(&buf))
+
+	ng2, err := sst.SstRead(bufio.NewReader(&buf), sst.DefaultTriplexMode)
+	require.NoError(t, err)
+
+	s1b := ng2.GetIRINodeByFragment("s1")
+	require.NotNil(t, s1b)
+
+	var col2 sst.TermCollection
+	require.NoError(t, s1b.ForAll(func(_ int, s, p sst.IBNode, o sst.Term) error {
+		if s == s1b && p.Fragment() == "p1" {
+			if o.TermKind() == sst.TermKindIBNode || o.TermKind() == sst.TermKindTermCollection {
+				col2, _ = o.(sst.IBNode).AsCollection()
+			}
+		}
+		return nil
+	}))
+	require.NotNil(t, col2)
+	require.Equal(t, 1, col2.MemberCount())
+
+	member2 := col2.Member(0)
+	require.Equal(t, sst.TermKindLiteralCollection, member2.TermKind())
+	lc2 := member2.(sst.LiteralCollection)
+	require.Equal(t, 1, lc2.MemberCount())
+	require.Equal(t, sst.Boolean(true), lc2.Member(0))
+}
+
+// Test_SstRead_TermCollectionWithMixedLiteralCollectionMembers verifies a term
+// collection containing both IBNode members and LiteralCollection members.
+func Test_SstRead_TermCollectionWithMixedLiteralCollectionMembers(t *testing.T) {
+	turtle := `
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix : <http://example.org#> .
+
+:s1 :p1 ( :s2 ( false ) :s3 ( true "hello" ) ) .
+:s2 a :MyType .
+:s3 a :MyType .
+`
+	st, err := sst.RdfRead(bufio.NewReader(strings.NewReader(turtle)), sst.RdfFormatTurtle, sst.StrictHandler, sst.DefaultTriplexMode)
+	require.NoError(t, err)
+
+	ng := st.NamedGraphs()[0]
+	s1 := ng.GetIRINodeByFragment("s1")
+	require.NotNil(t, s1)
+
+	var col sst.TermCollection
+	require.NoError(t, s1.ForAll(func(_ int, s, p sst.IBNode, o sst.Term) error {
+		if s == s1 && p.Fragment() == "p1" {
+			if o.TermKind() == sst.TermKindIBNode || o.TermKind() == sst.TermKindTermCollection {
+				col, _ = o.(sst.IBNode).AsCollection()
+			}
+		}
+		return nil
+	}))
+	require.NotNil(t, col)
+	require.Equal(t, 4, col.MemberCount())
+
+	require.Equal(t, sst.TermKindIBNode, col.Member(0).TermKind())
+	require.Equal(t, sst.TermKindLiteralCollection, col.Member(1).TermKind())
+	require.Equal(t, sst.TermKindIBNode, col.Member(2).TermKind())
+	// ( true "hello" ) is NOT optimized to LiteralCollection because the
+	// members have different datatypes (boolean vs string).
+	require.Equal(t, sst.TermKindTermCollection, col.Member(3).TermKind())
+
+	lc1 := col.Member(1).(sst.LiteralCollection)
+	require.Equal(t, 1, lc1.MemberCount())
+	require.Equal(t, sst.Boolean(false), lc1.Member(0))
+
+	innerCol, ok := col.Member(3).(sst.IBNode).AsCollection()
+	require.True(t, ok)
+	require.Equal(t, 2, innerCol.MemberCount())
+	require.Equal(t, sst.Boolean(true), innerCol.Member(0))
+	require.Equal(t, sst.String("hello"), innerCol.Member(1))
+
+	// Round-trip through SST binary format.
+	var buf bytes.Buffer
+	require.NoError(t, ng.SstWrite(&buf))
+
+	ng2, err := sst.SstRead(bufio.NewReader(&buf), sst.DefaultTriplexMode)
+	require.NoError(t, err)
+
+	s1b := ng2.GetIRINodeByFragment("s1")
+	require.NotNil(t, s1b)
+
+	var col2 sst.TermCollection
+	require.NoError(t, s1b.ForAll(func(_ int, s, p sst.IBNode, o sst.Term) error {
+		if s == s1b && p.Fragment() == "p1" {
+			if o.TermKind() == sst.TermKindIBNode || o.TermKind() == sst.TermKindTermCollection {
+				col2, _ = o.(sst.IBNode).AsCollection()
+			}
+		}
+		return nil
+	}))
+	require.NotNil(t, col2)
+	require.Equal(t, 4, col2.MemberCount())
+	require.Equal(t, sst.TermKindLiteralCollection, col2.Member(1).TermKind())
+	// Same as above: different datatypes prevent LiteralCollection optimization.
+	require.Equal(t, sst.TermKindTermCollection, col2.Member(3).TermKind())
 }

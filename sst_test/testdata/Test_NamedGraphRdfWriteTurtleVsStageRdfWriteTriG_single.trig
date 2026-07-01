@@ -1,13 +1,13 @@
-@prefix lci:	<http://ontology.semanticstep.net/lci#> .
-@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
-@prefix owl:	<http://www.w3.org/2002/07/owl#> .
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 <urn:uuid:aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee> {
-@prefix ns1:	<urn:uuid:aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee#> .
+@prefix ns1: <urn:uuid:aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee#> .
 
-<urn:uuid:aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee>	a	owl:Ontology .
-ns1:Jane	a	lci:Person ;
-	rdfs:label	"Jane Doe" .
+<urn:uuid:aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee> a owl:Ontology .
+ns1:Jane a lci:Person ;
+  rdfs:label "Jane Doe" .
 }

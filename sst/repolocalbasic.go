@@ -6,9 +6,6 @@ import (
 	"bufio"
 	"bytes"
 	"context"
-
-	"github.com/goccy/go-json"
-
 	"errors"
 	"fmt"
 	"io"
@@ -17,6 +14,10 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
+
+	"github.com/goccy/go-json"
+
+	"github.com/semanticstep/sst-core/sstauth"
 
 	"github.com/blevesearch/bleve/v2"
 	"github.com/google/uuid"
@@ -36,7 +37,8 @@ type localBasicRepository struct {
 	config               repoConfig
 	db                   *bbolt.DB
 	repositoryBucketName []byte
-	bleveIndex           bleve.Index // getter method Bleve()
+	bleveIndex           bleve.Index        // getter method Bleve()
+	accessRight          sstauth.AccessMode // fixed at open/create time from filesystem probe
 }
 
 func (r *localBasicRepository) SuperRepository() SuperRepository {
@@ -72,12 +74,12 @@ func (r *localBasicRepository) RegisterIndexHandler(sdi *SSTDeriveInfo) error {
 	bleveInfoPath := filepath.Join(blevePath, bleveInfoName)
 
 	if sdi.isEmpty() {
-		fmt.Println("RegisterIndexHandler an empty SSTDeriveInfo will delete bleve!")
+		GlobalLogger.Info("RegisterIndexHandler received empty SSTDeriveInfo, deleting bleve index")
 		err := os.RemoveAll(blevePath)
 		if err != nil {
 			return wrapError(fmt.Errorf("failed to remove bleve index: %w", err))
 		}
-		fmt.Println(blevePath + " index has been deleted!")
+		GlobalLogger.Info("bleve index deleted", zap.String("path", blevePath))
 		return nil
 	}
 
@@ -91,7 +93,9 @@ func (r *localBasicRepository) RegisterIndexHandler(sdi *SSTDeriveInfo) error {
 		// Checks if the saved bleve is the same as the newly provided
 		file, err := os.Open(bleveInfoPath)
 		if err != nil {
-			return wrapError(fmt.Errorf("failed to open bleve info file: %w", err))
+			GlobalLogger.Warn("failed to open bleve info file, will rebuild index", zap.Error(err))
+			bleve.Close()
+			return r.buildBleveIndex()
 		}
 		defer file.Close()
 
@@ -102,7 +106,9 @@ func (r *localBasicRepository) RegisterIndexHandler(sdi *SSTDeriveInfo) error {
 
 		err = decoder.Decode(&p)
 		if err != nil {
-			return wrapError(fmt.Errorf("failed to decode bleve info: %w", err))
+			GlobalLogger.Warn("failed to decode bleve info, will rebuild index", zap.Error(err))
+			bleve.Close()
+			return r.buildBleveIndex()
 		}
 
 		same := (p.DerivePackageName == sdi.DerivePackageName) && (p.DerivePackageVersion == sdi.DerivePackageVersion)
@@ -120,66 +126,71 @@ func (r *localBasicRepository) RegisterIndexHandler(sdi *SSTDeriveInfo) error {
 				}
 				return nil, nil
 			}
-			r.bleveIndex = bleve
+			r.bleveIndex = newHealthAwareIndex(bleve)
+			r.config.bleveIndexUpdater = newDefaultBleveIndexUpdater(r.bleveIndex.(*healthAwareIndex))
 		} else {
 			// if same is false, it will recreate all in index.bleve
-			r.caching()
+			bleve.Close()
+			if err := r.buildBleveIndex(); err != nil {
+				return wrapError(fmt.Errorf("failed to rebuild bleve index: %w", err))
+			}
 		}
 	} else {
 		// If there is no index folder before, create a new one
-		r.caching()
+		if err := r.buildBleveIndex(); err != nil {
+			return wrapError(fmt.Errorf("failed to create bleve index: %w", err))
+		}
 	}
 	return nil
 }
 
-func (r *localBasicRepository) caching() bleve.Index {
+func (r *localBasicRepository) buildBleveIndex() error {
 	indexDir := filepath.Join(r.config.repositoryDir, indexBleveDir)
 	bleveInfoPath := filepath.Join(indexDir, bleveInfoName)
 
 	// Check if the directory exists
 	if _, err := os.Stat(indexDir); os.IsNotExist(err) {
 		// Directory does not exist, create it
-		err := os.MkdirAll(indexDir, os.ModePerm)
-		if err != nil {
-			panic(fmt.Sprintf("caching: failed to create bleve index directory %s: %v", indexDir, err))
+		if err := os.MkdirAll(indexDir, os.ModePerm); err != nil {
+			return fmt.Errorf("failed to create bleve index directory %s: %w", indexDir, err)
 		}
-		fmt.Println("Directory created:", indexDir)
+		GlobalLogger.Info("bleve index directory created", zap.String("path", indexDir))
 	} else if err != nil {
-		// other err happened, panic
-		panic(fmt.Sprintf("caching: failed to stat bleve index directory %s: %v", indexDir, err))
+		return fmt.Errorf("failed to stat bleve index directory %s: %w", indexDir, err)
 	} else {
 		// Directory exists, removeAll
-		fmt.Println("Directory already exists:", indexDir)
-		err := os.RemoveAll(indexDir)
-		if err != nil {
-			panic(fmt.Sprintf("caching: failed to remove old bleve index directory %s: %v", indexDir, err))
+		GlobalLogger.Info("removing existing bleve index directory", zap.String("path", indexDir))
+		if err := os.RemoveAll(indexDir); err != nil {
+			return fmt.Errorf("failed to remove old bleve index directory %s: %w", indexDir, err)
 		}
-		fmt.Println(indexDir + " Old index has been deleted!")
-
+		GlobalLogger.Info("old bleve index directory removed", zap.String("path", indexDir))
 	}
 
 	// creates a new bleve index
 	bi, err := bleve.New(indexDir, r.config.deriveInfo.DefaultIndexMapping())
 	if err != nil {
-		panic(fmt.Sprintf("caching: failed to create bleve index: %v", err))
+		return fmt.Errorf("failed to create bleve index: %w", err)
 	}
 	//  create JSON data for saving deriveInfo
 	jsonData, err := json.MarshalIndent(r.config.deriveInfo, "", "    ")
 	if err != nil {
-		panic(fmt.Sprintf("caching: failed to marshal derive info: %v", err))
+		bi.Close()
+		return fmt.Errorf("failed to marshal derive info: %w", err)
 	}
 
 	// Create a JSON file
 	file, err := os.Create(bleveInfoPath)
 	if err != nil {
-		panic(fmt.Sprintf("caching: failed to create bleve info file %s: %v", bleveInfoPath, err))
+		bi.Close()
+		return fmt.Errorf("failed to create bleve info file %s: %w", bleveInfoPath, err)
 	}
 	defer file.Close()
 
 	// put data into JSON file
 	_, err = file.Write(jsonData)
 	if err != nil {
-		panic(fmt.Sprintf("caching: failed to write bleve info file %s: %v", bleveInfoPath, err))
+		bi.Close()
+		return fmt.Errorf("failed to write bleve info file %s: %w", bleveInfoPath, err)
 	}
 
 	// set PreCommitCondition for update
@@ -195,15 +206,19 @@ func (r *localBasicRepository) caching() bleve.Index {
 		return nil, nil
 	}
 
-	err = r.view(func(rFS fs.FS) error {
-		return rebuildIndex(r, bi, rFS)
-	})
-	if err != nil {
-		panic(fmt.Sprintf("caching: failed to rebuild index: %v", err))
+	r.bleveIndex = newHealthAwareIndex(bi)
+
+	// Use the default asynchronous Bleve updater.
+	r.config.bleveIndexUpdater = newDefaultBleveIndexUpdater(r.bleveIndex.(*healthAwareIndex))
+
+	if err := r.view(func(rFS fs.FS) error {
+		return rebuildIndex(context.Background(), r, bi, rFS)
+	}); err != nil {
+		bi.Close()
+		return fmt.Errorf("failed to rebuild index: %w", err)
 	}
 
-	r.bleveIndex = bi
-	return bi
+	return nil
 }
 
 func (r *localBasicRepository) Bleve() bleve.Index {
@@ -214,6 +229,27 @@ func (r *localBasicRepository) Bleve() bleve.Index {
 	defer r.leave()
 
 	return r.bleveIndex
+}
+
+// RebuildBleveIndex closes the current index, removes the index directory,
+// and rebuilds it from scratch.
+func (r *localBasicRepository) RebuildBleveIndex() error {
+	if err := r.enter(); err != nil {
+		return err
+	}
+	defer r.leave()
+
+	if r.config.bleveIndexUpdater != nil {
+		r.config.bleveIndexUpdater.close()
+		r.config.bleveIndexUpdater = nil
+	}
+
+	if r.bleveIndex != nil {
+		r.bleveIndex.Close()
+		r.bleveIndex = nil
+	}
+
+	return r.buildBleveIndex()
 }
 
 func (r *localBasicRepository) DatasetIDs(ctx context.Context) ([]uuid.UUID, error) {
@@ -240,7 +276,6 @@ func (r *localBasicRepository) DatasetIDs(ctx context.Context) ([]uuid.UUID, err
 			return nil
 		})
 	})
-
 	if err != nil {
 		return nil, err
 	}
@@ -292,7 +327,6 @@ func (r *localBasicRepository) Datasets(ctx context.Context) ([]IRI, error) {
 		}
 		return nil
 	})
-
 	if err != nil {
 		return nil, err
 	}
@@ -366,12 +400,19 @@ func (r *localBasicRepository) datasetByID(ctx context.Context, id uuid.UUID) (d
 }
 
 func (r *localBasicRepository) Dataset(ctx context.Context, iri IRI) (di Dataset, err error) {
-	id := iriToUUID(iri)
+	id, err := iriToUUID(iri)
+	if err != nil {
+		return nil, err
+	}
 	return r.datasetByID(ctx, id)
 }
 
 func (r *localBasicRepository) CommitDetails(ctx context.Context, hashes []Hash) ([]*CommitDetails, error) {
 	return nil, fmt.Errorf("CommitDetails not supported in localBasicRepository")
+}
+
+func (r *localBasicRepository) CheckoutCommit(ctx context.Context, commitID Hash, mode TriplexMode) (Stage, error) {
+	return nil, wrapError(ErrNotSupported)
 }
 
 func (r *localBasicRepository) Close() error {
@@ -380,6 +421,12 @@ func (r *localBasicRepository) Close() error {
 
 	// Wait for all operations that have been entered to exit
 	r.wg.Wait()
+
+	// Close the Bleve index updater so the background worker drains
+	// before the Bleve index itself is closed.
+	if r.config.bleveIndexUpdater != nil {
+		r.config.bleveIndexUpdater.close()
+	}
 
 	// Close the bleveIndex and bbolt
 	if r.bleveIndex != nil {
@@ -438,7 +485,11 @@ func (d *localBasicDataset) IRI() IRI {
 	return d.iri
 }
 
-func (d *localBasicDataset) SetBranch(ctx context.Context, commit Hash, branch string) error {
+func (d *localBasicDataset) SetBranchCommit(ctx context.Context, commit Hash, branch string) error {
+	return wrapError(ErrNotSupported)
+}
+
+func (d *localBasicDataset) SetBranchRevision(ctx context.Context, datasetRevision Hash, branch string) error {
 	return wrapError(ErrNotSupported)
 }
 
@@ -478,7 +529,6 @@ func (d *localBasicDataset) CheckoutBranch(ctx context.Context, b string, mode T
 		}
 		return nil
 	})
-
 	if err != nil {
 		return nil, wrapError(err)
 	}
@@ -548,6 +598,13 @@ func (d *localBasicDataset) CommitDetailsByBranch(
 	return nil, wrapError(ErrNotSupported)
 }
 
+func (d *localBasicDataset) CommitForRevision(
+	ctx context.Context,
+	datasetRevision Hash,
+) (Hash, error) {
+	return HashNil(), wrapError(ErrNotSupported)
+}
+
 func (d *localBasicDataset) Branches(ctx context.Context) (map[string]Hash, error) {
 	return nil, wrapError(ErrNotSupported)
 }
@@ -574,21 +631,22 @@ func (r *localBasicRepository) commitNewVersion(ctx context.Context, stage *stag
 		pcNotifier = pcn
 	}
 	err := r.update(func(rFS fs.FS) error {
-		return stage.WriteToSstFiles(rFS)
+		return stage.writeToSstFilesWithID(rFS)
 	})
 	if err != nil {
 		return Hash{}, nil, err
-	}
-	if pcNotifier != nil {
-		pcNotifier.postCommitNotify()
-	}
-	if r.config.postCommitNotification != nil {
-		r.config.postCommitNotification(stage, HashNil())
 	}
 
 	modifiedDatasets := make([]uuid.UUID, 0)
 	for key := range stage.modifiedDatasets() {
 		modifiedDatasets = append(modifiedDatasets, key)
+	}
+
+	if r.config.bleveIndexUpdater != nil {
+		r.config.bleveIndexUpdater.updateAfterCommit(ctx, r, stage, pcNotifier, commitInfo{}, modifiedDatasets, branch)
+	}
+	if r.config.postCommitNotification != nil {
+		r.config.postCommitNotification(stage, HashNil())
 	}
 
 	return HashNil(), modifiedDatasets, nil
@@ -618,7 +676,7 @@ func (r *localBasicRepository) Info(ctx context.Context, branchName string) (Rep
 	}
 
 	// Calculate the size of the Bleve index
-	bleveSize := 0
+	var bleveSize int64
 	if r.bleveIndex != nil {
 		bleveSize, err = calculateBleveIndexSize(r.config.repositoryDir)
 		if err != nil {
@@ -627,10 +685,10 @@ func (r *localBasicRepository) Info(ctx context.Context, branchName string) (Rep
 	}
 
 	// Document DB size (not supported in localBasicRepository)
-	DocumentDBSize := 0
+	var DocumentDBSize int64
 
 	// Number of documents (not supported in localBasicRepository)
-	NumberOfDocuments := 0
+	var NumberOfDocuments int64
 
 	// Calculate version hash
 	VersionHash, err := r.calculateRepositoryVersionHash()
@@ -640,10 +698,15 @@ func (r *localBasicRepository) Info(ctx context.Context, branchName string) (Rep
 
 	// Return repository statistics
 	return RepositoryInfo{
-		URL:                         r.url.String(),
+		URL: r.url.String(),
+		// AccessRight was fixed at open/create time and never changes
+		// during the lifetime of the repository instance.
+		AccessRight:                 r.accessRight,
 		MasterDBSize:                dbSize,
 		DerivedDBSize:               bleveSize,
 		DocumentDBSize:              DocumentDBSize,
+		ActualRepositorySize:        dbSize,
+		MaxRepositorySize:           0,
 		NumberOfDatasets:            numDatasets,
 		NumberOfDatasetsInBranch:    numDatasets,
 		NumberOfDatasetRevisions:    numDatasets,
@@ -663,16 +726,16 @@ func (r *localBasicRepository) Log(ctx context.Context, start, end *int) ([]Repo
 	return nil, errors.New("RepositoryLog not supported in localBasicRepository")
 }
 
-func calculateBboltDBSize(db *bbolt.DB) (int, error) {
+func calculateBboltDBSize(db *bbolt.DB) (int64, error) {
 	info, err := os.Stat(db.Path())
 	if err != nil {
 		return 0, err
 	}
-	return int(info.Size()), nil
+	return info.Size(), nil
 }
 
-func countKeysInBucket(db *bbolt.DB, bucketName []byte) (int, error) {
-	var count int
+func countKeysInBucket(db *bbolt.DB, bucketName []byte) (int64, error) {
+	var count int64
 	err := db.View(func(tx *bbolt.Tx) error {
 		bucket := tx.Bucket(bucketName)
 		if bucket == nil {
@@ -687,16 +750,16 @@ func countKeysInBucket(db *bbolt.DB, bucketName []byte) (int, error) {
 	return count, err
 }
 
-func calculateBleveIndexSize(dir string) (int, error) {
+func calculateBleveIndexSize(dir string) (int64, error) {
 	blevePath := filepath.Join(dir, indexBleveDir)
 
-	var size int
+	var size int64
 	err := filepath.Walk(blevePath, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
 		if !info.IsDir() {
-			size += int(info.Size())
+			size += info.Size()
 		}
 		return nil
 	})

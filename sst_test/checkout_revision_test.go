@@ -4,32 +4,27 @@ package sst_test
 
 import (
 	"context"
-	"os"
 	"path/filepath"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/sst_test/testutil"
+	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 // Test_LocalFullRepository_CheckoutRevision_Basic tests basic CheckoutRevision functionality
 func Test_LocalFullRepository_CheckoutRevision_Basic(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a400").URN())
 
 	var dsRevision1 sst.Hash
 
-	defer os.RemoveAll(dir)
-
 	t.Run("create_and_commit", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		assert.NoError(t, err)
@@ -75,7 +70,7 @@ func Test_LocalFullRepository_CheckoutRevision_Basic(t *testing.T) {
 		info := ng.Info()
 		assert.Equal(t, dsRevision1, info.DatasetRevision, "DatasetRevision should match")
 		// For CheckoutRevision, commits should be populated from the dataset revision
-		assert.NotEmpty(t, info.Commits, "Commits should be populated for revision checkout")
+		assert.NotEmpty(t, info.CheckedOutCommits, "Commits should be populated for revision checkout")
 	})
 
 	t.Run("checkout_revision_and_commit_to_new_branch", func(t *testing.T) {
@@ -108,17 +103,13 @@ func Test_LocalFullRepository_CheckoutRevision_Basic(t *testing.T) {
 
 // Test_LocalFullRepository_CheckoutRevision_WithImports tests CheckoutRevision with imported datasets
 func Test_LocalFullRepository_CheckoutRevision_WithImports(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngBaseIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a401").URN())
 	ngImportIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a402").URN())
 
 	var baseDSRevision sst.Hash
 
-	defer os.RemoveAll(dir)
-
 	t.Run("setup_imports_and_commit", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		assert.NoError(t, err)
@@ -187,12 +178,8 @@ func Test_LocalFullRepository_CheckoutRevision_WithImports(t *testing.T) {
 
 // Test_LocalFullRepository_CheckoutRevision_NonExistent tests error handling for non-existent revision
 func Test_LocalFullRepository_CheckoutRevision_NonExistent(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a403").URN())
-
-	defer os.RemoveAll(dir)
-	removeFolder(dir)
 
 	repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 	assert.NoError(t, err)
@@ -224,16 +211,12 @@ func Test_LocalFullRepository_CheckoutRevision_NonExistent(t *testing.T) {
 
 // Test_RemoteRepository_CheckoutRevision_Basic tests CheckoutRevision via remote repository
 func Test_RemoteRepository_CheckoutRevision_Basic(t *testing.T) {
-	testName := t.Name() + "Server"
-	serverDir := filepath.Join("./testdata/" + testName)
+	serverDir := filepath.Join(t.TempDir(), t.Name())
 	ngIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a404").URN())
 
 	var dsRevision1 sst.Hash
 
-	defer os.RemoveAll(serverDir)
-
 	// Setup server repository
-	removeFolder(serverDir)
 	serverRepo, err := sst.CreateLocalRepository(serverDir, "default@semanticstep.net", "default", true)
 	require.NoError(t, err)
 
@@ -282,22 +265,18 @@ func Test_RemoteRepository_CheckoutRevision_Basic(t *testing.T) {
 	assert.Equal(t, dsRevision1, checkedOutInfo.DatasetRevision)
 	// For CheckoutRevision from a committed revision, commits should be populated
 	// because the server sends DatasetRevisionCommitHash mapping
-	assert.NotEmpty(t, checkedOutInfo.Commits)
+	assert.NotEmpty(t, checkedOutInfo.CheckedOutCommits)
 }
 
 // Test_RemoteRepository_CheckoutRevision_WithImports tests remote CheckoutRevision with imports
 func Test_RemoteRepository_CheckoutRevision_WithImports(t *testing.T) {
-	testName := t.Name() + "Server"
-	serverDir := filepath.Join("./testdata/" + testName)
+	serverDir := filepath.Join(t.TempDir(), t.Name())
 	ngBaseIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a405").URN())
 	ngImportIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a406").URN())
 
 	var baseDSRevision sst.Hash
 
-	defer os.RemoveAll(serverDir)
-
 	// Setup server repository with imports
-	removeFolder(serverDir)
 	serverRepo, err := sst.CreateLocalRepository(serverDir, "default@semanticstep.net", "default", true)
 	require.NoError(t, err)
 
@@ -358,16 +337,12 @@ func Test_RemoteRepository_CheckoutRevision_WithImports(t *testing.T) {
 
 // Test_LocalFullRepository_CheckoutRevision_MultipleCommits tests CheckoutRevision with different commits
 func Test_LocalFullRepository_CheckoutRevision_MultipleCommits(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a408").URN())
 
 	var dsRevision1, dsRevision2, dsRevision3 sst.Hash
 
-	defer os.RemoveAll(dir)
-
 	t.Run("create_multiple_commits", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		assert.NoError(t, err)

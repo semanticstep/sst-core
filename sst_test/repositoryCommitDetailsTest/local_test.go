@@ -5,27 +5,23 @@ package repositorycommitdetails
 import (
 	"bytes"
 	"context"
-	"fmt"
-	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/defaultderive"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_localRepository_CommitDetails(t *testing.T) {
-	path := "./testLocalFullRepo_commit_details"
-	defer removeFolder(path)
+	path := filepath.Join(t.TempDir(), t.Name())
 
 	t.Run("returnsMultipleCommitDetailsCorrectly", func(t *testing.T) {
-		removeFolder(path)
 
 		repo, err := sst.CreateLocalRepository(path, "test@semanticstep.net", "default", true)
 		require.NoError(t, err)
@@ -118,17 +114,14 @@ func Test_localRepository_CommitDetails(t *testing.T) {
 }
 
 func Test_LocalFullRepositoryMultipleCommits_UUIDNamedGraph(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIDC := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363")
 
 	var commitHash1 sst.Hash
 	var commitHash3 sst.Hash
 	var modifiedDS []uuid.UUID
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		if err != nil {
@@ -151,7 +144,7 @@ func Test_LocalFullRepositoryMultipleCommits_UUIDNamedGraph(t *testing.T) {
 		if err != nil {
 			panic(err)
 		}
-		err = ds.SetBranch(context.TODO(), commitHash1, "commit1")
+		err = ds.SetBranchCommit(context.TODO(), commitHash1, "commit1")
 		if err != nil {
 			panic(err)
 		}
@@ -177,21 +170,4 @@ func Test_LocalFullRepositoryMultipleCommits_UUIDNamedGraph(t *testing.T) {
 
 		cds[0].Dump()
 	})
-}
-
-func removeFolder(dir string) {
-	// check and delete old dir
-	if _, err := os.Stat(dir); err == nil {
-		err := os.RemoveAll(dir)
-		if err != nil {
-			fmt.Printf("Failed to delete %s: %s\n", dir, err)
-		} else {
-			fmt.Printf("%s has been deleted successfully\n", dir)
-		}
-	} else if os.IsNotExist(err) {
-		fmt.Println(dir + " - This file or directory does not exist.")
-	} else {
-		fmt.Printf("Error checking if file exists: %s\n", err)
-	}
-
 }

@@ -11,32 +11,25 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 	"path/filepath"
 	"testing"
 
-	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/sstauth"
-	"github.com/semanticstep/sst-core/sst_test/testutil"
-	_ "github.com/semanticstep/sst-core/vocabularies/dict"
-	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/blevesearch/bleve/v2"
 	"github.com/blevesearch/bleve/v2/search/query"
 	"github.com/google/uuid"
+	"github.com/semanticstep/sst-core/sst"
+	"github.com/semanticstep/sst-core/sst_test/testutil"
+	"github.com/semanticstep/sst-core/sstauth"
+	_ "github.com/semanticstep/sst-core/vocabularies/dict"
+	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_SuperRemoteRepository_URL(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
-
-	t.Cleanup(func() {
-		os.RemoveAll(dir)
-	})
-	removeFolder(dir)
 
 	url := testutil.SuperServerServe(t, dir)
 	constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
@@ -52,17 +45,12 @@ func Test_SuperRemoteRepository_URL(t *testing.T) {
 }
 
 func Test_SuperRemoteRepository_CRUD(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIDC := uuid.MustParse("123e4567-e89b-12d3-a456-42661417400c")
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 
-	t.Cleanup(func() {
-		os.RemoveAll(dir)
-	})
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 		// sst.AtomicLevel.SetLevel(zap.DebugLevel)
 		url := testutil.SuperServerServe(t, dir)
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
@@ -93,12 +81,12 @@ func Test_SuperRemoteRepository_CRUD(t *testing.T) {
 		assert.NotEqual(t, "", info.BleveName)
 		assert.NotEqual(t, "", info.BleveVersion)
 		assert.True(t, info.IsRemote)
-		assert.Equal(t, 1, info.NumberOfDatasets)
-		assert.Equal(t, 1, info.NumberOfDatasetsInBranch)
-		assert.Equal(t, 1, info.NumberOfCommits)
-		assert.Equal(t, 1, info.NumberOfNamedGraphRevisions)
-		assert.GreaterOrEqual(t, info.MasterDBSize, 0)
-		assert.GreaterOrEqual(t, info.DerivedDBSize, 0)
+		assert.Equal(t, int64(1), info.NumberOfDatasets)
+		assert.Equal(t, int64(1), info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfCommits)
+		assert.Equal(t, int64(1), info.NumberOfNamedGraphRevisions)
+		assert.GreaterOrEqual(t, info.MasterDBSize, int64(0))
+		assert.GreaterOrEqual(t, info.DerivedDBSize, int64(0))
 		fmt.Println("repoA info:", info)
 
 		repoDefault, err := super.Get(constructCtx, "default")
@@ -110,8 +98,8 @@ func Test_SuperRemoteRepository_CRUD(t *testing.T) {
 		assert.NotEqual(t, "", info.BleveName)
 		assert.NotEqual(t, "", info.BleveVersion)
 		assert.True(t, info.IsRemote)
-		assert.Equal(t, info.NumberOfDatasets, 0)
-		assert.Equal(t, info.NumberOfCommits, 0)
+		assert.Equal(t, info.NumberOfDatasets, int64(0))
+		assert.Equal(t, info.NumberOfCommits, int64(0))
 		fmt.Println("repoDefault info:", info)
 
 		openedIndex := repoA.Bleve()
@@ -198,17 +186,14 @@ func Test_SuperRemoteRepository_CRUD(t *testing.T) {
 }
 
 func Test_SuperRemoteRepository_Branch(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIDC := uuid.MustParse("123e4567-e89b-12d3-a456-42661417400c")
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 	var commitHash2 sst.Hash
 	var influenceDatasets2 []uuid.UUID
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 		// sst.AtomicLevel.SetLevel(zap.DebugLevel)
 		url := testutil.SuperServerServe(t, dir)
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
@@ -245,7 +230,7 @@ func Test_SuperRemoteRepository_Branch(t *testing.T) {
 			panic(err)
 		}
 
-		err = ds.SetBranch(constructCtx, commitHash2, "testBranch")
+		err = ds.SetBranchCommit(constructCtx, commitHash2, "testBranch")
 		if err != nil {
 			panic(err)
 		}
@@ -403,7 +388,7 @@ func Test_SuperRemoteRepository_Branch(t *testing.T) {
 		}
 		fmt.Println(dsIRIs)
 
-		err = ds.SetBranch(constructCtx, commitHash2, "testBranch")
+		err = ds.SetBranchCommit(constructCtx, commitHash2, "testBranch")
 		if err != nil {
 			panic(err)
 		}

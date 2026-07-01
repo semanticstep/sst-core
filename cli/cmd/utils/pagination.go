@@ -18,12 +18,11 @@ func PaginateOutput(lines []string, linesPerPage int) {
 		fmt.Println(line)
 
 		if (i+1)%linesPerPage == 0 && i+1 < len(lines) {
-			fmt.Print("\nMore lines available.\n")
+			fmt.Print("More lines available.\n")
 			fmt.Print("Press Enter to continue, or type 'q' to quit: ")
 
 			input, _ := reader.ReadString('\n')
 			if strings.TrimSpace(input) == "q" {
-				fmt.Println("\nExiting output.")
 				return
 			}
 		}

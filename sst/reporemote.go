@@ -9,7 +9,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"net/url"
 	"path/filepath"
 	"runtime"
@@ -19,14 +18,14 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/semanticstep/sst-core/bboltproto"
-	"github.com/semanticstep/sst-core/bleveproto"
-	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/blevesearch/bleve/v2"
 	"github.com/blevesearch/bleve/v2/mapping"
 	index "github.com/blevesearch/bleve_index_api"
 	"github.com/google/uuid"
 	fs "github.com/relab/wrfs"
+	"github.com/semanticstep/sst-core/bboltproto"
+	"github.com/semanticstep/sst-core/bleveproto"
+	"github.com/semanticstep/sst-core/sstauth"
 	"go.etcd.io/bbolt"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -37,11 +36,19 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-var (
-	emptyListRefsResponse = bboltproto.ListRefsResponse{}
-)
+var emptyListRefsResponse = bboltproto.ListRefsResponse{}
 
-// wrapError wraps an error with file and line number information
+// panicf panics with a formatted message that includes the file and line number.
+func panicf(format string, args ...interface{}) {
+	_, file, line, ok := runtime.Caller(1)
+	msg := fmt.Sprintf(format, args...)
+	if ok {
+		panic(fmt.Sprintf("%s:%d: %s", filepath.Base(file), line, msg))
+	}
+	panic(msg)
+}
+
+// wrapError wraps an error with file and line number information.
 func wrapError(err error) error {
 	if err == nil {
 		return nil
@@ -99,7 +106,7 @@ func (r *remoteRepository) URL() string {
 	return r.url.String()
 }
 
-// Unified gate to check if the repo is open and increment the waitGroup counter
+// Unified gate to check if the repo is open and increment the waitGroup counter.
 func (r *stateControl) enter() error {
 	if state(r.state.Load()) != stateOpen {
 		return ErrRepoClosed
@@ -113,7 +120,7 @@ func (r *stateControl) enter() error {
 	return nil
 }
 
-// Decrement the waitGroup counter
+// Decrement the waitGroup counter.
 func (r *stateControl) leave() { r.wg.Done() }
 
 func (r *remoteRepository) OpenStage(mode TriplexMode) Stage {
@@ -169,7 +176,8 @@ func (i *remoteIndex) SearchInContext(ctx context.Context, req *bleve.SearchRequ
 	// msg, msgFound := i.reqMessageCache.Get(string(sReqBytes))
 	// if !msgFound {
 	msg := &grpc.PreparedMsg{}
-	err = msg.Encode(stream,
+	err = msg.Encode(
+		stream,
 		&bleveproto.SearchRequest{
 			Request:  sReqBytes,
 			RepoName: i.repoName,
@@ -246,6 +254,13 @@ func (r *remoteRepository) Bleve() bleve.Index {
 	return &r.remoteIndexIns
 }
 
+// RebuildBleveIndex is not supported for remote repositories.
+// Rebuilding the Bleve index is a server-side operation that must be
+// performed on the host running the gRPC server.
+func (r *remoteRepository) RebuildBleveIndex() error {
+	return ErrNotSupported
+}
+
 // Use grpc.NewClient to create a new gRPC "channel" for the target URI provided. No I/O is performed.
 func dialRepository(targetURL string, opts []grpc.DialOption) (*remoteRepository, error) {
 	cc, err := grpc.NewClient(targetURL, opts...)
@@ -308,7 +323,7 @@ func (r *remoteRepository) DatasetIDs(ctx context.Context) ([]uuid.UUID, error) 
 
 	for {
 		req.PageToken = datasetsPageToken
-		log.Println("gRPC dsClient call ListDatasets")
+		GlobalLogger.Debug("gRPC dsClient call ListDatasets")
 		resp, err := r.dsClient.ListDatasets(ctx, &req, opts...)
 		if err != nil {
 			GlobalLogger.Error("", zap.Error(err))
@@ -362,7 +377,7 @@ func (r *remoteRepository) Datasets(ctx context.Context) ([]IRI, error) {
 
 	for {
 		req.PageToken = datasetsPageToken
-		log.Println("gRPC dsClient call ListDatasets")
+		GlobalLogger.Debug("gRPC dsClient call ListDatasets")
 		resp, err := r.dsClient.ListDatasets(ctx, &req, opts...)
 		if err != nil {
 			GlobalLogger.Error("", zap.Error(err))
@@ -421,7 +436,7 @@ func (r *remoteRepository) ForDatasets(ctx context.Context, c func(ds Dataset) e
 
 	for {
 		req.PageToken = datasetsPageToken
-		log.Println("gRPC dsClient call ListDatasets")
+		GlobalLogger.Debug("gRPC dsClient call ListDatasets")
 		resp, err := r.dsClient.ListDatasets(ctx, &req, opts...)
 		if err != nil {
 			GlobalLogger.Error("", zap.Error(err))
@@ -521,7 +536,10 @@ func (r *remoteRepository) datasetByID(ctx context.Context, id uuid.UUID) (Datas
 }
 
 func (r *remoteRepository) Dataset(ctx context.Context, iri IRI) (Dataset, error) {
-	id := iriToUUID(iri)
+	id, err := iriToUUID(iri)
+	if err != nil {
+		return nil, err
+	}
 	return r.datasetByID(ctx, id)
 }
 
@@ -617,6 +635,22 @@ func (r *remoteRepository) CommitDetails(ctx context.Context, ids []Hash) ([]*Co
 	return results, nil
 }
 
+func (r *remoteRepository) CheckoutCommit(ctx context.Context, commitID Hash, mode TriplexMode) (Stage, error) {
+	if err := r.enter(); err != nil {
+		return nil, err
+	}
+	defer r.leave()
+
+	cds, err := r.CommitDetails(ctx, []Hash{commitID})
+	if err != nil {
+		return nil, err
+	}
+	if len(cds) == 0 || cds[0] == nil {
+		return nil, ErrCommitNotFound
+	}
+	return checkoutCommitFromCommitDetails(ctx, r, commitID, mode, cds[0])
+}
+
 func (r *remoteRepository) Close() error {
 	// mark stateClosing - CompareAndSwap will make sure only marked once
 	r.state.CompareAndSwap(int32(stateOpen), int32(stateClosing))
@@ -648,7 +682,7 @@ func (d *remoteDataset) FindCommonParentRevision(ctx context.Context, revision1,
 	defer d.r.leave()
 
 	req := bboltproto.FindCommonParentRevisionRequest{DatasetId: d.id[:], DatasetCommitRv1: revision1[:], DatasetCommitRv2: revision2[:]}
-	log.Println("gRPC dsClient call FindCommonParentRevision")
+	GlobalLogger.Debug("gRPC dsClient call FindCommonParentRevision")
 	var opts []grpc.CallOption
 	authProvider := sstauth.AuthProviderFromContext(ctx)
 	if p, ok := authProvider.(sstauth.Provider); ok {
@@ -665,6 +699,35 @@ func (d *remoteDataset) FindCommonParentRevision(ctx context.Context, revision1,
 	}
 
 	return Hash(CommonParent.CommonParentCommitRv), err
+}
+
+func (d *remoteDataset) CommitForRevision(ctx context.Context, datasetRevision Hash) (Hash, error) {
+	if err := d.r.enter(); err != nil {
+		return HashNil(), err
+	}
+	defer d.r.leave()
+
+	req := bboltproto.GetCommitForDatasetRevisionRequest{DatasetId: d.id[:], DatasetRevision: datasetRevision[:]}
+	GlobalLogger.Debug("gRPC dsClient call GetCommitForDatasetRevision")
+	var opts []grpc.CallOption
+	authProvider := sstauth.AuthProviderFromContext(ctx)
+	if p, ok := authProvider.(sstauth.Provider); ok {
+		token, err := p.Oauth2Token()
+		if err != nil {
+			return HashNil(), err
+		}
+		opts = append(opts, grpc.PerRPCCredentials(oauth.NewOauthAccess(token)))
+	}
+
+	resp, err := d.r.dsClient.GetCommitForDatasetRevision(context.TODO(), &req, opts...)
+	if err != nil {
+		if s, ok := status.FromError(err); ok && s.Code() == codes.NotFound {
+			return HashNil(), ErrDatasetRevisionNotFound
+		}
+		return HashNil(), err
+	}
+
+	return BytesToHash(resp.CommitHash), nil
 }
 
 func (d *remoteDataset) IRI() IRI {
@@ -698,7 +761,8 @@ func (d *remoteDataset) Branches(ctx context.Context) (map[string]Hash, error) {
 	if err != nil {
 		return branchCommitHashMap, err
 	}
-	GlobalLogger.Debug("Branches request Sent",
+	GlobalLogger.Debug(
+		"Branches request Sent",
 		zap.String("RepoName", req.RepoName),
 		zap.String("Dataset UUID", uuid.UUID(req.Uuid).String()),
 	)
@@ -733,7 +797,8 @@ func (d *remoteDataset) LeafCommits(ctx context.Context) ([]Hash, error) {
 		return nil, wrapError(err)
 	}
 
-	GlobalLogger.Debug("LeafCommits request Sent",
+	GlobalLogger.Debug(
+		"LeafCommits request Sent",
 		zap.String("RepoName", req.RepoName),
 		zap.String("Dataset UUID", uuid.UUID(req.Uuid).String()),
 	)
@@ -746,7 +811,7 @@ func (d *remoteDataset) LeafCommits(ctx context.Context) ([]Hash, error) {
 	return returnedCommitHashes, nil
 }
 
-func (d *remoteDataset) SetBranch(ctx context.Context, commit Hash, branch string) error {
+func (d *remoteDataset) SetBranchCommit(ctx context.Context, commit Hash, branch string) error {
 	if err := d.r.enter(); err != nil {
 		return err
 	}
@@ -773,13 +838,22 @@ func (d *remoteDataset) SetBranch(ctx context.Context, commit Hash, branch strin
 		return wrapError(errors.New(st.Message()))
 	}
 
-	GlobalLogger.Debug("SetBranch request Sent",
+	GlobalLogger.Debug(
+		"SetBranch request Sent",
 		zap.String("RepoName", req.RepoName),
 		zap.String("Branch", req.Branch),
 		zap.String("Dataset UUID", uuid.UUID(req.Uuid).String()),
 	)
 
 	return nil
+}
+
+func (d *remoteDataset) SetBranchRevision(ctx context.Context, datasetRevision Hash, branch string) error {
+	commit, err := d.CommitForRevision(ctx, datasetRevision)
+	if err != nil {
+		return err
+	}
+	return d.SetBranchCommit(ctx, commit, branch)
 }
 
 func (d *remoteDataset) RemoveBranch(ctx context.Context, branch string) error {
@@ -808,7 +882,8 @@ func (d *remoteDataset) RemoveBranch(ctx context.Context, branch string) error {
 		}
 		return wrapError(errors.New(st.Message()))
 	}
-	GlobalLogger.Debug("RemoveBranch request sent",
+	GlobalLogger.Debug(
+		"RemoveBranch request sent",
 		zap.String("RepoName", req.RepoName),
 		zap.String("Branch", req.Branch),
 		zap.String("Dataset UUID", uuid.UUID(req.Uuid).String()),
@@ -890,7 +965,7 @@ func (d *remoteDataset) CheckoutCommit(ctx context.Context, commitID Hash, mode 
 		opts = append(opts, grpc.PerRPCCredentials(oauth.NewOauthAccess(token)))
 	}
 
-	log.Println("gRPC dsClient call FetchDatasets")
+	GlobalLogger.Debug("gRPC dsClient call FetchDatasets")
 	fetchStream, err := d.r.dsClient.FetchDatasets(ctx, opts...)
 	if err != nil {
 		return st, err
@@ -946,9 +1021,9 @@ func (d *remoteDataset) CheckoutCommit(ctx context.Context, commitID Hash, mode 
 
 	// Populate checkout info using dsIDToRevision for direct lookup
 	for _, ng := range st.localGraphs {
-		ng.checkedOutNGRevision = r.datasetToDefaultGraph[ng.id]
+		ng.checkedOutNGRevisions = []Hash{r.datasetToDefaultGraph[ng.id]}
 		if dsRevHash, ok := r.datasetToRevision[ng.id]; ok {
-			ng.checkedOutDSRevision = dsRevHash
+			ng.checkedOutDSRevisions = []Hash{dsRevHash}
 			if commitHash, ok := r.revisionToCommit[dsRevHash]; ok {
 				ng.checkedOutCommits = []Hash{commitHash}
 			}
@@ -999,7 +1074,7 @@ func (d *remoteDataset) CheckoutRevision(ctx context.Context, datasetRevision Ha
 		opts = append(opts, grpc.PerRPCCredentials(oauth.NewOauthAccess(token)))
 	}
 
-	log.Println("gRPC dsClient call FetchDatasets for CheckoutRevision")
+	GlobalLogger.Debug("gRPC dsClient call FetchDatasets for CheckoutRevision")
 	fetchStream, err := d.r.dsClient.FetchDatasets(ctx, opts...)
 	if err != nil {
 		return nil, err
@@ -1057,10 +1132,10 @@ func (d *remoteDataset) CheckoutRevision(ctx context.Context, datasetRevision Ha
 
 	// Populate checkout info
 	for _, ng := range st.localGraphs {
-		ng.checkedOutNGRevision = r.datasetToDefaultGraph[ng.id]
+		ng.checkedOutNGRevisions = []Hash{r.datasetToDefaultGraph[ng.id]}
 		// Get the dataset revision hash for this dataset ID
 		if dsRevHash, ok := r.datasetToRevision[ng.id]; ok {
-			ng.checkedOutDSRevision = dsRevHash
+			ng.checkedOutDSRevisions = []Hash{dsRevHash}
 			if commitHash, ok := r.revisionToCommit[dsRevHash]; ok {
 				ng.checkedOutCommits = []Hash{commitHash}
 			}
@@ -1135,7 +1210,7 @@ func (r *remoteCheckoutState) collectNamedGraphsFromRevision(dsID uuid.UUID, dsH
 	return nil
 }
 
-// getCommit id based on branch Name for remoteDataset
+// getCommit id based on branch Name for remoteDataset.
 func branchToCommitRemote(ctx context.Context, ds *remoteDataset, br string) (Hash, error) {
 	var err error
 	var commitRev Hash
@@ -1243,7 +1318,7 @@ type remoteCheckoutState struct {
 
 	// datasetToRevision maps dataset IDs to their dataset revision hashes.
 	// Built during collectNamedGraphsFromRevision by traversing the import tree.
-	// Used to set checkedOutDSRevision on named graphs.
+	// Used to set checkedOutDSRevisions on named graphs.
 	datasetToRevision map[uuid.UUID]Hash
 }
 
@@ -1258,7 +1333,7 @@ func (r *remoteRepository) commitNewVersion(ctx context.Context, st *stage, mess
 	ngRevisions := map[Hash][]byte{}
 
 	if len(st.NamedGraphs()) > 0 {
-		err := st.WriteToSstFiles(remoteRepoFsOf(ngRevisions, nil))
+		err := st.WriteSstFilesDirectory(remoteRepoFsOf(ngRevisions, nil))
 		if err != nil {
 			return baseCommitID, nil, err
 		}
@@ -1284,13 +1359,15 @@ func (r *remoteRepository) commitNewVersion(ctx context.Context, st *stage, mess
 	parentCommitOverrides := make([]*bboltproto.ParentCommit, 0, len(modifiedNGs))
 
 	for _, ng := range st.localGraphs {
+		lastNGRev := ng.lastCheckedOutNGRevision()
+		lastDSRev := ng.lastCheckedOutDSRevision()
 		checkoutNamedGraphSignatures = append(checkoutNamedGraphSignatures, &bboltproto.NamedGraphSignature{
 			NgUuid: ng.id[:],
-			NgHash: ng.checkedOutNGRevision[:],
+			NgHash: lastNGRev[:],
 		})
 		checkoutDatasetSignatures = append(checkoutDatasetSignatures, &bboltproto.DatasetSignature{
 			DSUuid: ng.id[:],
-			DSHash: ng.checkedOutDSRevision[:],
+			DSHash: lastDSRev[:],
 		})
 
 		var tempCheckoutCommits []byte
@@ -1355,6 +1432,8 @@ func (r *remoteRepository) commitNewVersion(ctx context.Context, st *stage, mess
 			switch s.Code() {
 			case codes.FailedPrecondition:
 				err = fmt.Errorf("%w: %s", ErrPreCommitConditionFailed, s.Message())
+			case codes.ResourceExhausted:
+				err = fmt.Errorf("%w: %s", ErrQuotaExceeded, s.Message())
 			case codes.Unknown:
 				msg := s.Message()
 				// if msg == DatasetBranchHasDiverged.Error() {
@@ -1367,7 +1446,7 @@ func (r *remoteRepository) commitNewVersion(ctx context.Context, st *stage, mess
 				// 	err = ErrDatasetBranchWouldDiverge
 				// }
 			case codes.OK, codes.Canceled, codes.InvalidArgument, codes.DeadlineExceeded, codes.NotFound,
-				codes.AlreadyExists, codes.PermissionDenied, codes.ResourceExhausted, codes.Aborted, codes.OutOfRange,
+				codes.AlreadyExists, codes.PermissionDenied, codes.Aborted, codes.OutOfRange,
 				codes.Unimplemented, codes.Internal, codes.Unavailable, codes.DataLoss, codes.Unauthenticated:
 			}
 		}
@@ -1381,13 +1460,13 @@ func (r *remoteRepository) commitNewVersion(ctx context.Context, st *stage, mess
 	// after commit, get generated NGHash from GRPC Server, update the NG checkedOutNGHash
 	for _, NamedGraphSignature := range resp.CheckoutNamedGraphSignatures {
 		if ng, ok := st.localGraphs[uuid.UUID(NamedGraphSignature.NgUuid)]; ok {
-			ng.checkedOutNGRevision = Hash(NamedGraphSignature.NgHash)
+			ng.checkedOutNGRevisions = []Hash{Hash(NamedGraphSignature.NgHash)}
 		}
 	}
 
 	for _, DatasetSignature := range resp.CheckoutDatasetSignatures {
 		if ng, ok := st.localGraphs[uuid.UUID(DatasetSignature.DSUuid)]; ok {
-			ng.checkedOutDSRevision = Hash(DatasetSignature.DSHash)
+			ng.checkedOutDSRevisions = []Hash{Hash(DatasetSignature.DSHash)}
 			ng.checkedOutCommits = []Hash{BytesToHash(resp.CommitId)}
 		}
 	}
@@ -1550,17 +1629,19 @@ func (r *remoteRepository) Info(ctx context.Context, branchName string) (Reposit
 
 	return RepositoryInfo{
 		URL:                         r.url.String(),
-		AccessRight:                 string(resp.AccessRight),
-		MasterDBSize:                int(resp.BboltSize),
-		DerivedDBSize:               int(resp.BleveSize),
-		DocumentDBSize:              int(resp.DocumentDbSize),
-		NumberOfDatasets:            int(resp.NumberOfDatasets),
-		NumberOfDatasetsInBranch:    int(resp.NumberOfDatasetsInBranch),
-		NumberOfDatasetRevisions:    int(resp.NumberOfDatasetRevisions),
-		NumberOfNamedGraphRevisions: int(resp.NumberOfNamedGraphRevisions),
-		NumberOfCommits:             int(resp.NumberOfCommits),
-		NumberOfRepositoryLogs:      int(resp.NumberOfRepositoryLogs),
-		NumberOfDocuments:           int(resp.NumberOfDocuments),
+		AccessRight:                 sstauth.ParseAccessMode(resp.AccessRight),
+		MasterDBSize:                resp.BboltSize,
+		DerivedDBSize:               resp.BleveSize,
+		DocumentDBSize:              resp.DocumentDbSize,
+		ActualRepositorySize:        resp.ActualRepositorySize,
+		MaxRepositorySize:           resp.MaxRepositorySize,
+		NumberOfDatasets:            resp.NumberOfDatasets,
+		NumberOfDatasetsInBranch:    resp.NumberOfDatasetsInBranch,
+		NumberOfDatasetRevisions:    resp.NumberOfDatasetRevisions,
+		NumberOfNamedGraphRevisions: resp.NumberOfNamedGraphRevisions,
+		NumberOfCommits:             resp.NumberOfCommits,
+		NumberOfRepositoryLogs:      resp.NumberOfRepositoryLogs,
+		NumberOfDocuments:           resp.NumberOfDocuments,
 		IsRemote:                    true,
 		SupportRevisionHistory:      true,
 		BleveName:                   bleveInfo.Name,
@@ -1600,7 +1681,7 @@ func (r *remoteRepository) Log(ctx context.Context, start, end *int) ([]Reposito
 		}
 	}
 
-	log.Println("gRPC dsClient call GetRepositoryLog with range")
+	GlobalLogger.Debug("gRPC dsClient call GetRepositoryLog with range")
 	resp, err := r.dsClient.GetRepositoryLog(ctx, req, opts...)
 	if err != nil {
 		GlobalLogger.Error("", zap.Error(err))
@@ -1697,6 +1778,9 @@ func (r *remoteRepository) DocumentSet(ctx context.Context, MIMEType string, sou
 	// Step 3: close and receive hash
 	resp, err := stream.CloseAndRecv()
 	if err != nil {
+		if s, ok := status.FromError(err); ok && s.Code() == codes.ResourceExhausted {
+			return emptyHash, fmt.Errorf("%w: %s", ErrQuotaExceeded, s.Message())
+		}
 		return emptyHash, fmt.Errorf("failed to receive upload response: %w", err)
 	}
 
@@ -1956,7 +2040,7 @@ func (r *remoteRepository) SyncFrom(ctx context.Context, from Repository, option
 	}
 
 	// Create gRPC stream
-	log.Println("gRPC dsClient call SyncFrom")
+	GlobalLogger.Debug("gRPC dsClient call SyncFrom")
 	stream, err := r.dsClient.SyncFrom(ctx, grpcOpts...)
 	if err != nil {
 		return fmt.Errorf("failed to initiate SyncFrom stream: %w", err)
@@ -1964,8 +2048,9 @@ func (r *remoteRepository) SyncFrom(ctx context.Context, from Repository, option
 
 	// Prepare metadata with dataset IDs and branch name
 	metadata := &bboltproto.SyncFromMetadata{
-		RepoName:   r.repoName,
-		BranchName: branchName,
+		RepoName:    r.repoName,
+		BranchName:  branchName,
+		FromRepoUrl: fromLocal.URL(),
 	}
 	if len(datasetIDs) > 0 {
 		metadata.DatasetIds = make([][]byte, len(datasetIDs))
@@ -1993,9 +2078,14 @@ func (r *remoteRepository) SyncFrom(ctx context.Context, from Repository, option
 		return fmt.Errorf("failed to receive sync response: %w", err)
 	}
 
-	log.Printf("SyncFrom completed: NGR=%d, DSR=%d, DS=%d, Commits=%d, DocInfo=%d",
-		resp.NamedGraphRevisionsSynced, resp.DatasetRevisionsSynced,
-		resp.DatasetsSynced, resp.CommitsSynced, resp.DocumentInfoSynced)
+	GlobalLogger.Debug(
+		"SyncFrom completed",
+		zap.Int32("namedGraphRevisions", resp.NamedGraphRevisionsSynced),
+		zap.Int32("datasetRevisions", resp.DatasetRevisionsSynced),
+		zap.Int32("datasets", resp.DatasetsSynced),
+		zap.Int32("commits", resp.CommitsSynced),
+		zap.Int32("documentInfo", resp.DocumentInfoSynced),
+	)
 
 	return nil
 }

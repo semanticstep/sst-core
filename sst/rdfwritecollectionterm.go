@@ -140,7 +140,7 @@ func serializeCollectionTerm(
 	if index == 0 || serialized.Len()+len(serializedTerm)-lastNL <= lineLen {
 		serialized.WriteRune(' ')
 	} else {
-		serialized.WriteString("\n\t")
+		serialized.WriteString("\n  ")
 		lastNL = serialized.Len() - 1
 	}
 	serialized.WriteString(serializedTerm)

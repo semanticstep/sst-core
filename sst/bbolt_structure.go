@@ -161,6 +161,7 @@ type postCommitNotificationGetter interface {
 //                      - "remove_branch"
 //                      - "upload_document"
 //						- "delete_document"
+//                      - "sync_from"
 //                      - "admin"
 
 //

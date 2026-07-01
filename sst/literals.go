@@ -10,6 +10,7 @@ package sst
 import "fmt"
 
 // String is a wrapper for the build-in string type that implements the Literal interface.
+// It represents the xsd:string data type.
 type String string
 
 var (
@@ -34,7 +35,8 @@ func (s String) apiValue() interface{} {
 	return s
 }
 
-// xsd:byte
+// Byte is a wrapper for the built-in int8 type that implements the Literal interface.
+// It represents the xsd:byte data type.
 type Byte int8
 
 var (
@@ -59,7 +61,8 @@ func (b Byte) apiValue() interface{} {
 	return b
 }
 
-// xsd:short
+// Short is a wrapper for the built-in int16 type that implements the Literal interface.
+// It represents the xsd:short data type.
 type Short int16
 
 var (
@@ -84,7 +87,8 @@ func (s Short) apiValue() interface{} {
 	return s
 }
 
-// xsd:int
+// Int is a wrapper for the built-in int32 type that implements the Literal interface.
+// It represents the xsd:int data type.
 type Int int32
 
 var (
@@ -109,7 +113,8 @@ func (i Int) apiValue() interface{} {
 	return i
 }
 
-// xsd:long
+// Long is a wrapper for the built-in int64 type that implements the Literal interface.
+// It represents the xsd:long data type.
 type Long int64
 
 var (
@@ -134,7 +139,8 @@ func (l Long) apiValue() interface{} {
 	return l
 }
 
-// xsd:unsignedByte
+// UnsignedByte is a wrapper for the built-in uint8 type that implements the Literal interface.
+// It represents the xsd:unsignedByte data type.
 type UnsignedByte uint8
 
 var (
@@ -159,7 +165,8 @@ func (ub UnsignedByte) apiValue() interface{} {
 	return ub
 }
 
-// xsd:unsignedShort
+// UnsignedShort is a wrapper for the built-in uint16 type that implements the Literal interface.
+// It represents the xsd:unsignedShort data type.
 type UnsignedShort uint16
 
 var (
@@ -184,7 +191,8 @@ func (us UnsignedShort) apiValue() interface{} {
 	return us
 }
 
-// xsd:unsignedInt
+// UnsignedInt is a wrapper for the built-in uint32 type that implements the Literal interface.
+// It represents the xsd:unsignedInt data type.
 type UnsignedInt uint32
 
 var (
@@ -209,7 +217,8 @@ func (ui UnsignedInt) apiValue() interface{} {
 	return ui
 }
 
-// xsd:unsignedLong
+// UnsignedLong is a wrapper for the built-in uint64 type that implements the Literal interface.
+// It represents the xsd:unsignedLong data type.
 type UnsignedLong uint64
 
 var (
@@ -235,6 +244,7 @@ func (ul UnsignedLong) apiValue() interface{} {
 }
 
 // LangString is a struct for rdf:langString that implements the Literal interface.
+// It represents the rdf:langString data type.
 type LangString struct {
 	Val     string
 	LangTag string
@@ -270,6 +280,8 @@ func (s LangString) apiValue() interface{} {
 	return s
 }
 
+// TypedString is a struct that holds a string value together with an explicit data type Node.
+// It implements the Literal interface.
 type TypedString struct {
 	Val  string
 	Type Node
@@ -323,6 +335,7 @@ func (s TypedString) apiValue() interface{} {
 }
 
 // Double is a wrapper for the build-in float64 type that implements the Literal interface.
+// It represents the xsd:double data type.
 type Double float64
 
 var (
@@ -348,6 +361,7 @@ func (d Double) apiValue() interface{} {
 }
 
 // Float is a wrapper for the build-in float32 type that implements the Literal interface.
+// It represents the xsd:float data type.
 type Float float32
 
 var (
@@ -373,6 +387,7 @@ func (f Float) apiValue() interface{} {
 }
 
 // Integer is a wrapper for the build-in int64 type that implements the Literal interface.
+// It represents the xsd:integer data type.
 type Integer int64
 
 var (
@@ -398,6 +413,7 @@ func (i Integer) apiValue() interface{} {
 }
 
 // Boolean is a wrapper for the build-in bool type that implements the Literal interface.
+// It represents the xsd:boolean data type.
 type Boolean bool
 
 var (

@@ -1,0 +1,449 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:c143ae55-2c43-467f-acbd-dacfd18a15f9#> .
+@prefix ns2: <urn:uuid:03431413-2c10-4be9-b144-30d4d91343c1#> .
+
+<urn:uuid:c143ae55-2c43-467f-acbd-dacfd18a15f9> a owl:Ontology .
+:068a489a-fb34-40c6-8938-da067b1d85ae a lci:ClassOfIndividual ,
+    :cae73bd7-2527-4bc8-a5eb-c595a19c6c4a ;
+  sso:id "D" ;
+  rdfs:comment "task process for dividing objects or materials" ;
+  rdfs:label "separating task" ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b "N" .
+:0726645c-5947-4254-8736-d1c5e1db6583 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d893756a-bdfb-44a4-8aaa-3f46b28b4a27 ;
+  sso:id "FAD" ;
+  rdfs:comment "surface preparing task by biological removal" ;
+  rdfs:label "biological surface removal task" .
+:0d5cdffe-f319-482e-b621-2aca66904166 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f7a31d43-d7b6-43cd-9bb6-b94c31fcfb25 ;
+  sso:id "DEA" ;
+  rdfs:comment "electromagnetic separating task by applying electric potential" ;
+  rdfs:label "electrolysing task" .
+:0f977576-cf1f-4bbf-b07f-bea21757289d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :869fbc73-620c-46ae-bbc7-af9848927fb4 ;
+  sso:id "CCB" ;
+  rdfs:comment "merging substances task by adding gaseous matter" ;
+  rdfs:label "merging gas task" .
+:106161fd-08c4-42fe-ae2a-8cb315612259 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :98fee3ae-1161-4485-98f4-8842a050bed5 ;
+  sso:id "CDC" ;
+  rdfs:comment "adding substance task being a solid matter" ;
+  rdfs:label "adding solid matter task" .
+:132326da-e6f6-477c-974d-465cb3af8349 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :5842ca03-bcbc-4d3e-b300-9c927daf96a5 ;
+  sso:id "FB" ;
+  rdfs:comment "surface altering task by coating" ;
+  rdfs:label "surface coating task" .
+:156cb150-4669-4aac-8853-269b7e12842e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d11cad96-ae64-4c92-ba48-b6f48e31147c ;
+  sso:id "AA" ;
+  rdfs:comment "mass conserving shaping task by consolidation" ;
+  rdfs:label "consolidating task" .
+:15ce8e3b-6266-4303-97a0-f338097c3ce7 a lci:ClassOfIndividual ,
+    :cae73bd7-2527-4bc8-a5eb-c595a19c6c4a ;
+  sso:id "E" ;
+  rdfs:comment "task process for changing material properties of an object while maintaining its shape" ;
+  rdfs:label "property altering task" ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b "N" .
+:18214286-679e-41e6-a161-bab8128c7665 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :778f9856-d291-4975-940c-e6974c8539e7 ;
+  sso:id "DAB" ;
+  rdfs:comment "disassembling task of interlocking parts" ;
+  rdfs:label "unlocking task" .
+:1966aac1-f922-4ef6-8d4c-5a2c3b772e44 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b1744d0-5f27-41ba-8e47-88c26eb4f2f7 ;
+  sso:id "CB" ;
+  rdfs:comment "joining task by mechanical assembly" ;
+  rdfs:label "assembling task" .
+:1b1744d0-5f27-41ba-8e47-88c26eb4f2f7 a lci:ClassOfIndividual ,
+    :cae73bd7-2527-4bc8-a5eb-c595a19c6c4a ;
+  sso:id "C" ;
+  rdfs:comment "task process for merging objects or materials" ;
+  rdfs:label "joining task" ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b "N" .
+:1cd447cc-e390-42c6-868a-7adcf79eef11 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :67aa4e27-4cbf-4025-88c5-1b8ae84cb920 ;
+  sso:id "EDA" ;
+  rdfs:comment "biological treatment task by bacteria" ;
+  rdfs:label "bacteria treatment task" .
+:1e8ddbc3-e68c-45b0-b2ec-066c8fa6b816 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :15ce8e3b-6266-4303-97a0-f338097c3ce7 ;
+  sso:id "EB" ;
+  rdfs:comment "property altering task through electromagnetic treatment" ;
+  rdfs:label "electromagnetic treatment task" .
+:213ed873-7098-49fe-87fe-7cec94311429 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :7d917def-8002-42f2-b09a-4a7c392d3803 ;
+  sso:id "DBB" ;
+  rdfs:comment "segregating fluid task from a container" ;
+  rdfs:label "draining task" .
+:28ee54c9-70e6-4a46-b54f-c120fc2c9598 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :156cb150-4669-4aac-8853-269b7e12842e ;
+  sso:id "AAD" ;
+  rdfs:comment "consolidating task by compacting from a granular state" ;
+  rdfs:label "compacting task" .
+:2a4ed56d-aab4-404d-b2b6-9f141d0adcd5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :67aa4e27-4cbf-4025-88c5-1b8ae84cb920 ;
+  sso:id "EDB" ;
+  rdfs:comment "biological treatment task by virus" ;
+  rdfs:label "virus treatment task" .
+:2fa7805a-7583-4701-82c3-1a7a0cfebcfa a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d1f3bfdc-2d5c-40b2-9100-7238ac2d042d ;
+  sso:id "BAA" ;
+  rdfs:comment "mechanical mass reducing shaping task through cutting" ;
+  rdfs:label "cutting task" .
+:303d3a58-c7af-4e78-8d7d-03c32ce2a6ca a lci:ClassOfIndividual ;
+  rdfs:subClassOf :15ce8e3b-6266-4303-97a0-f338097c3ce7 ;
+  sso:id "EA" ;
+  rdfs:comment "property altering task through thermal treatment" ;
+  rdfs:label "thermal treating task" .
+:33430d6c-0b79-4139-994c-3af41b3efbd2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6000a686-5a6d-4395-ab60-8b3200425720 ;
+  sso:id "ECB" ;
+  rdfs:comment "radiation treatment task by electromagnetic waves" ;
+  rdfs:label "electromagnetic wave exposing task" .
+:34842ea3-0f86-4ef5-b4a2-2b66119349bf a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a0f9896d-7694-4eb8-b855-25a535082710 ;
+  sso:id "BBC" ;
+  rdfs:comment "thermal mass reducing shaping task by means of high energy beam machining" ;
+  rdfs:label "high energy beam machining task" .
+:374f92dd-658d-4c38-98e3-229c388a3514 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :98fee3ae-1161-4485-98f4-8842a050bed5 ;
+  sso:id "CDA" ;
+  rdfs:comment "adding substance task being a liquid matter" ;
+  rdfs:label "adding liquid task" .
+:3eabc129-01ce-4563-87f2-d85254bea199 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9191395e-6191-482b-8b25-9079d4bfebcf ;
+  sso:id "ABA" ;
+  rdfs:comment "deforming task through forging" ;
+  rdfs:label "forging deformation task" .
+:3f1c8293-1945-4132-a04f-38d8df168a42 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d1f3bfdc-2d5c-40b2-9100-7238ac2d042d ;
+  sso:id "BAC" ;
+  rdfs:comment "mechanical mass reducing shaping task through controlled fracture" ;
+  rdfs:label "fracturing task" .
+:41afc4ee-95a6-4e0c-9203-f90110f60ae1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cacb2954-87b4-49e4-a6ea-58051152eeef ;
+  sso:id "CAC" ;
+  rdfs:comment "combining task by dissolving surfaces together" ;
+  rdfs:label "chemical welding task" .
+:42513f00-9a74-4aad-bd18-8a438a3d2c8e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :7d917def-8002-42f2-b09a-4a7c392d3803 ;
+  sso:id "DBA" ;
+  rdfs:comment "segregating fluid task from suspended material" ;
+  rdfs:label "filtering task" .
+:459c44b3-a55b-48e6-9589-bb83dc150ae3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9191395e-6191-482b-8b25-9079d4bfebcf ;
+  sso:id "ABB" ;
+  rdfs:comment "deforming task through a die" ;
+  rdfs:label "extrusion drawing task" .
+:4a25fc3c-c325-4378-a1e0-4ceeb386306a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1966aac1-f922-4ef6-8d4c-5a2c3b772e44 ;
+  sso:id "CBF" ;
+  rdfs:comment "assembling task using deformation fastening" ;
+  rdfs:label "deformation fitting task" .
+:4d20fc02-f47b-4364-9bfb-64b5b41bb767 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :98fee3ae-1161-4485-98f4-8842a050bed5 ;
+  sso:id "CDB" ;
+  rdfs:comment "adding substance task being a gaseous matter" ;
+  rdfs:label "adding gas task" .
+:4ef2530a-2031-418c-a0d8-a2a5de5c9f73 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d1f3bfdc-2d5c-40b2-9100-7238ac2d042d ;
+  sso:id "BAB" ;
+  rdfs:comment "mechanical mass reducing shaping task through abrasing" ;
+  rdfs:label "abrasing task" .
+:51256220-db2d-40b1-96cf-8905ddc1df92 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1966aac1-f922-4ef6-8d4c-5a2c3b772e44 ;
+  sso:id "CBD" ;
+  rdfs:comment "assembling task using clearance fit fastening" ;
+  rdfs:label "clearance fastening task" .
+:5164f6fd-d851-499f-8a96-6b5b13d1a936 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b1cec8f6-b33a-4540-bc86-8381f307384f ;
+  sso:id "DCB" ;
+  rdfs:comment "chemically purifying task by adding a reagent which forms a solid" ;
+  rdfs:label "precipitating task" .
+:559c3780-30f2-461c-b1eb-0c170c934eaa a lci:ClassOfIndividual ;
+  rdfs:subClassOf :72837dce-44f6-4f45-be17-803f88d3d46f ;
+  sso:id "BC" ;
+  rdfs:comment "mass changing shaping task by chemical reduction" ;
+  rdfs:label "chemical mass reducing shaping task" .
+:5679be72-cd7d-4753-a146-5f6d96ba63d7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :303d3a58-c7af-4e78-8d7d-03c32ce2a6ca ;
+  sso:id "EAC" ;
+  rdfs:comment "thermal treating task using mechanical energy on the object" ;
+  rdfs:label "mechanical thermal task" .
+:5842ca03-bcbc-4d3e-b300-9c927daf96a5 a lci:ClassOfIndividual ,
+    :cae73bd7-2527-4bc8-a5eb-c595a19c6c4a ;
+  sso:id "F" ;
+  rdfs:comment "task process for changing surface properties of an object while maintaining its shape" ;
+  rdfs:label "surface altering task" ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b "N" .
+:5bce7c82-6474-4a3e-bd3a-7efaaad96e79 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :068a489a-fb34-40c6-8938-da067b1d85ae ;
+  sso:id "DD" ;
+  rdfs:comment "separating task by thermal means" ;
+  rdfs:label "thermal separating task" .
+:6000a686-5a6d-4395-ab60-8b3200425720 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :15ce8e3b-6266-4303-97a0-f338097c3ce7 ;
+  sso:id "EC" ;
+  rdfs:comment "property altering task through radiation treatment" ;
+  rdfs:label "radiation treatment task" .
+:624d5c17-839a-4a9f-8862-6d3293e1fbfd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :559c3780-30f2-461c-b1eb-0c170c934eaa ;
+  sso:id "BCA" ;
+  rdfs:comment "chemical mass reducing shaping task by means of chemical milling" ;
+  rdfs:label "chemical milling task" .
+:67aa4e27-4cbf-4025-88c5-1b8ae84cb920 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :15ce8e3b-6266-4303-97a0-f338097c3ce7 ;
+  sso:id "ED" ;
+  rdfs:comment "property altering task through biological treatment" ;
+  rdfs:label "biological treatment task" .
+:6b1736ef-f38b-4109-8390-eb361aff4247 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b1cec8f6-b33a-4540-bc86-8381f307384f ;
+  sso:id "DCA" ;
+  rdfs:comment "chemically purifying task by adding solvents to dissolve material" ;
+  rdfs:label "extracting task" .
+:6e86956e-ab27-42be-96d8-885be61f0a11 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1e8ddbc3-e68c-45b0-b2ec-066c8fa6b816 ;
+  sso:id "EBA" ;
+  rdfs:comment "electromagnetic treatment task by magnetization" ;
+  rdfs:label "magnetizing task" .
+:6f616b0f-07ad-4372-9cde-127c3cb07c7f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cacb2954-87b4-49e4-a6ea-58051152eeef ;
+  sso:id "CAB" ;
+  rdfs:comment "combining task by adding melted filler material to surfaces" ;
+  rdfs:label "brazing task" .
+:6fc2aecc-5f0c-4e85-b80c-e627f8f85573 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :5bce7c82-6474-4a3e-bd3a-7efaaad96e79 ;
+  sso:id "DDC" ;
+  rdfs:comment "thermal separating task based on saturation" ;
+  rdfs:label "crystallizing task" .
+:72837dce-44f6-4f45-be17-803f88d3d46f a lci:ClassOfIndividual ,
+    :cae73bd7-2527-4bc8-a5eb-c595a19c6c4a ;
+  sso:id "B" ;
+  rdfs:comment "task process for shaping an object while changing its mass" ;
+  rdfs:label "mass changing shaping task" ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b "N" .
+:778f9856-d291-4975-940c-e6974c8539e7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :068a489a-fb34-40c6-8938-da067b1d85ae ;
+  sso:id "DA" ;
+  rdfs:comment "separating task of solids by mechanical means" ;
+  rdfs:label "disassembling task" .
+:7afe82f4-fcbd-4170-9a1e-3ca2696574b5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :303d3a58-c7af-4e78-8d7d-03c32ce2a6ca ;
+  sso:id "EAD" ;
+  rdfs:comment "thermal treating task using electrical energy on the object" ;
+  rdfs:label "electrical thermal task" .
+:7d917def-8002-42f2-b09a-4a7c392d3803 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :068a489a-fb34-40c6-8938-da067b1d85ae ;
+  sso:id "DB" ;
+  rdfs:comment "separating task of fluid by mechanical separation" ;
+  rdfs:label "segregating fluid task" .
+:82b78398-744f-423d-9984-49b5b630e360 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cacb2954-87b4-49e4-a6ea-58051152eeef ;
+  sso:id "CAD" ;
+  rdfs:comment "combining task by adding adhesive material to surfaces" ;
+  rdfs:label "gluing task" .
+:830c4249-9ac6-42a9-a039-eaa8921385a2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :303d3a58-c7af-4e78-8d7d-03c32ce2a6ca ;
+  sso:id "EAB" ;
+  rdfs:comment "thermal treating task using convective thermal energy transfer to the object" ;
+  rdfs:label "convection thermal task" .
+:869fbc73-620c-46ae-bbc7-af9848927fb4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b1744d0-5f27-41ba-8e47-88c26eb4f2f7 ;
+  sso:id "CC" ;
+  rdfs:comment "joining task by merging into a substance" ;
+  rdfs:label "merging substance task" .
+:87145c69-615f-4c5d-8629-dd6ad9dc2ad9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a0f9896d-7694-4eb8-b855-25a535082710 ;
+  sso:id "BBB" ;
+  rdfs:comment "thermal mass reducing shaping task by means of electrical discharge machinery" ;
+  rdfs:label "electrical discharge machining task" .
+:8dcc9c6e-9a30-451f-811d-dcd224b9e298 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f7a31d43-d7b6-43cd-9bb6-b94c31fcfb25 ;
+  sso:id "DEB" ;
+  rdfs:comment "electromagnetic separating task by applying magnetism" ;
+  rdfs:label "magnetic separating task" .
+:8e47b10d-53e2-4cc8-b329-ff90a758dc1f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cacb2954-87b4-49e4-a6ea-58051152eeef ;
+  sso:id "CAA" ;
+  rdfs:comment "combining task by melting surfaces together" ;
+  rdfs:label "thermal welding task" .
+:9191395e-6191-482b-8b25-9079d4bfebcf a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d11cad96-ae64-4c92-ba48-b6f48e31147c ;
+  sso:id "AB" ;
+  rdfs:comment "mass conserving shaping task by deformation" ;
+  rdfs:label "deforming task" .
+:922c635d-406c-4154-b55c-94ee902e3f3f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :559c3780-30f2-461c-b1eb-0c170c934eaa ;
+  sso:id "BCC" ;
+  rdfs:comment "chemical mass reducing shaping task by means of photochemical milling" ;
+  rdfs:label "photochemical milling task" .
+:957430aa-b797-4a94-8e53-e5b42d3e550e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d893756a-bdfb-44a4-8aaa-3f46b28b4a27 ;
+  sso:id "FAC" ;
+  rdfs:comment "surface preparing task by chemical removal" ;
+  rdfs:label "chemical surface removal task" .
+:983d994f-a719-4d8b-b4c6-3d03bb693e62 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :303d3a58-c7af-4e78-8d7d-03c32ce2a6ca ;
+  sso:id "EAA" ;
+  rdfs:comment "thermal treating task using conductive thermal energy transfer to the object" ;
+  rdfs:label "conduction thermal task" .
+:98bd97e4-06b7-4ebb-be99-74199fb98bd8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :869fbc73-620c-46ae-bbc7-af9848927fb4 ;
+  sso:id "CCC" ;
+  rdfs:comment "merging substances task by adding solid matter" ;
+  rdfs:label "merging solid matter task" .
+:98fee3ae-1161-4485-98f4-8842a050bed5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b1744d0-5f27-41ba-8e47-88c26eb4f2f7 ;
+  sso:id "CD" ;
+  rdfs:comment "joining task by adding substance" ;
+  rdfs:label "adding substance task" .
+:a0f9896d-7694-4eb8-b855-25a535082710 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :72837dce-44f6-4f45-be17-803f88d3d46f ;
+  sso:id "BB" ;
+  rdfs:comment "mass changing shaping task by thermal reduction" ;
+  rdfs:label "thermal mass reducing shaping task" .
+:a4555683-357b-413a-811c-356bbb889b06 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :5bce7c82-6474-4a3e-bd3a-7efaaad96e79 ;
+  sso:id "DDB" ;
+  rdfs:comment "thermal separating task based on different melting points" ;
+  rdfs:label "fractional freezing task" .
+:a629e0d2-980a-423e-995d-07dbf5e630b8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d893756a-bdfb-44a4-8aaa-3f46b28b4a27 ;
+  sso:id "FAB" ;
+  rdfs:comment "surface preparing task by thermal removal" ;
+  rdfs:label "thermal surface removal task" .
+:a64e452e-f9df-4b68-8a05-28774972680b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :869fbc73-620c-46ae-bbc7-af9848927fb4 ;
+  sso:id "CCA" ;
+  rdfs:comment "merging substances task by adding liquid matter" ;
+  rdfs:label "merging liquid task" .
+:a6977b12-c21a-4fee-8afd-28ce8a997ea7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cacb2954-87b4-49e4-a6ea-58051152eeef ;
+  sso:id "CAE" ;
+  rdfs:comment "combining task by adding layers of material together" ;
+  rdfs:label "laminating task" .
+:a80f6bae-f96d-4a28-a050-3ea55049862b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :5bce7c82-6474-4a3e-bd3a-7efaaad96e79 ;
+  sso:id "DDA" ;
+  rdfs:comment "thermal separating task based on different boiling points" ;
+  rdfs:label "distilling task" .
+:ac4a09ef-ccbf-491b-a204-7787c97e814b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :156cb150-4669-4aac-8853-269b7e12842e ;
+  sso:id "AAC" ;
+  rdfs:comment "consolidating task by moulding from a fibrous state" ;
+  rdfs:label "fibre reinforced moulding task" .
+:b1cd16de-1d4f-49e7-8bac-62d7912394c4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6000a686-5a6d-4395-ab60-8b3200425720 ;
+  sso:id "ECA" ;
+  rdfs:comment "radiation treatment task by high energy particles" ;
+  rdfs:label "radiating task" .
+:b1cec8f6-b33a-4540-bc86-8381f307384f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :068a489a-fb34-40c6-8938-da067b1d85ae ;
+  sso:id "DC" ;
+  rdfs:comment "separating task by chemical separation" ;
+  rdfs:label "chemically purifying task" .
+:b32c19dd-4172-4d80-b060-c6484134691e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9191395e-6191-482b-8b25-9079d4bfebcf ;
+  sso:id "ABD" ;
+  rdfs:comment "deforming task trough bending" ;
+  rdfs:label "bending task" .
+:ba6a959d-71cd-42c3-b648-8bb4f5bd24ce a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1966aac1-f922-4ef6-8d4c-5a2c3b772e44 ;
+  sso:id "CBC" ;
+  rdfs:comment "assembling task using interference or transition fit fastening" ;
+  rdfs:label "interference fastening task" .
+:c5454166-bef7-43ad-82ac-6842df71c3e3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1966aac1-f922-4ef6-8d4c-5a2c3b772e44 ;
+  sso:id "CBA" ;
+  rdfs:comment "assembling task using threaded fastening" ;
+  rdfs:label "screwing task" .
+:cacb2954-87b4-49e4-a6ea-58051152eeef a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b1744d0-5f27-41ba-8e47-88c26eb4f2f7 ;
+  sso:id "CA" ;
+  rdfs:comment "joining task by unifying into a whole" ;
+  rdfs:label "combining task" .
+:cae73bd7-2527-4bc8-a5eb-c595a19c6c4a a sso:ClassSystem ,
+    ns2:a7f0e0f6-8448-4096-b652-55c850b3344a ;
+  sso:id "ISO81346-50_AA5_task_processes" .
+:d0fe6d94-49d3-4a93-ac7e-a1665ed090bb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :778f9856-d291-4975-940c-e6974c8539e7 ;
+  sso:id "DAC" ;
+  rdfs:comment "disassembling task of parts not fastened by threaded or interlocking means" ;
+  rdfs:label "disconnecting task" .
+:d11cad96-ae64-4c92-ba48-b6f48e31147c a lci:ClassOfIndividual ,
+    :cae73bd7-2527-4bc8-a5eb-c595a19c6c4a ;
+  sso:id "A" ;
+  rdfs:comment "task process for shaping an object while conserving its mass" ;
+  rdfs:label "mass conserving shaping task" ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b "N" .
+:d18ffe5f-9bb3-4b11-b1d9-d687f45b952e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :156cb150-4669-4aac-8853-269b7e12842e ;
+  sso:id "AAA" ;
+  rdfs:comment "consolidating task by casting from a liquid state" ;
+  rdfs:label "casting task" .
+:d1f3bfdc-2d5c-40b2-9100-7238ac2d042d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :72837dce-44f6-4f45-be17-803f88d3d46f ;
+  sso:id "BA" ;
+  rdfs:comment "mass changing shaping task by mechanical reduction" ;
+  rdfs:label "mechanical mass reducing shaping task" .
+:d349b7b3-37c4-488a-96a5-9657b4e1ac18 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :559c3780-30f2-461c-b1eb-0c170c934eaa ;
+  sso:id "BCB" ;
+  rdfs:comment "chemical mass reducing shaping task by means of electrochemical milling" ;
+  rdfs:label "electrochemical milling task" .
+:d456355d-e425-4631-bf85-3e892c66aadb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9191395e-6191-482b-8b25-9079d4bfebcf ;
+  sso:id "ABC" ;
+  rdfs:comment "deforming task into a die" ;
+  rdfs:label "deep drawing task" .
+:d580f474-93a8-4e79-a2ff-fae98dcc1a98 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a0f9896d-7694-4eb8-b855-25a535082710 ;
+  sso:id "BBA" ;
+  rdfs:comment "thermal mass reducing shaping task by means of torch cutting" ;
+  rdfs:label "torch cutting task" .
+:d893756a-bdfb-44a4-8aaa-3f46b28b4a27 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :5842ca03-bcbc-4d3e-b300-9c927daf96a5 ;
+  sso:id "FA" ;
+  rdfs:comment "surface altering task by removing unwanted substances" ;
+  rdfs:label "surface preparing task" .
+:dd81fb0a-6374-4419-936a-2251593ebece a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1966aac1-f922-4ef6-8d4c-5a2c3b772e44 ;
+  sso:id "CBB" ;
+  rdfs:comment "assembling task by nailing" ;
+  rdfs:label "nailing task" .
+:ded19595-cb19-4acf-b2bf-ee54ad5ef4e9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :303d3a58-c7af-4e78-8d7d-03c32ce2a6ca ;
+  sso:id "EAE" ;
+  rdfs:comment "thermal treating task using chemical energy on the object" ;
+  rdfs:label "chemical thermal task" .
+:e5ef8b51-b3b0-423d-ad59-9c0e206f5a1a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :156cb150-4669-4aac-8853-269b7e12842e ;
+  sso:id "AAB" ;
+  rdfs:comment "consolidating task by moulding from a liquid or plasticated state" ;
+  rdfs:label "moulding task" .
+:e7644983-408d-4884-9e5c-69803da18ce0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1966aac1-f922-4ef6-8d4c-5a2c3b772e44 ;
+  sso:id "CBE" ;
+  rdfs:comment "assembling task using interlock fastening" ;
+  rdfs:label "interlocking task" .
+:f49cab47-1633-4d79-b057-1c7829058626 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :778f9856-d291-4975-940c-e6974c8539e7 ;
+  sso:id "DAA" ;
+  rdfs:comment "disassembling task of threaded parts" ;
+  rdfs:label "untightening task" .
+:f7a31d43-d7b6-43cd-9bb6-b94c31fcfb25 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :068a489a-fb34-40c6-8938-da067b1d85ae ;
+  sso:id "DE" ;
+  rdfs:comment "separating task by electromagnetic means" ;
+  rdfs:label "electromagnetic separating task" .
+:ff3bf10f-9ffa-4299-86f4-68456548b161 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d893756a-bdfb-44a4-8aaa-3f46b28b4a27 ;
+  sso:id "FAA" ;
+  rdfs:comment "surface preparing task by mechanical removal" ;
+  rdfs:label "mechanical surface removal task" .

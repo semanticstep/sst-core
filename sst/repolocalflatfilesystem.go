@@ -38,6 +38,10 @@ func (r *localFlatFileSystemRepository) Bleve() bleve.Index {
 	return nil
 }
 
+func (r *localFlatFileSystemRepository) RebuildBleveIndex() error {
+	return ErrNotAvailable
+}
+
 func (r *localFlatFileSystemRepository) OpenStage(mode TriplexMode) Stage {
 	return &stage{
 		repo:                     r,
@@ -45,41 +49,6 @@ func (r *localFlatFileSystemRepository) OpenStage(mode TriplexMode) Stage {
 		referencedGraphs:         map[string]*namedGraph{},
 		assignedNamedGraphNumber: 1,
 	}
-}
-
-func (r *localFlatFileSystemRepository) DatasetIDs(ctx context.Context) ([]uuid.UUID, error) {
-	var datasetIDs []uuid.UUID
-
-	err := fs.WalkDir(r.fs, ".", func(path string, d fs.DirEntry, err error) error {
-		if err != nil {
-			return err
-		}
-
-		info, err := d.Info()
-		if err != nil {
-			return fmt.Errorf("failed to get file info for %s: %w", path, err)
-		}
-
-		if !info.IsDir() && filepath.Ext(info.Name()) == ".sst" {
-			filename := strings.TrimSuffix(info.Name(), ".sst")
-			// Decode base64URL-encoded filename to get base URL
-			baseURL, err := decodeBaseURL(filename)
-			if err != nil {
-				// Skip files that don't match the expected format
-				return nil
-			}
-			// Convert base URL to UUID (same as iriToUUID)
-			id := iriToUUID(IRI(baseURL + "#"))
-			datasetIDs = append(datasetIDs, id)
-		}
-		return nil
-	})
-
-	if err != nil {
-		return nil, err
-	}
-
-	return datasetIDs, nil
 }
 
 func (r *localFlatFileSystemRepository) Datasets(ctx context.Context) ([]IRI, error) {
@@ -106,7 +75,6 @@ func (r *localFlatFileSystemRepository) Datasets(ctx context.Context) ([]IRI, er
 		}
 		return nil
 	})
-
 	if err != nil {
 		return nil, err
 	}
@@ -179,6 +147,10 @@ func (r *localFlatFileSystemRepository) CommitDetails(ctx context.Context, hashe
 	return nil, fmt.Errorf("CommitDetails not supported in localFlatFileSystemRepository")
 }
 
+func (r *localFlatFileSystemRepository) CheckoutCommit(ctx context.Context, commitID Hash, mode TriplexMode) (Stage, error) {
+	return nil, wrapError(ErrNotSupported)
+}
+
 func (r *localFlatFileSystemRepository) Close() error {
 	return nil
 }
@@ -200,8 +172,12 @@ func (d *localFlatFileSystemDataset) IRI() IRI {
 	return IRI(fmt.Sprintf("urn:uuid:%s", d.id.String()))
 }
 
-func (d *localFlatFileSystemDataset) SetBranch(ctx context.Context, commit Hash, branch string) error {
+func (d *localFlatFileSystemDataset) SetBranchCommit(ctx context.Context, commit Hash, branch string) error {
 	return wrapError(fmt.Errorf("SetBranch not supported in localFlatFileSystemRepository"))
+}
+
+func (d *localFlatFileSystemDataset) SetBranchRevision(ctx context.Context, datasetRevision Hash, branch string) error {
+	return wrapError(fmt.Errorf("SetBranchRevision not supported in localFlatFileSystemRepository"))
 }
 
 func (d *localFlatFileSystemDataset) RemoveBranch(ctx context.Context, branch string) error {
@@ -303,6 +279,13 @@ func (d *localFlatFileSystemDataset) CommitDetailsByBranch(
 	branch string,
 ) (*CommitDetails, error) {
 	return nil, wrapError(fmt.Errorf("CommitDetailsByBranch not supported in localFlatFileSystemRepository"))
+}
+
+func (d *localFlatFileSystemDataset) CommitForRevision(
+	ctx context.Context,
+	datasetRevision Hash,
+) (Hash, error) {
+	return HashNil(), wrapError(fmt.Errorf("CommitForRevision not supported in localFlatFileSystemRepository"))
 }
 
 func (r *localFlatFileSystemRepository) commitNewVersion(ctx context.Context, stage *stage, message string, branch string) (Hash, []uuid.UUID, error) {

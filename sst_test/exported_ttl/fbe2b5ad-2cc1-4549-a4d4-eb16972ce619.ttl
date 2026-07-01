@@ -1,0 +1,2982 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:fbe2b5ad-2cc1-4549-a4d4-eb16972ce619#> .
+@prefix ns2: <urn:uuid:03431413-2c10-4be9-b144-30d4d91343c1#> .
+
+<urn:uuid:fbe2b5ad-2cc1-4549-a4d4-eb16972ce619> a owl:Ontology .
+:0023cedc-2daa-4820-9515-f7ff7738ba27 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d11ff699-a1be-46dc-897f-aa47bf6241c8 ;
+  sso:id "GMC" ;
+  rdfs:comment "discontinuous transport object lifting and moving objects vertically or horizontally" ;
+  rdfs:label "crane" .
+:002493ab-7c19-4fb6-8efa-a25bfc5f8e56 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :ac0e024f-c6fc-4784-aeb6-7f414891ee43 ;
+  sso:id "RBB" ;
+  rdfs:comment "electricity stabilising object suppressing a defined frequency range within the flow" ;
+  rdfs:label "power filter" .
+:002f638c-d894-40de-b4c0-016141b7e418 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULN" ;
+  rdfs:comment "structural supporting object in a plane or curved surface form withstanding tensile forces" ;
+  rdfs:label "shell" .
+:006caabf-65b1-4a6a-a835-efdd485b54f0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c8d1c56a-dc58-4188-a96b-55764c1012e9 ;
+  sso:id "RAC" ;
+  rdfs:comment "electric current restricting object by providing a resistance in a circuit" ;
+  rdfs:label "resistor" .
+:007dc49f-519b-4f56-aefd-b9260556203f a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "U" ;
+  rdfs:comment "object for localising of other objects" ;
+  rdfs:label "holding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  positioning" .
+:0102a023-2921-4f06-ae90-1379179da5a1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULE" ;
+  rdfs:comment "structural supporting object in a straight linear form withstanding bending moments" ;
+  rdfs:label "beam" .
+:0298af45-a5d2-48a7-9218-c5074a6df94a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0fc75f90-2cf4-4953-b273-8aa2d3206929 ;
+  sso:id "WDA" ;
+  rdfs:comment "low-voltage electric energy guiding object by a busbar" ;
+  rdfs:label "low-voltage busbar" .
+:030be295-91d6-4a17-af54-08cd19b0334c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2890a750-53f8-4b0c-9384-b5cab10c5fa9 ;
+  sso:id "RNB" ;
+  rdfs:comment "flow restrictor of gas by an adjustable means" ;
+  rdfs:label "regulating damper" .
+:03be2bf6-4a2c-4cbc-b41c-5bebb0ec5d52 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f9d1c2df-9bb8-405a-8f4a-4a33369f858b ;
+  sso:id "NA" ;
+  rdfs:comment "covering object by filling an opening" ;
+  rdfs:label "infilling object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  purpose by the  filling" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "gasket, gland, grating, grout,  pane, panel, sealing joint" .
+:0405de8d-c9f7-4a75-8cbb-e178eef03234 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :007dc49f-519b-4f56-aefd-b9260556203f ;
+  sso:id "UA" ;
+  rdfs:comment "holding object by fixing at a defined position" ;
+  rdfs:label "positioning object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of object  to be fixed" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "batten, bicycle stand, cable  access, cable entry, cable  gland, chuck, clamp, dog,  espalier, flange, insulator,  jaw, lathe chuck, lattice, light  fixture, luminaire, paper  holder, pipe gland, rail  clamp, rail fastener, rail  gauge, stake, stair stringer,  stringer, track gauge, vehicle  stand, vise" .
+:046df13c-0e23-4b8f-ab23-7efe631cae62 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :479bd436-d706-4545-8fd5-8df54359a96e ;
+  sso:id "WQC" ;
+  rdfs:comment "mechanical energy guiding object by a chain" ;
+  rdfs:label "drive chain" .
+:05284159-6522-43ce-b09c-4ecad80f8ec8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9d865012-18e8-41a7-968e-58e60f4a69c5 ;
+  sso:id "BYB" ;
+  rdfs:comment "Information sensing object by electromagnetic field" ;
+  rdfs:label "electromagnetic reader" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "magnetic stripe reader,  RFC reader, RFID  reader, tape reader" .
+:05dd4527-6884-4ca3-8fb4-8122300a0301 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULL" ;
+  rdfs:comment "structural support object in a standing plane or curved surface form withstanding bending moments" ;
+  rdfs:label "retaining wall plate" .
+:06dc06c6-b7aa-478f-add0-e13a66e8ecae a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0fc75f90-2cf4-4953-b273-8aa2d3206929 ;
+  sso:id "WDD" ;
+  rdfs:comment "low-voltage electric energy guiding object through an enclosure, wall or barrier" ;
+  rdfs:label "low-voltage bushing" .
+:06f0d1f9-a027-49b2-85bd-8e52f97ca650 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULK" ;
+  rdfs:comment "structural supporting object in laying a plane surface form withstanding bending moments" ;
+  rdfs:label "slab plate" .
+:07764694-0469-4e68-ad77-b5dce95bcae2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :103a0322-2622-4512-88ad-6c51c4130eee ;
+  sso:id "BXB" ;
+  rdfs:comment "audio-visual sensing object of sound, with Boolean output" ;
+  rdfs:label "acoustic detector" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "glass breakage detector" .
+:07b3d886-65f7-4c5c-ac67-b8ce900383ac a lci:ClassOfIndividual ;
+  rdfs:subClassOf :386db4c1-f03b-4c42-b331-a518920f0c0a ;
+  sso:id "EBG" ;
+  rdfs:comment "electric heating object delivered by infrared radiation" ;
+  rdfs:label "infared heater" .
+:07e7b587-83a1-4f40-a32a-556427a1043c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d7ae53b6-c2c7-4ea8-b368-11bc3b26c42a ;
+  sso:id "XDE" ;
+  rdfs:comment "low-voltage connecting object of multiple pluggable current-using equipment" ;
+  rdfs:label "power distributer" .
+:08c8c77e-e3db-4c16-8a5c-7736916afc5d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :69d6fac5-4aaf-4cd7-b0bb-5aed94b182fa ;
+  sso:id "BQD" ;
+  rdfs:comment "concentration sensing object of liquid, with Boolean output" ;
+  rdfs:label "liquid detector" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "concentration detection  switch, fog detector, visibility detector" .
+:08cd5ca6-810d-4f0c-9db8-62a05d54ed60 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :80dac517-6a2f-477d-b935-6c268cfc9cd2 ;
+  sso:id "HU" ;
+  rdfs:comment "matter processing object providing smaller forms of solid material" ;
+  rdfs:label "grinding and crushing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of sorting  method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "cutter, crusher, flour mill,  mill, stone crusher, waste  grinder, water mill" .
+:08d1c7b2-2994-4300-a7f7-59498a2ea140 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a680e4c9-18fd-4fa7-9a07-f823debf8dc2 ;
+  sso:id "GQB" ;
+  rdfs:comment "gaseous flow generating object by increasing the flow velocity through mechanical motion" ;
+  rdfs:label "mechanical fan" .
+:08db646c-25d4-403e-87a4-b0cc609438ab a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c32a29b1-1db8-4843-8ce2-90e90c4926b7 ;
+  sso:id "TBC" ;
+  rdfs:comment "electric energy converting object converting from AC to DC or DC to AC" ;
+  rdfs:label "bidirectional converter" .
+:0926fb8c-c45a-4cc7-be98-ef54e861e267 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :aebe131e-9bf6-4035-ad73-7cd8eb0f20a7 ;
+  sso:id "ETB" ;
+  rdfs:comment "nuclear powered heating object providing steam fluid" ;
+  rdfs:label "pressurized water reactor" .
+:093fe2c1-ad87-46de-be67-344a1a77f675 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9f32f7ad-f1bd-4166-8696-5b516f71d4f6 ;
+  sso:id "BRC" ;
+  rdfs:comment "radiation sensing object for non-visible electromagnetic waves, with scalar output" ;
+  rdfs:label "electromagnetic wave sensor" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "gamma-radiation  detector, IR-sensor, radar-sensor,  UV-sensor" .
+:094af88a-e95c-47df-bc5f-4865a54594f2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2bb35735-f080-4fb4-927f-216d90ac521a ;
+  sso:id "BWD" ;
+  rdfs:comment "force sensing object of force, with Boolean output" ;
+  rdfs:label "force detecting switch" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "force sensor" .
+:0a22c873-34dc-40e2-ac2e-a69398f84dcb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8fe5150f-32d3-46df-b902-56d5ae063afc ;
+  sso:id "QSB" ;
+  rdfs:comment "mechanical movement controlling object by switching between different tracks" ;
+  rdfs:label "track switch" .
+:0a415b9f-dc0b-4188-9d61-1109b957d8c9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :103a0322-2622-4512-88ad-6c51c4130eee ;
+  sso:id "BXE" ;
+  rdfs:comment "audio-visual sensing object of sound and visual appearance, with scalar output" ;
+  rdfs:label "video camera" .
+:0a87f907-e9e1-43ff-91cf-1d04d070ddb5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :75a99ce4-f8bf-44e1-a1ed-201c1242bafe ;
+  sso:id "SF" ;
+  rdfs:comment "human interaction object by eye focusing" ;
+  rdfs:label "face interaction object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "eye actuator for positioning  operations, eye focus reader" .
+:0b219e30-cf3e-4f2a-99fa-44f02a562948 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :24566cf9-34e0-420c-af70-55e318d21e0e ;
+  sso:id "XK" ;
+  rdfs:comment "interfacing object collecting for feeding into a flow" ;
+  rdfs:label "collecting interfacing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of object  collected" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "bidet, drip cup, floor drain,  funnel, sink, toilet, urinal, WC" .
+:0b58a485-46a2-4c76-95c5-6f48d0b75165 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BE" ;
+  rdfs:comment "sensing object for field" ;
+  rdfs:label "field sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "electric field detector, electric  field sensor, magnetic field  detector, magnetic field  sensor, reed relay, reed  switch" .
+:0b92d86a-5e42-4a7a-befd-9b07415c7f1c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :007dc49f-519b-4f56-aefd-b9260556203f ;
+  sso:id "UM" ;
+  rdfs:comment "holding object by reinforcement" ;
+  rdfs:label "reinforcing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "concrete injection, concrete  lining, concrete spurting,  diagonal bonding, dry deep  soil mixing, earth pressure  embankment, horizontal rail,  lime column, pavement  reinforcement, rebar cage,  rebar mesh, reinforcement  bar, reinforcing mass layer, reinforcing matter, reinforcing  mesh, reinforcing rod,  security strike plate,  soilcrete, soil vertical drain,  splice, splice plate,  stabilizing cable, stiffener" .
+:0bf5a4c6-025b-4de4-95c6-0e228fc35112 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :62c8a113-d6c6-418b-a233-68257e6308a2 ;
+  sso:id "BGE" ;
+  rdfs:comment "physical dimension sensing object of angle or direction, with scalar output" ;
+  rdfs:label "angle transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "alignment sensor, end  stop, position sensor,  position transmitter,  rotary encoder, wind  direction indicator" .
+:0c4d1d4c-7360-4b2a-8bd2-2e4ef3214512 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4faec3f6-d885-40a2-867d-1a7baa97fe26 ;
+  sso:id "RQB" ;
+  rdfs:comment "local climate stabilising object by stabilising a flow of liquids, moisture, wind or material" ;
+  rdfs:label "membrane" .
+:0c5699f8-393b-436c-806f-4c591245e45b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :25e7c804-f2b7-4c0e-82db-5cd08578717e ;
+  sso:id "KFE" ;
+  rdfs:comment "electric signal relaying object by forwarding the input to specific devices within a data network" ;
+  rdfs:label "electric network switch" .
+:0cc210d7-2592-44d2-be1a-684e94222c15 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :68f31399-158e-4214-8dfd-df29229b0ef2 ;
+  sso:id "PK" ;
+  rdfs:comment "presenting object in tactile form" ;
+  rdfs:label "tactile device" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "braille text sign, free height  warning, road grooves, tactile  marking, vibrator" .
+:0ce4f025-5d67-4b39-8d69-a89909e5b1c4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :479bd436-d706-4545-8fd5-8df54359a96e ;
+  sso:id "WQF" ;
+  rdfs:comment "mechanical energy guiding object by a toother bar" ;
+  rdfs:label "toothed bar" .
+:0d4129e8-3f94-4fe3-9414-72c99fc3970d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6c01ada8-6e3d-47d3-ba78-33dac3ffc259 ;
+  sso:id "RLC" ;
+  rdfs:comment "movement restricting object by reducing the speed of or stopping another object" ;
+  rdfs:label "brake" .
+:0e07e890-a3a4-4a16-b374-c13f64d368ce a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2df4d658-5f83-47eb-8ea2-7d02c1c269af ;
+  sso:id "RMB" ;
+  rdfs:comment "matter return flow restricting object of gas" ;
+  rdfs:label "check damper" .
+:0e1aa527-2b12-4b97-8d1c-8f2a0d60ae21 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cef78046-28be-45f8-b0ed-db69f425b3bc ;
+  sso:id "GR" ;
+  rdfs:comment "generating object of thermal energy from solar energy" ;
+  rdfs:label "solar to thermal energy generating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "flatbed solar panel, solar  panel, solar tower" .
+:0eac4299-d96b-40f9-a942-352fa1b45103 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4faec3f6-d885-40a2-867d-1a7baa97fe26 ;
+  sso:id "RQG" ;
+  rdfs:comment "local climate stabilising object by restricting transmission of light using an external panel" ;
+  rdfs:label "shutter" .
+:0eb588d1-c792-46d5-a3f8-7f5077ead362 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d11ff699-a1be-46dc-897f-aa47bf6241c8 ;
+  sso:id "GMB" ;
+  rdfs:comment "discontinuous transport object vertically" ;
+  rdfs:label "elevator" .
+:0f3d5927-93da-4133-b006-7dd6ee5d5fd3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :55b0b383-9f81-4bc6-b91a-737a85a075b1 ;
+  sso:id "EGA" ;
+  rdfs:comment "thermal energy transfer object utilizing phase changing" ;
+  rdfs:label "heat pump" .
+:0f7fc4d8-5148-406e-a9ff-f1f82058013d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3504e829-c3ff-4f1f-b245-13f8fdd20335 ;
+  sso:id "CQ" ;
+  rdfs:comment "storing object of mechanical energy" ;
+  rdfs:label "mechanical energy storing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  mechanical  energy" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "counterweight, elevated  mass, flywheel, rubber band,  spring" .
+:0fc75f90-2cf4-4953-b273-8aa2d3206929 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :533987dd-bf73-4357-8525-11016196129a ;
+  sso:id "WD" ;
+  rdfs:comment "guiding object of lowvoltage electric energy" ;
+  rdfs:label "low-voltage electric energy guiding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "control cable, data bus, data  cable, electric signal  bushing, signal cable" .
+:103a0322-2622-4512-88ad-6c51c4130eee a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BX" ;
+  rdfs:comment "sensing object of sound or visual appearance" ;
+  rdfs:label "audio-visual sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "alarm microphone, acoustic  detector, acoustic sensor,  acoustic survey device,  camera, CCTV, face  recognition device, fingerprint reader, glass breakage  detector, image sensor,  image detector, iris reader,  microphone, profile control, PTZ camera, scanner, video  camera" .
+:1076de51-e0f6-4435-bb88-1b538319267a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fb7fa3f0-d139-45c4-815b-656456687f5f ;
+  sso:id "WPB" ;
+  rdfs:comment "closed enclosure guiding object in a non-circular rigid form" ;
+  rdfs:label "duct" .
+:112ac7a9-9fd4-4322-9e87-7f62115854fa a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2df4d658-5f83-47eb-8ea2-7d02c1c269af ;
+  sso:id "RMD" ;
+  rdfs:comment "matter return flow restricting object of odour" ;
+  rdfs:label "stench trap" .
+:128effa6-9836-40b4-b085-403078e728d4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f9d1c2df-9bb8-405a-8f4a-4a33369f858b ;
+  sso:id "NE" ;
+  rdfs:comment "covering object by hiding joints and transitions" ;
+  rdfs:label "hiding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  and purpose" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "architrave, base shoe,  bushing, ceiling lining,  capper strip, cover strip,  eaves lead, flashing, reveal  liner, ridge flashing, roof  flashing, skirting board, wall  corner lining" .
+:13b6c4f2-03e4-429f-b5d1-c636d96a3100 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e9d29c86-5dcc-4ff0-a5e7-2c7a4ade4427 ;
+  sso:id "TAB" ;
+  rdfs:comment "electric energy transforming object from DC to DC" ;
+  rdfs:label "DC/DC converter" .
+:144b2879-5f6c-4d84-9ea9-6e9892a36a93 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d99e0253-ced0-4a88-ae61-9948c0b613a5 ;
+  sso:id "HMA" ;
+  rdfs:comment "force separating object of practicles by gravity" ;
+  rdfs:label "settling tank" .
+:14beda77-a4ed-4bea-9dbe-f021b8668333 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b97e1142-37fb-49cc-be29-9f548cb30eed ;
+  sso:id "EQA" ;
+  rdfs:comment "thermal cooling object delivered by a permeable cold surface" ;
+  rdfs:label "cooling surface" .
+:14f68789-a43d-4b85-9ac6-5f03781fcf93 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9490a77b-ceac-4f27-a785-0ab04a6dbf2c ;
+  sso:id "MBB" ;
+  rdfs:comment "electromagnetic linear driving object providing discrete steps" ;
+  rdfs:label "electromagnet" .
+:15acc76c-0896-472f-a6c7-5be6ed1de595 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9b6cdae-0bf5-48a0-afc6-95cb35c1a1a1 ;
+  sso:id "WMG" ;
+  rdfs:comment "open enclosure guiding object in a chamber" ;
+  rdfs:label "infiltration chamber" .
+:16b25588-73fc-4718-ba89-cf79f8a42ad7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULP" ;
+  rdfs:comment "structural support object in a curved surface form withstanding bending moments" ;
+  rdfs:label "continuous arch" .
+:16ccd73e-73a4-4282-9b2d-28f25d576866 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :007dc49f-519b-4f56-aefd-b9260556203f ;
+  sso:id "UC" ;
+  rdfs:comment "holding object by enclosing" ;
+  rdfs:label "enclosing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "cooker hood, cubicle,  electrical enclosure, electric  panel, outlet box, pattress  box. plant soil, hose reel  cubicle, safety cabinet,  safety chamber, sensor  housing, service chamber,  server rack, sub-rack" .
+:1821fb78-4de4-46c3-9120-efbb54192218 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fb7fa3f0-d139-45c4-815b-656456687f5f ;
+  sso:id "WPA" ;
+  rdfs:comment "closed enclosure guiding object in a circular rigid form" ;
+  rdfs:label "pipe" .
+:1855ac89-ae25-4fa9-8707-e61b2371a6ef a lci:ClassOfIndividual ;
+  rdfs:subClassOf :007dc49f-519b-4f56-aefd-b9260556203f ;
+  sso:id "UP" ;
+  rdfs:comment "holding object by jointing devices" ;
+  rdfs:label "jointing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Degree of  fredom" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "ball bearing, ball joint,  bearing, cement, chemical  joint, cylindrical joint,  expansion joint, hinge, planer  joint, prismatic joint, roller  bearing, screw joint, sliding  object, slot joint, sphere plant  joint, Stewart platform,  structural joint" .
+:1879d1b5-5b0b-4c86-adeb-ad3b1ab8b137 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bd70f1cf-9205-4645-b5b1-7bd0fef829a1 ;
+  sso:id "EAC" ;
+  rdfs:comment "light emitting object utilizing liquid combustion" ;
+  rdfs:label "liquid lamp" .
+:189a7381-e257-4086-a423-b6227482cebf a lci:ClassOfIndividual ;
+  rdfs:subClassOf :479bd436-d706-4545-8fd5-8df54359a96e ;
+  sso:id "WQE" ;
+  rdfs:comment "mechanical energy guiding object by a wheel" ;
+  rdfs:label "wheel" .
+:18cc1ca6-b265-4656-b70b-574809d645c7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :55b0b383-9f81-4bc6-b91a-737a85a075b1 ;
+  sso:id "EGC" ;
+  rdfs:comment "thermal energy transfer object between flows by means of an intermediate material" ;
+  rdfs:label "heat exchanger" .
+:1af3deb1-ab76-4518-b89a-97a8365a8298 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4faec3f6-d885-40a2-867d-1a7baa97fe26 ;
+  sso:id "RQH" ;
+  rdfs:comment "local climate stabilising object preventing weed growth" ;
+  rdfs:label "weed control fabric" .
+:1b06038a-4e3e-416d-887b-9352591afebd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULH" ;
+  rdfs:comment "structural supporting object in a curved linear form withstanding bending moments" ;
+  rdfs:label "arch" .
+:1b4a4131-c60a-4ca2-9b1e-21b2233d8ce6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3bc36aea-d28d-4ffd-bb67-049403b28e01 ;
+  sso:id "EUB" ;
+  rdfs:comment "particle emitting object being non-ionized" ;
+  rdfs:label "particle generator" .
+:1d7310f8-8a12-47b8-a4a2-2d3417064f08 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4b8011a0-2e11-4559-91a8-d4c33f20c97d ;
+  sso:id "BCB" ;
+  rdfs:comment "electric current sensing object, with Boolean output" ;
+  rdfs:label "current relay" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "electronic overload  relay, measuring current  relay, overload relay" .
+:1dccca37-7db9-4b17-b16c-46b6ba5f48d4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :adbdf931-c00b-43d6-828c-12ad7dcc2505 ;
+  sso:id "HQA" ;
+  rdfs:comment "mechanical separating object by removing substance from the surface of a liquid" ;
+  rdfs:label "skimmer" .
+:1e4112fb-0c33-4de6-b8c5-c208c0f9e5ce a lci:ClassOfIndividual ;
+  rdfs:subClassOf :85b77188-ff39-4f50-91ae-2a85607bbd8a ;
+  sso:id "EVB" ;
+  rdfs:comment "acoustic wave emitting object utilizing audible frequencies for noise cancellation" ;
+  rdfs:label "anti-noise loudspeaker" .
+:21793a82-4e42-4699-ab5b-105159cd58e7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a680e4c9-18fd-4fa7-9a07-f823debf8dc2 ;
+  sso:id "GQA" ;
+  rdfs:comment "gaseous flow generating object by forcing trapped gas to the discharge side" ;
+  rdfs:label "gas compressor" .
+:2181a3d8-a39f-499d-b629-5db94cf72275 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2f032a81-5caa-46b1-8643-b87a16ba9ef1 ;
+  sso:id "KE" ;
+  rdfs:comment "information processing object for processing electric signals" ;
+  rdfs:label "electric signal processing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  functionality" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "card writer, central  processing unit (CPU),  communication device,  compact disk writer,  computer, data network  gateway, distance protection  and control unit, Ethernet  card, firewall, Firewire card,  i/o-device, i/o-module, optical  disc writer, PC, personal  computer, programmable  logic controller (PLC), optical  disk writer, remote terminal  unit (RTU), remote  telecontrol unit (RTU), router,  security device,  synchronizing device,  synchronizing relay, tablet  computer, tape recorder,  USB card" .
+:22ad0308-26a8-4e4f-a0b7-73f38f99e3da a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e82c8b45-cfe0-418e-8f69-c4f7753b2214 ;
+  sso:id "QQA" ;
+  rdfs:comment "space access object for light entry only" ;
+  rdfs:label "window" .
+:2319bb09-699f-4c9c-bee3-83a1611ad9fd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d7ae53b6-c2c7-4ea8-b368-11bc3b26c42a ;
+  sso:id "XDC" ;
+  rdfs:comment "low-voltage connecting object for multiple fixed connections" ;
+  rdfs:label "terminal box" .
+:2343ef39-1c3f-467c-9fe5-e02c3895dbff a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6c01ada8-6e3d-47d3-ba78-33dac3ffc259 ;
+  sso:id "RLA" ;
+  rdfs:comment "movement restricting object by limiting movement of an object" ;
+  rdfs:label "security chain" .
+:24566cf9-34e0-420c-af70-55e318d21e0e a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "X" ;
+  rdfs:comment "object for interfacing an object" ;
+  rdfs:label "interfacing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of object  flowing and  kind of method" .
+:2459b9db-571b-4558-9f53-461c2b8e08b5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :24566cf9-34e0-420c-af70-55e318d21e0e ;
+  sso:id "XM" ;
+  rdfs:comment "interfacing object for sealed material flow" ;
+  rdfs:label "sealed flow connecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "fire hose coupler, glue fitting,  hose coupler, hose fitting,  hose flange, inspection  chamber, pipe coupler, pipe  fitting, pipe flange, press  fitting, solder fitting, tube  expansion joint, tube fitting,  tube flange, water distributor" .
+:251a455d-ee71-4ba3-89c3-a4dd51d61f41 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e82c8b45-cfe0-418e-8f69-c4f7753b2214 ;
+  sso:id "QQF" ;
+  rdfs:comment "space access object partially" ;
+  rdfs:label "gate" .
+:259c4c73-2d6d-4612-9fc1-bd38e351abe5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a0336c95-1a2b-4aa1-8ba7-3484df51c632 ;
+  sso:id "CPD" ;
+  rdfs:comment "thermal energy storing object of state changing material" ;
+  rdfs:label "crystalline tank" .
+:25e7c804-f2b7-4c0e-82db-5cd08578717e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2f032a81-5caa-46b1-8643-b87a16ba9ef1 ;
+  sso:id "KF" ;
+  rdfs:comment "information processing object for relaying electric signals" ;
+  rdfs:label "electric signal relaying object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  functionality" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "coupler, electric network  bridge, electrical network  switch, repeater, relay, time  relay" .
+:26e216e7-8c95-42c5-8a7b-263c8e20574a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :ea84c92d-0bbc-46d8-8d6a-7311108801a9 ;
+  sso:id "QRA" ;
+  rdfs:comment "solid substance flow varying object with rotating chambers" ;
+  rdfs:label "rotary air lock valve" .
+:270dcc65-5aa7-4ef2-81f8-842939cbe2a9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2df4d658-5f83-47eb-8ea2-7d02c1c269af ;
+  sso:id "RMA" ;
+  rdfs:comment "matter return flow restricting object of liquids" ;
+  rdfs:label "non-return valve" .
+:28726ea9-e221-4ab9-bfa8-24bef2fc9cad a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2890a750-53f8-4b0c-9384-b5cab10c5fa9 ;
+  sso:id "RNC" ;
+  rdfs:comment "flow restrictor of solid substances by an adjustable means" ;
+  rdfs:label "solids regulating valve" .
+:2890a750-53f8-4b0c-9384-b5cab10c5fa9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a445e55a-0cf2-4c43-9546-315e55d26b67 ;
+  sso:id "RN" ;
+  rdfs:comment "restricting object by restricting a guided flow of matter" ;
+  rdfs:label "flow restrictor" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of flow  and method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "adjustable nozzle, air intake,  air outlet, diffuser, draw-off  tap, exhaust air damper, fixed nozzle, jet stator, orifice  plate, pump stator, regulating  damper, regulation valve,  shower, shower head, solids  regulating valve, transmitted  air damper, ventilation inlet,  ventilation outlet, venturi  nozzle" .
+:290aaf27-fe9a-4547-9bac-8ce9045e24f7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :460bc0f1-7c77-4f20-83f7-86e38b2d882e ;
+  sso:id "BBD" ;
+  rdfs:comment "resistivity sensing object for thermal flow, with Boolean output" ;
+  rdfs:label "thermal resistivity detector" .
+:290deb3d-2ab1-403b-a2d6-a4b69b853dc5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :007dc49f-519b-4f56-aefd-b9260556203f ;
+  sso:id "UT" ;
+  rdfs:comment "holding object by levelling" ;
+  rdfs:label "levelling object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "excavation, filling, patterned  ground" .
+:2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :007dc49f-519b-4f56-aefd-b9260556203f ;
+  sso:id "UL" ;
+  rdfs:comment "holding object by forming a structural support" ;
+  rdfs:label "structural supporting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of form  and function" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "abutment, aggregate base,  arch, baluster, base grade,  base course, base layer,  beam, bearing plate, bilge  plate, binding layer, block,  brick, bridge deck, bridge  pylon, building foundation,  buttress, cantilever wall,  column, compression  member, concrete deck,  concrete element, console,  corbel, counterfort, deck,  dome, earth anchor, facing  wall, floor slab, footing,  foundation beam, foundation  block, foundation column,  foundation slab, foundation  wall, gravity wall, ground  anchor, hole deck, hull plate,  lamina, load-bearing wall,  machine foundation, pile,  pillar, pipe bridge, pipe  tunnel, plate, plinth, pressure  distribution, retaining wall  plate, rock bolt, rope, sheet  piling, slab, slab plate, stone,  stressed skin panel, strut,  support wedge, tension  brace, tie, vault, wall, wall  plate" .
+:2b3af4f4-c9bd-49c6-97f5-c4f7fdfc788b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8baf631a-13da-49e7-9716-f3e4edfde155 ;
+  sso:id "EM" ;
+  rdfs:comment "emitting object of heat provided by combustion" ;
+  rdfs:label "combustion heating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of object  heated" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "burner, combustion boiler,  flare, steam generator, stove" .
+:2bb35735-f080-4fb4-927f-216d90ac521a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BW" ;
+  rdfs:comment "sensing object for weight, force or torque" ;
+  rdfs:label "force sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of object  sensed and  kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "force detecting switch, force  sensor, force value  transmitter, load cell, torque  sensor, torque switch, torque  value transmitter, weight  detecting switch, weight  sensor, weight transmitter" .
+:2bb43392-b7c0-43aa-ad68-8b586755d83f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9b6cdae-0bf5-48a0-afc6-95cb35c1a1a1 ;
+  sso:id "WMA" ;
+  rdfs:comment "open enclosure guiding object in a layer" ;
+  rdfs:label "drainage layer" .
+:2c8da028-989c-4c1d-83eb-a975abb27b25 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :24566cf9-34e0-420c-af70-55e318d21e0e ;
+  sso:id "XZ" ;
+  rdfs:comment "interfacing object with multiple kinds of flows" ;
+  rdfs:label "multiple flow connector object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "multi connector" .
+:2cf6c7f7-31b7-4f2d-b331-c240e71f2c9a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cef78046-28be-45f8-b0ed-db69f425b3bc ;
+  sso:id "GB" ;
+  rdfs:comment "generating object of electric energy powered by chemical reaction" ;
+  rdfs:label "chemical to electrical energy generating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of source  method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "battery, electric battery, fuel  cell" .
+:2d65b018-eba5-44b9-83d7-bfd892feeccb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d4ef5373-0886-4e78-904e-d7e0b51517d9 ;
+  sso:id "HKA" ;
+  rdfs:comment "surface treatment object by preparation" ;
+  rdfs:label "surface preparation machine" .
+:2dbac3c6-0187-46b2-b167-186b9a1483c6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :40d64d63-d5fd-4b16-9b2f-79c29e0abd88 ;
+  sso:id "RUF" ;
+  rdfs:comment "access restricting object by a mesh" ;
+  rdfs:label "bird mesh" .
+:2df4d658-5f83-47eb-8ea2-7d02c1c269af a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a445e55a-0cf2-4c43-9546-315e55d26b67 ;
+  sso:id "RM" ;
+  rdfs:comment "restricting object by restricting a return flow of matter" ;
+  rdfs:label "matter return flow restricting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  possible return  flow" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "check damper, flap, nonreturn valve, odour trap,  smell trap, stench trap" .
+:2dff8859-0870-4c95-8ae2-1f0d01e0eba7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :eaec55c0-fa41-4660-a520-2ec8660bb85f ;
+  sso:id "BPD" ;
+  rdfs:comment "pressure sensing object utilizing two ports for differential pressure sensing, with Boolean output" ;
+  rdfs:label "differential pressure switch" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "pressure sensor,  pressure switch, relative  pressure detector, relative pressure switch" .
+:2e25fc43-8535-45dd-9800-835b5c161de3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a1533756-d1ed-480a-948c-f13ec20d9d85 ;
+  sso:id "BLA" ;
+  rdfs:comment "level sensing object, with scalar output" ;
+  rdfs:label "level transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "level sensor, liquid level  sensor" .
+:2f032a81-5caa-46b1-8643-b87a16ba9ef1 a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "K" ;
+  rdfs:comment "object for treating input signals and providing an appropriate output" ;
+  rdfs:label "information processing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of signal" .
+:2fefb016-a0db-45c5-9050-4209c6a7d2a6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cd0e27f1-b62f-499e-ae59-4bcca7678509 ;
+  sso:id "TC" ;
+  rdfs:comment "transforming object of electric energy from AC and DC to AC or DC" ;
+  rdfs:label "universal power supply" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of supply  output" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "power supply, universal AC  power supply, universal DC  power supply" .
+:30982a49-3f86-465d-83e0-fff2b6a0834e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0b58a485-46a2-4c76-95c5-6f48d0b75165 ;
+  sso:id "BEA" ;
+  rdfs:comment "field sensing object for electric field, with scalar output" ;
+  rdfs:label "electric field sensor" .
+:3116b961-5fc9-44e9-bc9a-295000a6ffb4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :65aa771e-3781-4461-b040-7587f089d5d4 ;
+  sso:id "BZB" ;
+  rdfs:comment "incident sensing object detecting an incident, with Boolean output" ;
+  rdfs:label "threshold detector" .
+:31c6a12a-0c3b-46e5-8bbf-15a3dc205a0f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :62c8a113-d6c6-418b-a233-68257e6308a2 ;
+  sso:id "BGA" ;
+  rdfs:comment "physical dimension sensing object of position, with scalar output" ;
+  rdfs:label "position transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "position sensor,  presence locator, radar,  wind direction sensor" .
+:32992783-7ac6-481f-8d7d-73bac93a5147 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8433352d-676d-4971-949e-b4c15594740a ;
+  sso:id "QNA" ;
+  rdfs:comment "sealed fluid varying object of a liquid flow" ;
+  rdfs:label "liquid control valve" .
+:346ef17d-6dba-4964-8f60-d10299ad96b3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0b58a485-46a2-4c76-95c5-6f48d0b75165 ;
+  sso:id "BEB" ;
+  rdfs:comment "field sensing object for electric field, with Boolean output" ;
+  rdfs:label "electric field detector" .
+:34dfdde4-c8c6-44d1-9c42-17dc176258b2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f9d1c2df-9bb8-405a-8f4a-4a33369f858b ;
+  sso:id "NB" ;
+  rdfs:comment "covering object by closing an opening" ;
+  rdfs:label "closure object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of object  to close" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "blind gasket, cabinet door,  cubicle door, cupboard door,  door leaf, faceplate, fuel  door, leaf, hatch cover,  housing cover, inspection  hatch, leaf of large door,  plug, valve disc, window sash" .
+:3504e829-c3ff-4f1f-b245-13f8fdd20335 a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "C" ;
+  rdfs:comment "object for storing for subsequent retrieval" ;
+  rdfs:label "storing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of object  being stored  and the  method  applied" .
+:36489be9-1385-422f-ad87-34b3c4e1cc54 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3deaf298-8633-4dc8-b3c9-2dbf4404f141 ;
+  sso:id "FCB" ;
+  rdfs:comment "overcurrent protecting object capable of making, carrying and breaking currents under normal circuit conditions and also making, carrying for a specified time, and automatically breaking currents under specified abnormal circuit conditions Note This class is intended for circuit-breakers such as those defined in accordance with IEC 60898 series" ;
+  rdfs:label "miniature circuit-breaker" .
+:365bd67e-dc55-4999-9cef-a88a14155b8e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :16ccd73e-73a4-4282-9b2d-28f25d576866 ;
+  sso:id "UCA" ;
+  rdfs:comment "enclosing object for devices" ;
+  rdfs:label "cubicle" .
+:369cc88f-dc61-4a04-abb7-9455d12ae616 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dd366d49-6c06-49ed-9a36-aeacf01cc972 ;
+  sso:id "BHC" ;
+  rdfs:comment "energy sensing object of electricity flow" ;
+  rdfs:label "electric energy meter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "kWh sensor" .
+:386db4c1-f03b-4c42-b331-a518920f0c0a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8baf631a-13da-49e7-9716-f3e4edfde155 ;
+  sso:id "EB" ;
+  rdfs:comment "emitting object of heat provided by electric energy" ;
+  rdfs:label "electric heating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  delivery  method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "arc heating object, electric  arc furnace, electric boiler,  electric heater, electric  heating surface, electric hot  air blower, electric oven,  frying plate, heating cable, heat mat, induction heater,  induction oven, infrared  heater, sauna" .
+:38a78dd2-5fa2-45bf-a9c4-5b3186ea30ec a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6df5aa65-dbf9-4fac-a25f-d0052ffcd0c5 ;
+  sso:id "BSH" ;
+  rdfs:comment "time-rating object of speed, with Boolean output" ;
+  rdfs:label "accelerometer relay" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "seismic switch, shake  switch" .
+:38bb5843-8af4-45b7-946a-17d73c83e481 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dc0378cd-84ce-470c-93b6-db8af0b5a19e ;
+  sso:id "GPD" ;
+  rdfs:comment "liquid flow generating object by converting potential energy to kinetic energy by gravity" ;
+  rdfs:label "lubricator" .
+:38c1cf2a-b930-4256-b701-9a18bffc4062 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :40d64d63-d5fd-4b16-9b2f-79c29e0abd88 ;
+  sso:id "RUA" ;
+  rdfs:comment "access restricting object by a horizontal elongated barrier with a vertical extent" ;
+  rdfs:label "fence" .
+:3942c8db-5018-493b-9aee-3734130d22fe a lci:ClassOfIndividual ;
+  rdfs:subClassOf :960b630c-cf76-465e-89f6-48d3db0af12e ;
+  sso:id "SGF" ;
+  rdfs:comment "hand interaction device to turn a matching locking cylinder or locking mechanism" ;
+  rdfs:label "key" .
+:3a4ad7ed-77cc-48fd-9e54-0835fad32039 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6c45586a-8978-4433-8516-94495c220e4b ;
+  sso:id "ECA" ;
+  rdfs:comment "electric cooling object applying a cooling surface" ;
+  rdfs:label "electric cooling surface" .
+:3a4bae9c-b605-4a8f-aefd-31d4ca8bf045 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BT" ;
+  rdfs:comment "sensing object for temperature" ;
+  rdfs:label "temperature sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "temperature detector,  temperature sensor, temperature switch,  temperature transmitter" .
+:3a8d547b-e4e0-4a0c-8318-1b77c5da64d4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :386db4c1-f03b-4c42-b331-a518920f0c0a ;
+  sso:id "EBD" ;
+  rdfs:comment "electric heating obiect delivered by forced air" ;
+  rdfs:label "electric hot air blower" .
+:3b33a26c-81d5-4676-b009-bc12a888c2ec a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4faec3f6-d885-40a2-867d-1a7baa97fe26 ;
+  sso:id "RQD" ;
+  rdfs:comment "local climate stabilising object by restricting wind, precipitation or radiation" ;
+  rdfs:label "screen" .
+:3b7a3a6f-9a37-4850-aaac-0328f58b48b9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c8d81521-5a9a-43c9-b809-267a840acf25 ;
+  sso:id "QMB" ;
+  rdfs:comment "sealed fluid switching object of a gas flow" ;
+  rdfs:label "gas shutoff valve" .
+:3bc36aea-d28d-4ffd-bb67-049403b28e01 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8baf631a-13da-49e7-9716-f3e4edfde155 ;
+  sso:id "EU" ;
+  rdfs:comment "emitting object of subatomic particles" ;
+  rdfs:label "particle emitting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "alpha-ray device, beta-ray  device, neutron-ray device,  particle generator, plasma  generator" .
+:3bef89a2-beee-4e1f-b2d7-7745940e9e06 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cd0e27f1-b62f-499e-ae59-4bcca7678509 ;
+  sso:id "TF" ;
+  rdfs:comment "transforming object of signal while maintaining or changing its form" ;
+  rdfs:label "signal converting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  conversion" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "aerial, amplifier, antenna,  cell phone, inductive signal  antenna, IR diode, IR sender,  mobile phone, optical  receiver/transmitter,  optocoupler, oscillator,  phone, RF signal antenna,  signal antenna, signal  converter, telephone,  transducer" .
+:3c234d31-529b-4990-9a9d-5dce3d2b4055 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :24566cf9-34e0-420c-af70-55e318d21e0e ;
+  sso:id "XH" ;
+  rdfs:comment "interfacing object of optical fibres" ;
+  rdfs:label "light connecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "fibre box, fixed light fibre  socket, optical plug, optical  socket" .
+:3d30e1aa-0630-4ec1-a5c2-6b8f67189a09 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a0336c95-1a2b-4aa1-8ba7-3484df51c632 ;
+  sso:id "CPC" ;
+  rdfs:comment "thermal energy storing object of solid matter" ;
+  rdfs:label "thermal matter tank" .
+:3deaf298-8633-4dc8-b3c9-2dbf4404f141 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :efb7c1df-88f3-4ede-8508-29557bc0248b ;
+  sso:id "FC" ;
+  rdfs:comment "protecting object related to overcurrents" ;
+  rdfs:label "overcurrent protecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "bimetal, bimetal circuit, fuse,  miniature circuit-breaker,  overload thermal release,  thermal overload relay" .
+:3e6bc78e-2fcd-43a3-afe3-d500e54792aa a lci:ClassOfIndividual ;
+  rdfs:subClassOf :ac0e024f-c6fc-4784-aeb6-7f414891ee43 ;
+  sso:id "RBC" ;
+  rdfs:comment "electricity stabilising object providing reactive power" ;
+  rdfs:label "phase compensator" .
+:3e6d7afc-50f9-4482-97bd-affade118303 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :65aa771e-3781-4461-b040-7587f089d5d4 ;
+  sso:id "BZC" ;
+  rdfs:comment "incident sensing object detecting the presence of humans, with Boolean output" ;
+  rdfs:label "person detector" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "presence detector" .
+:3f4e9274-fb5c-4ac2-a60c-88fb3ce2cdb9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d5a08442-6f2b-4115-a4f8-167323ed8d34 ;
+  sso:id "EEC" ;
+  rdfs:comment "wireless power object utilizing x-rays" ;
+  rdfs:label "X-ray source" .
+:3f6275f6-9254-4f73-970c-62ba97ce428c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3504e829-c3ff-4f1f-b245-13f8fdd20335 ;
+  sso:id "CM" ;
+  rdfs:comment "storing object for matters within a stationary closed enclosure" ;
+  rdfs:label "enclosed stationary storing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of matters  stored" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "cabinet, cupboard, tank, silo,  stationary tank, " .
+:3f876346-cdbe-473f-8794-4d635fd8bd3f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :103a0322-2622-4512-88ad-6c51c4130eee ;
+  sso:id "BXA" ;
+  rdfs:comment "audio-visual sensing object of sound, with scalar output" ;
+  rdfs:label "acoustic sensor" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "acoustic survey device,  microphone" .
+:3fc10d11-debb-4647-a23a-027e1356d69e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2f032a81-5caa-46b1-8643-b87a16ba9ef1 ;
+  sso:id "KJ" ;
+  rdfs:comment "information processing object of mechanical signals" ;
+  rdfs:label "mechanical signalling object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "locking cylinder, key coded  device, mechanical regulator" .
+:405f450a-e087-42ca-b40c-200c438cacb9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :960b630c-cf76-465e-89f6-48d3db0af12e ;
+  sso:id "SGC" ;
+  rdfs:comment "hand interaction device by pushing" ;
+  rdfs:label "push handle" .
+:40b05807-2664-4775-820e-22a005495af8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :479bd436-d706-4545-8fd5-8df54359a96e ;
+  sso:id "WQA" ;
+  rdfs:comment "mechanical energy guiding object by a shaft" ;
+  rdfs:label "drive axle" .
+:40d64d63-d5fd-4b16-9b2f-79c29e0abd88 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a445e55a-0cf2-4c43-9546-315e55d26b67 ;
+  sso:id "RU" ;
+  rdfs:comment "restricting object by restricting access to an area" ;
+  rdfs:label "access restricting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "bar, bird mesh, bird spikes,  bollard, entrance  management gate machine,  fence, gate machine, guide  barrier, one-way door, rodent  barrier, rat stop device,  restricting shape, stock  guard, ticket gate" .
+:41f7cde3-db94-4349-b7b7-6876a6a6344c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :84d27ce0-9d96-49cc-b968-91cc02f89556 ;
+  sso:id "RFA" ;
+  rdfs:comment "signal stabilising object suppressing or amplifying multiple frequency ranges of the signal" ;
+  rdfs:label "signal equaliser" .
+:42f715b8-8c84-4e5e-bc72-3efffbf63570 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :efb7c1df-88f3-4ede-8508-29557bc0248b ;
+  sso:id "FB" ;
+  rdfs:comment "protecting object related to earth fault currents" ;
+  rdfs:label "earth fault current protecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "appliance leakage current  interrupter (ALCI), earth fault  leakage breaker, earthleakage circuit-breaker  (ELCB), ground fault circuit  interrupter (GFCI), ground  fault interrupter (GFI), neutral  earthing impedance, neutral  earthing limiter, neutral  earthing reactor, Petersen  coil, residual current circuit  breaker (RCCB), residual  current device" .
+:443d2006-9cdd-4233-a164-9d7a44fd08e4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c5e545e3-0645-454c-ac66-4b319f8a8da9 ;
+  sso:id "BFA" ;
+  rdfs:comment "flow sensing object, with scalar output" ;
+  rdfs:label "flow transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "flow sensor, gas flow  sensor, liquid flow  sensor, matter flow  sensor, water flow  sensor" .
+:451d5232-0ede-46bb-9ff3-7984f80f4899 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULB" ;
+  rdfs:comment "structural supporting object in form of a projection supporting an overlying structure" ;
+  rdfs:label "console" .
+:460bc0f1-7c77-4f20-83f7-86e38b2d882e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BB" ;
+  rdfs:comment "sensing object for resistivity or conductivity" ;
+  rdfs:label "resistivity sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of flow  and output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "electric resistivity detector,  electric resistivity sensor,  thermal resistivity detector,  thermal resistivity detector" .
+:4649d6da-6b71-412a-9295-23675ca54ccb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9b6cdae-0bf5-48a0-afc6-95cb35c1a1a1 ;
+  sso:id "WME" ;
+  rdfs:comment "open enclosure guiding object for liquid by liquid-draining profile" ;
+  rdfs:label "gutter drip" .
+:4750a7af-ef0e-4560-be2c-6bf94e43a1a1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c8d1c56a-dc58-4188-a96b-55764c1012e9 ;
+  sso:id "RAB" ;
+  rdfs:comment "electric current restricting object by providing an inductance in a circuit" ;
+  rdfs:label "reactor" .
+:478acc19-4153-4ede-8729-c6e4aa8449ab a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3f6275f6-9254-4f73-970c-62ba97ce428c ;
+  sso:id "CMA" ;
+  rdfs:comment "enclosed stationary storing object for fluids" ;
+  rdfs:label "tank" .
+:479bd436-d706-4545-8fd5-8df54359a96e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :533987dd-bf73-4357-8525-11016196129a ;
+  sso:id "WQ" ;
+  rdfs:comment "guiding object of mechanical energy" ;
+  rdfs:label "mechanical energy guiding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "axle, chain, cogwheel, drive  axle, drive belt, drive chain,  drive link, gearwheel,  hydraulic hose, hydraulic  pipe, moving line, pneumatic  hose, pneumatic pipe,  toothed bar, v-belt, wheel,  wire, worm screw" .
+:48f1654e-6c0c-4f0a-a54e-372648207d7b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3deaf298-8633-4dc8-b3c9-2dbf4404f141 ;
+  sso:id "FCC" ;
+  rdfs:comment "overcurrent protecting obiect that opens the circuit in which it is inserted by interrupting the current when this exceeds a given value for a sufficient time" ;
+  rdfs:label "bimetal" .
+:49bf10d7-b633-4809-8035-851daa679b45 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2181a3d8-a39f-499d-b629-5db94cf72275 ;
+  sso:id "KEB" ;
+  rdfs:comment "electric signal processing object without human intervention for control of devices" ;
+  rdfs:label "control unit" .
+:49c159c3-683a-4544-b2bf-20c1c73dd2c9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :80dac517-6a2f-477d-b935-6c268cfc9cd2 ;
+  sso:id "HX" ;
+  rdfs:comment "matter processing object providing new material by chemical or biological reaction" ;
+  rdfs:label "reacting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "catalyst, chemical reactor,  fermenter, gasifier" .
+:4acb5950-4793-4dbe-a08a-ac3a9c4a2f51 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a445e55a-0cf2-4c43-9546-315e55d26b67 ;
+  sso:id "RP" ;
+  rdfs:comment "restricting object by restricting a level limit" ;
+  rdfs:label "level restricting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "variable  threshold" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "overflow system, static level  restricting object, variable  level restricting object,  variable threshold" .
+:4b0878d5-457f-45c6-a159-329ec44023cd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :533987dd-bf73-4357-8525-11016196129a ;
+  sso:id "WZ" ;
+  rdfs:comment "guiding object with multiple kinds of flows" ;
+  rdfs:label "multiple flow guiding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "combined drainage pipe,  umbilical, umbilical cable" .
+:4b8011a0-2e11-4559-91a8-d4c33f20c97d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BC" ;
+  rdfs:comment "sensing object for electric current" ;
+  rdfs:label "electric current sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of output signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "electronic overload relay,  measuring current relay,  measuring current  transformer, overload relay" .
+:4b979b5e-fc05-479c-933e-297018a69ff4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :533987dd-bf73-4357-8525-11016196129a ;
+  sso:id "WG" ;
+  rdfs:comment "guiding object for electric signals" ;
+  rdfs:label "electric signal guiding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  purpose" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "control cable, data bus, data  cable, electric signal  bushing, signal cable" .
+:4bb19b0e-6ca1-4d83-b0fb-f876a6762ca4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :69f27c17-8a9e-4e14-80b7-f05352639b19 ;
+  sso:id "BDB" ;
+  rdfs:comment "density sensing object, with Boolean output" ;
+  rdfs:label "density switch" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "density sensor" .
+:4cb42641-2fd8-4beb-9593-7db319d6d250 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :40d64d63-d5fd-4b16-9b2f-79c29e0abd88 ;
+  sso:id "RUB" ;
+  rdfs:comment "access restriction object by a movable horizontal barrier" ;
+  rdfs:label "movable barrier" .
+:4eb94d4f-fbaa-46e8-a965-8a4e38105988 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :533987dd-bf73-4357-8525-11016196129a ;
+  sso:id "WJ" ;
+  rdfs:comment "guiding object for sound" ;
+  rdfs:label "sound guiding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "sound reflector" .
+:4f246ddf-e1bd-4025-a74c-92622d446a47 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0fc75f90-2cf4-4953-b273-8aa2d3206929 ;
+  sso:id "WDC" ;
+  rdfs:comment "low-voltage electric energy guiding object by a wire" ;
+  rdfs:label "low-voltage wire" .
+:4f61b584-64fc-433e-a359-cf8b4b98ac4a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6df5aa65-dbf9-4fac-a25f-d0052ffcd0c5 ;
+  sso:id "BSA" ;
+  rdfs:comment "time-rating object of nonrotational cycles, with scalar output" ;
+  rdfs:label "cycle rate transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "cycle rate sensor,  frequency transmitter" .
+:4f6770a3-2d7a-4cb0-8c94-756edd1810a0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dc0378cd-84ce-470c-93b6-db8af0b5a19e ;
+  sso:id "GPB" ;
+  rdfs:comment "liquid flow generating object by increasing the flow velocity through mechanical motion" ;
+  rdfs:label "liquid velocity pupmp" .
+:4fa0a006-0e33-4567-8196-735a3b716c45 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6c45586a-8978-4433-8516-94495c220e4b ;
+  sso:id "ECB" ;
+  rdfs:comment "electric cooling object applying forced air" ;
+  rdfs:label "electric cold air blower" .
+:4faec3f6-d885-40a2-867d-1a7baa97fe26 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a445e55a-0cf2-4c43-9546-315e55d26b67 ;
+  sso:id "RQ" ;
+  rdfs:comment "restricting object of the local environment" ;
+  rdfs:label "local climate stabilising object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of effect  and method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "absorbent, acoustic screen,  airborne-sound insulation,  brick lining, climate  membrane, curtain, impactnoise insulation, insulation,  duct insulation, geofabric,  geotextile, louvered blind,  material-separating fabric,  material-separating layer,  membrane, noise barrier,  noise protection, pipe  insulation, screen, screen  wall, shutter, silencer, sound  absorber, sound attenuator,  sound baffle, sound  insulation, weed control  fabric, wind protection board" .
+:50c0790b-5a60-4c2c-b2b0-bc135cbb53be a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e9d29c86-5dcc-4ff0-a5e7-2c7a4ade4427 ;
+  sso:id "TAD" ;
+  rdfs:comment "electric energy transforming object from AC to AC while shifting the angle between voltages and currents" ;
+  rdfs:label "phase shifter" .
+:51799fa8-a968-46cf-94df-4b62326ac42c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c8d81521-5a9a-43c9-b809-267a840acf25 ;
+  sso:id "QMA" ;
+  rdfs:comment "sealed fluid switching object of a liquid flow" ;
+  rdfs:label "liquid shutoff valve" .
+:51d31fc5-a2d8-40ad-b5e8-4584372cbc8f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9d865012-18e8-41a7-968e-58e60f4a69c5 ;
+  sso:id "BYA" ;
+  rdfs:comment "Information sensing object by electrical connection" ;
+  rdfs:label "chip reader" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "chip card reader" .
+:522e2b9b-5862-4353-a654-7f20ea701d2d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :65aa771e-3781-4461-b040-7587f089d5d4 ;
+  sso:id "BZD" ;
+  rdfs:comment "incident sensing object detecting the presence of matters, with Boolean output" ;
+  rdfs:label "matter detector" .
+:52f4a11a-55cd-48df-a90e-fcc4a4ee40da a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d5a08442-6f2b-4115-a4f8-167323ed8d34 ;
+  sso:id "EED" ;
+  rdfs:comment "wireless power object utilizing gamma rays" ;
+  rdfs:label "gamma ray source" .
+:533987dd-bf73-4357-8525-11016196129a a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "W" ;
+  rdfs:comment "object for leading from one place to another" ;
+  rdfs:label "guiding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of flow  and kind of  technology" .
+:5347b2b7-26e3-4e41-823c-54361b6a48b4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :77b321a0-bfd7-4e27-b4a2-1313c947eda2 ;
+  sso:id "BMA" ;
+  rdfs:comment "humidity sensing object with scalar output" ;
+  rdfs:label "humidity transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "humidity sensor" .
+:539d8380-39ba-4a95-918c-f534336625e6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cd0e27f1-b62f-499e-ae59-4bcca7678509 ;
+  sso:id "TR" ;
+  rdfs:comment "transforming object of radiation by photosynthesis" ;
+  rdfs:label "organic plant" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  woodiness" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "bush, climber, flower, grass,  herb, shrub, tree, vegetable  plant" .
+:53c3ec34-fa01-4046-b24e-60203379df9c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d7ae53b6-c2c7-4ea8-b368-11bc3b26c42a ;
+  sso:id "XDB" ;
+  rdfs:comment "low-voltage connecting object for pluggable connections" ;
+  rdfs:label "low-voltage power socket" .
+:54b19bbc-51f3-4325-bef9-4d4fd9fc9519 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d4ef5373-0886-4e78-904e-d7e0b51517d9 ;
+  sso:id "HKB" ;
+  rdfs:comment "surface treatment object by modification" ;
+  rdfs:label "surface modification machine" .
+:54dcdb2d-1963-43b4-a103-7cd935cab95d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :68f31399-158e-4214-8dfd-df29229b0ef2 ;
+  sso:id "PZ" ;
+  rdfs:comment "presenting object in multiple forms" ;
+  rdfs:label "multiple form presenting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "audio-visual alarm,  interactive terminal,  television set" .
+:55202081-8063-43a2-b2ab-10bf39c2f408 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d99e0253-ced0-4a88-ae61-9948c0b613a5 ;
+  sso:id "HMB" ;
+  rdfs:comment "force separating object of substances by rotation in a routing chamber" ;
+  rdfs:label "centrifuge" .
+:55b0b383-9f81-4bc6-b91a-737a85a075b1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8baf631a-13da-49e7-9716-f3e4edfde155 ;
+  sso:id "EG" ;
+  rdfs:comment "emitting object of heat and coldness provided by transfer of thermal energy" ;
+  rdfs:label "thermal energy transfer object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "absorption chiller, adsorption  chiller, cooling machine,  freezer, fridge, heat  exchanger, heat pump,  Peltier element, plate heat  exchanger, refrigerated  container, refrigerator,  reversible heat pump, spiral  heat exchanger, tubular heat  exchanger" .
+:55c34dba-e941-4e93-9f36-d0d212ee6d1d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6df5aa65-dbf9-4fac-a25f-d0052ffcd0c5 ;
+  sso:id "BSE" ;
+  rdfs:comment "time-rating object of rotation, with scalar output" ;
+  rdfs:label "tachometer" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "rotation speed sensor" .
+:564cd07b-e2a8-4044-9ed8-cfe580f55ccf a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b8b2f045-193c-40ef-8fc3-c72164892502 ;
+  sso:id "UNB" ;
+  rdfs:comment "framing object with the lowest part of gate abutting" ;
+  rdfs:label "threshold" .
+:580b39a3-07fb-46f5-af4a-6009823dd549 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f6c6123f-7e70-4f2e-95d6-dc4a764fce82 ;
+  sso:id "UBD" ;
+  rdfs:comment "carrying object at a discrete position by vertical pushing" ;
+  rdfs:label "mast" .
+:584bcdd7-527f-41a9-8168-50fa6fc58baf a lci:ClassOfIndividual ;
+  rdfs:subClassOf :eaec55c0-fa41-4660-a520-2ec8660bb85f ;
+  sso:id "BPA" ;
+  rdfs:comment "pressure sensing object utilizing one port for absolute pressure sensing, with scalar output" ;
+  rdfs:label "absolute pressure transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "absolute pressure  sensor, manometer,  pressure monitor,  pressure sensor,  pressure transducer" .
+:5897d557-88d7-4145-b6ae-f10fad9c5b28 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b97e1142-37fb-49cc-be29-9f548cb30eed ;
+  sso:id "EQB" ;
+  rdfs:comment "thermal cooling object delivered by a nonpermeable cold surface" ;
+  rdfs:label "cooling panel" .
+:58f5b599-b270-4b0c-b44a-46abd7715f33 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULA" ;
+  rdfs:comment "structural supporting object in form of an aggregate material layer" ;
+  rdfs:label "base course" .
+:5904c7fa-9279-4c27-8143-0918ca351e67 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3deaf298-8633-4dc8-b3c9-2dbf4404f141 ;
+  sso:id "FCA" ;
+  rdfs:comment "overcurrent protecting obiect that by fusing opens the circuit in which it is inserted by breaking the current when this exceeds a given value for a sufficient time" ;
+  rdfs:label "fuse" .
+:5942740f-9288-4996-b05a-7fcd31c9fed6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :24566cf9-34e0-420c-af70-55e318d21e0e ;
+  sso:id "XS" ;
+  rdfs:comment "interfacing object connecting levels" ;
+  rdfs:label "level connecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "fireman’s pole, flight of  stairs, gangway, ladder,  landing, ramp" .
+:59bf08c1-da6e-4c19-97b5-24a1e04d6f29 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :16ccd73e-73a4-4282-9b2d-28f25d576866 ;
+  sso:id "UCB" ;
+  rdfs:comment "enclosing object for plant roots" ;
+  rdfs:label "plant soil" .
+:59f3d3ff-3067-4623-9e07-5e2311f29c56 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :ea84c92d-0bbc-46d8-8d6a-7311108801a9 ;
+  sso:id "QRB" ;
+  rdfs:comment "solid substance flow varying object with an iris opening" ;
+  rdfs:label "iris valve" .
+:5a5db0b1-9234-43d7-b082-e8d1308ed22f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8baf631a-13da-49e7-9716-f3e4edfde155 ;
+  sso:id "EP" ;
+  rdfs:comment "emitting object providing heating by thermal energy" ;
+  rdfs:label "thermal heating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "condenser, heating coil,  heating panel, heating pipe,  heating surface, heating  tube, hot air blower, radiator" .
+:5aa28bd1-2de2-4c3f-a6de-633c5f6461de a lci:ClassOfIndividual ;
+  rdfs:subClassOf :efb7c1df-88f3-4ede-8508-29557bc0248b ;
+  sso:id "FS" ;
+  rdfs:comment "protecting object related to the local environment" ;
+  rdfs:label "environment protecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "avalanche shed, cathodic  protection, corrosion  protection, cement, house,  impregnation, impregnation  sheet, material separating  layer, paint, mortar, plaster,  protective seal, seismic  vibration control device,  sacrificial anode, shed,  shelter, snow guard" .
+:5b81617c-5f29-4eb7-9291-284ae093e611 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :80dac517-6a2f-477d-b935-6c268cfc9cd2 ;
+  sso:id "HV" ;
+  rdfs:comment "matter processing object providing larger forms of substances" ;
+  rdfs:label "agglomerating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  assembly  method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "flocculation apparatus,  flocculator, pelletizer" .
+:5c371e37-0c2f-4d31-9709-5cb2f5be38a3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2bb35735-f080-4fb4-927f-216d90ac521a ;
+  sso:id "BWE" ;
+  rdfs:comment "force sensing object of torque, with scalar output" ;
+  rdfs:label "torque value transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "torque sensor" .
+:5c9fc371-84b7-4203-85ec-37973f54585e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :84d27ce0-9d96-49cc-b968-91cc02f89556 ;
+  sso:id "RFB" ;
+  rdfs:comment "signal stabilising object suppressing a defined frequency range of the signal" ;
+  rdfs:label "signal filter" .
+:5d3e957b-0ff5-4914-a556-1be02bfc1ad3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :85b77188-ff39-4f50-91ae-2a85607bbd8a ;
+  sso:id "EVA" ;
+  rdfs:comment "acoustic wave emitting object utilizing ultrasonic frequencies" ;
+  rdfs:label "sonar" .
+:5dbc8c8f-3961-4c5a-90b2-249451f58678 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :69d6fac5-4aaf-4cd7-b0bb-5aed94b182fa ;
+  sso:id "BQA" ;
+  rdfs:comment "concentration sensing object of gas, with scalar output" ;
+  rdfs:label "gas sensor" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "CO concentration  sensor, CO2 concentration sensor,  concentration sensor, NH3 concentration  sensor" .
+:5dcae326-2059-41cb-95fa-69852afe1d6e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3504e829-c3ff-4f1f-b245-13f8fdd20335 ;
+  sso:id "CC" ;
+  rdfs:comment "storing object for electric energy within an electrochemical substance" ;
+  rdfs:label "electrochemical storing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "rechargeable battery" .
+:5e04fbd4-3aba-41dc-82c8-73be76888fbb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :62c8a113-d6c6-418b-a233-68257e6308a2 ;
+  sso:id "BGD" ;
+  rdfs:comment "physical dimension sensing object of length, with Boolean output" ;
+  rdfs:label "distance switch" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "laser distance sensor,  laser distance sensing  switch, movement  detector, movement  sensor (PIR), position  sensor, presence  indicator, visibility  detector" .
+:5e593ae3-6c5e-458e-b4c8-19b56ff41855 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4faec3f6-d885-40a2-867d-1a7baa97fe26 ;
+  sso:id "RQF" ;
+  rdfs:comment "local climate stabilising object by restricting transmission of light using narrow adjustable louvers" ;
+  rdfs:label "louvered blind" .
+:5ea8361b-ed2d-4522-8a0f-2b1ec45d612d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :aebe131e-9bf6-4035-ad73-7cd8eb0f20a7 ;
+  sso:id "ETC" ;
+  rdfs:comment "nuclear powered heating object providing hot gas" ;
+  rdfs:label "high-temperature gas-cooled reactor" .
+:5f4c07a8-9276-40d1-8f43-77525bd6c00c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e82c8b45-cfe0-418e-8f69-c4f7753b2214 ;
+  sso:id "QQB" ;
+  rdfs:comment "space access object for entry of light and persons" ;
+  rdfs:label "window unit" .
+:5fda3920-7ced-4ac9-9f56-a79e02af6bfc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6df5aa65-dbf9-4fac-a25f-d0052ffcd0c5 ;
+  sso:id "BSC" ;
+  rdfs:comment "time-rating object of distance, with scalar output" ;
+  rdfs:label "speed sensing transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "movement transmitter,  speed sensor" .
+:5ff722ae-0579-46f1-95fb-08b9408e7e3c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :efb7c1df-88f3-4ede-8508-29557bc0248b ;
+  sso:id "FQ" ;
+  rdfs:comment "protecting object by barrier or obstacle" ;
+  rdfs:label "preventive protecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  purpose of the  prevention" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "break protection, glare  protection, glide protection,  guard rail, handrail, lock  hatch cover, protective  fabric, protective grid,  protective mesh, protective  rail, protective rod, protective  roof, snow guard, splatter  protection, suspension guard" .
+:601b38bb-0c7b-4bb9-9553-e183c39e9775 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :533987dd-bf73-4357-8525-11016196129a ;
+  sso:id "WB" ;
+  rdfs:comment "guiding object of highvoltage electric energy" ;
+  rdfs:label "high-voltage electric energy guiding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "high-voltage busbar, highvoltage bushing, high-voltage  cable,  high-voltage wire" .
+:60d342db-952b-4975-a01f-b3576a8942aa a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e82c8b45-cfe0-418e-8f69-c4f7753b2214 ;
+  sso:id "QQC" ;
+  rdfs:comment "space access object for upright passage by persons" ;
+  rdfs:label "door" .
+:6117acfd-780f-4b87-bb70-89e9a8c4a5f4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :5a5db0b1-9234-43d7-b082-e8d1308ed22f ;
+  sso:id "EPD" ;
+  rdfs:comment "thermal heating object delivered by forced air" ;
+  rdfs:label "hot air blower" .
+:615f8ff0-fa14-476d-a3f4-28e48cfca2f2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e7a67f6e-a125-48cb-90fa-6a5812b4fc55 ;
+  sso:id "BKB" ;
+  rdfs:comment "time sensing object, with Boolean output" ;
+  rdfs:label "timer switch" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "time counter" .
+:617817b4-d027-4df5-b05d-243df0c765b5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f6c6123f-7e70-4f2e-95d6-dc4a764fce82 ;
+  sso:id "UBB" ;
+  rdfs:comment "carrying object at a discrete position by vertical pulling" ;
+  rdfs:label "hanger" .
+:620d8d1b-5241-48b9-9adf-794fe09fba71 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :40d64d63-d5fd-4b16-9b2f-79c29e0abd88 ;
+  sso:id "RUG" ;
+  rdfs:comment "access restricting object by a shaped surface" ;
+  rdfs:label "restricting shape" .
+:62c8a113-d6c6-418b-a233-68257e6308a2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BG" ;
+  rdfs:comment "sensing object of spatial dimension or position" ;
+  rdfs:label "physical dimension sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind being  sensed and  kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "2D-scanner, 3D-scanner,  alignment sensor, alignment  threshold detector, angle  switch, angle transmitter,  coordinates scanner,  distance switch, distance  transmitter, end stop, laser  distance sensing switch, laser distance sensor, laser  scanner, movement detector,  movement sensor (PIR), object scanner, position  sensor, position switch, position transmitter,  presence indicator, presence  locator, radar, rotary encode,  visibility sensor, wind  direction indicator, wind  direction sensor" .
+:63d1dafe-c5e8-40b8-ab8e-75a3731d9d22 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :24566cf9-34e0-420c-af70-55e318d21e0e ;
+  sso:id "XT" ;
+  rdfs:comment "interfacing object linking space" ;
+  rdfs:label "space linking object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "box-out, cavity, hole, opening" .
+:649f89e3-7935-4c28-88d5-0e85387a14bc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULF" ;
+  rdfs:comment "structural supporting object in a straight linear form tensile forceswithstanding " ;
+  rdfs:label "tension brace" .
+:65661028-d992-4f2c-845f-8c6b6c46f5f5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3504e829-c3ff-4f1f-b245-13f8fdd20335 ;
+  sso:id "CF" ;
+  rdfs:comment "storing object for information" ;
+  rdfs:label "information storing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "information storing media,  seat" .
+:65aa771e-3781-4461-b040-7587f089d5d4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BZ" ;
+  rdfs:comment "sensing object for incidents or amounts" ;
+  rdfs:label "incident sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  incidents or  amounts  sensed" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "counter, matter detector,  person detector, presence  detector, threshold counter" .
+:65b4eb3e-6aca-48ea-9c41-e88912245db6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9b6cdae-0bf5-48a0-afc6-95cb35c1a1a1 ;
+  sso:id "WMF" ;
+  rdfs:comment "open enclosure guiding object by perforated pipr" ;
+  rdfs:label "drainpipe" .
+:6610f7cb-bab7-45f9-83d3-afbbb8a9fcf7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dc0378cd-84ce-470c-93b6-db8af0b5a19e ;
+  sso:id "GPA" ;
+  rdfs:comment "liquid flow generating object by forcing trapped liquid to the discharge side" ;
+  rdfs:label "pisitive displacement pump" .
+:662e7738-e62f-4758-81fc-2b42bbf7a2ee a lci:ClassOfIndividual ;
+  rdfs:subClassOf :80dac517-6a2f-477d-b935-6c268cfc9cd2 ;
+  sso:id "HR" ;
+  rdfs:comment "matter processing object by electromagnetically separating mixed substances" ;
+  rdfs:label "electric or magnetic separating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "electrostatic filter,  electrostatic separator,  magnetic separator" .
+:672f20d8-306f-41ab-ac14-1abe0d2fb0c9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4b979b5e-fc05-479c-933e-297018a69ff4 ;
+  sso:id "WGA" ;
+  rdfs:comment "electric signal guiding object for controlling and measuring" ;
+  rdfs:label "control cable" .
+:67a635c4-f556-4471-9c57-7baab8d690e4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b295cacf-8ba6-4d8b-bbce-3dc5a2ffb047 ;
+  sso:id "RGB" ;
+  rdfs:comment "radiation return flow restricting object by means of a screen" ;
+  rdfs:label "one-way mirror" .
+:68212959-1ce9-4ad8-8e7a-8510512686a4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :007dc49f-519b-4f56-aefd-b9260556203f ;
+  sso:id "UQ" ;
+  rdfs:comment "holding object by fastening" ;
+  rdfs:label "fastening object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "anchor plate, bolt, bolt and  nut, chemical bond, elastic  fastening, expansion joint,  movement joint, mounting  bracket, nail, nipples, nut, pinchers, pliers, ratchet  strap, rivet, weld seam" .
+:68f31399-158e-4214-8dfd-df29229b0ef2 a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "P" ;
+  rdfs:comment "object for providing perceptible information" ;
+  rdfs:label "presenting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  presentation  form and kind  of information  to be  presented" .
+:6925036d-7e0a-42b1-9ae8-31b1e15d1c8c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3dacc58-2483-426a-85c4-3595e9ad557f ;
+  sso:id "MD" ;
+  rdfs:comment "driving object powered by piezoelectric force" ;
+  rdfs:label "piezoelectric driving object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "piezoelectric actuator,  piezoelectric motor" .
+:695d1007-aac4-478b-8bac-1dfc86db92a7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a5bbc02-6360-45cb-ba99-2a5f09be9ff4 ;
+  sso:id "PFB" ;
+  rdfs:comment "visible state indicator by mechanical positions" ;
+  rdfs:label "semaphore" .
+:69d6fac5-4aaf-4cd7-b0bb-5aed94b182fa a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BQ" ;
+  rdfs:comment "sensing object for substance concentration" ;
+  rdfs:label "concentration sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of object  and kind of  output signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "CO concentration sensor, CO2 concentration sensor, concentration sensor, concentration detection  switch, fog detector, fog  sensor, gas detector, gas  sensor, liquid detector, liquid  sensor, NH3 concentration sensor, petrol concentration  sensor, smoke detector,  smoke sensor, smoke switch,  solid matter detector, solid  matter sensor, turbidity  detector, turbidity sensor,  visibility detector, visibility  sensor" .
+:69f27c17-8a9e-4e14-80b7-f05352639b19 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BD" ;
+  rdfs:comment "sensing object for density" ;
+  rdfs:label "density sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "aerometer, density sensor,  density switch, density  transformer, hydrometer" .
+:6a68b51c-ab98-43e5-9a17-c5531ad5d190 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULQ" ;
+  rdfs:comment "structural support object in a flat surface form distributing loads in joints " ;
+  rdfs:label "bearing plate" .
+:6aaebdd9-9047-4231-ac96-06fe450ff66c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :25e7c804-f2b7-4c0e-82db-5cd08578717e ;
+  sso:id "KFB" ;
+  rdfs:comment "electric signal relaying object by forwarding with delay" ;
+  rdfs:label "time relay" .
+:6b1616cb-6cdc-4eed-bcb9-0d13073acef2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :24566cf9-34e0-420c-af70-55e318d21e0e ;
+  sso:id "XP" ;
+  rdfs:comment "interfacing object for interruptible transfer of mechanical forces" ;
+  rdfs:label "detachable coupling" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "centrifugal clutch, fluid  coupling, freewheel clutch,  friction clutch, hydraulic  clutch, magnetic head  hoisting device, magnetic  hoist, mechanical coupling,  overrunning clutch, torque bit" .
+:6b18f7ae-61c9-421f-80f6-6a5cb1c292f8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4faec3f6-d885-40a2-867d-1a7baa97fe26 ;
+  sso:id "RQC" ;
+  rdfs:comment "local climate stabilising object by stabilising the propagation of sound" ;
+  rdfs:label "noise barrier" .
+:6b4cc07d-5187-4e2e-a5e5-86a843683c0d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :386db4c1-f03b-4c42-b331-a518920f0c0a ;
+  sso:id "EBA" ;
+  rdfs:comment "electric heating object delivered by fluid" ;
+  rdfs:label "electric boiler" .
+:6b6f93dc-fd39-49ba-89ea-633e77f82816 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d11ff699-a1be-46dc-897f-aa47bf6241c8 ;
+  sso:id "GMA" ;
+  rdfs:comment "discontinuous transport object horizontally" ;
+  rdfs:label "vehicle" .
+:6bbb7a05-e503-46f1-9848-7b3f469f0006 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :62c8a113-d6c6-418b-a233-68257e6308a2 ;
+  sso:id "BGF" ;
+  rdfs:comment "physical dimension sensing object of angle or direction, with Boolean output" ;
+  rdfs:label "angle switch" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "alignment threshold  detector, movement  detector, movement  sensor (PIR), position  sensor, presence  indicator, radar" .
+:6c01ada8-6e3d-47d3-ba78-33dac3ffc259 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a445e55a-0cf2-4c43-9546-315e55d26b67 ;
+  sso:id "RL" ;
+  rdfs:comment "restricting object by restricting movements" ;
+  rdfs:label "movement restricting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Purpose of the  mechanical  limiting object" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "brake, door chain, rail  anchor, rubber bushing,  security chain, shock  absorber, speed bump" .
+:6c45586a-8978-4433-8516-94495c220e4b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8baf631a-13da-49e7-9716-f3e4edfde155 ;
+  sso:id "EC" ;
+  rdfs:comment "emitting object of coldness provided by electric energy" ;
+  rdfs:label "electric cooling object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "air cooler, compression  chiller, electric cold air  blower, electric cooling  surface" .
+:6c736184-aee5-4416-9546-638ef0242760 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :80dac517-6a2f-477d-b935-6c268cfc9cd2 ;
+  sso:id "HW" ;
+  rdfs:comment "matter processing object mixing different substances" ;
+  rdfs:label "mixing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "air injector, carburettor,  humidifier, kneader, mixer" .
+:6cee3e72-31f1-4565-b00a-cd87c69ada15 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dc5fdc96-f2e7-4823-9bb0-fc649191608e ;
+  sso:id "MAB" ;
+  rdfs:comment "electromagnetic rotational driving object providing discrete rotational steps" ;
+  rdfs:label "stepper motor" .
+:6d0e5b5e-64c9-4552-ae39-a485edb95a0c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f4f71c3a-d67d-4376-81a4-ca0d76151699 ;
+  sso:id "HSC" ;
+  rdfs:comment "chemical separating object utilising adsorption" ;
+  rdfs:label "adsorber" .
+:6dc0ddb2-90a2-490d-ba94-6595e9313494 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c8d81521-5a9a-43c9-b809-267a840acf25 ;
+  sso:id "QMC" ;
+  rdfs:comment "sealed fluid switching object of a multi-phase flow" ;
+  rdfs:label "multi-phase shutoff valve" .
+:6df5aa65-dbf9-4fac-a25f-d0052ffcd0c5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BS" ;
+  rdfs:comment "sensing object for timerate" ;
+  rdfs:label "time-rating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of time  object sensed  and kind of  output signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "accelerometer relay,  accelerometer transmitter, cycle rate detecting switch,  cycle rate sensor, cycle rate  transmitter, frequency  transmitter, movement  detector, movement  transmitter, rotation speed  relay, rotation speed sensor,  seismic sensor, seismic  switch, shake switch, speed  detecting switch, speed  sensing transmitter, speed  sensor, tachometer" .
+:6f0036d0-fa4a-403c-a852-95cb982e316b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :75a99ce4-f8bf-44e1-a1ed-201c1242bafe ;
+  sso:id "SJ" ;
+  rdfs:comment "human interaction object by finger operation" ;
+  rdfs:label "finger interaction object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "2-position switch, flip switch,  hold-to-run device, keyboard,  pushbutton, pushbutton switch,  touch actuator, touchpad,  turning wheel" .
+:6facc84e-66f7-44b9-bbfd-35e135da944d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :69d6fac5-4aaf-4cd7-b0bb-5aed94b182fa ;
+  sso:id "BQF" ;
+  rdfs:comment "concentration sensing object of solid matter, with Boolean output" ;
+  rdfs:label "solid matter detector" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "concentration detection  switch, smoke detector, smoke switch, turbidity  detector, visibility  detector" .
+:70b18d33-9a29-4948-96ea-8b2c24803fd9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dc0378cd-84ce-470c-93b6-db8af0b5a19e ;
+  sso:id "GPC" ;
+  rdfs:comment "liquid flow generating object by transferring the kinetic energy of an input flow to an output flow" ;
+  rdfs:label "hydraulic ram pump" .
+:7199ee0f-7ceb-4ede-9230-e2751cedc1f8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :533987dd-bf73-4357-8525-11016196129a ;
+  sso:id "WL" ;
+  rdfs:comment "guiding object of solid matter in open enclosure" ;
+  rdfs:label "solid matter guiding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "chute, inclined plane, roller  table, tube conveyer" .
+:71fd2e84-15c4-4fa2-b1a5-be48e4fa5dac a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d99e0253-ced0-4a88-ae61-9948c0b613a5 ;
+  sso:id "HMC" ;
+  rdfs:comment "force separating object of substances by rotation in a fixed chamber" ;
+  rdfs:label "cyclone" .
+:72d069be-fc05-496e-9bd3-13c64b36ab4e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2181a3d8-a39f-499d-b629-5db94cf72275 ;
+  sso:id "KEA" ;
+  rdfs:comment "electric signal processing object with human intervention" ;
+  rdfs:label "computer" .
+:72ec7dd3-b7c4-4733-9cca-2b5d3fdc355b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :03be2bf6-4a2c-4cbc-b41c-5bebb0ec5d52 ;
+  sso:id "NAD" ;
+  rdfs:comment "infilling object preventing fluid entry" ;
+  rdfs:label "sealing joint" .
+:72efa776-748d-4345-b5ce-7f8c28771957 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2f032a81-5caa-46b1-8643-b87a16ba9ef1 ;
+  sso:id "KH" ;
+  rdfs:comment "information processing object of fluid signals" ;
+  rdfs:label "fluid signalling object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  purpose" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "fluid controller, pilot valve" .
+:73f58ee4-f7df-4948-968d-660dffaefbfa a lci:ClassOfIndividual ;
+  rdfs:subClassOf :103a0322-2622-4512-88ad-6c51c4130eee ;
+  sso:id "BXD" ;
+  rdfs:comment "audio-visual sensing object of visual appearance, with Boolean output" ;
+  rdfs:label "image detector" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "face recognition device,  finger-print reader, iris  reader" .
+:748cbe64-a950-438a-92eb-2d9b48d2a909 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6df5aa65-dbf9-4fac-a25f-d0052ffcd0c5 ;
+  sso:id "BSB" ;
+  rdfs:comment "time-rating object of nonrotational cycles, with Boolean output" ;
+  rdfs:label "cycle rate detecting switch" .
+:74c44363-fef5-462f-9d1f-0c917e65c9ce a lci:ClassOfIndividual ;
+  rdfs:subClassOf :103a0322-2622-4512-88ad-6c51c4130eee ;
+  sso:id "BXC" ;
+  rdfs:comment "audio-visual sensing object of visual appearance, with scalar output" ;
+  rdfs:label "image sensor" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "camera, CCTV, PTZ  camera, scanner" .
+:74c54f4c-c89d-49f1-a04b-4687a4b4348e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :68f31399-158e-4214-8dfd-df29229b0ef2 ;
+  sso:id "PJ" ;
+  rdfs:comment "presenting object in audible form" ;
+  rdfs:label "acoustic device" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "bell, horn, loudspeaker" .
+:755b5a06-712c-4624-9933-d058c9ac9bf0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3dacc58-2483-426a-85c4-3595e9ad557f ;
+  sso:id "MS" ;
+  rdfs:comment "driving object powered by combustion of fuels" ;
+  rdfs:label "combustion engine" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of engine" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "detonation charge, Diesel  cycle engine, explosive  device, gas turbine, jet  engine, liquid-propellant  rocket, Otto cycle engine,  ramjet engine, seatbelt  pretensioner, solid-propellant  rocket, Wankel engine" .
+:75a99ce4-f8bf-44e1-a1ed-201c1242bafe a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "S" ;
+  rdfs:comment "object for detecting a human action and providing an appropriate response" ;
+  rdfs:label "human interaction object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  actuating  operation" .
+:75bebeb2-c652-4073-aa0b-0ce153d158a2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0b219e30-cf3e-4f2a-99fa-44f02a562948 ;
+  sso:id "XKE" ;
+  rdfs:comment "collecting interfacing object of surplus" ;
+  rdfs:label "floor drain" .
+:7623fe4c-ecf5-468c-812f-20082101decc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dd366d49-6c06-49ed-9a36-aeacf01cc972 ;
+  sso:id "BHB" ;
+  rdfs:comment "energy sensing object of thermal flow with defined heat capacity" ;
+  rdfs:label "thermal energy meter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "condensate sensor, energy cooling meter, energy meter, energy  sensor" .
+:7666c263-1080-4e38-b4a2-5fa08b1ae9d2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2b3af4f4-c9bd-49c6-97f5-c4f7fdfc788b ;
+  sso:id "EMC" ;
+  rdfs:comment "combustion heating object for heating of solid matter" ;
+  rdfs:label "burner" .
+:7709b56f-9237-4dea-8658-e62686b04d28 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0fc75f90-2cf4-4953-b273-8aa2d3206929 ;
+  sso:id "WDB" ;
+  rdfs:comment "low-voltage electric energy guiding object by a cable" ;
+  rdfs:label "low-voltage cable" .
+:7712e823-58e4-497f-92e6-33abc5e56be6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f5f7c893-a928-475e-9812-ab4daf988865 ;
+  sso:id "QAB" ;
+  rdfs:comment "electric controlling object mechanically under normal and abnormal service conditions" ;
+  rdfs:label "circuit breaker" .
+:77b321a0-bfd7-4e27-b4a2-1313c947eda2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BM" ;
+  rdfs:comment "sensing object for humidity" ;
+  rdfs:label "humidity sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "humidity sensor, humidity  switch, humidity transmitter" .
+:77c13f1f-be40-410f-aa0d-f7386002bd61 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :68f31399-158e-4214-8dfd-df29229b0ef2 ;
+  sso:id "PG" ;
+  rdfs:comment "presenting object in a visible form of a single scalar variable" ;
+  rdfs:label "scalar display" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Quantity to be  presented" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "Ampere meter, angle  indicator, audio  spectrometer, barometer,  caliber, clock, concentration  indicator, cos-phi meter,  density indicator, dimension  indicator, electromagnetic  wave indicator, energy meter,  field indicator, flow meter,  force indicator, frequency  meter, humidity indicator,  hygrometer, level indicator,  manometer, measuring tape,  position indicator, pressure  indicator, quantity meter,  resistivity indicator, ruler,  sight glass, temperature  indicator, var-hour meter,  varmeter, voltmeter,  watt-hour meter, wattmeter" .
+:787622e5-e81f-4eb9-b1f3-ab29f4c31148 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cb897cc7-14e3-48a7-970d-8380e94d84d1 ;
+  sso:id "BAA" ;
+  rdfs:comment "electric potential sensing object, with scalar output" ;
+  rdfs:label "voltage transformer" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "coupling capacitor,  measuring voltage  transformer" .
+:79fd114c-4cb5-462f-8e32-aede91fd444a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2f032a81-5caa-46b1-8643-b87a16ba9ef1 ;
+  sso:id "KG" ;
+  rdfs:comment "Information processing object of optical signals" ;
+  rdfs:label "optical signalling object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  functionality" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "optical network switch,  optical repeater, optical  router" .
+:7ab6ea8b-9a9f-4f1d-80f7-092a9544be74 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :adbdf931-c00b-43d6-828c-12ad7dcc2505 ;
+  sso:id "HQB" ;
+  rdfs:comment "mechanical separating object of particles based on their size and/or shape" ;
+  rdfs:label "separation grate" .
+:7ae670ad-e184-42b0-91d9-6c250a90b024 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3dacc58-2483-426a-85c4-3595e9ad557f ;
+  sso:id "MT" ;
+  rdfs:comment "driving object powered by an external heat source" ;
+  rdfs:label "heat engine" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of engine" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "steam engine, Stirling engine" .
+:7b8ac133-e5c4-47e8-946e-430c1d3a65ab a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9f32f7ad-f1bd-4166-8696-5b516f71d4f6 ;
+  sso:id "BRF" ;
+  rdfs:comment "radiation sensing object of nuclear particles, with Boolean output" ;
+  rdfs:label "radiation detector" .
+:7c48aa49-051b-4b9b-85c7-3a17d2498917 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2890a750-53f8-4b0c-9384-b5cab10c5fa9 ;
+  sso:id "RND" ;
+  rdfs:comment "flow restrictor by a fixed means" ;
+  rdfs:label "diffuser" .
+:7c750e78-923f-4e6f-899a-3e65b3a93d96 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULJ" ;
+  rdfs:comment "structural supporting object in a plane or curved surface form withstanding compression forces and bending moments" ;
+  rdfs:label "abutment" .
+:7d3a6c4f-71e2-495f-862a-ca0e84577565 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dfb256fa-5109-4a56-a517-8935ee64b316 ;
+  sso:id "BJA" ;
+  rdfs:comment "power sensing object, with scalar output" ;
+  rdfs:label "power meter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "kW meter" .
+:7e662d05-f9a2-4d58-aa53-710d8e9c0059 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9490a77b-ceac-4f27-a785-0ab04a6dbf2c ;
+  sso:id "MBA" ;
+  rdfs:comment "electromagnetic linear driving object providing a continuous movement" ;
+  rdfs:label "linear motor" .
+:7f2bd5f5-f2ce-4c28-a9c2-aee1339ff177 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f5f7c893-a928-475e-9812-ab4daf988865 ;
+  sso:id "QAA" ;
+  rdfs:comment "electric controlling object mechanically under normal service conditions only" ;
+  rdfs:label "contactor" .
+:80dac517-6a2f-477d-b935-6c268cfc9cd2 a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "H" ;
+  rdfs:comment "object for treating matter" ;
+  rdfs:label "matter processing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied " .
+:8128b375-f628-49a5-a8b8-46726b8132ec a lci:ClassOfIndividual ;
+  rdfs:subClassOf :efb7c1df-88f3-4ede-8508-29557bc0248b ;
+  sso:id "FL" ;
+  rdfs:comment "protecting object related to pressure" ;
+  rdfs:label "pressure protecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  pressure" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "expansion tank, expansion  vessel, rupture disc, safety  damper, safety valve,  vacuum breaker" .
+:813601e2-e4bb-4183-abf9-c2d158111821 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :533987dd-bf73-4357-8525-11016196129a ;
+  sso:id "WR" ;
+  rdfs:comment "guiding object for track bound objects" ;
+  rdfs:label "rail object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "rail track, track, track  crossing" .
+:82d44b79-c35c-45b4-afb9-04151a1d3ab4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f9f16d59-c901-47f9-ae11-1b6ade36a66f ;
+  sso:id "QPA" ;
+  rdfs:comment "open flow controlling object for varying or switching on/off" ;
+  rdfs:label "lock gate" .
+:82daa776-8e25-46cf-b64f-379dcb7543b3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f9f16d59-c901-47f9-ae11-1b6ade36a66f ;
+  sso:id "QPB" ;
+  rdfs:comment "open flow controlling object for directing a flow by a fixed means" ;
+  rdfs:label "vortex generator" .
+:83695573-b8cc-40b2-a3fb-8db5b5c223b0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bf9676c0-b722-4947-9e69-540c18cf99b0 ;
+  sso:id "WVA" ;
+  rdfs:comment "thermal energy guiding object by a solid mass" ;
+  rdfs:label "thermal conductor" .
+:83ee88f8-ae0a-46cc-9533-31d4d3afc15c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9f32f7ad-f1bd-4166-8696-5b516f71d4f6 ;
+  sso:id "BRA" ;
+  rdfs:comment "radiation sensing object of visible electromagnetic waves, with scalar output" ;
+  rdfs:label "light sensor" .
+:8433352d-676d-4971-949e-b4c15594740a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bc6bea16-9eb6-48e1-9143-530f3f9b2d6b ;
+  sso:id "QN" ;
+  rdfs:comment "controlling object for varying the flow of fluids in sealed enclosures" ;
+  rdfs:label "sealed fluid varying object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of fluids" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "control damper, gas control  valve, liquid control valve" .
+:844e70b9-2157-4b46-ace9-b5c423e0163c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c32a29b1-1db8-4843-8ce2-90e90c4926b7 ;
+  sso:id "TBB" ;
+  rdfs:comment "electric energy converting object converting from DC to AC" ;
+  rdfs:label "inverter" .
+:844edac0-06f5-4152-9a13-fb887a4eb330 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :68f31399-158e-4214-8dfd-df29229b0ef2 ;
+  sso:id "PL" ;
+  rdfs:comment "presenting object in an ornamental form" ;
+  rdfs:label "ornamental object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "carpet, cornice, decorative  textile, figure, frieze, picture,  pilaster, stucco" .
+:84d27ce0-9d96-49cc-b968-91cc02f89556 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a445e55a-0cf2-4c43-9546-315e55d26b67 ;
+  sso:id "RF" ;
+  rdfs:comment "restricting object by stabilising a signal" ;
+  rdfs:label "signal stabilising object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "ferrite, signal equaliser,  signal filter" .
+:85b77188-ff39-4f50-91ae-2a85607bbd8a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8baf631a-13da-49e7-9716-f3e4edfde155 ;
+  sso:id "EV" ;
+  rdfs:comment "emitting object of acoustic waves" ;
+  rdfs:label "acoustic wave emitting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "anti-noise loudspeaker,  sonar" .
+:86626004-e25b-4336-8ac8-c8be8b965202 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2bb35735-f080-4fb4-927f-216d90ac521a ;
+  sso:id "BWC" ;
+  rdfs:comment "force sensing object of force, with scalar output" ;
+  rdfs:label "force value transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "force sensor" .
+:867ffafc-51fc-46a1-9fa0-bb27197c8ceb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3504e829-c3ff-4f1f-b245-13f8fdd20335 ;
+  sso:id "CA" ;
+  rdfs:comment "storing object for electric energy within an electrostatic field" ;
+  rdfs:label "capacitive storing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "capacitor" .
+:869efa14-ecb2-4fb6-8555-c598ff7395da a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2181a3d8-a39f-499d-b629-5db94cf72275 ;
+  sso:id "KED" ;
+  rdfs:comment "electric signal processing object without human intervention forwarding signals between data networks" ;
+  rdfs:label "router" .
+:86b8a150-0dd7-466c-8a2f-0648f985b621 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :ea84c92d-0bbc-46d8-8d6a-7311108801a9 ;
+  sso:id "QRC" ;
+  rdfs:comment "solid substance flow varying object with a hinged flap or disc" ;
+  rdfs:label "flap gate valve" .
+:88446b17-4b09-429f-8b3d-1a216335985c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d5a08442-6f2b-4115-a4f8-167323ed8d34 ;
+  sso:id "EEA" ;
+  rdfs:comment "wireless power object utilizing inductive coupling" ;
+  rdfs:label "inductive power antenna" .
+:88452393-4e0a-4f3c-9b2a-231b2956eabd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f9f16d59-c901-47f9-ae11-1b6ade36a66f ;
+  sso:id "QPC" ;
+  rdfs:comment "open flow controlling object for directing a flow by a variable means" ;
+  rdfs:label "rudder" .
+:88480718-b9f5-4b3b-b79f-cbdfb958a82f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c32a29b1-1db8-4843-8ce2-90e90c4926b7 ;
+  sso:id "TBA" ;
+  rdfs:comment "electric energy converting object converting from AC to DC" ;
+  rdfs:label "rectifier" .
+:8a202144-a419-4849-9c3f-e201524d205d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6df5aa65-dbf9-4fac-a25f-d0052ffcd0c5 ;
+  sso:id "BSF" ;
+  rdfs:comment "time-rating object of rotation, with Boolean output" ;
+  rdfs:label "rotation speed relay" .
+:8b149935-0a99-4ca2-94e0-ee825639c36a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :007dc49f-519b-4f56-aefd-b9260556203f ;
+  sso:id "UV" ;
+  rdfs:comment "holding object by forming human body support" ;
+  rdfs:label "furniture" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Part of human  body to  support" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "armchair, armrest, backrest,  bed, bench, chair, chaise  longue, couch, day bed,  divan-bed, fauteuil, footrest,  headrest, legrest, mattress,  sofa, stool" .
+:8b85e150-9bf7-469a-98c8-6a49469a38bf a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f6c6123f-7e70-4f2e-95d6-dc4a764fce82 ;
+  sso:id "UBF" ;
+  rdfs:comment "carrying object between discrete positions at a defined level" ;
+  rdfs:label "portal" .
+:8b8ed5ad-ad9c-4d71-a7ab-af15e17b8e9e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e82c8b45-cfe0-418e-8f69-c4f7753b2214 ;
+  sso:id "QQG" ;
+  rdfs:comment "space access object by blocking entrance to a track" ;
+  rdfs:label "rail scotch block" .
+:8baf631a-13da-49e7-9716-f3e4edfde155 a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "E" ;
+  rdfs:comment "object for emitting" ;
+  rdfs:label "emitting object" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "Kind of object  being emitted  and kind of  energy source" .
+:8c1ffe4b-9f35-4682-b1ba-ab652920de0b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0b219e30-cf3e-4f2a-99fa-44f02a562948 ;
+  sso:id "XKC" ;
+  rdfs:comment "collecting interfacing object of urine only" ;
+  rdfs:label "urinal" .
+:8da268a9-a365-4347-b12e-29b0e1ae39e3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9f32f7ad-f1bd-4166-8696-5b516f71d4f6 ;
+  sso:id "BRD" ;
+  rdfs:comment "radiation sensing object for non-visible electromagnetic waves, with Boolean output" ;
+  rdfs:label "electromagnetic wave detector" .
+:8ea1d766-7cca-4424-aa52-4d0c38dec2a0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0b219e30-cf3e-4f2a-99fa-44f02a562948 ;
+  sso:id "XKB" ;
+  rdfs:comment "collecting interfacing object of faeces and urine" ;
+  rdfs:label "toilet" .
+:8fe5150f-32d3-46df-b902-56d5ae063afc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bc6bea16-9eb6-48e1-9143-530f3f9b2d6b ;
+  sso:id "QS" ;
+  rdfs:comment "controlling object for mechanical movement" ;
+  rdfs:label "mechanical movement controlling object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "latch, lock, railroad switch,  track switch" .
+:912c6277-a1d7-4f5c-b94f-8fc525816710 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2bb35735-f080-4fb4-927f-216d90ac521a ;
+  sso:id "BWB" ;
+  rdfs:comment "force sensing object of weight, with Boolean output" ;
+  rdfs:label "weight detecting switch" .
+:916b9a41-05f7-4460-8861-d7d0edd76667 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :62c8a113-d6c6-418b-a233-68257e6308a2 ;
+  sso:id "BGC" ;
+  rdfs:comment "physical dimension sensing object of length, with scalar output" ;
+  rdfs:label "distance transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "laser distance sensor,  position sensor, visibility  sensor" .
+:932e2a4c-ed6d-4690-ab66-0eebeb589a63 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2f032a81-5caa-46b1-8643-b87a16ba9ef1 ;
+  sso:id "KZ" ;
+  rdfs:comment "information processing object of signals of multiple kinds" ;
+  rdfs:label "multiple kind signalling object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "multiple kind switch" .
+:936251f2-47e2-4431-8a0b-e908951e518c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :75a99ce4-f8bf-44e1-a1ed-201c1242bafe ;
+  sso:id "SZ" ;
+  rdfs:comment "human interaction object with multiple kinds of interacting means" ;
+  rdfs:label "multi-interaction device" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "gamepad, game controller,  joypad, operating panel" .
+:937e1d9a-27d8-41d9-b49c-8a20fd1cb313 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :25e7c804-f2b7-4c0e-82db-5cd08578717e ;
+  sso:id "KFC" ;
+  rdfs:comment "electric signal relaying object by repeating the input signal as an improved output signal" ;
+  rdfs:label "repeater" .
+:9392824b-4d33-4c9a-96e5-e9340d53053e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :5a5db0b1-9234-43d7-b082-e8d1308ed22f ;
+  sso:id "EPB" ;
+  rdfs:comment "thermal heating object delivered by heated fluid" ;
+  rdfs:label "heating tube" .
+:93ce3c2e-a597-4f43-aa21-9b626f27e17a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b8b2f045-193c-40ef-8fc3-c72164892502 ;
+  sso:id "UND" ;
+  rdfs:comment "framing object dividing a sash or door" ;
+  rdfs:label "glazing bar frame" .
+:93f6032c-abe0-4c84-9dc9-91ebb7e33d78 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9f32f7ad-f1bd-4166-8696-5b516f71d4f6 ;
+  sso:id "BRB" ;
+  rdfs:comment "radiation sensing object of visible electromagnetic waves, with Boolean output" ;
+  rdfs:label "light detector" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "light curtain, light  transmitter, line  detector, low-light  relays, lux sensor,  photocell" .
+:9490a77b-ceac-4f27-a785-0ab04a6dbf2c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3dacc58-2483-426a-85c4-3595e9ad557f ;
+  sso:id "MB" ;
+  rdfs:comment "driving object in the form of linear force, powered by electromagnetic force" ;
+  rdfs:label "electromagnetic linear driving object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "actuator, electromagnet,  linear motor, solenoid" .
+:94bc65c2-e4a6-4e48-9e44-acfeff322e41 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :77b321a0-bfd7-4e27-b4a2-1313c947eda2 ;
+  sso:id "BMB" ;
+  rdfs:comment "humidity sensing object, with Boolean output" ;
+  rdfs:label "humidity switch" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "humidity sensor" .
+:9528b988-0c61-4f01-aafd-ee9b207eee13 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cd0e27f1-b62f-499e-ae59-4bcca7678509 ;
+  sso:id "TL" ;
+  rdfs:comment "transforming object of mechanical energy while modifying its effect" ;
+  rdfs:label "mechanical energy transforming object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  transformation" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "automatic gear, control  coupling, indexing gear,  gear, lever, speed convertor,  torque converter" .
+:960b630c-cf76-465e-89f6-48d3db0af12e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :75a99ce4-f8bf-44e1-a1ed-201c1242bafe ;
+  sso:id "SG" ;
+  rdfs:comment "human interaction object to a hand action" ;
+  rdfs:label "hand interaction object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "2- or 3-position enabling device,  emergency pull wire, emergency  push button, grip handle, key,  key switch, lever handle,  mechanical lever, potentiometer,  pull handle, push handle, rotary  switch, turn handle, two-hand  control" .
+:96ea2a56-da09-4b2a-8c15-4329c052b864 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6c45586a-8978-4433-8516-94495c220e4b ;
+  sso:id "ECC" ;
+  rdfs:comment "electric cooling object utilizing phase changing" ;
+  rdfs:label "compression chiller" .
+:98ca22d5-1d62-4b95-aa84-611b192be1e2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :479bd436-d706-4545-8fd5-8df54359a96e ;
+  sso:id "WQG" ;
+  rdfs:comment "mechanical energy guiding object by a fluid link" ;
+  rdfs:label "hydraulic hose" .
+:99b8ec6c-1c77-4a3a-9b34-9c81a19e5f6b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a1533756-d1ed-480a-948c-f13ec20d9d85 ;
+  sso:id "BLB" ;
+  rdfs:comment "level sensing object, with Boolean output" ;
+  rdfs:label "level switch" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "liquid level switch" .
+:99e9f420-cb64-4bd4-af51-a12e99c41395 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cef78046-28be-45f8-b0ed-db69f425b3bc ;
+  sso:id "GC" ;
+  rdfs:comment "generating object of electric energy from solar energy" ;
+  rdfs:label "solar to electrical energy generating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "crystalline photovoltaic  module, solar cell, thin film  photovoltaic module" .
+:9a075ea8-b55e-4078-834a-8fba9cf5e3cc a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "B" ;
+  rdfs:comment "object for picking up information and providing a representation" ;
+  rdfs:label "sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  quantity" .
+:9a5bbc02-6360-45cb-ba99-2a5f09be9ff4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :68f31399-158e-4214-8dfd-df29229b0ef2 ;
+  sso:id "PF" ;
+  rdfs:comment "presenting object in visible form of discrete states" ;
+  rdfs:label "visible state indicator" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  and purpose" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "semaphore, signal lamp,  traffic light" .
+:9b4bdb80-8962-41df-bcab-2ebb6b3eca84 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b295cacf-8ba6-4d8b-bbce-3dc5a2ffb047 ;
+  sso:id "RGA" ;
+  rdfs:comment "radiation return flow restricting object by means of a foil" ;
+  rdfs:label "encapsulating foil" .
+:9c4b3cac-e779-4d3a-b19b-18fcf2863883 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :40d64d63-d5fd-4b16-9b2f-79c29e0abd88 ;
+  sso:id "RUE" ;
+  rdfs:comment "access restricting object by shaping a path" ;
+  rdfs:label "guide barrier" .
+:9d2c4115-16fd-4035-85e1-fd2865259725 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cef78046-28be-45f8-b0ed-db69f425b3bc ;
+  sso:id "GL" ;
+  rdfs:comment "generating object continuously of solid matter" ;
+  rdfs:label "continuous transport object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Direction and  size of matters" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "belt conveyer, chain  conveyer, conveyor belt,  escalator, lift screw,  paternoster, roller conveyer,  screw conveyer, shovel,  snow blower, snow thrower,  vibrating conveyor" .
+:9d3b76ef-ce87-49bd-a105-950cfa884d2c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :479bd436-d706-4545-8fd5-8df54359a96e ;
+  sso:id "WQB" ;
+  rdfs:comment "mechanical energy guiding object by a belt" ;
+  rdfs:label "drive belt" .
+:9d5113e3-b2bc-4732-8da7-4b82f59ad6cc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :460bc0f1-7c77-4f20-83f7-86e38b2d882e ;
+  sso:id "BBC" ;
+  rdfs:comment "resistivity sensing object for thermal flow, with scalar output" ;
+  rdfs:label "thermal resistivity sensor" .
+:9d61f5e5-7b03-4cf9-a81f-7bd4d15dd5cf a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dfb256fa-5109-4a56-a517-8935ee64b316 ;
+  sso:id "BJB" ;
+  rdfs:comment "power sensing object, with Boolean output" ;
+  rdfs:label "power limit switch" .
+:9d865012-18e8-41a7-968e-58e60f4a69c5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BY" ;
+  rdfs:comment "sensing object of stored information" ;
+  rdfs:label "information sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "barcode reader, chip card  reader, chip reader,  electromagnetic reader,  magnetic stripe reader, optical disk reader, optical  reader, RFC reader, RFID  reader, QR-reader, tape  reader" .
+:9d98c205-d1dd-4ece-a5ac-1967102d53bc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e7a67f6e-a125-48cb-90fa-6a5812b4fc55 ;
+  sso:id "BKA" ;
+  rdfs:comment "time sensing object, with scalar output" ;
+  rdfs:label "time sensor" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "clock, time information  device" .
+:9db38cee-9fb7-4310-b4e4-96cedd606414 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bc6bea16-9eb6-48e1-9143-530f3f9b2d6b ;
+  sso:id "QC" ;
+  rdfs:comment "controlling object by earthing electric circuits" ;
+  rdfs:label "electric earthing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  purpose" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "earthing switch" .
+:9e7f8ef2-fa68-4a10-8c1a-653c9f4b5f1d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2181a3d8-a39f-499d-b629-5db94cf72275 ;
+  sso:id "KEE" ;
+  rdfs:comment "electric signal processing object without human intervention saving the information provided by the input on a storage device" ;
+  rdfs:label "card writer" .
+:9f2d5bb4-03e0-4cc4-948a-bef50d6b0d1c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2b3af4f4-c9bd-49c6-97f5-c4f7fdfc788b ;
+  sso:id "EMA" ;
+  rdfs:comment "combustion heating object for heating of space" ;
+  rdfs:label "stove" .
+:9f32f7ad-f1bd-4166-8696-5b516f71d4f6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BR" ;
+  rdfs:comment "sensing object for radiation" ;
+  rdfs:label "radiation sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  radiation and  kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "electromagnetic wave  detector, electromagnetic  wave sensor, Geiger meter,  gamma-radiation detector,  IR-sensor, light curtain, light  detector, light sensor, light  transmitter, line detector, low-light relays, lux sensor,  photocell, radar-sensor,  radiation counter, radiation  detector, UV-sensor" .
+:9faa0542-e121-42de-8cdc-d81fc8eed7c8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6df5aa65-dbf9-4fac-a25f-d0052ffcd0c5 ;
+  sso:id "BSG" ;
+  rdfs:comment "time-rating object of speed, with scalar output" ;
+  rdfs:label "accelerometer transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "seismic sensor" .
+:a0336c95-1a2b-4aa1-8ba7-3484df51c632 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3504e829-c3ff-4f1f-b245-13f8fdd20335 ;
+  sso:id "CP" ;
+  rdfs:comment "storing object of thermal energy" ;
+  rdfs:label "thermal energy storing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of thermal  energy" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "calorifier, crystalline tank,  gas tank, hot water tank,  liquid tank, thermal fluids  tank, thermal matter tank" .
+:a1533756-d1ed-480a-948c-f13ec20d9d85 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BL" ;
+  rdfs:comment "sensing object for level" ;
+  rdfs:label "level sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "level sensor, level switch,  level transmitter, liquid level  sensor, liquid level switch" .
+:a2690402-4c63-4b38-b979-14a36926d1e1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :25e7c804-f2b7-4c0e-82db-5cd08578717e ;
+  sso:id "KFD" ;
+  rdfs:comment "electric signal relaying object by bridging multiple data network segments" ;
+  rdfs:label "electric network bridge" .
+:a2b82453-b54f-4760-8a37-c7efa722c53d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :40d64d63-d5fd-4b16-9b2f-79c29e0abd88 ;
+  sso:id "RUC" ;
+  rdfs:comment "access restricting object by a rotational barrier" ;
+  rdfs:label "turnstile" .
+:a3503645-8862-428b-bb71-c3cf1317fe75 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :960b630c-cf76-465e-89f6-48d3db0af12e ;
+  sso:id "SGA" ;
+  rdfs:comment "hand interaction device by turning" ;
+  rdfs:label "turn handle" .
+:a372816a-1800-4736-9918-0967ea5f5ba7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2181a3d8-a39f-499d-b629-5db94cf72275 ;
+  sso:id "KEC" ;
+  rdfs:comment "electric signal processing object without human intervention providing input/output to devices" ;
+  rdfs:label "communication device" .
+:a385c07b-5e11-42c8-bf36-b12c009e9927 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6c01ada8-6e3d-47d3-ba78-33dac3ffc259 ;
+  sso:id "RLD" ;
+  rdfs:comment "movement restricting object by preventing high speed of another object" ;
+  rdfs:label "speed bump" .
+:a3dacc58-2483-426a-85c4-3595e9ad557f a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "M" ;
+  rdfs:comment "object for providing mechanical movement or force" ;
+  rdfs:label "driving object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of driving  force" .
+:a4217552-98fa-4104-b4ac-70eea2d25f9d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :960b630c-cf76-465e-89f6-48d3db0af12e ;
+  sso:id "SGB" ;
+  rdfs:comment "hand interaction device by gripping " ;
+  rdfs:label "grip handle" .
+:a445e55a-0cf2-4c43-9546-315e55d26b67 a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "R" ;
+  rdfs:comment "object for restricting or stabilising" ;
+  rdfs:label "restricting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of object  flowing and  kind of  constraint" .
+:a47fd7f1-dc9f-4543-9245-7024ad859735 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cef78046-28be-45f8-b0ed-db69f425b3bc ;
+  sso:id "GA" ;
+  rdfs:comment "generating object of electric energy powered by mechanical energy" ;
+  rdfs:label "mechanical to electrical energy generating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of voltage  and current  form" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "AC generator, DC generator, dynamo,  generator" .
+:a4a38963-c186-4c71-b2f5-ad2599e921e0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :efb7c1df-88f3-4ede-8508-29557bc0248b ;
+  sso:id "FT" ;
+  rdfs:comment "protecting object for persons against bodily harm" ;
+  rdfs:label "body protection object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of object  to be protected" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "boots, ear cap, ear muff,  earplugs, gasmask, gloves,  headgear, helmet, jacket,  overalls, protection glasses,  pants, protection suit, shoes,  trousers, visor," .
+:a4b1356e-9f2d-405b-8975-b0c3db4d7d60 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4b979b5e-fc05-479c-933e-297018a69ff4 ;
+  sso:id "WGC" ;
+  rdfs:comment "electric signal guiding object through an enclosure or wall" ;
+  rdfs:label "electric signal bushing" .
+:a6623d2d-40ff-4f24-b9e2-523041a255b8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :386db4c1-f03b-4c42-b331-a518920f0c0a ;
+  sso:id "EBH" ;
+  rdfs:comment "electric heating object delivered by surrounding surfaces" ;
+  rdfs:label "electric oven" .
+:a67c0843-2a12-4ee1-ae65-0f6698f3145e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :25e7c804-f2b7-4c0e-82db-5cd08578717e ;
+  sso:id "KFA" ;
+  rdfs:comment "electric signal relaying object by forwarding without delay" ;
+  rdfs:label "relay" .
+:a680e4c9-18fd-4fa7-9a07-f823debf8dc2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cef78046-28be-45f8-b0ed-db69f425b3bc ;
+  sso:id "GQ" ;
+  rdfs:comment "generating object of gas" ;
+  rdfs:label "gaseous flow generating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of flow  generating  method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "air curtain, blower, closed  propeller fan, gas  compressor, gas ejector, leaf  blower, mechanical fan, open  propeller fan, propeller,  squirrel cage fan, vacuum  pump, ventilator" .
+:a71fc4a4-62b5-41e0-bcf2-b55e823d4d20 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :03be2bf6-4a2c-4cbc-b41c-5bebb0ec5d52 ;
+  sso:id "NAA" ;
+  rdfs:comment "infilling object permitting light entry" ;
+  rdfs:label "pane" .
+:a7575b1f-c568-4885-a5c6-4a6b057f2f70 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :75a99ce4-f8bf-44e1-a1ed-201c1242bafe ;
+  sso:id "SH" ;
+  rdfs:comment "human interaction object to a foot position" ;
+  rdfs:label "foot interaction object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "2- or 3-position enabling device,  pedal switch" .
+:a89b5fb2-0d04-40ae-a7c8-3ba32d916312 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :ac0e024f-c6fc-4784-aeb6-7f414891ee43 ;
+  sso:id "RBD" ;
+  rdfs:comment "electricity stabilising object suppressing or amplifying multiple frequency ranges within the flow" ;
+  rdfs:label "power equaliser" .
+:a8b267a9-5d03-454e-90bf-6a8ae30b4158 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8fe5150f-32d3-46df-b902-56d5ae063afc ;
+  sso:id "QSA" ;
+  rdfs:comment "mechanical movement controlling object by blocking" ;
+  rdfs:label "lock" .
+:a933784b-0d1c-45ba-b664-af00c3c967c5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d7ae53b6-c2c7-4ea8-b368-11bc3b26c42a ;
+  sso:id "XDA" ;
+  rdfs:comment "low-voltage connecting object for a single connection" ;
+  rdfs:label "electric terminal" .
+:a9baca09-b7eb-48f9-bc3f-bcfc04b656a3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4acb5950-4793-4dbe-a08a-ac3a9c4a2f51 ;
+  sso:id "RPB" ;
+  rdfs:comment "level restricting object providing a static level" ;
+  rdfs:label "static level restricting object" .
+:aad9a107-821b-43fc-9a66-b5ea77393b24 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :aebe131e-9bf6-4035-ad73-7cd8eb0f20a7 ;
+  sso:id "ETA" ;
+  rdfs:comment "nuclear powered heating object providing hot water" ;
+  rdfs:label "boiling water reactor" .
+:aaf0be54-313f-49ee-aa1f-52c650bed087 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c5e545e3-0645-454c-ac66-4b319f8a8da9 ;
+  sso:id "BFB" ;
+  rdfs:comment "flow sensing object, with Boolean output" ;
+  rdfs:label "flow switch" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "gas flow switch, matter  flow switch" .
+:aafd7209-6d8d-4282-ab9f-ed3ac55fb196 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cb897cc7-14e3-48a7-970d-8380e94d84d1 ;
+  sso:id "BAB" ;
+  rdfs:comment "electric potential sensing object, with Boolean output" ;
+  rdfs:label "voltage relay" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "measuring voltage relay" .
+:ab6925de-dc5f-4b16-9489-aabcbc8f26c6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :24566cf9-34e0-420c-af70-55e318d21e0e ;
+  sso:id "XE" ;
+  rdfs:comment "interfacing object for earth or reference potential" ;
+  rdfs:label "potential connecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  potential and  method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "collector, earth electrode, FB  terminal, FE terminal,  functional bonding terminal,  functional earthing terminal,  PB terminal, PE terminal,  protective bonding terminal,  protective conductor  terminal, protective earthing  conductor terminal" .
+:ac0e024f-c6fc-4784-aeb6-7f414891ee43 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a445e55a-0cf2-4c43-9546-315e55d26b67 ;
+  sso:id "RB" ;
+  rdfs:comment "restricting object by stabilising a flow of electric energy" ;
+  rdfs:label "electricity stabilising object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "phase compensator, power  equaliser, power factor  correction system, power  factor correction unit, power  filter, uninterruptible power  supply, UPS, voltage  compensator" .
+:ac8b972c-ff10-4334-8be7-55d5922481ae a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3dacc58-2483-426a-85c4-3595e9ad557f ;
+  sso:id "MC" ;
+  rdfs:comment "driving object powered by magnetic force" ;
+  rdfs:label "magnetic force driving object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "permanent magnet" .
+:ac8c072a-95c5-4591-a8cf-1cacd59dee39 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :03be2bf6-4a2c-4cbc-b41c-5bebb0ec5d52 ;
+  sso:id "NAC" ;
+  rdfs:comment "infilling object permitting fluid entry" ;
+  rdfs:label "grating" .
+:ac9d1332-868b-47b5-b5cb-98595056dae1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cd0e27f1-b62f-499e-ae59-4bcca7678509 ;
+  sso:id "TD" ;
+  rdfs:comment "transforming object of electromagnetic energy between electric and magnetic form" ;
+  rdfs:label "electromagnetic transforming object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "Rogowski coil, spiral coil,  winding" .
+:adbdf931-c00b-43d6-828c-12ad7dcc2505 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :80dac517-6a2f-477d-b935-6c268cfc9cd2 ;
+  sso:id "HQ" ;
+  rdfs:comment "matter processing object by mechanically separating mixed substances" ;
+  rdfs:label "mechanical separating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  mechanical  separating  method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "bag filter, filter, rake,  separation grate, sack, sieve, skimmer" .
+:adc04539-52a8-4fdd-a932-99938b478190 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2890a750-53f8-4b0c-9384-b5cab10c5fa9 ;
+  sso:id "RNA" ;
+  rdfs:comment "flow restrictor of liquids by an adjustable means" ;
+  rdfs:label "regulating valve" .
+:aebe131e-9bf6-4035-ad73-7cd8eb0f20a7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8baf631a-13da-49e7-9716-f3e4edfde155 ;
+  sso:id "ET" ;
+  rdfs:comment "emitting object of heat provided by nuclear fission" ;
+  rdfs:label "nuclear powered heating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "boiling water reactor, hightemperature gas-cooled  reactor, pebble bed reactor,  pressurized water reactor" .
+:af7f4030-b1eb-498f-a456-4fc4ffdcdc8b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2bb35735-f080-4fb4-927f-216d90ac521a ;
+  sso:id "BWF" ;
+  rdfs:comment "force sensing object of torque, with Boolean output" ;
+  rdfs:label "torque switch" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "torque sensor" .
+:b027559e-ffdf-453c-84b7-fd1240dba0b7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4faec3f6-d885-40a2-867d-1a7baa97fe26 ;
+  sso:id "RQJ" ;
+  rdfs:comment "local climate stabilising object by restricting vision and sound" ;
+  rdfs:label "screen wall" .
+:b213577a-00eb-4468-aa05-1ed14881d0bf a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3504e829-c3ff-4f1f-b245-13f8fdd20335 ;
+  sso:id "CL" ;
+  rdfs:comment "storing object for matters or persons within a stationary open enclosure" ;
+  rdfs:label "open stationary storing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "bed, bunker, chair, cistern,  couch, pit, pool, shelf" .
+:b2501a46-dbbd-4b61-bf32-1f6e6d135c9c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d5a08442-6f2b-4115-a4f8-167323ed8d34 ;
+  sso:id "EEE" ;
+  rdfs:comment "wireless power object utilizing capacitive coupling" ;
+  rdfs:label "capacitive coupler" .
+:b255f1ad-8437-4979-8478-df83ab161428 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dd366d49-6c06-49ed-9a36-aeacf01cc972 ;
+  sso:id "BHA" ;
+  rdfs:comment "energy sensing object of flow with defined energy density" ;
+  rdfs:label "flow energy meter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "energy cooling meter, energy meter, energy  sensor, gas energy  meter" .
+:b278f302-b9ec-4132-9891-c3d840795337 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :69f27c17-8a9e-4e14-80b7-f05352639b19 ;
+  sso:id "BDA" ;
+  rdfs:comment "density sensing object, with scalar output" ;
+  rdfs:label "density transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "aerometer, density  sensor, hydrometer" .
+:b295cacf-8ba6-4d8b-bbce-3dc5a2ffb047 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a445e55a-0cf2-4c43-9546-315e55d26b67 ;
+  sso:id "RG" ;
+  rdfs:comment "restricting object by restricting a return flow of electromagnetic radiation" ;
+  rdfs:label "radiation return flow restricting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "encapsulating foil, one-way  mirror" .
+:b3a0b9e2-c194-4781-a3fe-69a10971b4b0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f6c6123f-7e70-4f2e-95d6-dc4a764fce82 ;
+  sso:id "UBE" ;
+  rdfs:comment "carrying object at a discrete plane by pushing" ;
+  rdfs:label "table" .
+:b557c721-6734-44f9-baf7-2afbfb9c4ffc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9b6cdae-0bf5-48a0-afc6-95cb35c1a1a1 ;
+  sso:id "WMB" ;
+  rdfs:comment "open enclosure guiding object for liquid in open conduit" ;
+  rdfs:label "gutter" .
+:b670dab3-4e52-40eb-a00d-7e32705aae18 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :03be2bf6-4a2c-4cbc-b41c-5bebb0ec5d52 ;
+  sso:id "NAB" ;
+  rdfs:comment "infilling object preventing entry of light and solid objects" ;
+  rdfs:label "panel" .
+:b7b85582-f52a-4ec1-ac89-702a8f8865c6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :eaec55c0-fa41-4660-a520-2ec8660bb85f ;
+  sso:id "BPB" ;
+  rdfs:comment "pressure sensing object utilizing one port for absolute pressure sensing, with Boolean output" ;
+  rdfs:label "absolute pressure switch" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "pressure switch" .
+:b7c88aec-873a-4277-aa15-91cf5a9ade86 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0b219e30-cf3e-4f2a-99fa-44f02a562948 ;
+  sso:id "XKD" ;
+  rdfs:comment "collecting interfacing object of surplus liquid from technical system" ;
+  rdfs:label "drip cup" .
+:b8085661-1b4a-4d55-9ea1-232a3defebc2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d11ff699-a1be-46dc-897f-aa47bf6241c8 ;
+  sso:id "GMD" ;
+  rdfs:comment "discontinuous transport object placing objects together" ;
+  rdfs:label "palletizer" .
+:b835e332-6752-4184-97cf-7555eb68b47f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3504e829-c3ff-4f1f-b245-13f8fdd20335 ;
+  sso:id "CB" ;
+  rdfs:comment "storing object for electric energy within an electromagnetic field" ;
+  rdfs:label "inductive storing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "inductor" .
+:b8b2f045-193c-40ef-8fc3-c72164892502 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :007dc49f-519b-4f56-aefd-b9260556203f ;
+  sso:id "UN" ;
+  rdfs:comment "holding object by framing other objects" ;
+  rdfs:label "framing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "door frame, fixed frame, frame bar, glazing bar,  glazing bar frame, movable  frame, threshold, window  frame, windowpane frame" .
+:b97e1142-37fb-49cc-be29-9f548cb30eed a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8baf631a-13da-49e7-9716-f3e4edfde155 ;
+  sso:id "EQ" ;
+  rdfs:comment "emitting object providing cooling by thermal energy" ;
+  rdfs:label "thermal cooling object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "cold air blower, cooler,  cooling coil, cooling panel,  cooling pipe, cooling surface,  cooling tower, cooling tube,  evaporator, spray cooler" .
+:b9d6d188-e8da-4d06-a122-7744692d9d81 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8433352d-676d-4971-949e-b4c15594740a ;
+  sso:id "QNC" ;
+  rdfs:comment "sealed fluid varying object of a multi-phase flow" ;
+  rdfs:label "multi-phase control valve" .
+:b9df9e4d-3eb7-4865-93dc-49c0e0a34fc4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bd70f1cf-9205-4645-b5b1-7bd0fef829a1 ;
+  sso:id "EAA" ;
+  rdfs:comment "light emitting object utilizing electricity" ;
+  rdfs:label "electric lamp" .
+:ba3cb75a-5af9-4c92-937d-f9e2a30c7d47 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f6c6123f-7e70-4f2e-95d6-dc4a764fce82 ;
+  sso:id "UBC" ;
+  rdfs:comment "carrying object at a discrete position by steps" ;
+  rdfs:label "tread" .
+:ba442878-f24c-4b4f-97a5-415a0632111b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :5a5db0b1-9234-43d7-b082-e8d1308ed22f ;
+  sso:id "EPC" ;
+  rdfs:comment "thermal heating object delivered by a nonpermeable heated surface" ;
+  rdfs:label "heating panel" .
+:ba8b6d82-31ea-40ce-a719-35eb76a943e9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b97e1142-37fb-49cc-be29-9f548cb30eed ;
+  sso:id "EQD" ;
+  rdfs:comment "thermal cooling object delivered by cold fluid" ;
+  rdfs:label "cooler" .
+:bc332152-9ff5-4668-a8e8-4d8bda09710f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :efb7c1df-88f3-4ede-8508-29557bc0248b ;
+  sso:id "FR" ;
+  rdfs:comment "protecting object related to material erosion" ;
+  rdfs:label "wear protecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "glacis, lubrication object,  lubricating oil, wear pad" .
+:bc6bea16-9eb6-48e1-9143-530f3f9b2d6b a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "Q" ;
+  rdfs:comment "object for controlling access or flow" ;
+  rdfs:label "controlling object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind object  flowing and  kind of method" .
+:bd70f1cf-9205-4645-b5b1-7bd0fef829a1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8baf631a-13da-49e7-9716-f3e4edfde155 ;
+  sso:id "EA" ;
+  rdfs:comment "emitting object of light" ;
+  rdfs:label "light emitting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of energy  source" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "argon lamp, electro  luminescent devices, electric  lamp, fluorescent lamp,  fluorescent tube, gas lamp,  lamp, lamp bulb, laser, liquid  lamp, neon lamp, paraffin  lamp" .
+:bdfde39d-a0ee-45da-8a1f-13c740120921 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4acb5950-4793-4dbe-a08a-ac3a9c4a2f51 ;
+  sso:id "RPA" ;
+  rdfs:comment "level restricting object providing an adjustable limit" ;
+  rdfs:label "variable level restricting object" .
+:bed847e7-8d7c-44ea-9554-453a14353ead a lci:ClassOfIndividual ;
+  rdfs:subClassOf :eaec55c0-fa41-4660-a520-2ec8660bb85f ;
+  sso:id "BPC" ;
+  rdfs:comment "pressure sensing object utilizing two ports for differential pressure sensing, with scalar output" ;
+  rdfs:label "differential pressure transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "differential pressure  sensor, pressure  sensor, relative pressure  sensor" .
+:bee0f98b-1c5c-4328-80ab-7ba3b491a28f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6c01ada8-6e3d-47d3-ba78-33dac3ffc259 ;
+  sso:id "RLB" ;
+  rdfs:comment "movement restricting object by settling and damping movements of an object" ;
+  rdfs:label "shock absorber" .
+:befbae2e-8155-4cc4-9d5a-5441bd2ced37 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4faec3f6-d885-40a2-867d-1a7baa97fe26 ;
+  sso:id "RQE" ;
+  rdfs:comment "local" ;
+  rdfs:label "curtain" .
+:bf0b69be-76b7-4329-bedf-1ca6ff415d97 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BU" ;
+  rdfs:comment "sensing object for multiple quantities" ;
+  rdfs:label "multi-quantity sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "Buchholz relay, distance  protection relay, impedance  protection relay, multidetector, multi- sensor, multisensor switch, negative  phase-sequence relay" .
+:bf7fdb89-34aa-4686-8f80-4b0c68f5e023 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3dacc58-2483-426a-85c4-3595e9ad557f ;
+  sso:id "ML" ;
+  rdfs:comment "driving object powered by mechanical energy" ;
+  rdfs:label "mechanical energy driving object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  mechanical  source" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "elastic energy drive, gravity  energy drive, hammer, nail  gun, roller coaster, spring  actuator device, steam turbine, water turbine, wind  turbine" .
+:bf880de1-fc3b-4385-bff0-7e6562380c8a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e9d29c86-5dcc-4ff0-a5e7-2c7a4ade4427 ;
+  sso:id "TAC" ;
+  rdfs:comment "electric energy transforming object from AC to AC while changing the frequency" ;
+  rdfs:label "frequency converter" .
+:bf9676c0-b722-4947-9e69-540c18cf99b0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :533987dd-bf73-4357-8525-11016196129a ;
+  sso:id "WV" ;
+  rdfs:comment "guiding object for thermal energy" ;
+  rdfs:label "thermal energy guiding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "heat sink, thermal conductor,  thermal paste" .
+:bfcbe0f8-b73d-440e-84c0-29dde7c723cb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :24566cf9-34e0-420c-af70-55e318d21e0e ;
+  sso:id "XB" ;
+  rdfs:comment "interfacing object for high-voltage electric power" ;
+  rdfs:label "high-voltage connecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "brush, clamp, cable head,  high-voltage cable joint, highvoltage connector, highvoltage moveable connector,  high-voltage socket, highvoltage terminal, high-voltage  terminal box, junction box,  pantograph, " .
+:c06f337d-0670-490c-8c71-0c6ed59ded51 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :75a99ce4-f8bf-44e1-a1ed-201c1242bafe ;
+  sso:id "SK" ;
+  rdfs:comment "human interaction object by its movement or positioning" ;
+  rdfs:label "movement interaction object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "joystick, mouse, light pen,  roller ball" .
+:c19f2c7c-b9af-4d40-983e-4f20ba6c8d18 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULD" ;
+  rdfs:comment "structural supporting object in a curved or straight linear form transferring compressing forces to other structural objects" ;
+  rdfs:label "column" .
+:c1f91b7e-2b29-468d-9c0a-92357b2fd600 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :533987dd-bf73-4357-8525-11016196129a ;
+  sso:id "WH" ;
+  rdfs:comment "guiding object for light" ;
+  rdfs:label "light guiding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of flow" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "fibre optical cable, lens, light  reflector, mirror, optical light  fibre, optical light guide,  optical wave guide" .
+:c21f47f6-eb2f-4e7f-a096-2642dba3afc7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bc6bea16-9eb6-48e1-9143-530f3f9b2d6b ;
+  sso:id "QB" ;
+  rdfs:comment "controlling object by isolating electric circuits" ;
+  rdfs:label "electric isolating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "disconnector, electronic  disconnector, fuse-switch  disconnector, fused  disconnector, fuseless disconnector, load-switch  disconnector, switch-fuse  disconnector" .
+:c2c0a336-a3bf-42fe-9e91-46bbbd362706 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :813601e2-e4bb-4183-abf9-c2d158111821 ;
+  sso:id "WRB" ;
+  rdfs:comment "rail object providing a crossing" ;
+  rdfs:label "track crossing" .
+:c32a29b1-1db8-4843-8ce2-90e90c4926b7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cd0e27f1-b62f-499e-ae59-4bcca7678509 ;
+  sso:id "TB" ;
+  rdfs:comment "transforming object of electric energy changing between AC and DC" ;
+  rdfs:label "electric energy converting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  transformation" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "bidirectional converter,  inverter, power supply,  rectifier" .
+:c390b4c4-6620-4c16-9965-4c874050bbea a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULR" ;
+  rdfs:comment "structural support object in a curved linear form withstanding tensile forces" ;
+  rdfs:label "catenary" .
+:c3e56c8b-5884-437d-b699-a4924a9ad06b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f5f7c893-a928-475e-9812-ab4daf988865 ;
+  sso:id "QAC" ;
+  rdfs:comment "electric controlling object electronically" ;
+  rdfs:label "electronic power switch" .
+:c57b6d54-38d9-4e2c-af16-eff4d1794fc8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9b6cdae-0bf5-48a0-afc6-95cb35c1a1a1 ;
+  sso:id "WMD" ;
+  rdfs:comment "open enclosure guiding object for liquid by projection" ;
+  rdfs:label "drip nose" .
+:c5abf8b6-4c72-45ac-8701-713a47252b0c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f9d1c2df-9bb8-405a-8f4a-4a33369f858b ;
+  sso:id "ND" ;
+  rdfs:comment "covering object of en edge or end" ;
+  rdfs:label "terminating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of object  to terminate" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "bargeboard, carpet edge,  ceiling edge, crown, curb,  edge end, edge trim, fascia,  fibre end, fibre termination,  flaunching, lawn edge, plant  bed edge, raised floor edge,  tile edge, wall top" .
+:c5e545e3-0645-454c-ac66-4b319f8a8da9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BF" ;
+  rdfs:comment "sensing object for flow" ;
+  rdfs:label "flow sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "flow sensor, flow switch, flow  transmitter, gas flow sensor, gas flow switch, liquid flow  sensor, matter flow sensor, matter flow switch, water flow  sensor" .
+:c6a1bf34-ab8c-4ade-a4ff-1059a260955b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e82c8b45-cfe0-418e-8f69-c4f7753b2214 ;
+  sso:id "QQD" ;
+  rdfs:comment "space access object of restricted size for passage of persons and goods" ;
+  rdfs:label "hatch" .
+:c70df352-0d81-4b60-93ef-5d72c0eb0e07 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :69d6fac5-4aaf-4cd7-b0bb-5aed94b182fa ;
+  sso:id "BQC" ;
+  rdfs:comment "concentration sensing object liquid with, scalar output" ;
+  rdfs:label "liquid sensor" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "concentration sensor,  fog sensor, petrol  concentration sensor,  visibility sensor" .
+:c7264788-7d73-4dcd-a4d9-ae3bb154e955 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f4f71c3a-d67d-4376-81a4-ca0d76151699 ;
+  sso:id "HSA" ;
+  rdfs:comment "chemical separating object utilising exchange of ions" ;
+  rdfs:label "ion exchanger" .
+:c7d4ecbf-3f29-4e79-b370-e5d2c4d3a01d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2bb35735-f080-4fb4-927f-216d90ac521a ;
+  sso:id "BWA" ;
+  rdfs:comment "force sensing object of weight, with scalar output" ;
+  rdfs:label "weight transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "load cell, weight sensor" .
+:c8d1c56a-dc58-4188-a96b-55764c1012e9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a445e55a-0cf2-4c43-9546-315e55d26b67 ;
+  sso:id "RA" ;
+  rdfs:comment "restricting object by restricting an electric current" ;
+  rdfs:label "Electric current restricting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "diode, limiter, reactor,  resistor, series reactor" .
+:c8d81521-5a9a-43c9-b809-267a840acf25 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bc6bea16-9eb6-48e1-9143-530f3f9b2d6b ;
+  sso:id "QM" ;
+  rdfs:comment "controlling object of fluids on/off in sealed enclosures" ;
+  rdfs:label "sealed fluid switching object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of fluids" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "draw-off tap, faucet, gas  shutoff valve, liquid shutoff  valve, multi-phase shutoff  valve, on-off damper, plug,  steam shutoff valve" .
+:c9728457-0292-4d44-8a2d-4c5927512b4f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0e1aa527-2b12-4b97-8d1c-8f2a0d60ae21 ;
+  sso:id "GRB" ;
+  rdfs:comment "solar to thermal energy generating object generating a fluid flow" ;
+  rdfs:label "solar tower" .
+:c9b6cdae-0bf5-48a0-afc6-95cb35c1a1a1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :533987dd-bf73-4357-8525-11016196129a ;
+  sso:id "WM" ;
+  rdfs:comment "guiding object of fluid flow in open enclosure" ;
+  rdfs:label "open enclosure guiding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "aeration layer, aeration pipe,  aeration well, drainage layer,  drainpipe, drain liquid  flashing, drip edge, drip  flashing, eaves gutter, eaves  trough, gutter, gutter drip,  infiltration chamber,  infiltration layer, infiltration  pipe, radon well, rain gutter" .
+:c9fef8c4-c41e-48cb-80ed-a9671ff67b2c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :16ccd73e-73a4-4282-9b2d-28f25d576866 ;
+  sso:id "UCC" ;
+  rdfs:comment "enclosing object for spot ventilation" ;
+  rdfs:label "cooker hood" .
+:ca65c8be-dc60-4e68-ad81-46d971a89dcf a lci:ClassOfIndividual ;
+  rdfs:subClassOf :efb7c1df-88f3-4ede-8508-29557bc0248b ;
+  sso:id "FM" ;
+  rdfs:comment "protecting object related to fire" ;
+  rdfs:label "fire protecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied and  possible cause  for activation" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "fire and flue damper, fire  blind, fire damper, fire  extinguisher, flue damper,  fire impregnation, fire  insulation, fire protecting  coating, fire retardant  coating, smoke closure, smoke curtain" .
+:cab2073c-b715-4f48-9daf-f7867882ca14 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a5bbc02-6360-45cb-ba99-2a5f09be9ff4 ;
+  sso:id "PFA" ;
+  rdfs:comment "visible state indicator by light" ;
+  rdfs:label "signal lamp" .
+:cb02d3df-e2fe-48a1-9f3d-3051cdbf1189 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3dacc58-2483-426a-85c4-3595e9ad557f ;
+  sso:id "MM" ;
+  rdfs:comment "driving object powered by fluid displacement or pressure" ;
+  rdfs:label "fluid powered driving object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of fluid  source" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "hydraulic cylinder, hydraulic  motor, pneumatic cylinder,  pneumatic motor" .
+:cb897cc7-14e3-48a7-970d-8380e94d84d1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BA" ;
+  rdfs:comment "sensing object for electric potential" ;
+  rdfs:label "electric potential sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "coupling capacitor,  measuring voltage relay,  measuring voltage  transformer, voltage relay,  voltage transformer" .
+:cbc415e3-0657-4b21-b065-02421156b869 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f6c6123f-7e70-4f2e-95d6-dc4a764fce82 ;
+  sso:id "UBA" ;
+  rdfs:comment "carrying object between discrete positions" ;
+  rdfs:label "cable tray" .
+:cd0e27f1-b62f-499e-ae59-4bcca7678509 a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "T" ;
+  rdfs:comment "object for transforming" ;
+  rdfs:label "transforming object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of object  changed and  kind of  transformation" .
+:cd17bd00-7a8e-4ada-9f71-5298371969f5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bf0b69be-76b7-4329-bedf-1ca6ff415d97 ;
+  sso:id "BUB" ;
+  rdfs:comment "multi-quantity sensing object, with Boolean output(s)" ;
+  rdfs:label "multi-detector" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "Buchholz relay, distance  protection relay,  impedance protection  relay, negative phasesequence relay" .
+:cd8ccdaf-6dd4-4f53-832b-ccdb46c718a0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4b8011a0-2e11-4559-91a8-d4c33f20c97d ;
+  sso:id "BCA" ;
+  rdfs:comment "electric current sensing object, with scalar output" ;
+  rdfs:label "current transformer" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "measuring current  transformer" .
+:cef78046-28be-45f8-b0ed-db69f425b3bc a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "G" ;
+  rdfs:comment "object for providing a controllable flow" ;
+  rdfs:label "generating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of object  flowing and  kind of source" .
+:cf052e77-58ed-4675-b96c-bd31190dfd9e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3a4bae9c-b605-4a8f-aefd-31d4ca8bf045 ;
+  sso:id "BTB" ;
+  rdfs:comment "electric energy converting object, with Boolean output" ;
+  rdfs:label "temperature switch" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "temperature detector" .
+:cf2f5f46-e418-4e3b-b1df-4e9f216ad5b4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :386db4c1-f03b-4c42-b331-a518920f0c0a ;
+  sso:id "EBE" ;
+  rdfs:comment "electric heating object delivered by an electric arc" ;
+  rdfs:label "arc heating object" .
+:cfb066ee-1efd-4603-a21d-c4e5170aad6e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :460bc0f1-7c77-4f20-83f7-86e38b2d882e ;
+  sso:id "BBA" ;
+  rdfs:comment "resistivity sensing object for electric current flow, with scalar output" ;
+  rdfs:label "electric resistivity sensor" .
+:cffd32e9-cd30-40bf-a1ed-a59ad2180221 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9f32f7ad-f1bd-4166-8696-5b516f71d4f6 ;
+  sso:id "BRE" ;
+  rdfs:comment "radiation sensing object of nuclear particles, with scalar output" ;
+  rdfs:label "radiation counter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "Geiger meter" .
+:d0935067-aa54-42cb-97c6-32692feaa4ac a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d4ef5373-0886-4e78-904e-d7e0b51517d9 ;
+  sso:id "HKC" ;
+  rdfs:comment "surface treatment object by coating" ;
+  rdfs:label "surface coating machine" .
+:d11ff699-a1be-46dc-897f-aa47bf6241c8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cef78046-28be-45f8-b0ed-db69f425b3bc ;
+  sso:id "GM" ;
+  rdfs:comment "generating object discontinuously of solid matter" ;
+  rdfs:label "discontinuous transfer object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "car, cart, crane, elevator,  forklift truck, hoist, lorry,  luggage turntable, palletizer,  railway turntable, stacker, truck, train truck, turntable,  vibrating feeder, wagon,  wheelbarrow" .
+:d1e15e29-22f0-47d1-8b2b-4119f90ec966 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b8b2f045-193c-40ef-8fc3-c72164892502 ;
+  sso:id "UNA" ;
+  rdfs:comment "framing object with a fixed frame" ;
+  rdfs:label "fixed frame" .
+:d252d121-c594-410a-95e1-2717a3ff188e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b97e1142-37fb-49cc-be29-9f548cb30eed ;
+  sso:id "EQC" ;
+  rdfs:comment "thermal cooling object delivered by forced air" ;
+  rdfs:label "cold air blower" .
+:d321a568-cad1-470b-b1eb-d54b78148b05 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4b979b5e-fc05-479c-933e-297018a69ff4 ;
+  sso:id "WGB" ;
+  rdfs:comment "electric signal guiding object for data transmission" ;
+  rdfs:label "data cable" .
+:d4ef5373-0886-4e78-904e-d7e0b51517d9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :80dac517-6a2f-477d-b935-6c268cfc9cd2 ;
+  sso:id "HK" ;
+  rdfs:comment "matter processing object for surface treatment" ;
+  rdfs:label "surface treatment object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "air gun sprayer, anodizer,  burnishing machine,  dishwasher, electrostatic  coating machine, hammer  peening machine, hoover,  oil-coating machine, polisher, polishing machine, sand  paper, shower, steam  cleaner, surface cleaning  object, surface coating  object, surface modification  object, , ultrasonic  degreaser, vacuum cleaner,  vapour degreaser, window  wiper, wire brush" .
+:d5931556-f0d9-4ba2-9d8b-ea12a9c2fa20 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :24566cf9-34e0-420c-af70-55e318d21e0e ;
+  sso:id "XG" ;
+  rdfs:comment "interfacing object for electric signals" ;
+  rdfs:label "electric signal connecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "flexible connection, hub,  patch panel, signal  distributor, signal socket,  terminal" .
+:d5a08442-6f2b-4115-a4f8-167323ed8d34 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8baf631a-13da-49e7-9716-f3e4edfde155 ;
+  sso:id "EE" ;
+  rdfs:comment "emitting object of wireless power" ;
+  rdfs:label "wireless power object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "capacitive coupler, gamma  ray source, inductive power  antenna, magnetron, maser,  microwave oven, X-ray  source" .
+:d607c4e2-ea1d-46f8-98e0-a794899d9128 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bf9676c0-b722-4947-9e69-540c18cf99b0 ;
+  sso:id "WVB" ;
+  rdfs:comment "thermal energy guiding object by a static fluid mass" ;
+  rdfs:label "thermal paste" .
+:d666e309-0974-4f30-b310-868285994ae4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cef78046-28be-45f8-b0ed-db69f425b3bc ;
+  sso:id "GF" ;
+  rdfs:comment "generating object of signals for carrier of information" ;
+  rdfs:label "signal generating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of source  distribution  method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "electromagnetic wave  transmitter, laser transmitter,  radio-wave transmitter, signal  generator, television station" .
+:d74976ae-56e2-432a-9e26-11c0c568e288 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e9d29c86-5dcc-4ff0-a5e7-2c7a4ade4427 ;
+  sso:id "TAA" ;
+  rdfs:comment "electric energy transforming object from AC to AC without change of the frequency" ;
+  rdfs:label "transformer" .
+:d768b5fd-5e9c-477c-a8a0-5c91ae502552 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :ac0e024f-c6fc-4784-aeb6-7f414891ee43 ;
+  sso:id "RBA" ;
+  rdfs:comment "electricity stabilising object ensuring a continuous power supply" ;
+  rdfs:label "uninterruptible power supply" .
+:d77991d1-43b8-4deb-a64c-5e80daa97b95 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :386db4c1-f03b-4c42-b331-a518920f0c0a ;
+  sso:id "EBC" ;
+  rdfs:comment "electric heating object delivered by a cable" ;
+  rdfs:label "heating cable" .
+:d7ae53b6-c2c7-4ea8-b368-11bc3b26c42a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :24566cf9-34e0-420c-af70-55e318d21e0e ;
+  sso:id "XD" ;
+  rdfs:comment "interfacing object for lowvoltage electric power" ;
+  rdfs:label "low-voltage connecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "brush, distribution box,  electric terminal,  low-voltage cable joint, lowvoltage moveable connector,  low-voltage plug, low-voltage  power socket, low-voltage  terminal, pantograph, plug,  plug adapter, power  distributer, power outlet,  socket, terminal box" .
+:d8a61c2e-c346-4b02-b98d-3cb1f670b511 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c9b6cdae-0bf5-48a0-afc6-95cb35c1a1a1 ;
+  sso:id "WMC" ;
+  rdfs:comment "open enclosure guiding object for liquid with an open surface" ;
+  rdfs:label "drain liquid flashing" .
+:d94b026b-8a6d-4994-ac19-14200bb35420 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fb7fa3f0-d139-45c4-815b-656456687f5f ;
+  sso:id "WPC" ;
+  rdfs:comment "closed enclosure guiding object in a flexible form" ;
+  rdfs:label "hose" .
+:d99e0253-ced0-4a88-ae61-9948c0b613a5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :80dac517-6a2f-477d-b935-6c268cfc9cd2 ;
+  sso:id "HM" ;
+  rdfs:comment "matter processing object by separating mixed substances by force" ;
+  rdfs:label "force separating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "centrifuge, cyclone,  hydrocyclone, settling tank" .
+:da4659c7-135e-48b4-b2c6-ef44baa361c8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a0336c95-1a2b-4aa1-8ba7-3484df51c632 ;
+  sso:id "CPE" ;
+  rdfs:comment "thermal energy storing object of fluids" ;
+  rdfs:label "thermal fluids tanks" .
+:da9c8289-9fdd-4819-a1f7-a5f663992122 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0b58a485-46a2-4c76-95c5-6f48d0b75165 ;
+  sso:id "BEC" ;
+  rdfs:comment "field sensing object for magnetic field, with scalar output" ;
+  rdfs:label "magnetic field sensor" .
+:dc0378cd-84ce-470c-93b6-db8af0b5a19e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cef78046-28be-45f8-b0ed-db69f425b3bc ;
+  sso:id "GP" ;
+  rdfs:comment "generating object of liquid" ;
+  rdfs:label "liquid flow generating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "axial flow circulation pump,  centrifugal pump, eductor  pump, hydra,, hydraulic ram pump, impeller, liquid  velocity pump, lubricator,  oiler, peristaltic pump, piston  pump, positive displacement  pump, pump, radial-flow  circulation pump, rotary gear  pump, screw pump, siphon" .
+:dc27b13c-69d4-4f45-914a-6a5c93b3db3f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4faec3f6-d885-40a2-867d-1a7baa97fe26 ;
+  sso:id "RQA" ;
+  rdfs:comment "local climate stabilising object by restricting a thermal or sound transmission" ;
+  rdfs:label "insulation" .
+:dc5fdc96-f2e7-4823-9bb0-fc649191608e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3dacc58-2483-426a-85c4-3595e9ad557f ;
+  sso:id "MA" ;
+  rdfs:comment "driving object in the form of rotational torque, powered by electromagnetic force" ;
+  rdfs:label "electromagnetic rotational driving object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  movement" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "AC motor, asynchronous  motor, DC motor, electric  motor, induction motor, PM  motor, servo-motor, stepper  motor, synchronous motor" .
+:dc744738-66e2-4669-aeeb-8233aa8fd94a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d5a08442-6f2b-4115-a4f8-167323ed8d34 ;
+  sso:id "EEB" ;
+  rdfs:comment "wireless power object utilizing microwaves" ;
+  rdfs:label "magnetron" .
+:dc8b9ac0-87e1-40d1-8736-bea8e5ddd492 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bc6bea16-9eb6-48e1-9143-530f3f9b2d6b ;
+  sso:id "QZ" ;
+  rdfs:comment "controlling object in electrical circuits, utilising different measures" ;
+  rdfs:label "multiple measure controlling object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  purpose" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "earthing and disconnecting  switch" .
+:dcb3a0a1-360a-4733-8fb0-21cfe01276c0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cd0e27f1-b62f-499e-ae59-4bcca7678509 ;
+  sso:id "TP" ;
+  rdfs:comment "transforming object of matter by shape reforming" ;
+  rdfs:label "matter reshaping object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  process" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "bending machine, cold  forging machine, curling  machine, electrohydraulic  forming machine,  electromagnetic forming  machine, explosive forming  machine, extruder, forging  machine, hot forging  machine, knurling machine,  rolling machine, seaming  machine, sheet rolling  machine, shear spinning  machine, thread forming  machine, tube drawing  machine, wire drawing  machine" .
+:dcd17252-247c-48bd-9192-7e18e3d9bfda a lci:ClassOfIndividual ;
+  rdfs:subClassOf :813601e2-e4bb-4183-abf9-c2d158111821 ;
+  sso:id "WRA" ;
+  rdfs:comment "rail object providing a directed path" ;
+  rdfs:label "track" .
+:dd366d49-6c06-49ed-9a36-aeacf01cc972 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BH" ;
+  rdfs:comment "sensing object for energy" ;
+  rdfs:label "energy sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of energy" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "condensate sensor, electric  energy meter, energy cooling  meter, energy meter, energy  sensor, flow energy meter,  gas energy meter, kWh  sensor, thermal energy meter" .
+:ddacf59a-cc53-4873-bc25-679c6aec3f69 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULG" ;
+  rdfs:comment "structural supporting object in form of a block" ;
+  rdfs:label "block" .
+:de08b92c-5910-44a6-9f8f-0acebe453692 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bd70f1cf-9205-4645-b5b1-7bd0fef829a1 ;
+  sso:id "EAB" ;
+  rdfs:comment "light emitting object utilizing gas combustion" ;
+  rdfs:label "gas lamp" .
+:de0eb4f4-706e-4db1-a85a-3b880968cc72 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b8b2f045-193c-40ef-8fc3-c72164892502 ;
+  sso:id "UNC" ;
+  rdfs:comment "framing object with a moveable frame" ;
+  rdfs:label "moveable frame" .
+:debd0fff-f966-41c0-b45d-bc2133c2aa88 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0b58a485-46a2-4c76-95c5-6f48d0b75165 ;
+  sso:id "BED" ;
+  rdfs:comment "field sensing object for magnetic field, with Boolean output" ;
+  rdfs:label "magnetic field detector" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "reed relay, reed switch" .
+:ded03cbc-4c2e-4c93-890c-5d80df5e3a3e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d11ff699-a1be-46dc-897f-aa47bf6241c8 ;
+  sso:id "GMF" ;
+  rdfs:comment "discontinuous transport object moving objects in a linear flow by vibrating" ;
+  rdfs:label "vibrating feeder" .
+:df7a9b92-bcad-4f0e-af1c-21565b9d9183 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6df5aa65-dbf9-4fac-a25f-d0052ffcd0c5 ;
+  sso:id "BSD" ;
+  rdfs:comment "time-rating object of distance, with Boolean output" ;
+  rdfs:label "speed detecting switch" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "movement detector" .
+:dfb256fa-5109-4a56-a517-8935ee64b316 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BJ" ;
+  rdfs:comment "sensing object for power" ;
+  rdfs:label "power sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "kW meter, power limit switch,  power meter" .
+:e1495723-3d27-4506-ac1c-1bfc447955de a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0b219e30-cf3e-4f2a-99fa-44f02a562948 ;
+  sso:id "XKA" ;
+  rdfs:comment "collecting interfacing object of wastewater" ;
+  rdfs:label "sink" .
+:e24395c6-d76b-48f6-8f35-39004a9d438a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8433352d-676d-4971-949e-b4c15594740a ;
+  sso:id "QNB" ;
+  rdfs:comment "sealed fluid varying object of a gas flow" ;
+  rdfs:label "gas control valve" .
+:e2b436ef-8df1-4d90-bbe9-17e93dc150ec a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e82c8b45-cfe0-418e-8f69-c4f7753b2214 ;
+  sso:id "QQE" ;
+  rdfs:comment "space access object of extended size for transfer of objects" ;
+  rdfs:label "large door" .
+:e3032d9b-dfeb-4a38-9347-c339763518e0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cd0e27f1-b62f-499e-ae59-4bcca7678509 ;
+  sso:id "TM" ;
+  rdfs:comment "transforming object of matter by mass reduction" ;
+  rdfs:label "mass reduction object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  process" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "angle grinder, blanking  machine, boring machine,  carpenter’s plans, diagobal  l´liers, drilling machine,  electron discharge sawing  machine, etching machine,  gas cutting machine, grinder,  horning machine,immersion  chemical mill, jet machine,  lathe, lawn mover, pick axe,  piercing ,achine, plane,  plasma arc cutting machine,  punching machine, scissors,  secaterurs, , spray chemical  mill, thermal cutter, trimmer  shearing machine, wire cutter" .
+:e34db66f-0ddc-4dce-a5d7-a98c48e8f633 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c8d1c56a-dc58-4188-a96b-55764c1012e9 ;
+  sso:id "RAA" ;
+  rdfs:comment "electric current restricting object by blocking current flow in one direction" ;
+  rdfs:label "diode" .
+:e34de91b-d4e1-40c0-9e86-69ea9f428f4e a sso:ClassSystem ,
+    ns2:a7f0e0f6-8448-4096-b652-55c850b3344a ;
+  sso:id "IEC81346-2_inherent_function" ;
+  rdfs:comment "xxbbbbb" ;
+  rdfs:label "IEC 81346-2 Inherent Function" .
+:e3b65e23-bd46-4978-bea4-485db5f8957f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :80dac517-6a2f-477d-b935-6c268cfc9cd2 ;
+  sso:id "HJ" ;
+  rdfs:comment "matter processing object by primary forming" ;
+  rdfs:label "primary forming object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of initial  material state" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "3D-printer, casting tool,  chipboard press, press,  sintering press" .
+:e3c82826-f74d-4900-8ddd-08d73325c568 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9d865012-18e8-41a7-968e-58e60f4a69c5 ;
+  sso:id "BYC" ;
+  rdfs:comment "Information sensing object by light" ;
+  rdfs:label "optical reader" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "barcode reader, optical  disk reader, QR-reader" .
+:e3fc545b-0576-4889-8939-0a08ce2162dc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :007dc49f-519b-4f56-aefd-b9260556203f ;
+  sso:id "UU" ;
+  rdfs:comment "holding object by existing ground" ;
+  rdfs:label "existing ground" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  material" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "cohesive soil, filled material,  friction soil, mixed soil,  organic soil, rock" .
+:e471315a-6c72-4d8d-9b7e-663592132c96 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :62c8a113-d6c6-418b-a233-68257e6308a2 ;
+  sso:id "BGG" ;
+  rdfs:comment "physical dimension sensing object of physical object" ;
+  rdfs:label "object scanner" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "2D-scanner,  3D-scanner, coordinates  scanner, laser scanner" .
+:e5968599-f041-447d-a0db-c33467aaeee8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :960b630c-cf76-465e-89f6-48d3db0af12e ;
+  sso:id "SGE" ;
+  rdfs:comment "hand interaction device by pulling" ;
+  rdfs:label "pull handle" .
+:e63928c4-1891-40a5-b9be-6df3936dafee a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3a4bae9c-b605-4a8f-aefd-31d4ca8bf045 ;
+  sso:id "BTA" ;
+  rdfs:comment "electric energy converting object, with scalar output" ;
+  rdfs:label "temperature transmitter" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "temperature sensor" .
+:e70bb55e-4d04-414e-8cb8-94ce68aa380e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3f6275f6-9254-4f73-970c-62ba97ce428c ;
+  sso:id "CMB" ;
+  rdfs:comment "enclosed stationary storing object for solid matters" ;
+  rdfs:label "box" .
+:e7a67f6e-a125-48cb-90fa-6a5812b4fc55 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BK" ;
+  rdfs:comment "sensing object for time" ;
+  rdfs:label "time sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "Clock, time counter, time  information device, time  sensor, timer switch" .
+:e80ac83c-4277-4afc-bb5f-ac320d9ca977 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :386db4c1-f03b-4c42-b331-a518920f0c0a ;
+  sso:id "EBB" ;
+  rdfs:comment "electric heating object delivered by a surface" ;
+  rdfs:label "electric heating surface" .
+:e82c8b45-cfe0-418e-8f69-c4f7753b2214 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bc6bea16-9eb6-48e1-9143-530f3f9b2d6b ;
+  sso:id "QQ" ;
+  rdfs:comment "controlling object to a space" ;
+  rdfs:label "space access object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  purpose of the  space access  object" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "door, escape hatch, gate,  hatch, large door, openable  bar, rail scotch block,  window, window unit" .
+:e8a258c1-60fe-40a6-bb38-b49787d98c02 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :68f31399-158e-4214-8dfd-df29229b0ef2 ;
+  sso:id "PH" ;
+  rdfs:comment "presenting object in visible form by pictures, symbols, text or physical characteristics" ;
+  rdfs:label "graphical display" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  presentation  means" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "blackboard, display, marking,  marking post, printer,  projector, reference point,  sign, traffic sign, whiteboard" .
+:e9d29c86-5dcc-4ff0-a5e7-2c7a4ade4427 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cd0e27f1-b62f-499e-ae59-4bcca7678509 ;
+  sso:id "TA" ;
+  rdfs:comment "transforming object of electric energy while retaining AC or DC" ;
+  rdfs:label "electric energy transforming object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  characteristics  transformed" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "DC/DC converter, frequency  converter, isolating  transformer, phase shifter,  power drive, transformer" .
+:ea1d9163-aa18-40d3-b2d5-35223033e70e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a680e4c9-18fd-4fa7-9a07-f823debf8dc2 ;
+  sso:id "GQC" ;
+  rdfs:comment "gaseous flow generating object by transferring the kinetic energy of an input flow to an output flow" ;
+  rdfs:label "gas ejector" .
+:ea556c57-c6e4-402e-85ee-822a0b0706a8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :80dac517-6a2f-477d-b935-6c268cfc9cd2 ;
+  sso:id "HP" ;
+  rdfs:comment "matter processing object by thermally separating mixed substances" ;
+  rdfs:label "thermal separating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of thermal  separating  method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "distiller, distillation column,  dryer, evaporator" .
+:ea84c92d-0bbc-46d8-8d6a-7311108801a9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bc6bea16-9eb6-48e1-9143-530f3f9b2d6b ;
+  sso:id "QR" ;
+  rdfs:comment "controlling object of solid substance" ;
+  rdfs:label "solid substance flow varying object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "dosing machine, flap gate  valve, iris valve, rotary air  lock valve" .
+:ea9e2ffa-67db-4e99-9341-0b368bc95f75 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :efb7c1df-88f3-4ede-8508-29557bc0248b ;
+  sso:id "FA" ;
+  rdfs:comment "protecting object related to overvoltages" ;
+  rdfs:label "overvoltage protecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "limiter, spark gap surge  arrester, surge absorber,  varistor surge arrester, zener  diode" .
+:eade2621-2299-41cd-8ac7-84cd1d3351ce a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d11ff699-a1be-46dc-897f-aa47bf6241c8 ;
+  sso:id "GME" ;
+  rdfs:comment "discontinuous transport object turning a conveyed flow" ;
+  rdfs:label "turntable" .
+:eaec55c0-fa41-4660-a520-2ec8660bb85f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9a075ea8-b55e-4078-834a-8fba9cf5e3cc ;
+  sso:id "BP" ;
+  rdfs:comment "sensing object for pressure" ;
+  rdfs:label "pressure sensing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of output  signal" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "absolute pressure sensor,  absolute pressure switch, absolute pressure  transmitter, differential  pressure sensor, differential  pressure switch, differential  pressure transmitter,  manometer, pressure  monitor, pressure sensor,  pressure switch, pressure  transducer, relative pressure  detector, relative pressure  sensor, relative pressure  switch" .
+:ef5ef93a-c102-4baa-b72e-673183bb233e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0e1aa527-2b12-4b97-8d1c-8f2a0d60ae21 ;
+  sso:id "GRA" ;
+  rdfs:comment "solar to thermal energy generating object into a fluid thermal flow" ;
+  rdfs:label "solar panel" .
+:efb7c1df-88f3-4ede-8508-29557bc0248b a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "F" ;
+  rdfs:comment "object for protecting against the effects of dangerous or undesirable conditions" ;
+  rdfs:label "protecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of source or kind of  effect" .
+:f015343f-5c19-4ec4-baa6-b419798639ad a lci:ClassOfIndividual ;
+  rdfs:subClassOf :460bc0f1-7c77-4f20-83f7-86e38b2d882e ;
+  sso:id "BBB" ;
+  rdfs:comment "resistivity sensing object for electric current flow, with Boolean output" ;
+  rdfs:label "electric resistivity detector" .
+:f01f968c-7591-45d1-8fbf-ab6aba5994dc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2b3af4f4-c9bd-49c6-97f5-c4f7fdfc788b ;
+  sso:id "EMB" ;
+  rdfs:comment "combustion heating object for heating of fluid" ;
+  rdfs:label "combustion boiler" .
+:f0bea974-cec2-4b10-b17c-c906ff974c61 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :5a5db0b1-9234-43d7-b082-e8d1308ed22f ;
+  sso:id "EPA" ;
+  rdfs:comment "thermal heating object delivered by a permeable heated surface" ;
+  rdfs:label "heating surface" .
+:f1e59e9a-62cd-4ab3-9633-171b34d6f318 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :65aa771e-3781-4461-b040-7587f089d5d4 ;
+  sso:id "BZA" ;
+  rdfs:comment "incident sensing object detecting the number of incidents, with scalar output" ;
+  rdfs:label "counter" .
+:f20be98d-49ce-4cbe-9f47-c74199707a52 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :69d6fac5-4aaf-4cd7-b0bb-5aed94b182fa ;
+  sso:id "BQE" ;
+  rdfs:comment "concentration sensing object of solid matter, with scalar output" ;
+  rdfs:label "solid matter sensor" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "concentration sensor, smoke sensor, turbidity  sensor, visibility sensor" .
+:f2143b83-3939-4808-a75b-101086801e99 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :69d6fac5-4aaf-4cd7-b0bb-5aed94b182fa ;
+  sso:id "BQB" ;
+  rdfs:comment "concentration sensing object of gas, with Boolean output" ;
+  rdfs:label "gas detector" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "concentration detection  switch" .
+:f2b981c4-0d5f-453c-a40c-290c95d635b9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :efb7c1df-88f3-4ede-8508-29557bc0248b ;
+  sso:id "FN" ;
+  rdfs:comment "protecting object related to mechanical force" ;
+  rdfs:label "mechanical force protecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "airbag, cable protection,  cushion, impact protection,  rubber padding, safety clutch" .
+:f2e540a9-e35a-4daa-8901-3aa332a57e9a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :80dac517-6a2f-477d-b935-6c268cfc9cd2 ;
+  sso:id "HL" ;
+  rdfs:comment "matter processing object by joining or assembling" ;
+  rdfs:label "assembling object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "assembly robot, chemical  joining machine, crimping  machine, electric arc welder,  friction (inertial) welder,  gluing machine, induction  brazing machine, mechanical  joining machine, pressure  (cold) welder, soldering  machine, thermal welding  machine, ultrasonic welder" .
+:f36297a3-05ef-49f5-91a0-43de7b65d90a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2df4d658-5f83-47eb-8ea2-7d02c1c269af ;
+  sso:id "RMC" ;
+  rdfs:comment "matter return flow restricting object of solid substances" ;
+  rdfs:label "flap" .
+:f4b77efd-d136-42fb-95fc-83b31da6599f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :386db4c1-f03b-4c42-b331-a518920f0c0a ;
+  sso:id "EBF" ;
+  rdfs:comment "electric heating object delivered by a current flow" ;
+  rdfs:label "induction heater" .
+:f4f71c3a-d67d-4376-81a4-ca0d76151699 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :80dac517-6a2f-477d-b935-6c268cfc9cd2 ;
+  sso:id "HS" ;
+  rdfs:comment "matter processing object by chemically separating mixed substances" ;
+  rdfs:label "chemical separating object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "absorber, absorption washer,  adsorber, electrolyser, ion  exchanger, scrubber" .
+:f5f7c893-a928-475e-9812-ab4daf988865 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bc6bea16-9eb6-48e1-9143-530f3f9b2d6b ;
+  sso:id "QA" ;
+  rdfs:comment "controlling object of electric current in an electric circuit" ;
+  rdfs:label "electric controlling object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  switching  method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "contactor, circuit breaker,  defibrillator, electronic power  switch, high-voltage circuit  breaker with isolation  function, isolating circuit  breaker, motor starter, solid  state power transistor,  thyristor, tube power  transistor" .
+:f6c6123f-7e70-4f2e-95d6-dc4a764fce82 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :007dc49f-519b-4f56-aefd-b9260556203f ;
+  sso:id "UB" ;
+  rdfs:comment "holding object by carrying" ;
+  rdfs:label "carrying object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "cable duct, cable ladder,  cable rack, cable tray,  catwalk, conduit, duct  channel, electricity pylon,  equipment support structure,  hanger, hanging bracket,  mast, operating table,  platform, pole, portal, post,  rung, step, strap, string,  transmission tower,  supporting bracket, table,  tread" .
+:f6d96e72-cf00-4e03-89d6-79199c25e3fc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :40d64d63-d5fd-4b16-9b2f-79c29e0abd88 ;
+  sso:id "RUD" ;
+  rdfs:comment "access restricting object by a barrier with limited horizontal and vertical extent" ;
+  rdfs:label "bollard" .
+:f79c5f1e-871d-4b5a-85e6-277933e75b94 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :efb7c1df-88f3-4ede-8508-29557bc0248b ;
+  sso:id "FE" ;
+  rdfs:comment "protecting object related to electric or magnetic fields" ;
+  rdfs:label "field protecting object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "concrete wall, electric field  shield, electromagnetic field  shield, Faraday cage, lead  block, metal sheets,  magnetic field shield, Mumetal shielding" .
+:f7b77771-22dd-4d21-804c-f30e6670416a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :960b630c-cf76-465e-89f6-48d3db0af12e ;
+  sso:id "SGD" ;
+  rdfs:comment "hand interaction device by lever" ;
+  rdfs:label "lever handle" .
+:f82a181e-620e-4f3b-a18d-7c4d701e70bd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bf0b69be-76b7-4329-bedf-1ca6ff415d97 ;
+  sso:id "BUA" ;
+  rdfs:comment "multi-quantity sensing object, with scalar output(s)" ;
+  rdfs:label "multi-sensor" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "multimeter" .
+:f8314b7d-9439-4179-a54c-41b10b2e79ca a lci:ClassOfIndividual ;
+  rdfs:subClassOf :533987dd-bf73-4357-8525-11016196129a ;
+  sso:id "WS" ;
+  rdfs:comment "guiding object for unbound self-driven moveable objects" ;
+  rdfs:label "path object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of  movement  source" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "foot walk, gangway, human  pathway, road, robot route,  vehicle pathway" .
+:f882e265-5b41-4fce-9e5c-d8e995b20e58 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :533987dd-bf73-4357-8525-11016196129a ;
+  sso:id "WE" ;
+  rdfs:comment "guiding object of a reference potential" ;
+  rdfs:label "reference potential guiding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "control cable, data bus, data  cable, electric signal  bushing, signal cable" .
+:f9189432-7108-4399-98ae-bc68553748db a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3504e829-c3ff-4f1f-b245-13f8fdd20335 ;
+  sso:id "CN" ;
+  rdfs:comment "storing object for matters or persons within a moveable closed enclosure" ;
+  rdfs:label "moveable storing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of matters  stored" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "container, drum, elevator  bucket, excavator bucket,  gas cylinder, lift car,  moveable tank" .
+:f99f7d2f-d9c0-4f14-863d-755084150508 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :24566cf9-34e0-420c-af70-55e318d21e0e ;
+  sso:id "XN" ;
+  rdfs:comment "interfacing object for continuous transfer of mechanical forces" ;
+  rdfs:label "non-detachable coupling" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "box coupling, buffer-andchain coupler, cardan joint,  link-and-pin coupler,  differential gear, flange  coupler, flexible coupling,  Hardy-Spicer joint, Hirth  coupler, Hirth coupling, Hirth  joint, Hooke's joint, sleeve  coupling, split-muff coupler,  U-joint, universal coupling" .
+:f9d1c2df-9bb8-405a-8f4a-4a33369f858b a lci:ClassOfIndividual ,
+    :e34de91b-d4e1-40c0-9e86-69ea9f428f4e ;
+  sso:id "N" ;
+  rdfs:comment "object for enclosing partly or fully another object" ;
+  rdfs:label "covering object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" .
+:f9f16d59-c901-47f9-ae11-1b6ade36a66f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :bc6bea16-9eb6-48e1-9143-530f3f9b2d6b ;
+  sso:id "QP" ;
+  rdfs:comment "controlling object of fluids in open environment" ;
+  rdfs:label "open flow controlling object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of method" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "dam plate, liquid gate, lock  gate, multi-phase control valve, nose strake, plug,  rudder, steam regulation valve, stop log, strake,  ventral strake, vortex  generator, wing strake" .
+:fb04e265-857e-492d-badb-56560c6da08e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f4f71c3a-d67d-4376-81a4-ca0d76151699 ;
+  sso:id "HSB" ;
+  rdfs:comment "chemical separating object utilising absorption" ;
+  rdfs:label "absorber" .
+:fb7fa3f0-d139-45c4-815b-656456687f5f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :533987dd-bf73-4357-8525-11016196129a ;
+  sso:id "WP" ;
+  rdfs:comment "guiding object of matter flow in closed enclosure" ;
+  rdfs:label "closed enclosure guiding object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of form  applied" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "chimney, duct, hose, pipe" .
+:fb8d4b84-ff8c-45f6-87f1-065a9a7792bc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dc8b9ac0-87e1-40d1-8736-bea8e5ddd492 ;
+  sso:id "QZA" ;
+  rdfs:comment "multiple measure controlling object for earthing or separating electrical circuit" ;
+  rdfs:label "earthing and disconnecting switch" .
+:fb9d0e7f-76be-4f8c-b4ff-8c845258ef2f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULM" ;
+  rdfs:comment "structural supporting object in a plane or curved surface form withstanding compression forces" ;
+  rdfs:label "wall plate" .
+:fbfc8d31-ad20-4b67-b484-19dd12138282 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d7ae53b6-c2c7-4ea8-b368-11bc3b26c42a ;
+  sso:id "XDD" ;
+  rdfs:comment "low-voltage connecting object for fixed connection of a flexible cable for a current-using equipment" ;
+  rdfs:label "power outlet" .
+:fd102ad0-31f9-4c67-a28a-c82ab0b2f3fe a lci:ClassOfIndividual ;
+  rdfs:subClassOf :62c8a113-d6c6-418b-a233-68257e6308a2 ;
+  sso:id "BGB" ;
+  rdfs:comment "physical dimension sensing object of position, with Boolean output" ;
+  rdfs:label "position switch" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "movement detector,  movement sensor (PIR),  position sensor,  presence indicator" .
+:fd4887cd-ceaa-4125-bd19-8559959d39c6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f9d1c2df-9bb8-405a-8f4a-4a33369f858b ;
+  sso:id "NC" ;
+  rdfs:comment "covering object by finishing structures" ;
+  rdfs:label "finishing object" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "Kind of object  to protect" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "aircraft fairing, aircraft skin,  belly fairing, car body panel,  ceiling finish, cockpit fairing,  flooring, furniture front, grass  turf, motorcycle fairing plate,  paving, plant mat, roofing,  unstressed hull, wall  covering, window board,  window sill" .
+:fd727ade-ead0-483b-8828-c7eaea5effa3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2a1a17f4-4efe-4e22-9630-d88e7dd51bb5 ;
+  sso:id "ULC" ;
+  rdfs:comment "structural supporting object in a curved or straight linear form transferring compressing forces to surrounding media" ;
+  rdfs:label " pile" .
+:fde60e43-7a9a-4af9-b19d-545997f36eba a lci:ClassOfIndividual ;
+  rdfs:subClassOf :3bc36aea-d28d-4ffd-bb67-049403b28e01 ;
+  sso:id "EUA" ;
+  rdfs:comment "particle emitting object being ionized" ;
+  rdfs:label "plasma generator" .
+:feebb386-6f95-470c-a1b1-72eeef3a30c0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :479bd436-d706-4545-8fd5-8df54359a96e ;
+  sso:id "WQD" ;
+  rdfs:comment "mechanical energy guiding object by a linkage" ;
+  rdfs:label "drive link" .
+:ff1e2451-febf-4a09-abe8-28908e80c9fb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :55b0b383-9f81-4bc6-b91a-737a85a075b1 ;
+  sso:id "EGB" ;
+  rdfs:comment "thermal energy transfer object utilizing Peltier effect" ;
+  rdfs:label "Peltier element" .
+:ffb890a7-e891-4878-b94c-c923e41ad228 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dc5fdc96-f2e7-4823-9bb0-fc649191608e ;
+  sso:id "MAA" ;
+  rdfs:comment "electromagnetic rotational driving object providing continuous rotation" ;
+  rdfs:label "electric motor" .

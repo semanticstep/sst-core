@@ -16,6 +16,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/countrycodes"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
@@ -26,7 +27,6 @@ import (
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -98,7 +98,7 @@ func testFullKindsNodes(t *testing.T, testGraphUUID uuid.UUID, _ ...uuid.UUID) s
 }
 
 func Test_SstWrite_fullKindsNodes(t *testing.T) {
-	testName := filepath.Join("./testdata/" + t.Name())
+	testName := filepath.Join(t.TempDir(), t.Name())
 	defer func() {
 		removeFolder(testName + ".sst")
 		removeFolder(testName + ".ttl")
@@ -261,7 +261,7 @@ func TestNamedGraph_CreateIndividual(t *testing.T) {
 }
 
 func Test_CreateEphemeralStage_IsKind(t *testing.T) {
-	testName := filepath.Join("./testdata/" + t.Name())
+	testName := filepath.Join(t.TempDir(), t.Name())
 	t.Run("write", func(t *testing.T) {
 		st := sst.OpenStage(sst.DefaultTriplexMode)
 
@@ -299,10 +299,6 @@ func Test_CreateEphemeralStage_IsKind(t *testing.T) {
 		ng.Dump()
 	})
 
-	t.Run("Cleanup", func(t *testing.T) {
-		os.Remove(testName + ".ttl")
-		os.Remove(testName + ".sst")
-	})
 }
 
 func Test_CreateEphemeralStage_IBNodeFromObject(t *testing.T) {
@@ -340,7 +336,7 @@ func Test_CreateEphemeralStage_IBNodeFromObject(t *testing.T) {
 }
 
 func Test_CreateEphemeralStage_uuidIRINode(t *testing.T) {
-	testName := filepath.Join("./testdata/" + t.Name())
+	testName := filepath.Join(t.TempDir(), t.Name())
 	t.Run("write", func(t *testing.T) {
 		st := sst.OpenStage(sst.DefaultTriplexMode)
 
@@ -362,14 +358,10 @@ func Test_CreateEphemeralStage_uuidIRINode(t *testing.T) {
 		ng.Dump()
 	})
 
-	t.Run("Cleanup", func(t *testing.T) {
-		os.Remove(testName + ".ttl")
-		os.Remove(testName + ".sst")
-	})
 }
 
 func Test_CreateEphemeralStage_IBNodeTTL(t *testing.T) {
-	testName := filepath.Join("./testdata/" + t.Name())
+	testName := filepath.Join(t.TempDir(), t.Name())
 	t.Run("write", func(t *testing.T) {
 		st := sst.OpenStage(sst.DefaultTriplexMode)
 
@@ -449,13 +441,10 @@ func Test_CreateEphemeralStage_IBNodeTTL(t *testing.T) {
 		}
 	})
 
-	t.Run("Cleanup", func(t *testing.T) {
-		os.Remove(testName + ".ttl")
-	})
 }
 
 func Test_CreateEphemeralStage_TTL(t *testing.T) {
-	testName := filepath.Join("./testdata/" + t.Name())
+	testName := filepath.Join(t.TempDir(), t.Name())
 	t.Run("write", func(t *testing.T) {
 		st := sst.OpenStage(sst.DefaultTriplexMode)
 
@@ -497,13 +486,10 @@ func Test_CreateEphemeralStage_TTL(t *testing.T) {
 		}
 	})
 
-	t.Run("Cleanup", func(t *testing.T) {
-		os.Remove(testName + ".ttl")
-	})
 }
 
 func Test_CreateEphemeralStage_UUIDNamedGraph(t *testing.T) {
-	testName := filepath.Join("./testdata/" + t.Name())
+	testName := filepath.Join(t.TempDir(), t.Name())
 	t.Run("write", func(t *testing.T) {
 		st := sst.OpenStage(sst.DefaultTriplexMode)
 
@@ -530,14 +516,10 @@ func Test_CreateEphemeralStage_UUIDNamedGraph(t *testing.T) {
 		compareFiles(t, generatedFiles)
 	})
 
-	t.Run("Cleanup", func(t *testing.T) {
-		os.Remove(testName + ".ttl")
-		os.Remove(testName + ".sst")
-	})
 }
 
 func Test_CreateEphemeralStage_NodeWithoutTriples(t *testing.T) {
-	testName := filepath.Join("./testdata/" + t.Name())
+	testName := filepath.Join(t.TempDir(), t.Name())
 	ngID := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a256")
 
 	defer func() {
@@ -563,7 +545,7 @@ func Test_CreateEphemeralStage_NodeWithoutTriples(t *testing.T) {
 	})
 
 	t.Run("read", func(t *testing.T) {
-		in, err := os.Open("./testdata/Test_CreateEphemeralStage_NodeWithoutTriples.sst")
+		in, err := os.Open(testName + ".sst")
 		if err != nil {
 			log.Panic(err)
 		}
@@ -576,7 +558,7 @@ func Test_CreateEphemeralStage_NodeWithoutTriples(t *testing.T) {
 
 		graph.Dump()
 
-		graph.Stage().ForUndefinedIBNodes(func(i sst.IBNode) error {
+		graph.ForUndefinedIBNodes(func(i sst.IBNode) error {
 			fmt.Println(i.Fragment())
 			return nil
 		})
@@ -584,7 +566,7 @@ func Test_CreateEphemeralStage_NodeWithoutTriples(t *testing.T) {
 }
 
 func Test_CreateEphemeralStage_IRINamedGraph(t *testing.T) {
-	testName := filepath.Join("./testdata/" + t.Name())
+	testName := filepath.Join(t.TempDir(), t.Name())
 	t.Run("write", func(t *testing.T) {
 		st := sst.OpenStage(sst.DefaultTriplexMode)
 
@@ -607,14 +589,10 @@ func Test_CreateEphemeralStage_IRINamedGraph(t *testing.T) {
 		compareFiles(t, generatedFiles)
 	})
 
-	t.Run("Cleanup", func(t *testing.T) {
-		os.Remove(testName + ".ttl")
-	})
-
 }
 
 func Test_CreateEphemeralStage_NGAImportNGB(t *testing.T) {
-	testName := filepath.Join("./testdata/" + t.Name())
+	testName := filepath.Join(t.TempDir(), t.Name())
 	t.Run("write", func(t *testing.T) {
 		st := sst.OpenStage(sst.DefaultTriplexMode)
 
@@ -647,14 +625,10 @@ func Test_CreateEphemeralStage_NGAImportNGB(t *testing.T) {
 		compareFiles(t, generatedFiles)
 	})
 
-	t.Run("Cleanup", func(t *testing.T) {
-		os.Remove(testName + "NGA.ttl")
-		os.Remove(testName + "NGB.ttl")
-	})
 }
 
 func Test_CreateEphemeralStage_DimportsAimportsB(t *testing.T) {
-	testName := filepath.Join("./testdata/" + t.Name())
+	testName := filepath.Join(t.TempDir(), t.Name())
 	t.Run("write", func(t *testing.T) {
 		st := sst.OpenStage(sst.DefaultTriplexMode)
 
@@ -700,15 +674,10 @@ func Test_CreateEphemeralStage_DimportsAimportsB(t *testing.T) {
 		compareFiles(t, generatedFiles)
 	})
 
-	t.Run("Cleanup", func(t *testing.T) {
-		os.Remove(testName + "NGA.ttl")
-		os.Remove(testName + "NGB.ttl")
-		os.Remove(testName + "NGD.ttl")
-	})
 }
 
 func Test_CreateEphemeralStage_DiamondCase(t *testing.T) {
-	testName := filepath.Join("./testdata/" + t.Name())
+	testName := filepath.Join(t.TempDir(), t.Name())
 	t.Run("write", func(t *testing.T) {
 		st := sst.OpenStage(sst.DefaultTriplexMode)
 
@@ -772,12 +741,6 @@ func Test_CreateEphemeralStage_DiamondCase(t *testing.T) {
 		compareFiles(t, generatedFiles)
 	})
 
-	t.Run("Cleanup", func(t *testing.T) {
-		os.Remove(testName + "NGA.ttl")
-		// os.Remove(testName + "NGB.ttl")
-		// os.Remove(testName + "NGC.ttl")
-		os.Remove(testName + "NGD.ttl")
-	})
 }
 
 func writeToFile(ng sst.NamedGraph, fileName string) {
@@ -867,8 +830,8 @@ func compare(t *testing.T, standardFile string, generatedFile string) bool {
 
 func compareFiles(t *testing.T, generatedFiles []string) {
 	for _, v := range generatedFiles {
-		// get standard file
-		standardFilePath := v + "_s"
+		// get standard file from committed testdata
+		standardFilePath := filepath.Join("./testdata", filepath.Base(v)+"_s")
 
 		// equal := compare(t, standardFilePath+".ttl", v+".ttl")
 		// assert.Equal(t, equal, true)

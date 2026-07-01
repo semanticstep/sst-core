@@ -11,22 +11,20 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/step/ap242xmlimport"
-	"github.com/semanticstep/sst-core/sst_test/testutil"
-	filterextraction "github.com/semanticstep/sst-core/tools/filterextraction"
-	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/google/uuid"
 	fs "github.com/relab/wrfs"
+	"github.com/semanticstep/sst-core/sst"
+	"github.com/semanticstep/sst-core/sst_test/testutil"
+	"github.com/semanticstep/sst-core/step/ap242xmlimport"
+	filterextraction "github.com/semanticstep/sst-core/tools/filterextraction"
+	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 const (
-	testWD                     = "../.."
-	stepxmlLocalFlatRepository = "step/testdata/ewhfortest/stepxmlLocalFlatRepository"
-	stepxmlLocalFullRepository = "step/testdata/ewhfortest/stepxmlLocalFullRepository"
-	testDataBase               = "step/testdata/ewhfortest/"
+	testWD      = "../.."
+	xmlDataBase = "step/testdata/ewhfortest/"
 )
 
 func Test_stepxmlRepository(t *testing.T) {
@@ -37,10 +35,14 @@ func Test_stepxmlRepository(t *testing.T) {
 	})
 	require.NoError(t, os.Chdir(testWD))
 	log.SetOutput(io.Discard)
-	createInputSources(t)
+
+	ttlOutBase := t.TempDir()
+	createInputSources(t, xmlDataBase, ttlOutBase)
+
+	stepxmlLocalFlatRepository := filepath.Join(t.TempDir(), "stepxmlLocalFlatRepository")
+
 	t.Run("local_flat_repository", func(t *testing.T) {
 		t.Parallel()
-		assert.NoError(t, os.RemoveAll(stepxmlLocalFlatRepository))
 
 		r, err := sst.OpenLocalFlatRepository(stepxmlLocalFlatRepository)
 		if err != nil {
@@ -57,7 +59,7 @@ func Test_stepxmlRepository(t *testing.T) {
 		defer r.Close()
 
 		assert.NotPanics(t, func() {
-			filterextraction.Run(r, testDataBase)
+			filterextraction.Run(r, ttlOutBase)
 		})
 
 		// check generated data
@@ -67,7 +69,7 @@ func Test_stepxmlRepository(t *testing.T) {
 	})
 	t.Run("storage_repository", func(t *testing.T) {
 		t.Parallel()
-		assert.NoError(t, os.RemoveAll(stepxmlLocalFullRepository))
+		stepxmlLocalFullRepository := filepath.Join(t.TempDir(), "stepxmlLocalFullRepository")
 
 		p, err := sst.OpenLocalRepository(stepxmlLocalFullRepository, "default@semanticstep.net", "default")
 		if err != nil {
@@ -97,10 +99,10 @@ func Test_stepxmlRepository(t *testing.T) {
 		defer tempP.Close()
 
 		assert.NotPanics(t, func() {
-			filterextraction.Run(p, testDataBase)
+			filterextraction.Run(p, ttlOutBase)
 		})
 		assert.NotPanics(t, func() {
-			filterextraction.Run(tempP, testDataBase)
+			filterextraction.Run(tempP, ttlOutBase)
 		})
 
 		// check generated data
@@ -115,7 +117,7 @@ func Test_stepxmlRepository(t *testing.T) {
 	})
 }
 
-func createInputSources(t *testing.T) {
+func createInputSources(t testing.TB, xmlBase, ttlOutBase string) {
 	if testutil.DetailLogEnabled() {
 		var logOut strings.Builder
 		ap242xmlimport.Logger().SetOutput(&logOut)
@@ -137,12 +139,14 @@ func createInputSources(t *testing.T) {
 		//		"Topology3_EMCoS",
 	} {
 		assert.NotPanics(t, func() {
-			t.Log("Start XML file=", testDataBase+testFile+".xml")
-			graph, err := ap242xmlimport.AP242XmlImport(testDataBase + testFile + ".xml")
+			xmlFile := filepath.Join(xmlBase, testFile+".xml")
+			ttlFile := filepath.Join(ttlOutBase, testFile+".ttl")
+			t.Log("Start XML file=", xmlFile)
+			graph, err := ap242xmlimport.AP242XmlImport(xmlFile)
 			t.Log("End XML file, error=", err)
 			assert.NoError(t, err)
-			t.Log("Start TTL file=", testDataBase+testFile+".ttl")
-			f, err := os.Create(testDataBase + testFile + ".ttl")
+			t.Log("Start TTL file=", ttlFile)
+			f, err := os.Create(ttlFile)
 			if err != nil {
 				panic(err)
 			}
@@ -162,6 +166,10 @@ func Benchmark_createRepository(b *testing.B) {
 		assert.NoError(b, os.Chdir(prevWD))
 	})
 	require.NoError(b, os.Chdir(testWD))
+
+	ttlOutBase := b.TempDir()
+	createInputSources(b, xmlDataBase, ttlOutBase)
+
 	b.Run("local_flat_repository", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			path := b.TempDir()
@@ -193,7 +201,7 @@ func Benchmark_createRepository(b *testing.B) {
 			}
 			defer tempR.Close()
 
-			createRepository(b, r, tempR, testDataBase)
+			createRepository(b, r, tempR, ttlOutBase)
 		}
 	})
 	b.Run("flat_storage_repository", func(b *testing.B) {
@@ -227,7 +235,7 @@ func Benchmark_createRepository(b *testing.B) {
 			}
 			defer tempR.Close()
 
-			createRepository(b, r, tempR, testDataBase)
+			createRepository(b, r, tempR, ttlOutBase)
 		}
 	})
 	b.Run("storage_repository", func(b *testing.B) {
@@ -260,19 +268,19 @@ func Benchmark_createRepository(b *testing.B) {
 			}
 			defer tempR.Close()
 
-			createRepository(b, r, tempR, testDataBase)
+			createRepository(b, r, tempR, ttlOutBase)
 		}
 	})
 }
 
 func createRepository(t testing.TB, repo sst.Repository,
-	tempRepo sst.Repository, tempPath string) {
+	tempRepo sst.Repository, ttlOutBase string) {
 	assert.NotPanics(t, func() {
-		filterextraction.Run(repo, testDataBase)
+		filterextraction.Run(repo, ttlOutBase)
 	})
 	assert.NotPanics(t, func() {
-		filterextraction.Run(tempRepo, tempPath)
-		filterextraction.Run(tempRepo, tempPath) // test merging of the repository contents
+		filterextraction.Run(tempRepo, ttlOutBase)
+		filterextraction.Run(tempRepo, ttlOutBase) // test merging of the repository contents
 	})
 }
 

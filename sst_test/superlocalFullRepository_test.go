@@ -10,29 +10,22 @@ package sst_test
 import (
 	"context"
 	"fmt"
-	"os"
 	"path/filepath"
 	"testing"
 
+	"github.com/blevesearch/bleve/v2"
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/defaultderive"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
-	"github.com/blevesearch/bleve/v2"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_SuperLocalFullRepository_URL(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
-
-	t.Cleanup(func() {
-		os.RemoveAll(dir)
-	})
-	os.RemoveAll(dir)
+	dir := filepath.Join(t.TempDir(), t.Name())
 
 	superRepo, err := sst.NewLocalSuperRepository(dir)
 	require.NoError(t, err)
@@ -46,18 +39,13 @@ func Test_SuperLocalFullRepository_URL(t *testing.T) {
 }
 
 func Test_SuperLocalFullRepository_UUIDNamedGraph(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIDC := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363")
 
 	var commitHash sst.Hash
 	var modifiedDSIDs []uuid.UUID
 
-	t.Cleanup(func() {
-		os.RemoveAll(dir)
-	})
 	t.Run("write", func(t *testing.T) {
-		os.RemoveAll(dir)
 
 		superRepo, err := sst.NewLocalSuperRepository(dir)
 		if err != nil {

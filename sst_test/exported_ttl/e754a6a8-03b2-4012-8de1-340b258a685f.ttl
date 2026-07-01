@@ -1,0 +1,87 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:e754a6a8-03b2-4012-8de1-340b258a685f#> .
+
+<urn:uuid:e754a6a8-03b2-4012-8de1-340b258a685f> a owl:Ontology .
+:07e63572-8bab-4ccb-a382-9a1dbd3a24c1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :643f3a38-a2e9-4f9b-bf53-331137d192a7 ;
+  sso:id "AF" ;
+  rdfs:comment "structural system creating platform" ;
+  rdfs:label "Deck system" .
+:0dafbfd5-534b-4782-9cc5-54227890def4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :ead52cda-ee19-4503-b1b0-c86b844a2854 ;
+  sso:id "BE" ;
+  rdfs:comment "direction system creating roll movement" ;
+  rdfs:label "Roll control system" .
+:15f49650-e98f-47f1-be62-9ede39b67b55 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :643f3a38-a2e9-4f9b-bf53-331137d192a7 ;
+  sso:id "AD" ;
+  rdfs:comment "structural system supporting external systems" ;
+  rdfs:label "Pylon system" .
+:210c8c57-89bd-41be-80cb-f21862922450 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :ead52cda-ee19-4503-b1b0-c86b844a2854 ;
+  sso:id "BF" ;
+  rdfs:comment "direction system creating yaw movement" ;
+  rdfs:label "Yaw control system" .
+:254104dc-5cdd-44b9-bab8-2bf7a8121df4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :643f3a38-a2e9-4f9b-bf53-331137d192a7 ;
+  sso:id "AG" ;
+  rdfs:comment "structural system joining structural systems" ;
+  rdfs:label "Joint system" .
+:34394df2-4e5a-4358-864d-e72d62b4889b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :643f3a38-a2e9-4f9b-bf53-331137d192a7 ;
+  sso:id "AE" ;
+  rdfs:comment "structural system creating barrier" ;
+  rdfs:label "Barrier system" .
+:55fdb03a-1f8f-4982-877b-15983b93d4fd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :643f3a38-a2e9-4f9b-bf53-331137d192a7 ;
+  sso:id "AC" ;
+  rdfs:comment "structural system supporting on ground/water" ;
+  rdfs:label "Undercarriage structure system" .
+:643f3a38-a2e9-4f9b-bf53-331137d192a7 a lci:ClassOfIndividual ,
+    :a3ba5399-dfbb-4538-b463-5e8cb09cb0c9 ;
+  sso:id "A" ;
+  rdfs:comment "technical system carrying structural load" ;
+  rdfs:label "Structural system" .
+:7bc0cd88-96ee-4605-aa04-c0b2c1505ed3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :ead52cda-ee19-4503-b1b0-c86b844a2854 ;
+  sso:id "BA" ;
+  rdfs:comment "direction system balancing and stabilizing trajectory in pitch" ;
+  rdfs:label "Pitch/longitudinal stabilizer system" .
+:83688783-8421-4e4f-83df-72bd76d4f9ef a lci:ClassOfIndividual ;
+  rdfs:subClassOf :643f3a38-a2e9-4f9b-bf53-331137d192a7 ;
+  sso:id "AA" ;
+  rdfs:comment "structural system providing volume" ;
+  rdfs:label "Body structure system" .
+:a3ba5399-dfbb-4538-b463-5e8cb09cb0c9 a sso:ClassSystem ;
+  sso:id "IEC81346-20_A2" ;
+  rdfs:label "IEC 81346-20 A.1 Classes of technical systems" .
+:abdb3d31-bb9a-4eec-952e-dca98b88bb2f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :ead52cda-ee19-4503-b1b0-c86b844a2854 ;
+  sso:id "BD" ;
+  rdfs:comment "direction system creating pitch movement" ;
+  rdfs:label "Pitch control system" .
+:ad161616-5787-48dd-9f9a-e207a5ee829b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :ead52cda-ee19-4503-b1b0-c86b844a2854 ;
+  sso:id "BB" ;
+  rdfs:comment "direction system balancing and stabilizing trajectory in yaw" ;
+  rdfs:label "Yaw/lateral stabilizer system" .
+:aece6622-5838-4041-a80f-a164ecef5b1f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :643f3a38-a2e9-4f9b-bf53-331137d192a7 ;
+  sso:id "AB" ;
+  rdfs:comment "structural system transferring lift forces" ;
+  rdfs:label "Air foil frame system" .
+:ead52cda-ee19-4503-b1b0-c86b844a2854 a lci:ClassOfIndividual ,
+    :a3ba5399-dfbb-4538-b463-5e8cb09cb0c9 ;
+  sso:id "B" ;
+  rdfs:comment "technical system controlling aircraft direction" ;
+  rdfs:label "Direction system" .
+:fa229ded-fc0f-44f1-a9ea-5b8a49513414 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :ead52cda-ee19-4503-b1b0-c86b844a2854 ;
+  sso:id "BC" ;
+  rdfs:comment "direction system balancing and stabilizing trajectory in yaw and pitch" ;
+  rdfs:label "Pitch and yaw stabilizer system" .

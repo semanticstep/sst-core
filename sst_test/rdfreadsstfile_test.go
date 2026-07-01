@@ -5,6 +5,7 @@ package sst_test
 import (
 	"bufio"
 	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/semanticstep/sst-core/sst"
@@ -43,8 +44,7 @@ func TestFromFile_sstfileWrite(t *testing.T) {
 			st, err := sst.RdfRead(tt.reader, sst.RdfFormatTurtle, sst.StrictHandler, sst.DefaultTriplexMode)
 			graph := st.NamedGraphs()[0]
 			require.NoError(t, err)
-			// outFilePath := path.Join(t.TempDir(), filepath.Base(tt.path)+".sst")
-			outFilePath := "TestFromFile_sstfileWrite.sst"
+			outFilePath := filepath.Join(t.TempDir(), "out.sst")
 			file, err := os.Create(outFilePath)
 			require.NoError(t, err)
 			writtenSST := assert.NotPanics(t, func() { tt.assertion(t, graph.SstWrite(file)) })

@@ -1,0 +1,767 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:7da86e18-732d-4eb9-b0b7-22358e82bf1d#> .
+
+<urn:uuid:7da86e18-732d-4eb9-b0b7-22358e82bf1d> a owl:Ontology .
+:000e7c53-728b-4dd5-8a80-abf09fc32012 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :56770738-17f5-473d-a9d4-42ed2fe5f28d ;
+  sso:id "EBA" ;
+  rdfs:comment "services space with horizontal extent" ;
+  rdfs:label "services tunnel" .
+:0368df98-66f7-4e7a-beea-54960f8ab0a7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d936101d-c0e1-44b7-9d6c-19d538231c0c ;
+  sso:id "BB" ;
+  rdfs:comment "space for human activity for producing a material result" ;
+  rdfs:label "production space" .
+:04566258-9f80-4054-8845-483e0acfe431 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a5b29a9a-02fe-40e0-a69b-e5799e297254 ;
+  sso:id "FAF" ;
+  rdfs:comment "road vehicle traffic space for turning of vehicles" ;
+  rdfs:label "turning place" .
+:0568dad3-c966-47e4-b315-74b9acbe15c0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :810360de-c5e0-4d7b-a5b4-d99e44b510fb ;
+  sso:id "AA" ;
+  rdfs:comment "space for human dwelling for rest, relaxation, recreation or waiting" ;
+  rdfs:label "occupiable space" .
+:056c9e07-0d34-4174-afd8-8b85623fb7cd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6ab738b7-855b-430b-9ecd-a7fab8f8a6fd ;
+  sso:id "CD" ;
+  rdfs:comment "storage space for plants" ;
+  rdfs:label "planting space" .
+:0ce2592e-df99-4b8a-b29c-850258b17733 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0568dad3-c966-47e4-b315-74b9acbe15c0 ;
+  sso:id "AAA" ;
+  rdfs:comment "occupiable space for personal use" ;
+  rdfs:label "personal space" .
+:13d3b364-db9f-480c-9c51-3fdcb9e2d114 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3ea1dd4-e2af-4d8c-9a04-881bda718805 ;
+  sso:id "CBB" ;
+  rdfs:comment "equipment storage space for tools" ;
+  rdfs:label "tool storage space" .
+:1402696a-46ee-4fe2-8f76-ec8e38345be6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8f172cb5-c0a6-4a8f-80c0-ea1fe09c1568 ;
+  sso:id "FBA" ;
+  rdfs:comment "active transportation space for pedestrians" ;
+  rdfs:label "walkway" .
+:18bcb2f2-6ad3-4df8-9064-b1b2968ea9cd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e3940a50-2213-492c-82bf-646c37f610bc ;
+  sso:id "FDB" ;
+  rdfs:comment "track space intended for crossing" ;
+  rdfs:label "railway crossing" .
+:1a106b71-3367-4b84-9ddd-0be31a2a666c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dc075598-ac3f-403a-a73d-c975aa696258 ;
+  sso:id "DAB" ;
+  rdfs:comment "installation space for electronic equipment" ;
+  rdfs:label "information technology (IT) equipment space" .
+:1b649f8d-aeeb-488c-92b3-255c183d2306 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6ab738b7-855b-430b-9ecd-a7fab8f8a6fd ;
+  sso:id "CA" ;
+  rdfs:comment "storage space for materials" ;
+  rdfs:label "material storage space" .
+:1c089843-ffcc-480d-b275-11ae948341e1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b649f8d-aeeb-488c-92b3-255c183d2306 ;
+  sso:id "CAG" ;
+  rdfs:comment "material storage space for food and drinks" ;
+  rdfs:label "food storage space" .
+:1cff0e75-1443-4fc2-8a8a-8979fea92561 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dc075598-ac3f-403a-a73d-c975aa696258 ;
+  sso:id "DAA" ;
+  rdfs:comment "installation space for electric equipment" ;
+  rdfs:label "electric installation space" .
+:1f1e9d10-b876-40fb-b684-419509302ab6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :7c9a8f0b-21ef-4fcb-aee0-a2d694f697ee ;
+  sso:id "DBC" ;
+  rdfs:comment "equipment space of service functions" ;
+  rdfs:label "service equipment space" .
+:219787c9-fa2f-49bd-bcc3-688d57b4c9b1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :65cf80d5-4b32-441a-af19-18112ae17020 ;
+  sso:id "EAA" ;
+  rdfs:comment "circulation space linking outdoor spaces to indoor spaces" ;
+  rdfs:label "vestibule" .
+:219d371c-0bda-4044-ba8b-0f013180a214 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d936101d-c0e1-44b7-9d6c-19d538231c0c ;
+  sso:id "BC" ;
+  rdfs:comment "space for human activity for performing analyses and tests" ;
+  rdfs:label "laboratory" .
+:2438d792-0203-45e3-8d65-e1f685c74c6b a lci:ClassOfIndividual ,
+    :ffefe9a4-f4b4-4ba2-b500-200a6f6668c8 ;
+  sso:id "D" ;
+  rdfs:comment "space designed for active technical equipment" ;
+  rdfs:label "space for technical systems" .
+:2494be55-5906-47d5-951e-3ee9fdacfe9f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b649f8d-aeeb-488c-92b3-255c183d2306 ;
+  sso:id "CAJ" ;
+  rdfs:comment "material storage space of materials for packaging" ;
+  rdfs:label "packaging storage space" .
+:2545d09e-adb1-4db8-9e94-2b806bab05cc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b649f8d-aeeb-488c-92b3-255c183d2306 ;
+  sso:id "CAL" ;
+  rdfs:comment "material storage space for building materials" ;
+  rdfs:label "building materials storage space" .
+:26ab3670-c407-4266-a7de-a41b6159bf4c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :34c425fc-cfbb-4a7d-bc4f-4638362a07c1 ;
+  sso:id "BDE" ;
+  rdfs:comment "practice space for children" ;
+  rdfs:label "play space" .
+:271a5fbf-df94-4bb9-ad8f-3ae4ac1d7643 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :810360de-c5e0-4d7b-a5b4-d99e44b510fb ;
+  sso:id "AB" ;
+  rdfs:comment "space for human dwelling for personal hygiene use" ;
+  rdfs:label "personal hygiene space" .
+:283950a9-e763-4007-9232-5dd15698d55b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :65cf80d5-4b32-441a-af19-18112ae17020 ;
+  sso:id "EAB" ;
+  rdfs:comment "circulation space for controlled passage between spaces" ;
+  rdfs:label "air lock" .
+:2a63ec13-5e19-42b3-b63f-3dcddc23f3b3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :056c9e07-0d34-4174-afd8-8b85623fb7cd ;
+  sso:id "CDB" ;
+  rdfs:comment "planting space for growing plants outdoor" ;
+  rdfs:label "outdoor planting space" .
+:2afd3da2-53f5-4e07-9fbf-7222d86db3ba a lci:ClassOfIndividual ;
+  rdfs:subClassOf :81a8aedf-2f93-4c92-857d-893fb434feb5 ;
+  sso:id "FFA" ;
+  rdfs:comment "traffic management space separating traffic spaces" ;
+  rdfs:label "dividing strip" .
+:30c30545-9bfa-4a17-98f2-eea05eb15ed7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4efceac7-6da7-444a-be1f-89b5c6cef731 ;
+  sso:id "PBB" ;
+  rdfs:comment "energy flow space for thermal energy" ;
+  rdfs:label "thermal energy flow space" .
+:3335cb50-096c-46f5-a2e1-721b1c7b55ff a lci:ClassOfIndividual ;
+  rdfs:subClassOf :7c9a8f0b-21ef-4fcb-aee0-a2d694f697ee ;
+  sso:id "DBD" ;
+  rdfs:comment "equipment space of analyses" ;
+  rdfs:label "analysis equipment space" .
+:34c425fc-cfbb-4a7d-bc4f-4638362a07c1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d936101d-c0e1-44b7-9d6c-19d538231c0c ;
+  sso:id "BD" ;
+  rdfs:comment "space for human activity of sport or culture" ;
+  rdfs:label "practice space" .
+:34cb5a2e-595b-48cc-a315-d5646ddfc111 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0368df98-66f7-4e7a-beea-54960f8ab0a7 ;
+  sso:id "BBE" ;
+  rdfs:comment "production space for sorting and packing objects" ;
+  rdfs:label "packing space" .
+:36141a21-40cf-4fdf-8a94-43e7dae6cea6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :56770738-17f5-473d-a9d4-42ed2fe5f28d ;
+  sso:id "EBB" ;
+  rdfs:comment "services space with vertical extent" ;
+  rdfs:label "shaft" .
+:375dae10-ce1c-4409-83c7-621ff059aad9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b649f8d-aeeb-488c-92b3-255c183d2306 ;
+  sso:id "CAN" ;
+  rdfs:comment "material storage space for products, goods and cargo" ;
+  rdfs:label "stockroom" .
+:39bbd92b-8965-4009-9c18-71b3603069c7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cdf7822e-2f69-41a8-b7cc-9a380a377a68 ;
+  sso:id "BAA" ;
+  rdfs:comment "workspace for the production, processing and interpretation of information" ;
+  rdfs:label "office" .
+:3a6920e8-1371-44e6-ba8c-343bb0643cfe a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cdf7822e-2f69-41a8-b7cc-9a380a377a68 ;
+  sso:id "BAE" ;
+  rdfs:comment "workspace conveying knowledge and competencies" ;
+  rdfs:label "teaching space" .
+:3ba0b021-eb0f-4ebd-843b-e5322758a6a6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b649f8d-aeeb-488c-92b3-255c183d2306 ;
+  sso:id "CAE" ;
+  rdfs:comment "material storage space for fluid" ;
+  rdfs:label "fluid storage space" .
+:3c962ee7-b1b5-4f6b-adb6-565a667c07c8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8f172cb5-c0a6-4a8f-80c0-ea1fe09c1568 ;
+  sso:id "FBB" ;
+  rdfs:comment "active transportation space for bicycles" ;
+  rdfs:label "cycle path" .
+:3ea942bf-74e1-4b2c-b70a-50912d413d9b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :493921e3-0755-40f1-997a-5a5b8dc6a3b7 ;
+  sso:id "PAF" ;
+  rdfs:comment "matter flow space for multiple matter kinds" ;
+  rdfs:label "smoke occurrence space" .
+:42001820-85cc-4c7a-a969-25332e07c5b7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b649f8d-aeeb-488c-92b3-255c183d2306 ;
+  sso:id "CAK" ;
+  rdfs:comment "material storage space for clothing, shoes and linen" ;
+  rdfs:label "clothes storage space" .
+:427cf936-abc4-4f18-940f-877fd5da73d1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9e238fd1-f923-4202-872a-45f3bfeb4ca5 ;
+  sso:id "BEB" ;
+  rdfs:comment "assembly space for social events" ;
+  rdfs:label "hall" .
+:42eed880-f122-4ef1-badd-e1570db6733b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4efceac7-6da7-444a-be1f-89b5c6cef731 ;
+  sso:id "PBC" ;
+  rdfs:comment "energy flow space for mechanical energy" ;
+  rdfs:label "mechanical energy flow space" .
+:43ea25d1-ad53-49f3-86bb-178f6a325a12 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3ea1dd4-e2af-4d8c-9a04-881bda718805 ;
+  sso:id "CBA" ;
+  rdfs:comment "equipment storage space of objects for fitting out (of spaces)" ;
+  rdfs:label "furniture storage space" .
+:470a1ef8-2acc-4a03-a4bd-c4df98a8a653 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :271a5fbf-df94-4bb9-ad8f-3ae4ac1d7643 ;
+  sso:id "ABF" ;
+  rdfs:comment "personal hygiene space enabling persons to take a sweat-inducing bath" ;
+  rdfs:label "sauna" .
+:4710ece4-1fb7-4fd4-a3d9-820a0fac2eec a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0368df98-66f7-4e7a-beea-54960f8ab0a7 ;
+  sso:id "BBA" ;
+  rdfs:comment "production space for working with foodstuffs" ;
+  rdfs:label "kitchen" .
+:4903de63-d7f7-4014-8c17-77a25ee04f47 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0568dad3-c966-47e4-b315-74b9acbe15c0 ;
+  sso:id "AAC" ;
+  rdfs:comment "occupiable space for waiting" ;
+  rdfs:label "waiting space" .
+:493921e3-0755-40f1-997a-5a5b8dc6a3b7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :65d862fd-86b2-4ebd-94db-9c5cf8ded28c ;
+  sso:id "PA" ;
+  rdfs:comment "physical phenomenon space for flow or occurrence of matter" ;
+  rdfs:label "matter flow space" .
+:4aab013d-0b09-476d-ab7a-99a0c8ae1607 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cdf7822e-2f69-41a8-b7cc-9a380a377a68 ;
+  sso:id "BAC" ;
+  rdfs:comment "workspace for receiving guests and goods" ;
+  rdfs:label "reception" .
+:4b637fbe-440a-45e8-b06e-a0fa12f5e597 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :493921e3-0755-40f1-997a-5a5b8dc6a3b7 ;
+  sso:id "PAC" ;
+  rdfs:comment "matter flow space for gas" ;
+  rdfs:label "gas flow space" .
+:4ebf16a3-d8fe-4bb6-9e38-a5506551e5f7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dc075598-ac3f-403a-a73d-c975aa696258 ;
+  sso:id "DAD" ;
+  rdfs:comment "installation space for multiple kinds of technical equipment" ;
+  rdfs:label "shared installation space" .
+:4efceac7-6da7-444a-be1f-89b5c6cef731 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :65d862fd-86b2-4ebd-94db-9c5cf8ded28c ;
+  sso:id "PB" ;
+  rdfs:comment "physical phenomenon space for flow of energy" ;
+  rdfs:label "energy flow space" .
+:4f1790d4-f7d3-4fcd-a58c-c647630d741a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c8c4f95f-8b03-4aa9-a3c5-19269c9fbcd3 ;
+  sso:id "CEA" ;
+  rdfs:comment "dead body storage for interim storage" ;
+  rdfs:label "chapel of rest" .
+:5191ca27-f38d-4873-9b47-ab216aa2d0ce a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cdf7822e-2f69-41a8-b7cc-9a380a377a68 ;
+  sso:id "BAG" ;
+  rdfs:comment "workspace for laundering and cleaning" ;
+  rdfs:label "laundry" .
+:5192a2a5-5081-483c-b19c-19f5ee8ad006 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a5b29a9a-02fe-40e0-a69b-e5799e297254 ;
+  sso:id "FAB" ;
+  rdfs:comment "road vehicle traffic space for one line of traffic" ;
+  rdfs:label "traffic lane" .
+:51c134af-9825-4008-bf45-b6b3e53b59bf a lci:ClassOfIndividual ;
+  rdfs:subClassOf :7c2260e6-a797-47d6-a0c3-a7bcffb76d4f ;
+  sso:id "DCB" ;
+  rdfs:comment "equipment operation space providing clearance around equipment" ;
+  rdfs:label "clearance space" .
+:5337ada1-38ec-4055-858b-a655cccd1a1a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3ea1dd4-e2af-4d8c-9a04-881bda718805 ;
+  sso:id "CBC" ;
+  rdfs:comment "equipment storage space for technical instruments" ;
+  rdfs:label "instrument storage space" .
+:55340e9d-dea9-4459-afa2-9f7327e476e3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b649f8d-aeeb-488c-92b3-255c183d2306 ;
+  sso:id "CAC" ;
+  rdfs:comment "material storage space for medicines" ;
+  rdfs:label "medicine storage space" .
+:56770738-17f5-473d-a9d4-42ed2fe5f28d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :92c5de6c-30eb-4437-a901-eb778b4f1256 ;
+  sso:id "EB" ;
+  rdfs:comment "space for infrastructure for distributing technical services or media" ;
+  rdfs:label "services space" .
+:59d2bbd9-6b79-42b2-a634-2542da33490d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :81a8aedf-2f93-4c92-857d-893fb434feb5 ;
+  sso:id "FFC" ;
+  rdfs:comment "traffic management space providing information" ;
+  rdfs:label "traffic information space" .
+:5a82282c-1122-4a16-b2db-23ddcbb7feb6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cc63cccb-52d5-494c-a86c-aad75cf25bbf ;
+  sso:id "FCA" ;
+  rdfs:comment "aircraft traffic space for take-off and landing" ;
+  rdfs:label "runway" .
+:5c8860c7-2c8d-455e-8de2-e0f4c2e534cb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cdf7822e-2f69-41a8-b7cc-9a380a377a68 ;
+  sso:id "BAL" ;
+  rdfs:comment "workspace for observing processes and persons in adjacent space" ;
+  rdfs:label "viewing space" .
+:657396d2-6ac0-43f5-b780-031900b938a3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :271a5fbf-df94-4bb9-ad8f-3ae4ac1d7643 ;
+  sso:id "ABD" ;
+  rdfs:comment "personal hygiene space for changing clothes" ;
+  rdfs:label "changing room" .
+:659e4504-d7cc-483d-98dc-88d210d0dbdd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4efceac7-6da7-444a-be1f-89b5c6cef731 ;
+  sso:id "PBE" ;
+  rdfs:comment "energy flow space for combustion" ;
+  rdfs:label "fire zone" .
+:65cf80d5-4b32-441a-af19-18112ae17020 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :92c5de6c-30eb-4437-a901-eb778b4f1256 ;
+  sso:id "EA" ;
+  rdfs:comment "space for infrastructure providing access" ;
+  rdfs:label "circulation space" .
+:65d862fd-86b2-4ebd-94db-9c5cf8ded28c a lci:ClassOfIndividual ,
+    :ffefe9a4-f4b4-4ba2-b500-200a6f6668c8 ;
+  sso:id "P" ;
+  rdfs:comment "space designed for the occurrence of physical phenomena" ;
+  rdfs:label "physical phenomenon space" .
+:66026951-ef85-431e-b9e8-b2a483938f2d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cdf7822e-2f69-41a8-b7cc-9a380a377a68 ;
+  sso:id "BAN" ;
+  rdfs:comment "workspace for drying" ;
+  rdfs:label "drying room" .
+:6714d565-bb7d-4777-8490-94a5661a48ac a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0368df98-66f7-4e7a-beea-54960f8ab0a7 ;
+  sso:id "BBD" ;
+  rdfs:comment "production space for working on art and crafts" ;
+  rdfs:label "studio" .
+:6ab738b7-855b-430b-9ecd-a7fab8f8a6fd a lci:ClassOfIndividual ,
+    :ffefe9a4-f4b4-4ba2-b500-200a6f6668c8 ;
+  sso:id "C" ;
+  rdfs:comment "space designed for storage of materials, equipment and organisms" ;
+  rdfs:label "storage space" .
+:6cabdeed-7569-4d11-b8de-eb59201da367 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :65cf80d5-4b32-441a-af19-18112ae17020 ;
+  sso:id "EAD" ;
+  rdfs:comment "circulation space vertically by non-motorized means" ;
+  rdfs:label "stairwell" .
+:6cf6c0f5-c068-4fb5-ad16-4566316a64b2 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :c8c4f95f-8b03-4aa9-a3c5-19269c9fbcd3 ;
+  sso:id "CEB" ;
+  rdfs:comment "dead body storage for permanent storage" ;
+  rdfs:label "crypt" .
+:6fbea5a5-ec89-4f31-bd7b-8ac747e4405e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :271a5fbf-df94-4bb9-ad8f-3ae4ac1d7643 ;
+  sso:id "ABE" ;
+  rdfs:comment "personal hygiene space enabling persons to wash themselves" ;
+  rdfs:label "shower" .
+:70dfb56f-f056-44fb-9b1a-b1b7bf59a659 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9e238fd1-f923-4202-872a-45f3bfeb4ca5 ;
+  sso:id "BED" ;
+  rdfs:comment "assembly space for religious activities" ;
+  rdfs:label "religious faith space" .
+:7560c54d-4ec7-440c-abdb-be42a3fe1934 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8f172cb5-c0a6-4a8f-80c0-ea1fe09c1568 ;
+  sso:id "FBD" ;
+  rdfs:comment "active transportation space for animals" ;
+  rdfs:label "animal path" .
+:771babf6-a9f6-4366-9c3f-7491a825eb6c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :7c9a8f0b-21ef-4fcb-aee0-a2d694f697ee ;
+  sso:id "DBE" ;
+  rdfs:comment "equipment space for emergency equipment" ;
+  rdfs:label "emergency equipment space" .
+:78644a73-68bc-479c-9003-419ebd35a458 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e3940a50-2213-492c-82bf-646c37f610bc ;
+  sso:id "FDA" ;
+  rdfs:comment "track space not intended for crossing" ;
+  rdfs:label "rail track" .
+:787a5b4d-5ceb-4173-b07c-94d08667fca9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fe450eef-52f2-4c4c-b11d-ac24ad2b9a9b ;
+  sso:id "FEB" ;
+  rdfs:comment "vessel traffic space for vertical traffic" ;
+  rdfs:label "sluice" .
+:78bd27d0-d64b-4ead-8190-9c64cb64da62 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :219d371c-0bda-4044-ba8b-0f013180a214 ;
+  sso:id "BCB" ;
+  rdfs:comment "laboratory for studying materials" ;
+  rdfs:label "materials laboratory" .
+:7930b955-5895-487d-af57-b1d59ff8103b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0368df98-66f7-4e7a-beea-54960f8ab0a7 ;
+  sso:id "BBB" ;
+  rdfs:comment "production space for working with materials" ;
+  rdfs:label "materials workshop" .
+:7c2260e6-a797-47d6-a0c3-a7bcffb76d4f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2438d792-0203-45e3-8d65-e1f685c74c6b ;
+  sso:id "DC" ;
+  rdfs:comment "space for technical systems which provides space for equipment operation" ;
+  rdfs:label "equipment operation space" .
+:7c9a8f0b-21ef-4fcb-aee0-a2d694f697ee a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2438d792-0203-45e3-8d65-e1f685c74c6b ;
+  sso:id "DB" ;
+  rdfs:comment "space for technical systems which support human activities" ;
+  rdfs:label "equipment space" .
+:810360de-c5e0-4d7b-a5b4-d99e44b510fb a lci:ClassOfIndividual ,
+    :ffefe9a4-f4b4-4ba2-b500-200a6f6668c8 ;
+  sso:id "A" ;
+  rdfs:comment "space designed for human dwelling and related activities" ;
+  rdfs:label "space for human dwelling" .
+:81954a9c-1d0c-4d73-a37d-a8e271fe51d4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b649f8d-aeeb-488c-92b3-255c183d2306 ;
+  sso:id "CAD" ;
+  rdfs:comment "material storage space for physical documents or media" ;
+  rdfs:label "archive storage space" .
+:81a8aedf-2f93-4c92-857d-893fb434feb5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f4e710d6-c85b-4a7a-9770-14d3409d43d1 ;
+  sso:id "FF" ;
+  rdfs:comment "traffic space for separation and management" ;
+  rdfs:label "traffic management space" .
+:81d6c85b-b31c-4f7b-a75a-604ad688f99f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :271a5fbf-df94-4bb9-ad8f-3ae4ac1d7643 ;
+  sso:id "ABB" ;
+  rdfs:comment "personal hygiene space enabling persons to relieve themselves" ;
+  rdfs:label "toilet" .
+:82992de0-4b91-4951-96a8-7744857449d5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cdf7822e-2f69-41a8-b7cc-9a380a377a68 ;
+  sso:id "BAB" ;
+  rdfs:comment "workspace for meetings" ;
+  rdfs:label "meeting space" .
+:8a57d4d5-2bbe-45e7-a018-59a8fdeb610b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0568dad3-c966-47e4-b315-74b9acbe15c0 ;
+  sso:id "AAB" ;
+  rdfs:comment "occupiable space for shared use" ;
+  rdfs:label "living space" .
+:8b61b3ec-67e5-4396-919a-b29176078c41 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :34c425fc-cfbb-4a7d-bc4f-4638362a07c1 ;
+  sso:id "BDD" ;
+  rdfs:comment "practice space for performance artistic works" ;
+  rdfs:label "stage" .
+:8c26a7ef-4aa9-4cad-9af2-142b4b320293 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4efceac7-6da7-444a-be1f-89b5c6cef731 ;
+  sso:id "PBD" ;
+  rdfs:comment "energy flow space for explosion" ;
+  rdfs:label "explosion space" .
+:8f172cb5-c0a6-4a8f-80c0-ea1fe09c1568 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f4e710d6-c85b-4a7a-9770-14d3409d43d1 ;
+  sso:id "FB" ;
+  rdfs:comment "traffic space for persons, animals or bicycles" ;
+  rdfs:label "active transportation space" .
+:9022420e-489d-4f96-b465-41be7d998108 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cdf7822e-2f69-41a8-b7cc-9a380a377a68 ;
+  sso:id "BAM" ;
+  rdfs:comment "workspace for recording and editing media" ;
+  rdfs:label "media workshop" .
+:92a8023c-931c-40a5-bba7-fa5b51fedae9 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :493921e3-0755-40f1-997a-5a5b8dc6a3b7 ;
+  sso:id "PAA" ;
+  rdfs:comment "matter flow space for objects" ;
+  rdfs:label "debris space" .
+:92c5de6c-30eb-4437-a901-eb778b4f1256 a lci:ClassOfIndividual ,
+    :ffefe9a4-f4b4-4ba2-b500-200a6f6668c8 ;
+  sso:id "E" ;
+  rdfs:comment "space designed to create links among activity spaces" ;
+  rdfs:label "space for infrastructure" .
+:93ce2507-0924-4258-866e-7bdb83d840ac a lci:ClassOfIndividual ;
+  rdfs:subClassOf :81a8aedf-2f93-4c92-857d-893fb434feb5 ;
+  sso:id "FFE" ;
+  rdfs:comment "traffic management space being part of road or street not meant for vehicle traffic" ;
+  rdfs:label "prohibited area" .
+:960e38df-0e95-4e55-94dc-3df740a1f5c3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b649f8d-aeeb-488c-92b3-255c183d2306 ;
+  sso:id "CAM" ;
+  rdfs:comment "material storage space for explosives" ;
+  rdfs:label "explosives space" .
+:96f2c708-27e9-420f-b995-20e29aca8d06 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :65cf80d5-4b32-441a-af19-18112ae17020 ;
+  sso:id "EAE" ;
+  rdfs:comment "circulation space vertically by motorized means" ;
+  rdfs:label "lift space" .
+:9700997d-07a7-4f6e-8184-0748aec02046 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :81a8aedf-2f93-4c92-857d-893fb434feb5 ;
+  sso:id "FFB" ;
+  rdfs:comment "traffic management space for change of transport mode" ;
+  rdfs:label "platform space" .
+:98b0d6fb-1772-41ef-913b-b3282f0a8201 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a5b29a9a-02fe-40e0-a69b-e5799e297254 ;
+  sso:id "FAD" ;
+  rdfs:comment "road vehicle traffic space for stopping of vehicles" ;
+  rdfs:label "lay-by out lane" .
+:98eecd59-89e7-4ac7-9fe5-cb04b9db9c3d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cdf7822e-2f69-41a8-b7cc-9a380a377a68 ;
+  sso:id "BAH" ;
+  rdfs:comment "workspace for health-related and other treatment and care of individuals" ;
+  rdfs:label "treatment space" .
+:9c820d27-8fc9-47e8-9a2c-f49304aee5b7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4efceac7-6da7-444a-be1f-89b5c6cef731 ;
+  sso:id "PBA" ;
+  rdfs:comment "energy flow space for electrical energy" ;
+  rdfs:label "electrical energy flow space" .
+:9e238fd1-f923-4202-872a-45f3bfeb4ca5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d936101d-c0e1-44b7-9d6c-19d538231c0c ;
+  sso:id "BE" ;
+  rdfs:comment "space for human activity for mass assemblies of people/persons" ;
+  rdfs:label "assembly space" .
+:a1d90029-9fbe-4a16-aa33-1a0ea95f6644 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cdf7822e-2f69-41a8-b7cc-9a380a377a68 ;
+  sso:id "BAK" ;
+  rdfs:comment "workspace for monitoring individuals" ;
+  rdfs:label "observation space" .
+:a3ea1dd4-e2af-4d8c-9a04-881bda718805 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6ab738b7-855b-430b-9ecd-a7fab8f8a6fd ;
+  sso:id "CB" ;
+  rdfs:comment "storage space for equipment" ;
+  rdfs:label "equipment storage space" .
+:a4dba6ca-1686-4b51-9c0b-1e3e4b0433e7 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :dc075598-ac3f-403a-a73d-c975aa696258 ;
+  sso:id "DAC" ;
+  rdfs:comment "installation space for mechanical equipment" ;
+  rdfs:label "mechanical installation space" .
+:a5b29a9a-02fe-40e0-a69b-e5799e297254 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f4e710d6-c85b-4a7a-9770-14d3409d43d1 ;
+  sso:id "FA" ;
+  rdfs:comment "traffic space for road vehicles" ;
+  rdfs:label "road vehicle traffic space" .
+:a6032c10-a285-477c-a6ea-3867715b06ea a lci:ClassOfIndividual ;
+  rdfs:subClassOf :56770738-17f5-473d-a9d4-42ed2fe5f28d ;
+  sso:id "EBC?" ;
+  rdfs:comment "?services space without access for persons" ;
+  rdfs:label "duct?" .
+:ae215d6f-9eb6-416f-b176-f622a0039b79 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :219d371c-0bda-4044-ba8b-0f013180a214 ;
+  sso:id "BCC" ;
+  rdfs:comment "laboratory for biological analysis" ;
+  rdfs:label "biology laboratory" .
+:af14c3d3-bf20-4dc8-9a45-891d3fe9390c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :493921e3-0755-40f1-997a-5a5b8dc6a3b7 ;
+  sso:id "PAE" ;
+  rdfs:comment "matter flow space for plasma" ;
+  rdfs:label "plasma flow space" .
+:b134c67b-9c17-4016-973d-40f311de2de4 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :271a5fbf-df94-4bb9-ad8f-3ae4ac1d7643 ;
+  sso:id "ABC" ;
+  rdfs:comment "personal hygiene space for hygienic care of babies" ;
+  rdfs:label "baby changing space" .
+:b26c7259-7501-4720-9411-02b83e892c76 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f060cbb4-c877-4526-aa8f-3d61aa4f25ed ;
+  sso:id "CCC" ;
+  rdfs:comment "animal enclosure for providing shelter" ;
+  rdfs:label "animal shelter" .
+:b53f8cb0-9418-4106-9289-53373e2db34a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :271a5fbf-df94-4bb9-ad8f-3ae4ac1d7643 ;
+  sso:id "ABA" ;
+  rdfs:comment "personal hygiene space enabling persons to wash and possibly relieve themselves" ;
+  rdfs:label "bathroom" .
+:b729a089-efd9-4df3-9865-475d23e9b14d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a3ea1dd4-e2af-4d8c-9a04-881bda718805 ;
+  sso:id "CBC" ;
+  rdfs:comment "equipment storage space for modes of transport" ;
+  rdfs:label "vehicle storage space" .
+:b790f7e3-a4b3-4dba-95a3-f05d3ed091bc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :810360de-c5e0-4d7b-a5b4-d99e44b510fb ;
+  sso:id "AC" ;
+  rdfs:comment "space for human dwelling for isolating persons" ;
+  rdfs:label "isolation space" .
+:b83c7ec4-a62a-48ed-bce0-c106628710f0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b649f8d-aeeb-488c-92b3-255c183d2306 ;
+  sso:id "CAA" ;
+  rdfs:comment "material storage space for refused and rejected materials" ;
+  rdfs:label "refuse storage space" .
+:bac7e761-3467-4fec-8860-b2eae71cee7d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :7c2260e6-a797-47d6-a0c3-a7bcffb76d4f ;
+  sso:id "DCA" ;
+  rdfs:comment "equipment operation space providing equipment movement space" ;
+  rdfs:label "work envelope" .
+:bc5c5312-e507-445e-9dc9-6c04a83e37fd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :65cf80d5-4b32-441a-af19-18112ae17020 ;
+  sso:id "EAC" ;
+  rdfs:comment "circulation space for uncontrolled passage horizontally" ;
+  rdfs:label "corridor" .
+:bd3246a2-2e1c-475d-9293-a65553164b2a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :0368df98-66f7-4e7a-beea-54960f8ab0a7 ;
+  sso:id "BBC" ;
+  rdfs:comment "production space for working with machinery and equipment" ;
+  rdfs:label "machine shop" .
+:bd43dfa3-4a20-4a39-8abc-4d6421fd09a3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :34c425fc-cfbb-4a7d-bc4f-4638362a07c1 ;
+  sso:id "BDA" ;
+  rdfs:comment "practice space for sports" ;
+  rdfs:label "sports hall" .
+:bff67700-a15e-4a72-8f6e-52cca1471fd6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :056c9e07-0d34-4174-afd8-8b85623fb7cd ;
+  sso:id "CDA" ;
+  rdfs:comment "planting space for growing plants indoor" ;
+  rdfs:label "indoor planting space" .
+:c0fc8fd7-a21a-49eb-9e0a-c82222cca863 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :65cf80d5-4b32-441a-af19-18112ae17020 ;
+  sso:id "EAF" ;
+  rdfs:comment "circulation space through a building" ;
+  rdfs:label "portico" .
+:c4755beb-d4fc-45c4-a3b5-780c37f5e579 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b649f8d-aeeb-488c-92b3-255c183d2306 ;
+  sso:id "CAF" ;
+  rdfs:comment "material storage space for bulk material" ;
+  rdfs:label "raw materials storage space" .
+:c4e8bc8d-812b-4521-9d06-8a00258f107c a lci:ClassOfIndividual ;
+  rdfs:subClassOf :493921e3-0755-40f1-997a-5a5b8dc6a3b7 ;
+  sso:id "PAB" ;
+  rdfs:comment "matter flow space for solid materials" ;
+  rdfs:label "solid material flow space" .
+:c63625fd-61a3-47e1-af53-049514526274 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :7c9a8f0b-21ef-4fcb-aee0-a2d694f697ee ;
+  sso:id "DBB" ;
+  rdfs:comment "equipment space of fabricating and preparing products" ;
+  rdfs:label "production plant space" .
+:c8c4f95f-8b03-4aa9-a3c5-19269c9fbcd3 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6ab738b7-855b-430b-9ecd-a7fab8f8a6fd ;
+  sso:id "CE" ;
+  rdfs:comment "storage space for dead bodies" ;
+  rdfs:label "dead body storage" .
+:c98c509f-693b-4de1-8a13-e6c9ba66f46f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a5b29a9a-02fe-40e0-a69b-e5799e297254 ;
+  sso:id "FAA" ;
+  rdfs:comment "road vehicle traffic space intended for vehicles" ;
+  rdfs:label "carriageway" .
+:ca10ea5e-0243-4490-ac03-73bcfe8ad715 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b790f7e3-a4b3-4dba-95a3-f05d3ed091bc ;
+  sso:id "ACA" ;
+  rdfs:comment "isolation space to protect persons from hazardous or dangerous situations" ;
+  rdfs:label "shelter" .
+:cc63cccb-52d5-494c-a86c-aad75cf25bbf a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f4e710d6-c85b-4a7a-9770-14d3409d43d1 ;
+  sso:id "FC" ;
+  rdfs:comment "traffic space for aircraft" ;
+  rdfs:label "aircraft traffic space" .
+:cd649376-6245-46f0-a8f4-9b8964f9396f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9e238fd1-f923-4202-872a-45f3bfeb4ca5 ;
+  sso:id "BEC" ;
+  rdfs:comment "assembly space for displaying objects" ;
+  rdfs:label "gallery" .
+:cdf7822e-2f69-41a8-b7cc-9a380a377a68 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :d936101d-c0e1-44b7-9d6c-19d538231c0c ;
+  sso:id "BA" ;
+  rdfs:comment "space for human activity for producing an immaterial result" ;
+  rdfs:label "workspace" .
+:ce65f112-7ca6-43ec-8e97-c0d132e54c12 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cdf7822e-2f69-41a8-b7cc-9a380a377a68 ;
+  sso:id "BAD" ;
+  rdfs:comment "workspace for selling goods and services" ;
+  rdfs:label "sales area" .
+:d3979cca-6760-4ef7-acbd-0a34b91d7365 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f060cbb4-c877-4526-aa8f-3d61aa4f25ed ;
+  sso:id "CCD" ;
+  rdfs:comment "animal enclosure for keeping animals in water" ;
+  rdfs:label "water enclosure" .
+:d45ace75-02d8-432c-8172-c3c2bb0d444e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b790f7e3-a4b3-4dba-95a3-f05d3ed091bc ;
+  sso:id "ACB" ;
+  rdfs:comment "isolation space to separate persons from other persons" ;
+  rdfs:label "cell" .
+:d4f5253f-51af-4bf5-bb63-788bb380722e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f060cbb4-c877-4526-aa8f-3d61aa4f25ed ;
+  sso:id "CCB" ;
+  rdfs:comment "animal enclosure for keeping animals fenced in" ;
+  rdfs:label "stall" .
+:d5bc28a1-9eb6-4e3a-a148-895046d220df a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cdf7822e-2f69-41a8-b7cc-9a380a377a68 ;
+  sso:id "BAJ" ;
+  rdfs:comment "workspace for diagnosis" ;
+  rdfs:label "examining space" .
+:d5eb3305-8c84-4eb3-8595-74601b316169 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :7c9a8f0b-21ef-4fcb-aee0-a2d694f697ee ;
+  sso:id "DBA" ;
+  rdfs:comment "equipment space of controlling, regulating and monitoring" ;
+  rdfs:label "control equipment space" .
+:d68a4fe0-a416-4a1b-aa35-44eaa70daf85 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :fe450eef-52f2-4c4c-b11d-ac24ad2b9a9b ;
+  sso:id "FEA" ;
+  rdfs:comment "vessel traffic space for horizontal traffic" ;
+  rdfs:label "fairway" .
+:d936101d-c0e1-44b7-9d6c-19d538231c0c a lci:ClassOfIndividual ,
+    :ffefe9a4-f4b4-4ba2-b500-200a6f6668c8 ;
+  sso:id "B" ;
+  rdfs:comment "space designed for humans’ leisure and business activities" ;
+  rdfs:label "space for human activity" .
+:da32ba87-6a93-404c-9bba-dbb2849e5fdd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :34c425fc-cfbb-4a7d-bc4f-4638362a07c1 ;
+  sso:id "BDB" ;
+  rdfs:comment "practice space for training strength, condition and balance" ;
+  rdfs:label "training space" .
+:da3a7d44-bf96-47f9-bbf7-066514133f63 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a5b29a9a-02fe-40e0-a69b-e5799e297254 ;
+  sso:id "FAE" ;
+  rdfs:comment "road vehicle traffic space for meeting of vehicles" ;
+  rdfs:label "passing place" .
+:dc075598-ac3f-403a-a73d-c975aa696258 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2438d792-0203-45e3-8d65-e1f685c74c6b ;
+  sso:id "DA" ;
+  rdfs:comment "space for technical systems which support the function of construction entities" ;
+  rdfs:label "installation space" .
+:dfcb8411-cc4e-4e9c-b8a7-70df3bc9d652 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :81a8aedf-2f93-4c92-857d-893fb434feb5 ;
+  sso:id "FFD" ;
+  rdfs:comment "traffic management space providing clearance to other objects" ;
+  rdfs:label "clearance profile" .
+:e03dd599-54e7-41df-8d21-6ff2e10e8e85 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :34c425fc-cfbb-4a7d-bc4f-4638362a07c1 ;
+  sso:id "BDC" ;
+  rdfs:comment "practice space for practicing artistic competencies" ;
+  rdfs:label "rehearsal space" .
+:e054473e-c562-4613-80c0-71e235c36e96 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b649f8d-aeeb-488c-92b3-255c183d2306 ;
+  sso:id "CAH" ;
+  rdfs:comment "material storage space for valuable objects" ;
+  rdfs:label "secure storage space" .
+:e179711e-e173-4296-8ae1-8d7dd87275eb a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cc63cccb-52d5-494c-a86c-aad75cf25bbf ;
+  sso:id "FCB" ;
+  rdfs:comment "aircraft traffic space for taxiing" ;
+  rdfs:label "taxiway" .
+:e1b40c17-7990-45bf-832b-f4a65643b9f6 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :8f172cb5-c0a6-4a8f-80c0-ea1fe09c1568 ;
+  sso:id "FBC" ;
+  rdfs:comment "active transportation space for bicycles and pedestrians" ;
+  rdfs:label "cycle- and footpath" .
+:e3940a50-2213-492c-82bf-646c37f610bc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f4e710d6-c85b-4a7a-9770-14d3409d43d1 ;
+  sso:id "FD" ;
+  rdfs:comment "traffic space for track bound objects" ;
+  rdfs:label "track space" .
+:e4953816-edac-4a39-a136-a83d2710ad51 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f060cbb4-c877-4526-aa8f-3d61aa4f25ed ;
+  sso:id "CCA" ;
+  rdfs:comment "animal enclosure for keeping animals locked up" ;
+  rdfs:label "cage" .
+:e6c05c68-b888-4ced-9d29-91a832310299 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :a5b29a9a-02fe-40e0-a69b-e5799e297254 ;
+  sso:id "FAC" ;
+  rdfs:comment "road vehicle traffic space along a carriageway for emergency and intermediate use" ;
+  rdfs:label "shoulder" .
+:ea288b3e-8353-4cfc-b465-6b7dd0273247 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :cdf7822e-2f69-41a8-b7cc-9a380a377a68 ;
+  sso:id "BAF" ;
+  rdfs:comment "workspace for reading" ;
+  rdfs:label "study" .
+:eca8592c-d7e1-4e41-9cd6-17ff14fed7c8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :1b649f8d-aeeb-488c-92b3-255c183d2306 ;
+  sso:id "CAB" ;
+  rdfs:comment "material storage space for chemicals" ;
+  rdfs:label "chemicals storage space" .
+:f060cbb4-c877-4526-aa8f-3d61aa4f25ed a lci:ClassOfIndividual ;
+  rdfs:subClassOf :6ab738b7-855b-430b-9ecd-a7fab8f8a6fd ;
+  sso:id "CC" ;
+  rdfs:comment "storage space for live animals" ;
+  rdfs:label "animal enclosure" .
+:f17822d2-8c66-4573-a8ef-420b3e9c238b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :493921e3-0755-40f1-997a-5a5b8dc6a3b7 ;
+  sso:id "PAD" ;
+  rdfs:comment "matter flow space for liquid" ;
+  rdfs:label "liquid flow space" .
+:f4e710d6-c85b-4a7a-9770-14d3409d43d1 a lci:ClassOfIndividual ,
+    :ffefe9a4-f4b4-4ba2-b500-200a6f6668c8 ;
+  sso:id "F" ;
+  rdfs:comment "space for traffic" ;
+  rdfs:label "traffic space" .
+:fd708c81-03fd-4d69-b944-e5e616e19bb5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :219d371c-0bda-4044-ba8b-0f013180a214 ;
+  sso:id "BCA" ;
+  rdfs:comment "laboratory for technical analyses" ;
+  rdfs:label "technical laboratory" .
+:fe450eef-52f2-4c4c-b11d-ac24ad2b9a9b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f4e710d6-c85b-4a7a-9770-14d3409d43d1 ;
+  sso:id "FE" ;
+  rdfs:comment "traffic space for vessels" ;
+  rdfs:label "vessel traffic space" .
+:ff6bff8d-ea00-4517-868a-e05b2dd43c71 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9e238fd1-f923-4202-872a-45f3bfeb4ca5 ;
+  sso:id "BEA" ;
+  rdfs:comment "assembly space for consumption of food" ;
+  rdfs:label "dining space" .
+:ffefe9a4-f4b4-4ba2-b500-200a6f6668c8 a sso:ClassSystem ;
+  sso:id "IEC81346-2_space" ;
+  rdfs:label "IEC 81346-2 Classification of spaces" .

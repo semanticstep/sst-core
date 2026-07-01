@@ -25,15 +25,14 @@ func Test_Stage_MergeWithReport(t *testing.T) {
 	// AtomicLevel.SetLevel(zap.DebugLevel)
 	fileName1 := filepath.Join("./testdata/" + "Test_Stage_Merge1")
 	fileName2 := filepath.Join("./testdata/" + "Test_Stage_Merge2")
+	outFile2 := filepath.Join(t.TempDir(), "Test_Stage_Merge2")
 
-	defer os.Remove(fileName1 + ".sst")
-	defer os.Remove(fileName2 + ".sst")
 	t.Run("write", func(t *testing.T) {
 		ng := readTTLFile(fileName1 + ".ttl")
 
 		ng2 := readTTLFile(fileName2 + ".ttl")
 
-		out, err := os.Create(fileName2 + ".sst")
+		out, err := os.Create(outFile2 + ".sst")
 		if err != nil {
 			log.Panic(err)
 		}
@@ -64,7 +63,7 @@ func Test_Stage_MergeWithReport(t *testing.T) {
 		ng.PrintTriples()
 	})
 	t.Run("write", func(t *testing.T) {
-		in, err := os.Open(fileName2 + ".sst")
+		in, err := os.Open(outFile2 + ".sst")
 		if err != nil {
 			log.Panic(err)
 		}
@@ -82,9 +81,10 @@ func Test_Stage_MergeWithReport(t *testing.T) {
 // test rep ttl file RdfRead and sst file SstRead
 func Test_RdfRead_SstWrite_RdfFirst(t *testing.T) {
 	AtomicLevel.SetLevel(zap.DebugLevel)
-	fileName1 := filepath.Join("./testdata/" + "rep")
+	inFile := filepath.Join("./testdata/" + "rep")
+	outFile := filepath.Join(t.TempDir(), "rep")
 	t.Run("RdfRead", func(t *testing.T) {
-		file, err := os.Open(fileName1 + ".ttl")
+		file, err := os.Open(inFile + ".ttl")
 		if err != nil {
 			panic(err)
 		}
@@ -99,7 +99,7 @@ func Test_RdfRead_SstWrite_RdfFirst(t *testing.T) {
 
 		graph.PrintTriples()
 
-		out, err := os.Create(fileName1 + ".sst")
+		out, err := os.Create(outFile + ".sst")
 		if err != nil {
 			panic(err)
 		}
@@ -112,7 +112,7 @@ func Test_RdfRead_SstWrite_RdfFirst(t *testing.T) {
 
 	})
 	t.Run("SstRead", func(t *testing.T) {
-		in, err := os.Open(fileName1 + ".sst")
+		in, err := os.Open(outFile + ".sst")
 		if err != nil {
 			log.Panic(err)
 		}

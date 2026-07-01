@@ -8,7 +8,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"net/url"
@@ -18,8 +18,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/semanticstep/sst-core/sst"
 	"github.com/coreos/go-oidc/v3/oidc"
+	"github.com/semanticstep/sst-core/sst"
 	"golang.org/x/oauth2"
 	"golang.org/x/term"
 )
@@ -53,15 +53,49 @@ func GetUserCredentials() (string, string) {
 	return username, password
 }
 
+// keycloakOIDCTokenPath is the fixed OpenID Connect token endpoint path on Keycloak realms.
+const keycloakOIDCTokenPath = "/protocol/openid-connect/token"
+
+type oidcConfig struct {
+	realmURL     string
+	clientID     string
+	clientSecret string
+}
+
+func loadOIDCConfig() (oidcConfig, error) {
+	realmURL := strings.TrimRight(strings.TrimSpace(os.Getenv("SST_OIDC_REALM_URL")), "/")
+	if realmURL == "" {
+		return oidcConfig{}, fmt.Errorf("SST_OIDC_REALM_URL is not set; set it in .env.sst-cli (repo root or $HOME)")
+	}
+	clientID := strings.TrimSpace(os.Getenv("SST_OIDC_CLIENT_ID"))
+	if clientID == "" {
+		return oidcConfig{}, fmt.Errorf("SST_OIDC_CLIENT_ID is not set; set it in .env.sst-cli (repo root or $HOME)")
+	}
+	clientSecret := os.Getenv("SST_OIDC_CLIENT_SECRET")
+	if clientSecret == "" {
+		return oidcConfig{}, fmt.Errorf("SST_OIDC_CLIENT_SECRET is not set; set it in .env.sst-cli (repo root or $HOME)")
+	}
+	return oidcConfig{
+		realmURL:     realmURL,
+		clientID:     clientID,
+		clientSecret: clientSecret,
+	}, nil
+}
+
 func GetToken(refreshToken string) *oauth2.Token {
-	server_url := "https://semanticstep.net/auth/realms/users"
-	client_id := "edm-service"
-	secret := "C6qJF57w12iplAEkw50pmocl1VAn2cZS"
+	cfg, err := loadOIDCConfig()
+	if err != nil {
+		log.Print(err)
+		return nil
+	}
+	realmURL := cfg.realmURL
+	clientID := cfg.clientID
+	secret := cfg.clientSecret
 	username, password := GetUserCredentials()
-	url_ := server_url + "/protocol/openid-connect/token"
+	tokenURL := realmURL + keycloakOIDCTokenPath
 
 	parms := url.Values{}
-	parms.Add("client_id", client_id)
+	parms.Add("client_id", clientID)
 	if refreshToken == "" {
 		parms.Add("grant_type", "password")
 		parms.Add("username", username)
@@ -72,14 +106,14 @@ func GetToken(refreshToken string) *oauth2.Token {
 		parms.Add("refresh_token", refreshToken)
 	}
 
-	response, err := http.PostForm(url_, parms)
+	response, err := http.PostForm(tokenURL, parms)
 	if err != nil {
 		log.Printf("Request Failed: %s", err)
 		return &oauth2.Token{}
 	}
 	defer response.Body.Close()
 
-	body, err := ioutil.ReadAll(response.Body)
+	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		log.Printf("Failed to read response body: %s", err)
 		return nil
@@ -216,9 +250,11 @@ func jwtExpUnix(jwt string) (int64, bool) {
 
 // VerifyTokenValidity checks if the token is a valid JWT
 func VerifyTokenValidity(accessToken string) bool {
-	const oidcIssuer = "https://semanticstep.net/auth/realms/users"
-
-	provider, err := oidc.NewProvider(context.TODO(), oidcIssuer)
+	cfg, err := loadOIDCConfig()
+	if err != nil {
+		return false
+	}
+	provider, err := oidc.NewProvider(context.TODO(), cfg.realmURL)
 	if err != nil {
 		// fmt.Printf("OIDC Provider Error: %s\n", err)
 		return false

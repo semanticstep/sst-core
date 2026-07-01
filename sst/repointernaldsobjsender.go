@@ -8,12 +8,12 @@ import (
 	"encoding/binary"
 	"errors"
 	"io"
-	"log"
 	"time"
 
-	"github.com/semanticstep/sst-core/bboltproto"
 	"github.com/google/uuid"
+	"github.com/semanticstep/sst-core/bboltproto"
 	"go.etcd.io/bbolt"
+	"go.uber.org/zap"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -612,7 +612,7 @@ func sendCommit(
 		return ErrCommitNotFound
 	}
 	commit := commits.Bucket(commitID[:])
-	log.Println("sendCommit:", commitID)
+	GlobalLogger.Debug("sendCommit", zap.String("commitID", commitID.String()))
 	if commit == nil {
 		return ErrCommitNotFound
 	}
@@ -779,7 +779,7 @@ func sendNamedGraphRevision(
 		return ErrNamedGraphRevisionNotFound
 	}
 	seenRevisions[e] = struct{}{}
-	log.Println("sendNamedGraphRevision:", ngHash)
+	GlobalLogger.Debug("sendNamedGraphRevision", zap.String("ngHash", ngHash.String()))
 	return sender.Send(&bboltproto.DatasetObject{
 		Obj: &bboltproto.DatasetObject_NamedGraphRevision{
 			NamedGraphRevision: &bboltproto.NamedGraphRevision{

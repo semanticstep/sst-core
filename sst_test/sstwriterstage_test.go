@@ -7,13 +7,13 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/google/uuid"
+	fs "github.com/relab/wrfs"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
-	"github.com/google/uuid"
-	fs "github.com/relab/wrfs"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -79,7 +79,7 @@ func TestSstWriteStage(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			outDir := filepath.Join(t.TempDir(), tt.name)
 			assert.NoError(t, os.Mkdir(outDir, os.ModePerm))
-			tt.assertion(t, tt.stageCreator(t).WriteToSstFiles(fs.DirFS(outDir)), outDir)
+			tt.assertion(t, tt.stageCreator(t).WriteSstFilesDirectory(fs.DirFS(outDir)), outDir)
 		})
 	}
 }

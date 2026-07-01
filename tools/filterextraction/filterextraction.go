@@ -16,13 +16,13 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict" // register vocabulary map
 	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
-	"github.com/google/uuid"
 	"go.uber.org/zap"
 )
 
@@ -56,16 +56,16 @@ type nodeGroup struct {
 }
 
 func listMap(group nodeGroup) {
-	log.Printf("NodeList for graph %s\n", group.ID)
+	sst.GlobalLogger.Debug("filterextract node list", zap.String("groupID", group.ID.String()))
 	for ib := range group.group {
 		if ib.IsBlankNode() {
-			log.Printf("Node =: %s\n", ib.ID())
+			sst.GlobalLogger.Debug("filterextract group node", zap.String("nodeID", ib.ID().String()), zap.String("groupID", group.ID.String()))
 		} else {
-			log.Printf("Node =: %s\n", ib.Fragment())
+			sst.GlobalLogger.Debug("filterextract group node", zap.String("fragment", ib.Fragment()), zap.String("groupID", group.ID.String()))
 		}
 	}
 	for ib := range group.outsideNodes {
-		log.Printf("  Outside ref: %s\n", ib.Fragment())
+		sst.GlobalLogger.Debug("filterextract outside ref", zap.String("fragment", ib.Fragment()), zap.String("groupID", group.ID.String()))
 	}
 }
 
@@ -88,9 +88,9 @@ func findVocabularyTopPredicate(p sst.IBNode) (sst.ElementInformer, error) {
 }
 
 func findVocabularyTopProperty(dt sst.ElementInformer) sst.ElementInformer {
-	// log.Printf(" %s", dt.Element().GoSimpleName() )
+	// sst.GlobalLogger.Debug(fmt.Sprintf(" %s", dt.Element().GoSimpleName() ))
 	if dt.IsObjectProperty() {
-		// log.Printf(".")
+		// sst.GlobalLogger.Debug(fmt.Sprintf("."))
 		dtSuper := dt.SubPropertyOf()
 		if dtSuper != nil {
 			return findVocabularyTopProperty(dtSuper)
@@ -101,26 +101,26 @@ func findVocabularyTopProperty(dt sst.ElementInformer) sst.ElementInformer {
 
 // process part-whole relationships, see Mereology
 func loopNodes(graph sst.NamedGraph, ib sst.IBNode, group nodeGroup) error {
-	// log.Printf("LoopNode =: %s\n", ib.Fragment())
+	// sst.GlobalLogger.Debug(fmt.Sprintf("LoopNode =: %s\n", ib.Fragment()))
 	group.group[ib] = struct{}{}
 	if ib.IsBlankNode() {
-		log.Printf("Add node %s to group %s", ib.ID(), group.ID)
+		sst.GlobalLogger.Debug("filterextract add node to group", zap.String("nodeID", ib.ID().String()), zap.String("groupID", group.ID.String()))
 	} else {
-		log.Printf("Add node %s to group %s", ib.Fragment(), group.ID)
+		sst.GlobalLogger.Debug("filterextract add node to group", zap.String("fragment", ib.Fragment()), zap.String("groupID", group.ID.String()))
 	}
 	err := ib.ForAll(func(_ int, s, p sst.IBNode, o sst.Term) error {
-		// log.Printf("FindTop:")
+		// sst.GlobalLogger.Debug(fmt.Sprintf("FindTop:"))
 		dt, err := findVocabularyTopPredicate(p)
 		if err != nil {
 			return err
 		}
-		// log.Printf(" = %s\n", dt.VocabularyElement().GoSimpleName())
+		// sst.GlobalLogger.Debug(fmt.Sprintf(" = %s\n", dt.VocabularyElement().GoSimpleName()))
 		switch dt.(type) {
 		case lci.IsPartOf:
 			if o == ib {
 				if p.OwningGraph() == graph {
 					group.group[p] = struct{}{}
-					log.Printf("Add node %s to group %s", ib.Fragment(), group.ID)
+					sst.GlobalLogger.Debug("filterextract add node to group", zap.String("fragment", ib.Fragment()), zap.String("groupID", group.ID.String()))
 				}
 				err := loopNodes(graph, s, group)
 				if err != nil {
@@ -131,7 +131,7 @@ func loopNodes(graph sst.NamedGraph, ib sst.IBNode, group nodeGroup) error {
 			if s == ib {
 				if p.OwningGraph() == graph {
 					group.group[p] = struct{}{}
-					log.Printf("Add node %s to group %s", ib.Fragment(), group.ID)
+					sst.GlobalLogger.Debug("filterextract add node to group", zap.String("fragment", ib.Fragment()), zap.String("groupID", group.ID.String()))
 				}
 				err := loopNodes(graph, o.(sst.IBNode), group)
 				if err != nil {
@@ -149,7 +149,7 @@ func processRootNodes(graph sst.NamedGraph, rootIB sst.IBNode) (nodeGroup, error
 	returnedGroup := nodeGroup{
 		group: map[sst.IBNode]struct{}{},
 	}
-	log.Printf("RootNode =: %s\n", rootIB.Fragment())
+	sst.GlobalLogger.Debug("filterextract root node", zap.String("fragment", rootIB.Fragment()))
 	err := loopNodes(graph, rootIB, returnedGroup)
 	if err != nil {
 		return returnedGroup, err
@@ -294,10 +294,16 @@ func appendGroups(
 	// and consider it as outside node
 	for d := range nodegroup.group {
 		if gID, found := grouppedNodes[d]; found {
-			log.Printf("  WARNING: Node %s already assigned to group %s\n", d.Fragment(), gID)
+			sst.GlobalLogger.Warn("filterextract node already assigned to group",
+				zap.String("fragment", d.Fragment()),
+				zap.String("existingGroupID", gID.String()),
+			)
 			delete(nodegroup.group, d)
 			nodegroup.outsideNodes[d] = struct{}{}
-			log.Printf("  Add Node %s to group %s outsideNodes\n", d.Fragment(), nodegroup.ID)
+			sst.GlobalLogger.Debug("filterextract add node to outsideNodes",
+				zap.String("fragment", d.Fragment()),
+				zap.String("groupID", nodegroup.ID.String()),
+			)
 		} else {
 			grouppedNodes[d] = nodegroup.ID
 		}
@@ -342,24 +348,23 @@ func ExtractImportedGraphs(
 ) error {
 	for i, nodegroup := range nodegroups {
 		currentNodeGroupNG := graph.Stage().CreateNamedGraph(sst.IRI(nodegroup.ID.URN()))
-		log.Printf("Create New NamedGraph %s\n", currentNodeGroupNG.IRI())
+		sst.GlobalLogger.Debug("filterextract create named graph", zap.String("iri", currentNodeGroupNG.IRI().String()))
 
 		graph.AddImport(currentNodeGroupNG)
 
-		log.Printf("%s add import %s\n", graph.IRI(), currentNodeGroupNG.IRI())
+		sst.GlobalLogger.Debug("filterextract add import",
+			zap.String("from", graph.IRI().String()),
+			zap.String("to", currentNodeGroupNG.IRI().String()),
+		)
 
 		nodegroup.importedGraph = currentNodeGroupNG
 
 		// handle group nodes
 		for n := range nodegroup.group {
-			var err error
 			if n.IsBlankNode() {
-				err = currentNodeGroupNG.MoveIBNode(n, "")
+				currentNodeGroupNG.MoveIBNode(n, "")
 			} else {
-				err = currentNodeGroupNG.MoveIBNode(n, n.Fragment())
-			}
-			if err != nil {
-				panic(err)
+				currentNodeGroupNG.MoveIBNode(n, n.Fragment())
 			}
 		}
 
@@ -370,27 +375,28 @@ func ExtractImportedGraphs(
 			var outsideNodeAdded bool
 			for d := range nodegroup.outsideNodes {
 				if d.OwningGraph() == graph {
-					var err error
 					if d.IsBlankNode() {
-						err = nodegroup.importedGraph.MoveIBNode(d, "")
-						log.Printf("    Move %s to %s\n", d.ID(), nodegroup.importedGraph.IRI())
+						nodegroup.importedGraph.MoveIBNode(d, "")
+						sst.GlobalLogger.Debug("filterextract move node to imported graph",
+							zap.String("nodeID", d.ID().String()),
+							zap.String("graphIRI", nodegroup.importedGraph.IRI().String()),
+						)
 					} else {
-						err = nodegroup.importedGraph.MoveIBNode(d, d.Fragment())
-						log.Printf("    Move %s to %s\n", d.Fragment(), nodegroup.importedGraph.IRI())
-					}
-
-					if err != nil {
-						return err
+						nodegroup.importedGraph.MoveIBNode(d, d.Fragment())
+						sst.GlobalLogger.Debug("filterextract move node to imported graph",
+							zap.String("fragment", d.Fragment()),
+							zap.String("graphIRI", nodegroup.importedGraph.IRI().String()),
+						)
 					}
 					nodegroup.group[d] = struct{}{}
 					if d.IsBlankNode() {
-						log.Printf("Add node %s to group %s", d.ID(), nodegroup.ID)
+						sst.GlobalLogger.Debug("filterextract add node to group", zap.String("nodeID", d.ID().String()), zap.String("groupID", nodegroup.ID.String()))
 					} else {
-						log.Printf("Add node %s to group %s", d.Fragment(), nodegroup.ID)
+						sst.GlobalLogger.Debug("filterextract add node to group", zap.String("fragment", d.Fragment()), zap.String("groupID", nodegroup.ID.String()))
 					}
 					delete(nodegroup.outsideNodes, d)
 					prevOutsideNodeCount := len(nodegroup.outsideNodes)
-					err = collectOutsideNodes(nodegroup, d)
+					err := collectOutsideNodes(nodegroup, d)
 					if err != nil {
 						return err
 					}
@@ -432,7 +438,10 @@ func ExtractImportedGraphs(
 				}
 				if err != nil {
 					if !errors.Is(err, sst.ErrNamedGraphImportCycle) && !errors.Is(err, sst.ErrNamedGraphAlreadyImported) && !errors.Is(err, sst.ErrStagesAreNotTheSame) {
-						log.Printf("Failed import on %s to %s with error\n", ng.IRI(), nodegroup.importedGraph.IRI())
+						sst.GlobalLogger.Debug("filterextract failed import",
+							zap.String("from", ng.IRI().String()),
+							zap.String("to", nodegroup.importedGraph.IRI().String()),
+						)
 						// return err
 						panic(err)
 					}
@@ -442,7 +451,10 @@ func ExtractImportedGraphs(
 						predicateUsages,
 					)
 				} else {
-					log.Printf("Add import on %s to %s\n", ng.IRI(), nodegroup.importedGraph.IRI())
+					sst.GlobalLogger.Debug("filterextract add import",
+						zap.String("from", ng.IRI().String()),
+						zap.String("to", nodegroup.importedGraph.IRI().String()),
+					)
 					importedGraphs[ng] = struct{}{}
 				}
 			}
@@ -457,7 +469,10 @@ func collectOutsideNodes(group nodeGroup, ib sst.IBNode) error {
 			if ng := p.OwningGraph(); ng != nil && !ng.IsReferenced() {
 				if _, found := group.group[p]; !found {
 					group.outsideNodes[p] = struct{}{}
-					log.Printf("    Add outside node %s to group %s\n", p.Fragment(), group.ID)
+					sst.GlobalLogger.Debug("filterextract add outside node to group",
+						zap.String("fragment", p.Fragment()),
+						zap.String("groupID", group.ID.String()),
+					)
 				}
 			}
 			if o.TermKind() == sst.TermKindIBNode || o.TermKind() == sst.TermKindTermCollection {
@@ -466,9 +481,15 @@ func collectOutsideNodes(group nodeGroup, ib sst.IBNode) error {
 					if _, found := group.group[o]; !found {
 						group.outsideNodes[o] = struct{}{}
 						if o.IsBlankNode() {
-							log.Printf("    Add outside node %s to group %s\n", o.ID(), group.ID)
+							sst.GlobalLogger.Debug("filterextract add outside node to group",
+								zap.String("nodeID", o.ID().String()),
+								zap.String("groupID", group.ID.String()),
+							)
 						} else {
-							log.Printf("    Add outside node %s to group %s\n", o.Fragment(), group.ID)
+							sst.GlobalLogger.Debug("filterextract add outside node to group",
+								zap.String("fragment", o.Fragment()),
+								zap.String("groupID", group.ID.String()),
+							)
 						}
 					}
 				}
@@ -492,9 +513,9 @@ func moveNamedGraphNodeToInjectGraph(
 
 		returnedGraph = injectedGraphImp
 
-		log.Printf("Injected graph created %s\n", injectedGraphImp.IRI())
+		sst.GlobalLogger.Debug("filterextract injected graph created", zap.String("iri", injectedGraphImp.IRI().String()))
 		importedGraphs[importingGraph] = struct{}{}
-		log.Printf("    Added import to %s\n", importingGraph.IRI())
+		sst.GlobalLogger.Debug("filterextract added import", zap.String("graphIRI", importingGraph.IRI().String()))
 	}
 	err = moveAllToGraph(returnedGraph, ibnode, importedGraphs, predicateUsages)
 	if err != nil {
@@ -509,22 +530,16 @@ func moveAllToGraph(
 	importedGraphs map[sst.NamedGraph]struct{},
 	predicateUsages map[sst.IBNode]map[sst.IBNode]struct{},
 ) error {
-	var err error
 	if ibnode.IsBlankNode() {
-		log.Printf("  Moved to injected graph %s\n", ibnode.ID())
-		err = targetGraph.MoveIBNode(ibnode, "")
+		sst.GlobalLogger.Debug("filterextract moved to injected graph", zap.String("nodeID", ibnode.ID().String()))
+		targetGraph.MoveIBNode(ibnode, "")
 	} else {
-		log.Printf("  Moved to injected graph %s\n", ibnode.Fragment())
-		err = targetGraph.MoveIBNode(ibnode, ibnode.Fragment())
-	}
-
-	if err != nil {
-		// return err
-		panic(err)
+		sst.GlobalLogger.Debug("filterextract moved to injected graph", zap.String("fragment", ibnode.Fragment()))
+		targetGraph.MoveIBNode(ibnode, ibnode.Fragment())
 	}
 	if p, found := predicateUsages[ibnode]; found {
 		for u := range p {
-			log.Printf("    Predicate usage %s\n", u.PrefixedFragment())
+			sst.GlobalLogger.Debug("filterextract predicate usage", zap.String("predicate", u.PrefixedFragment()))
 			err := maybeAddImportFromUsedNode(u, targetGraph, importedGraphs)
 			if err != nil {
 				// return err
@@ -547,7 +562,7 @@ func moveAllToGraph(
 				}
 			}
 		} else {
-			log.Printf("    Inverse %s\n", s.PrefixedFragment())
+			sst.GlobalLogger.Debug("filterextract inverse predicate", zap.String("predicate", s.PrefixedFragment()))
 			return maybeAddImportFromUsedNode(s, targetGraph, importedGraphs)
 		}
 		return nil
@@ -556,7 +571,7 @@ func moveAllToGraph(
 
 func maybeAddImportFromUsedNode(d sst.IBNode, targetGraph sst.NamedGraph, importedGraphs map[sst.NamedGraph]struct{}) error {
 	if g := d.OwningGraph(); g != (nil) && !g.IsReferenced() && g != targetGraph {
-		log.Printf("    -- Trying to import graph %s\n", g.IRI())
+		sst.GlobalLogger.Debug("filterextract trying to import graph", zap.String("graphIRI", g.IRI().String()))
 		if _, found := importedGraphs[g]; !found {
 			var ng sst.NamedGraph
 
@@ -564,7 +579,7 @@ func maybeAddImportFromUsedNode(d sst.IBNode, targetGraph sst.NamedGraph, import
 			if ng == nil {
 				ng = g.Stage().CreateNamedGraph(targetGraph.IRI())
 			}
-			log.Printf("    Create NG %s\n", ng.IRI())
+			sst.GlobalLogger.Debug("filterextract create named graph", zap.String("iri", ng.IRI().String()))
 
 			for _, val := range g.DirectImports() {
 				if val.IRI() == targetGraph.IRI() {
@@ -582,7 +597,7 @@ func maybeAddImportFromUsedNode(d sst.IBNode, targetGraph sst.NamedGraph, import
 
 			g.AddImport(targetGraph)
 
-			log.Printf("    Added import to %s\n", g.IRI())
+			sst.GlobalLogger.Debug("filterextract added import", zap.String("graphIRI", g.IRI().String()))
 			importedGraphs[g] = struct{}{}
 		}
 	}
@@ -637,7 +652,7 @@ func Run(repo sst.Repository, path string) {
 			return filepath.SkipDir
 		}
 		if !d.IsDir() && !strings.HasPrefix(d.Name(), "_") && strings.HasSuffix(d.Name(), ".ttl") {
-			log.Printf("Processing: %s\n", path)
+			sst.GlobalLogger.Debug("filterextract processing file", zap.String("path", path))
 			file, err := os.Open(path)
 			defer func() {
 				e := file.Close()

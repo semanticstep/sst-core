@@ -4,24 +4,21 @@ package setbranchremovebranchlogtest
 
 import (
 	"context"
-	"fmt"
-	"os"
+	"path/filepath"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/defaultderive"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestLocalRepository_SetRemoveBranch_LogEntry(t *testing.T) {
-	path := "./SetRemoveBranch"
+	path := filepath.Join(t.TempDir(), t.Name())
 	ngIDC := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363")
-	removeFolder(path)
-	defer removeFolder(path)
 
 	t.Run("writesLogEntryOnSetAndRemoveBranch", func(t *testing.T) {
 		repo, err := sst.CreateLocalRepository(path, "test@semanticstep.net", "default", true)
@@ -46,7 +43,7 @@ func TestLocalRepository_SetRemoveBranch_LogEntry(t *testing.T) {
 		require.NoError(t, err)
 		datasetIRI := dataset.IRI()
 
-		err = dataset.SetBranch(ctx, commitHash, branch)
+		err = dataset.SetBranchCommit(ctx, commitHash, branch)
 		require.NoError(t, err)
 
 		err = dataset.RemoveBranch(ctx, branch)
@@ -83,21 +80,4 @@ func TestLocalRepository_SetRemoveBranch_LogEntry(t *testing.T) {
 		assert.True(t, foundSet, "should find log entry for 'set branch'")
 		assert.True(t, foundRemove, "should find log entry for 'remove branch'")
 	})
-}
-
-func removeFolder(dir string) {
-	// check and delete old dir
-	if _, err := os.Stat(dir); err == nil {
-		err := os.RemoveAll(dir)
-		if err != nil {
-			fmt.Printf("Failed to delete %s: %s\n", dir, err)
-		} else {
-			fmt.Printf("%s has been deleted successfully\n", dir)
-		}
-	} else if os.IsNotExist(err) {
-		fmt.Println(dir + " - This file or directory does not exist.")
-	} else {
-		fmt.Printf("Error checking if file exists: %s\n", err)
-	}
-
 }

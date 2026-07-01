@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+	"strings"
 	"unicode"
 
-	"github.com/semanticstep/sst-core/core"
 	"github.com/semanticstep/sst-core/vocabularies/ssmeta"
 )
 
@@ -177,7 +177,7 @@ control_directive       {page}|{alphabet}|{extended2}|{extended4}|{arbitrary}
 
 print_control_directive {reverse_solidus}(N|F){reverse_solidus}
 
-string                  {apostrophe}([^\x01-\x1F\\']|{apostrophe}{apostrophe}|{reverse_solidus}{reverse_solidus}|{control_directive}|{print_control_directive})*{apostrophe}
+string                  {apostrophe}([^\x01-\x1F\\']|\r|\n|{apostrophe}{apostrophe}|{reverse_solidus}{reverse_solidus}|{control_directive}|{print_control_directive})*{apostrophe}
 
 entity_instance_name    #{digit}+
 
@@ -298,7 +298,7 @@ signature_content       {base64}
 
 <code,tag>{string} {
     	// TODO: process escape sequences
-    	l.sd.stringValue = string(l.val[1:len(l.val)-1])
+    	l.sd.stringValue = strings.NewReplacer("\r", "", "\n", "").Replace(string(l.val[1:len(l.val)-1]))
     	lval.item = l.sd.stringValue
 	    return STRING
     }
@@ -378,15 +378,12 @@ func (l *lexer) instanceName(lval *yySymType, expectedToken int) int {
 	}
 
 	lval.item = n
-	instance := l.sd.instanceMap[n];
+	instance := l.sd.instanceMap[n]
 	if instance == nil {
-		instance, err = l.sd.graph.CreateIRINode("", ssmeta.EntityInstance)
-		if err != nil {
-			return 0
-		}
-	    l.sd.instanceMap[n] = instance
+		instance = l.sd.graph.CreateIRINode("", ssmeta.EntityInstance)
+		l.sd.instanceMap[n] = instance
 	}
-    l.sd.instanceValue = instance
+	l.sd.instanceValue = instance
 	return expectedToken
 }
 

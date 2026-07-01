@@ -1,4 +1,4 @@
-// Copyright Semantic STEP Technology GmbH, Germany & DCT Co., Ltd. Tianjin, China
+﻿// Copyright Semantic STEP Technology GmbH, Germany & DCT Co., Ltd. Tianjin, China
 
 package svgtosst
 
@@ -9,187 +9,23 @@ import (
 	"strconv"
 	"strings"
 )
-
-func CombineShapeStyles(parentStyle, currentStyle ShapeStyle) ShapeStyle {
-	combinedStyle := parentStyle
-
-	if currentStyle.Stroke != "" {
-		combinedStyle.Stroke = currentStyle.Stroke
-	}
-	if currentStyle.StrokeWidth != "" {
-		combinedStyle.StrokeWidth = currentStyle.StrokeWidth
-	}
-	if currentStyle.Fill != "" {
-		combinedStyle.Fill = currentStyle.Fill
-	}
-
-	return combinedStyle
-}
-
-type Matrix [3][3]float64
-
-// Identity matrix
-var IdentityMatrix = Matrix{
-	{1, 0, 0},
-	{0, 1, 0},
-	{0, 0, 1},
-}
-
-// Matrix multiplication
-func MultiplyMatrix(m1, m2 Matrix) Matrix {
-	var result Matrix
-	for i := 0; i < 3; i++ {
-		for j := 0; j < 3; j++ {
-			result[i][j] = 0
-			for k := 0; k < 3; k++ {
-				result[i][j] += m1[i][k] * m2[k][j]
-			}
-		}
-	}
-	return result
-}
-
-// Parse the transform attribute and generate a transformation matrix
-func ParseTransform(transform string) Matrix {
-	// Initialize as the identity matrix
-	result := IdentityMatrix
-
-	// Match different transform operations
-	re := regexp.MustCompile(`(\w+)\(([^)]+)\)`)
-	matches := re.FindAllStringSubmatch(transform, -1)
-
-	for _, match := range matches {
-		op := match[1]
-		args := parseArgs(match[2])
-
-		switch op {
-		case "translate":
-			result = MultiplyMatrix(result, TranslateMatrix(args))
-		case "scale":
-			result = MultiplyMatrix(result, ScaleMatrix(args))
-		case "rotate":
-			result = MultiplyMatrix(result, RotateMatrix(args))
-		case "matrix":
-			result = MultiplyMatrix(result, MatrixTransform(args))
-		}
-		// fmt.Println("Resulting Matrix:")
-		// for _, row := range result {
-		// 	fmt.Println(row)
-		// }
-	}
-	return result
-}
-
-// Parse arguments into a float64 array
-func parseArgs(argStr string) []float64 {
-	argStrs := strings.Split(argStr, ",")
-	if len(argStrs) == 1 {
-		argStrs = strings.Fields(argStr)
-	}
-	args := make([]float64, len(argStrs))
-	for i, s := range argStrs {
-		args[i], _ = strconv.ParseFloat(strings.TrimSpace(s), 64)
-	}
-	return args
-}
-
-// Translation transformation matrix
-func TranslateMatrix(args []float64) Matrix {
-	tx := args[0]
-	ty := 0.0
-	if len(args) > 1 {
-		ty = args[1]
-	}
-	return Matrix{
-		{1, 0, tx},
-		{0, 1, ty},
-		{0, 0, 1},
-	}
-}
-
-// Scaling transformation matrix
-func ScaleMatrix(args []float64) Matrix {
-	sx := args[0]
-	sy := sx
-	if len(args) > 1 {
-		sy = args[1]
-	}
-	return Matrix{
-		{sx, 0, 0},
-		{0, sy, 0},
-		{0, 0, 1},
-	}
-}
-
-func RotateMatrix(args []float64) Matrix {
-	if len(args) < 1 {
-		panic("RotateMatrix requires at least one argument: the rotation angle.")
-	}
-
-	angle := args[0] * math.Pi / 180
-	cos := math.Cos(angle)
-	sin := math.Sin(angle)
-
-	return Matrix{
-		{cos, -sin, 0},
-		{sin, cos, 0},
-		{0, 0, 1},
-	}
-}
-
-// MatrixTransform creates a transformation matrix from matrix(a, b, c, d, e, f) parameters.
-func MatrixTransform(args []float64) Matrix {
-	if len(args) != 6 {
-		panic("matrix transform requires 6 parameters")
-	}
-	return Matrix{
-		{args[0], args[2], args[4]},
-		{args[1], args[3], args[5]},
-		{0, 0, 1},
-	}
-}
-
-// applyMatrixToPoint applies a matrix to a point (x, y) and returns the new matrix
-func applyMatrixToPoint(x, y float64, matrix Matrix) Matrix {
-	// Perform the matrix multiplication
-	newX := matrix[0][0]*x + matrix[0][1]*y + matrix[0][2]
-	newY := matrix[1][0]*x + matrix[1][1]*y + matrix[1][2]
-
-	// Return a new matrix representing the transformed point in homogeneous coordinates
-	return Matrix{
-		{matrix[0][0], matrix[0][1], newX},
-		{matrix[1][0], matrix[1][1], newY},
-		{0, 0, 1},
-	}
-}
-
-func CombineTransforms(parentTransform, childTransform string) string {
-	if parentTransform == "" {
-		return childTransform
-	}
-	if childTransform == "" {
-		return parentTransform
-	}
-	return parentTransform + " " + childTransform
-}
-
-func TransformShape(shape Shape, transform string) Shape {
+func transformShape(shape shape, transform string) shape {
 	switch s := shape.(type) {
-	case Text:
+	case text:
 		return transformText(s, transform)
-	case Rect:
+	case rect:
 		return transformRect(s, transform)
-	case Circle:
+	case circle:
 		return transformCircle(s, transform)
-	case Ellipse:
+	case ellipse:
 		return transformEllipse(s, transform)
-	case Polygon:
+	case polygon:
 		return transformPolygon(s, transform)
-	case Polyline:
+	case polyline:
 		return transformPolyline(s, transform)
-	case Line:
+	case line:
 		return transformLine(s, transform)
-	case Path:
+	case path:
 		return transformPath(s, transform)
 	default:
 		return shape
@@ -197,12 +33,12 @@ func TransformShape(shape Shape, transform string) Shape {
 }
 
 // TransformText applies the transformation and returns the transformed Text
-func transformText(text Text, transform string) Text {
+func transformText(t text, transform string) text {
 	// Parse the transform to get the transformation matrix
-	transformMatrix := ParseTransform(transform)
+	transformMatrix := parseTransform(transform)
 
 	// Apply the transform to the text's position
-	matrix := applyMatrixToPoint(float64(text.X), float64(text.Y), transformMatrix)
+	matrix := applyMatrixToPoint(float64(t.X), float64(t.Y), transformMatrix)
 
 	// Calculate the direction from the matrix
 	direction := math.Atan2(matrix[1][0], matrix[0][0]) * (180 / math.Pi)
@@ -215,32 +51,32 @@ func transformText(text Text, transform string) Text {
 	scale := math.Sqrt(transformMatrix[0][0]*transformMatrix[0][0] + transformMatrix[1][0]*transformMatrix[1][0])
 
 	// Apply scale to the FontSize
-	newFontSize := float64(text.FontSize) * scale
+	newFontSize := float64(t.FontSize) * scale
 
 	// Return the transformed Text with updated coordinates and FontSize
-	return Text{
+	return text{
 		X:              newX,
 		Y:              newY,
-		Content:        text.Content,
-		Transform:      text.Transform,
+		Content:        t.Content,
+		Transform:      t.Transform,
 		Direction:      direction,
-		ShapeStyle:     text.ShapeStyle,
-		Style:          text.Style,
-		FontFamily:     text.FontFamily,
+		shapeStyle:     t.shapeStyle,
+		Style:          t.Style,
+		FontFamily:     t.FontFamily,
 		FontSize:       newFontSize,
-		FontStyle:      text.FontStyle,
-		FontWeight:     text.FontWeight,
-		TextDecoration: text.TextDecoration,
+		FontStyle:      t.FontStyle,
+		FontWeight:     t.FontWeight,
+		TextDecoration: t.TextDecoration,
 	}
 }
 
 // TransformRect applies the transformation and returns Rect or Square depending on the transformed dimensions
-func transformRect(rect Rect, transform string) Shape {
+func transformRect(r rect, transform string) shape {
 	// Parse the transform to get the transformation matrix
-	transformMatrix := ParseTransform(transform)
+	transformMatrix := parseTransform(transform)
 
 	// Apply the transform to the rectangle's top-left corner
-	matrix := applyMatrixToPoint(float64(rect.X), float64(rect.Y), transformMatrix)
+	matrix := applyMatrixToPoint(float64(r.X), float64(r.Y), transformMatrix)
 
 	// Calculate the rotation direction from the matrix elements
 	direction := math.Atan2(matrix[1][0], matrix[0][0]) * (180 / math.Pi)
@@ -254,34 +90,34 @@ func transformRect(rect Rect, transform string) Shape {
 	scaleY := math.Sqrt(transformMatrix[0][1]*transformMatrix[0][1] + transformMatrix[1][1]*transformMatrix[1][1])
 
 	// Apply scale to XLength and YLength
-	newXLength := float64(rect.XLength) * scaleX
-	newYLength := float64(rect.YLength) * scaleY
+	newXLength := float64(r.XLength) * scaleX
+	newYLength := float64(r.YLength) * scaleY
 
 	// Apply scale to corner radii (RX and RY)
-	newRX := float64(rect.RX) * scaleX
-	newRY := float64(rect.RY) * scaleY
+	newRX := float64(r.RX) * scaleX
+	newRY := float64(r.RY) * scaleY
 
 	// Return the transformed Rect with updated coordinates and rotation direction
-	return Rect{
+	return rect{
 		X:          newX,
 		Y:          newY,
 		XLength:    newXLength,
 		YLength:    newYLength,
 		RX:         newRX,
 		RY:         newRY,
-		Transform:  rect.Transform,
+		Transform:  r.Transform,
 		Direction:  direction,
-		ShapeStyle: rect.ShapeStyle,
+		shapeStyle: r.shapeStyle,
 	}
 }
 
 // TransformCircle applies the transformation and returns Circle or Ellipse depending on the radii
-func transformCircle(circle Circle, transform string) Shape {
+func transformCircle(c circle, transform string) shape {
 	// Parse the transform to get the transformation matrix
-	transformMatrix := ParseTransform(transform)
+	transformMatrix := parseTransform(transform)
 
 	// Apply the transform to the center
-	matrix := applyMatrixToPoint(float64(circle.CX), float64(circle.CY), transformMatrix)
+	matrix := applyMatrixToPoint(float64(c.CX), float64(c.CY), transformMatrix)
 
 	// Calculate the rotation direction from the matrix elements
 	direction := math.Atan2(matrix[1][0], matrix[0][0]) * (180 / math.Pi)
@@ -295,25 +131,25 @@ func transformCircle(circle Circle, transform string) Shape {
 	scaleY := math.Sqrt(transformMatrix[0][1]*transformMatrix[0][1] + transformMatrix[1][1]*transformMatrix[1][1])
 
 	// Apply the average scale to the radius
-	newRadius := float64(circle.Radius) * (scaleX + scaleY) / 2
+	newRadius := float64(c.Radius) * (scaleX + scaleY) / 2
 
-	return Circle{
+	return circle{
 		CX:         newX,
 		CY:         newY,
 		Radius:     newRadius,
-		Transform:  circle.Transform,
+		Transform:  c.Transform,
 		Direction:  direction,
-		ShapeStyle: circle.ShapeStyle,
+		shapeStyle: c.shapeStyle,
 	}
 }
 
 // TransformEllipse applies the transformation and returns Ellipse or Circle depending on the radii
-func transformEllipse(ellipse Ellipse, transform string) Shape {
+func transformEllipse(e ellipse, transform string) shape {
 	// Parse the transform to get the transformation matrix
-	transformMatrix := ParseTransform(transform)
+	transformMatrix := parseTransform(transform)
 
 	// Apply the transform to the center point of the ellipse
-	matrix := applyMatrixToPoint(float64(ellipse.CX), float64(ellipse.CY), transformMatrix)
+	matrix := applyMatrixToPoint(float64(e.CX), float64(e.CY), transformMatrix)
 
 	// Calculate the rotation direction from the matrix elements
 	direction := math.Atan2(matrix[1][0], matrix[0][0]) * (180 / math.Pi)
@@ -327,31 +163,31 @@ func transformEllipse(ellipse Ellipse, transform string) Shape {
 	scaleY := math.Sqrt(transformMatrix[0][1]*transformMatrix[0][1] + transformMatrix[1][1]*transformMatrix[1][1])
 
 	// Apply the scale to RX and RY
-	newRX := float64(ellipse.RX) * scaleX
-	newRY := float64(ellipse.RY) * scaleY
+	newRX := float64(e.RX) * scaleX
+	newRY := float64(e.RY) * scaleY
 
 	// Create and return a new Ellipse object with the transformed center and scaled RX, RY
-	return Ellipse{
+	return ellipse{
 		CX:         newX,
 		CY:         newY,
 		RX:         newRX,
 		RY:         newRY,
-		Transform:  ellipse.Transform,
+		Transform:  e.Transform,
 		Direction:  direction,
-		ShapeStyle: ellipse.ShapeStyle,
+		shapeStyle: e.shapeStyle,
 	}
 }
 
 // TransformPolygon applies the transformation and returns the transformed Polygon
-func transformPolygon(polygon Polygon, transform string) Polygon {
+func transformPolygon(p polygon, transform string) polygon {
 	// Parse the transform to get the transformation matrix
-	transformMatrix := ParseTransform(transform)
+	transformMatrix := parseTransform(transform)
 
 	// Calculate the overall rotation direction from the matrix
 	direction := math.Atan2(transformMatrix[1][0], transformMatrix[0][0]) * (180 / math.Pi)
 
 	// Parse the points string into a slice of coordinates
-	points := parseCoordinatePairs(polygon.Points)
+	points := parseCoordinatePairs(p.Points)
 
 	// Apply the transform to each point
 	var transformedPoints []string
@@ -364,24 +200,24 @@ func transformPolygon(polygon Polygon, transform string) Polygon {
 	newPoints := strings.Join(transformedPoints, " ")
 
 	// Return the transformed Polygon with updated points
-	return Polygon{
+	return polygon{
 		Points:     newPoints,
-		Transform:  polygon.Transform,
+		Transform:  p.Transform,
 		Direction:  direction,
-		ShapeStyle: polygon.ShapeStyle,
+		shapeStyle: p.shapeStyle,
 	}
 }
 
 // TransformPolyline applies the transformation and returns the transformed Polyline
-func transformPolyline(polyline Polyline, transform string) Polyline {
+func transformPolyline(pl polyline, transform string) polyline {
 	// Parse the transform to get the transformation matrix
-	transformMatrix := ParseTransform(transform)
+	transformMatrix := parseTransform(transform)
 
 	// Calculate the overall rotation direction from the matrix
 	direction := math.Atan2(transformMatrix[1][0], transformMatrix[0][0]) * (180 / math.Pi)
 
 	// Parse the points string into a slice of coordinates
-	points := parseCoordinatePairs(polyline.Points)
+	points := parseCoordinatePairs(pl.Points)
 
 	// Apply the transform to each point
 	var transformedPoints []string
@@ -394,11 +230,11 @@ func transformPolyline(polyline Polyline, transform string) Polyline {
 	newPoints := strings.Join(transformedPoints, " ")
 
 	// Return the transformed Polyline with updated points
-	return Polyline{
+	return polyline{
 		Points:     newPoints,
-		Transform:  polyline.Transform,
+		Transform:  pl.Transform,
 		Direction:  direction,
-		ShapeStyle: polyline.ShapeStyle,
+		shapeStyle: pl.shapeStyle,
 	}
 }
 
@@ -421,35 +257,35 @@ func parseCoordinatePairs(points string) [][]float64 {
 }
 
 // TransformLine applies the transformation and returns the transformed Line
-func transformLine(line Line, transform string) Line {
+func transformLine(l line, transform string) line {
 	// Parse the transform to get the transformation matrix
-	transformMatrix := ParseTransform(transform)
+	transformMatrix := parseTransform(transform)
 
 	// Calculate the overall rotation direction from the matrix
 	direction := math.Atan2(transformMatrix[1][0], transformMatrix[0][0]) * (180 / math.Pi)
 
 	// Apply the transform to both endpoints of the line
-	newStart := applyMatrixToPoint(float64(line.X1), float64(line.Y1), transformMatrix)
-	newEnd := applyMatrixToPoint(float64(line.X2), float64(line.Y2), transformMatrix)
+	newStart := applyMatrixToPoint(float64(l.X1), float64(l.Y1), transformMatrix)
+	newEnd := applyMatrixToPoint(float64(l.X2), float64(l.Y2), transformMatrix)
 
 	// Return the transformed Line with updated coordinates and direction
-	return Line{
+	return line{
 		X1:         newStart[0][2],
 		Y1:         newStart[1][2],
 		X2:         newEnd[0][2],
 		Y2:         newEnd[1][2],
-		Transform:  line.Transform,
+		Transform:  l.Transform,
 		Direction:  direction,
-		ShapeStyle: line.ShapeStyle,
+		shapeStyle: l.shapeStyle,
 	}
 }
 
-func transformPath(path Path, transform string) Path {
-	fmt.Printf("original path.D: %v", path.D)
-	transformMatrix := ParseTransform(transform)
+func transformPath(p path, transform string) path {
+	fmt.Printf("original path.D: %v", p.D)
+	transformMatrix := parseTransform(transform)
 
 	// Parse the path data ("d" attribute) into commands
-	commands := parsePathCommands(path.D)
+	commands := parsePathCommands(p.D)
 
 	var transformedCommands []string
 	var lastX, lastY float64               // Tracks the logical position
@@ -611,16 +447,16 @@ func transformPath(path Path, transform string) Path {
 	newD := strings.Join(transformedCommands, " ")
 	fmt.Printf("New path.D: %v", newD)
 
-	return Path{
+	return path{
 		D:          newD,
-		Transform:  path.Transform,
-		ShapeStyle: path.ShapeStyle,
+		Transform:  p.Transform,
+		shapeStyle: p.shapeStyle,
 	}
 }
 
 // parsePathCommands parses the "d" attribute of an SVG path into PathCommand objects
-func parsePathCommands(d string) []PathCommand {
-	var commands []PathCommand
+func parsePathCommands(d string) []pathCommand {
+	var commands []pathCommand
 	var currentParams []float64
 
 	// Regular expression to match commands and numbers
@@ -632,7 +468,7 @@ func parsePathCommands(d string) []PathCommand {
 		if strings.ContainsAny(token, "MmZzLlHhVvCcSsQqTtAa") {
 			// If there's a current command, add it with its parameters
 			if currentCommand != "" && len(currentParams) > 0 {
-				commands = append(commands, PathCommand{
+				commands = append(commands, pathCommand{
 					Command: currentCommand,
 					Params:  currentParams,
 				})
@@ -641,7 +477,7 @@ func parsePathCommands(d string) []PathCommand {
 			currentParams = []float64{}
 
 			if token == "Z" || token == "z" {
-				commands = append(commands, PathCommand{
+				commands = append(commands, pathCommand{
 					Command: token,
 					Params:  nil,
 				})
@@ -657,7 +493,7 @@ func parsePathCommands(d string) []PathCommand {
 
 	// Add the final command and its parameters
 	if currentCommand != "" && len(currentParams) > 0 {
-		commands = append(commands, PathCommand{
+		commands = append(commands, pathCommand{
 			Command: currentCommand,
 			Params:  currentParams,
 		})
@@ -666,8 +502,8 @@ func parsePathCommands(d string) []PathCommand {
 	return commands
 }
 
-func Transform() {
-	circle := Circle{
+func transform() {
+	circle := circle{
 		CX:        100,                                             // Initial center x
 		CY:        100,                                             // Initial center y
 		Radius:    50,                                              // Initial radius
@@ -676,3 +512,4 @@ func Transform() {
 	shape := transformCircle(circle, "")
 	fmt.Printf("Shape Direction: %.2f degrees\n", shape.GetDirection())
 }
+

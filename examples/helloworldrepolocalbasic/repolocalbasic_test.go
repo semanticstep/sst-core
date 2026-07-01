@@ -12,30 +12,29 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"path/filepath"
 	"testing"
 
+	"github.com/blevesearch/bleve/v2"
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/defaultderive"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
-	"github.com/blevesearch/bleve/v2"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
 // TestOpen demonstrates creating a LocalBasic repository, adding data, committing,
 // reopening it, and performing a Bleve search.
 func TestOpen(t *testing.T) {
-	path := "./testsstrepo"
+	path := filepath.Join(t.TempDir(), "repo")
 	id := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a369")
 
-	defer os.RemoveAll(path)
-	defer os.Remove("repolocalbasic.ttl")
+	ttlFile := filepath.Join(t.TempDir(), "repolocalbasic.ttl")
 
 	t.Run("Create Repository", func(t *testing.T) {
-		os.RemoveAll(path)
 		id := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a369")
 
 		// creates a new repository
@@ -65,7 +64,7 @@ func TestOpen(t *testing.T) {
 		secondary.AddStatement(rdfs.Label, sst.String("Adam"))
 		stage.Commit(context.TODO(), "second commit: add secondary code", sst.DefaultBranch)
 
-		f, err := os.Create("repolocalbasic.ttl")
+		f, err := os.Create(ttlFile)
 		if err != nil {
 			panic(err)
 		}

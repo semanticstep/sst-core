@@ -9,7 +9,7 @@ import (
 	"github.com/semanticstep/sst-core/vocabularies/sh"
 )
 
-// the extracted Node and Property Shapes
+// the extracted Node and Property Shapes.
 type shapesStruct struct {
 	nodeShapes       int
 	propertyShapes   int
@@ -64,7 +64,7 @@ func PrintShapes(shapes *shapesStruct) {
 	}
 }
 
-// Extract the Node and Property Shapes and return them as new allocated shapesStruct
+// Extract the Node and Property Shapes and return them as new allocated shapesStruct.
 func ExtractShapes(stShapes sst.Stage) (shapes *shapesStruct) {
 	shapes = new(shapesStruct)
 	shapes.targetClasses = make(map[sst.IBNode]sst.IBNode)

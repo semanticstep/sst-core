@@ -4,8 +4,7 @@ package sst_test
 
 import (
 	"context"
-	"fmt"
-	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/semanticstep/sst-core/defaultderive"
@@ -17,20 +16,17 @@ import (
 )
 
 func TestLocalFullRepositoryLog(t *testing.T) {
-	path := "./testLocalFullRepo_log"
-	defer removeFolder(path)
-
 	// Helper: Clean & init repo
-	setupTestEnvironment := func() sst.Repository {
-		removeFolder(path)
-		repo, err := sst.CreateLocalRepository(path, "default@semanticstep.net", "default", true)
+	setupTestEnvironment := func(t *testing.T) sst.Repository {
+
+		repo, err := sst.CreateLocalRepository(filepath.Join(t.TempDir(), t.Name()), "default@semanticstep.net", "default", true)
 		assert.NoError(t, err)
 		repo.RegisterIndexHandler(defaultderive.DeriveInfo())
 		return repo
 	}
 
 	t.Run("SingleCommit_LogEntryCreated", func(t *testing.T) {
-		repo := setupTestEnvironment()
+		repo := setupTestEnvironment(t)
 		defer repo.Close()
 
 		stage := repo.OpenStage(sst.DefaultTriplexMode)
@@ -65,7 +61,7 @@ func TestLocalFullRepositoryLog(t *testing.T) {
 	})
 
 	t.Run("MultipleCommits_LogKeysIncrement", func(t *testing.T) {
-		repo := setupTestEnvironment()
+		repo := setupTestEnvironment(t)
 		defer repo.Close()
 
 		stage := repo.OpenStage(sst.DefaultTriplexMode)
@@ -104,7 +100,7 @@ func TestLocalFullRepositoryLog(t *testing.T) {
 	})
 
 	t.Run("LimitedLogEntries", func(t *testing.T) {
-		repo := setupTestEnvironment()
+		repo := setupTestEnvironment(t)
 		defer repo.Close()
 
 		stage := repo.OpenStage(sst.DefaultTriplexMode)
@@ -129,7 +125,7 @@ func TestLocalFullRepositoryLog(t *testing.T) {
 	})
 
 	t.Run("RangeStartEnd_LogRange", func(t *testing.T) {
-		repo := setupTestEnvironment()
+		repo := setupTestEnvironment(t)
 		defer repo.Close()
 
 		stage := repo.OpenStage(sst.DefaultTriplexMode)
@@ -160,7 +156,7 @@ func TestLocalFullRepositoryLog(t *testing.T) {
 	})
 
 	t.Run("StartBeyondRange_ReturnsEmpty", func(t *testing.T) {
-		repo := setupTestEnvironment()
+		repo := setupTestEnvironment(t)
 		defer repo.Close()
 
 		stage := repo.OpenStage(sst.DefaultTriplexMode)
@@ -175,7 +171,7 @@ func TestLocalFullRepositoryLog(t *testing.T) {
 	})
 
 	t.Run("StartEqualsEnd_EmptyResult", func(t *testing.T) {
-		repo := setupTestEnvironment()
+		repo := setupTestEnvironment(t)
 		defer repo.Close()
 
 		stage := repo.OpenStage(sst.DefaultTriplexMode)
@@ -190,22 +186,5 @@ func TestLocalFullRepositoryLog(t *testing.T) {
 		require.NoError(t, err)
 		require.Len(t, logs, 0, "start == end should return no entries")
 	})
-
-}
-
-func removeFolder(dir string) {
-	// check and delete old dir
-	if _, err := os.Stat(dir); err == nil {
-		err := os.RemoveAll(dir)
-		if err != nil {
-			fmt.Printf("Failed to delete %s: %s\n", dir, err)
-		} else {
-			fmt.Printf("%s has been deleted successfully\n", dir)
-		}
-	} else if os.IsNotExist(err) {
-		fmt.Println(dir + " - This file or directory does not exist.")
-	} else {
-		fmt.Printf("Error checking if file exists: %s\n", err)
-	}
 
 }

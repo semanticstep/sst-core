@@ -46,11 +46,11 @@ func SstDiffTriples(ctx context.Context, repo sst.Repository, oldH, newH sst.Has
 // Print a list of diff triples
 func PrintDiffTriples(tris []sst.DiffTriple) {
 	if len(tris) == 0 {
-		fmt.Println("  No differences found.")
+		fmt.Println("  - No differences found.")
 		return
 	}
 	for _, dt := range tris {
-		fmt.Printf("%s %s %s %s\n",
+		fmt.Printf("  - %s %s %s %s\n",
 			FlagToSymbol(dt.Flag), dt.Sub, dt.Pred, dt.Obj,
 		)
 	}

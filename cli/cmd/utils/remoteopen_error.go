@@ -3,64 +3,66 @@
 package utils
 
 import (
-	"fmt"
 	"strings"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-// ExplainRemoteRepositoryOpenError returns a short, user-oriented message for a failed
-// OpenRemoteRepository. If includeDetails is true, the caller may also print the raw error.
+// ExplainRemoteRepositoryOpenError returns a user-oriented problem line for a failed
+// OpenRemoteRepository. includeDetails is always false; raw errors are not shown.
 func ExplainRemoteRepositoryOpenError(target string, err error) (friendly string, includeDetails bool) {
 	if err == nil {
 		return "", false
 	}
-	raw := err.Error()
-	lower := strings.ToLower(raw)
 
+	reason := remoteOpenReason(target, err)
+	return FormatCLIProblem("open repository", reason), false
+}
+
+func remoteOpenReason(target string, err error) string {
+	if reason := reasonFromGRPCChain(err); reason != "" {
+		switch reason {
+		case "authentication failed", "permission denied", "write access required":
+			return "authentication failed"
+		case "resource not found", "repository not found":
+			return "repository not found"
+		case "service unavailable":
+			return "service unavailable"
+		default:
+			return reason
+		}
+	}
+
+	raw := strings.ToLower(cleanErrorMessage(err.Error()))
 	switch {
-	case strings.Contains(lower, "produced zero addresses") ||
-		strings.Contains(lower, "name resolver error") ||
-		strings.Contains(lower, "no such host"):
-		return fmt.Sprintf(
-			"The remote repository server '%s' does not exist or cannot be found (host name could not be resolved). Check the spelling and your network.",
-			target,
-		), false
-
-	case strings.Contains(lower, "connection refused"):
-		return fmt.Sprintf(
-			"Could not connect to '%s' (connection refused). Check the host, port, and that an SST repository service is listening there.",
-			target,
-		), false
-
-	case strings.Contains(lower, "deadline exceeded") ||
-		strings.Contains(lower, "context deadline exceeded") ||
-		strings.Contains(lower, "timeout"):
-		return fmt.Sprintf(
-			"Connecting to '%s' timed out. Check your network, VPN, and firewall.",
-			target,
-		), true
-
-	case strings.Contains(lower, "certificate") ||
-		strings.Contains(lower, "tls ") ||
-		strings.Contains(lower, "x509"):
-		return fmt.Sprintf(
-			"TLS handshake failed for '%s'. The certificate may be invalid or not trusted.",
-			target,
-		), true
+	case strings.Contains(raw, "produced zero addresses"),
+		strings.Contains(raw, "name resolver error"),
+		strings.Contains(raw, "no such host"):
+		return "host not found"
+	case strings.Contains(raw, "connection refused"):
+		return "connection refused"
+	case strings.Contains(raw, "deadline exceeded"),
+		strings.Contains(raw, "context deadline exceeded"),
+		strings.Contains(raw, "timeout"):
+		return "connection timed out"
+	case strings.Contains(raw, "certificate"),
+		strings.Contains(raw, "tls "),
+		strings.Contains(raw, "x509"):
+		return "TLS handshake failed"
 	}
 
 	if st, ok := status.FromError(err); ok {
 		switch st.Code() {
 		case codes.Unauthenticated, codes.PermissionDenied:
-			return fmt.Sprintf("Authentication was rejected for '%s'. Check your username and password.", target), true
+			return "authentication failed"
 		case codes.NotFound:
-			return fmt.Sprintf("The repository was not found on the server at '%s'.", target), false
+			return "repository not found"
 		case codes.Unavailable:
-			return fmt.Sprintf("The server at '%s' is unavailable. It may be down or the address may be wrong.", target), true
+			return "service unavailable"
 		}
 	}
 
-	return fmt.Sprintf("Could not open the remote repository at '%s'.", target), true
+	_ = target
+	return "operation failed"
 }

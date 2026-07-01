@@ -10,6 +10,7 @@ package sst
 import (
 	"context"
 	"crypto/tls"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -19,15 +20,16 @@ import (
 	"sync"
 	"time"
 
-	"github.com/semanticstep/sst-core/bboltproto"
-	"github.com/semanticstep/sst-core/bleveproto"
-	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/blevesearch/bleve/v2"
 	"github.com/blevesearch/bleve/v2/document"
 	"github.com/google/uuid"
 	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
+	"github.com/semanticstep/sst-core/bboltproto"
+	"github.com/semanticstep/sst-core/bleveproto"
+	"github.com/semanticstep/sst-core/sstauth"
 	"go.uber.org/multierr"
+	"go.uber.org/zap"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -238,7 +240,7 @@ type RepositoryServerConfig struct {
 	ClientID   string           // OIDC client ID
 	ServerCert *tls.Certificate // tls.Certificate
 	Verbose    bool             // verbose log output, the value is a bool value, default false
-	DeriveInfo *SSTDeriveInfo   `json:"-"` //the bleve configuration(mapping)
+	DeriveInfo *SSTDeriveInfo   `json:"-"` // the bleve configuration(mapping)
 }
 
 // NewServer creates and initializes a new RepositoryServer instance using the provided configuration.
@@ -277,7 +279,9 @@ func NewServer(c *RepositoryServerConfig) (*RepositoryServer, error) {
 		}
 	}
 
-	repo.RegisterIndexHandler(c.DeriveInfo)
+	if err := repo.RegisterIndexHandler(c.DeriveInfo); err != nil {
+		return nil, err
+	}
 
 	return newRepositoryServer(repo, c)
 }
@@ -316,8 +320,6 @@ func indexServiceServerToRepository(i *indexServiceServer, ctx context.Context, 
 }
 
 func (i indexServiceServer) Search(stream bleveproto.IndexService_SearchServer) error {
-	fmt.Printf("***** indexServiceServer received Search at %+v *****\n", time.Now())
-
 	req, err := stream.Recv()
 	if err != nil {
 		return err
@@ -342,7 +344,6 @@ func (i indexServiceServer) Search(stream bleveproto.IndexService_SearchServer) 
 		return err
 	}
 
-	fmt.Printf("***** indexServiceServer finished Search at %+v *****\n", time.Now())
 	return stream.SendMsg(msg)
 }
 
@@ -351,18 +352,18 @@ func newRepositoryServer(r Repository, c *RepositoryServerConfig) (*RepositorySe
 
 	dsService := datasetServiceServer{r: r, TimeNow: time.Now, clientID: c.ClientID}
 	bboltproto.RegisterDatasetServiceServer(s, &dsService)
-	log.Println("datasetService has been registered")
+	GlobalLogger.Info("datasetService has been registered")
 
 	refService := refServiceServer{R: r}
 	bboltproto.RegisterRefServiceServer(s, &refService)
-	log.Println("refService has been registered")
+	GlobalLogger.Info("refService has been registered")
 
 	commitService := commitServiceServer{r: r}
 	bboltproto.RegisterCommitServiceServer(s, &commitService)
-	log.Println("commitService has been registered")
+	GlobalLogger.Info("commitService has been registered")
 
 	bleveproto.RegisterIndexServiceServer(s, initIndexServiceServer(r, nil))
-	log.Println("IndexService has been registered")
+	GlobalLogger.Info("IndexService has been registered")
 
 	reflection.Register(s)
 
@@ -421,58 +422,70 @@ func newServerWithConfig(config *RepositoryServerConfig) *grpc.Server {
 			}
 
 			// 2) RBAC rules for proto package: sst.repository
-			methodRoles := map[string][]string{
+			// AccessMode values are ordered so that higher levels imply lower ones:
+			// SuperAdmin >= Admin >= ReadWrite >= ReadOnly.
+			// Each entry only needs to declare the minimum required level.
+			methodRoles := map[string]sstauth.AccessMode{
 				// ===== package sst.repository =====
-				// RepoManagerService
-				"/sst.repository.RepoManagerService/ListRepos":  {"read-only", "read-write", "admin"},
-				"/sst.repository.RepoManagerService/CreateRepo": {"read-write", "admin"},
-				"/sst.repository.RepoManagerService/DeleteRepo": {"read-write", "admin"},
+				// RepoManagerService (SuperRepository operations require SuperAdmin)
+				"/sst.repository.RepoManagerService/ListRepos":       sstauth.AccessMode_SuperAdmin,
+				"/sst.repository.RepoManagerService/CreateRepo":      sstauth.AccessMode_SuperAdmin,
+				"/sst.repository.RepoManagerService/DeleteRepo":      sstauth.AccessMode_SuperAdmin,
+				"/sst.repository.RepoManagerService/GetRepoQuota":    sstauth.AccessMode_SuperAdmin,
+				"/sst.repository.RepoManagerService/SetRepoQuota":    sstauth.AccessMode_SuperAdmin,
+				"/sst.repository.RepoManagerService/GetSuperQuota":   sstauth.AccessMode_SuperAdmin,
+				"/sst.repository.RepoManagerService/SetSuperQuota":   sstauth.AccessMode_SuperAdmin,
+				"/sst.repository.RepoManagerService/GetMaxRepoCount": sstauth.AccessMode_SuperAdmin,
+				"/sst.repository.RepoManagerService/SetMaxRepoCount": sstauth.AccessMode_SuperAdmin,
 
 				// DatasetService (read)
-				"/sst.repository.DatasetService/GetBranches":                {"read-only", "read-write", "admin"},
-				"/sst.repository.DatasetService/GetLeafCommits":             {"read-only", "read-write", "admin"},
-				"/sst.repository.DatasetService/GetBleveInfo":               {"read-only", "read-write", "admin"},
-				"/sst.repository.DatasetService/ListDatasets":               {"read-only", "read-write", "admin"},
-				"/sst.repository.DatasetService/GetDataset":                 {"read-only", "read-write", "admin"},
-				"/sst.repository.DatasetService/FetchDatasets":              {"read-only", "read-write", "admin"},
-				"/sst.repository.DatasetService/GetRepositoryInfo":          {"read-only", "read-write", "admin"},
-				"/sst.repository.DatasetService/GetRepositoryLog":           {"read-only", "read-write", "admin"},
-				"/sst.repository.DatasetService/Document":                   {"read-only", "read-write", "admin"},
-				"/sst.repository.DatasetService/Documents":                  {"read-only", "read-write", "admin"},
-				"/sst.repository.DatasetService/DownloadNamedGraphRevision": {"read-only", "read-write", "admin"},
-				"/sst.repository.DatasetService/FindCommonParentRevision":   {"read-only", "read-write", "admin"},
-				"/sst.repository.DatasetService/SyncTo":                     {"read-only", "read-write", "admin"},
+				"/sst.repository.DatasetService/GetBranches":                 sstauth.AccessMode_ReadOnly,
+				"/sst.repository.DatasetService/GetLeafCommits":              sstauth.AccessMode_ReadOnly,
+				"/sst.repository.DatasetService/GetBleveInfo":                sstauth.AccessMode_ReadOnly,
+				"/sst.repository.DatasetService/ListDatasets":                sstauth.AccessMode_ReadOnly,
+				"/sst.repository.DatasetService/GetDataset":                  sstauth.AccessMode_ReadOnly,
+				"/sst.repository.DatasetService/FetchDatasets":               sstauth.AccessMode_ReadOnly,
+				"/sst.repository.DatasetService/GetRepositoryInfo":           sstauth.AccessMode_ReadOnly,
+				"/sst.repository.DatasetService/GetRepositoryLog":            sstauth.AccessMode_ReadOnly,
+				"/sst.repository.DatasetService/Document":                    sstauth.AccessMode_ReadOnly,
+				"/sst.repository.DatasetService/Documents":                   sstauth.AccessMode_ReadOnly,
+				"/sst.repository.DatasetService/DownloadNamedGraphRevision":  sstauth.AccessMode_ReadOnly,
+				"/sst.repository.DatasetService/FindCommonParentRevision":    sstauth.AccessMode_ReadOnly,
+				"/sst.repository.DatasetService/GetCommitForDatasetRevision": sstauth.AccessMode_ReadOnly,
+				"/sst.repository.DatasetService/SyncTo":                      sstauth.AccessMode_ReadOnly,
 
 				// DatasetService (write)
-				"/sst.repository.DatasetService/CreateDataset": {"read-write", "admin"},
-				"/sst.repository.DatasetService/SetBranch":     {"read-write", "admin"},
-				"/sst.repository.DatasetService/PushDatasets":  {"read-write", "admin"},
-				"/sst.repository.DatasetService/DocumentSet":   {"read-write", "admin"},
-				"/sst.repository.DatasetService/SyncFrom":      {"read-write", "admin"},
+				"/sst.repository.DatasetService/CreateDataset": sstauth.AccessMode_ReadWrite,
+				"/sst.repository.DatasetService/SetBranch":     sstauth.AccessMode_ReadWrite,
+				"/sst.repository.DatasetService/PushDatasets":  sstauth.AccessMode_ReadWrite,
+				"/sst.repository.DatasetService/DocumentSet":   sstauth.AccessMode_ReadWrite,
+				"/sst.repository.DatasetService/SyncFrom":      sstauth.AccessMode_ReadWrite,
 
 				// DatasetService (high-risk write)
-				"/sst.repository.DatasetService/RemoveBranch":   {"read-write", "admin"},
-				"/sst.repository.DatasetService/DocumentDelete": {"read-write", "admin"},
+				"/sst.repository.DatasetService/RemoveBranch":   sstauth.AccessMode_ReadWrite,
+				"/sst.repository.DatasetService/DocumentDelete": sstauth.AccessMode_ReadWrite,
 
 				// RefService (read)
-				"/sst.repository.RefService/ListRefs": {"read-only", "read-write", "admin"},
-				"/sst.repository.RefService/GetRef":   {"read-only", "read-write", "admin"},
+				"/sst.repository.RefService/ListRefs": sstauth.AccessMode_ReadOnly,
+				"/sst.repository.RefService/GetRef":   sstauth.AccessMode_ReadOnly,
 
 				// CommitService
-				"/sst.repository.CommitService/ListCommits":           {"read-only", "read-write", "admin"},
-				"/sst.repository.CommitService/GetCommit":             {"read-only", "read-write", "admin"},
-				"/sst.repository.CommitService/CompareCommits":        {"read-only", "read-write", "admin"},
-				"/sst.repository.CommitService/GetCommitDetailsBatch": {"read-only", "read-write", "admin"},
-				"/sst.repository.CommitService/CreateCommit":          {"read-write", "admin"},
+				"/sst.repository.CommitService/ListCommits":           sstauth.AccessMode_ReadOnly,
+				"/sst.repository.CommitService/GetCommit":             sstauth.AccessMode_ReadOnly,
+				"/sst.repository.CommitService/CompareCommits":        sstauth.AccessMode_ReadOnly,
+				"/sst.repository.CommitService/GetCommitDetailsBatch": sstauth.AccessMode_ReadOnly,
+				"/sst.repository.CommitService/CreateCommit":          sstauth.AccessMode_ReadWrite,
 
 				// ===== package sst.ssquery =====
-				"/sst.ssquery.IndexService/Search": {"read-only", "read-write", "admin"},
+				"/sst.ssquery.IndexService/Search": sstauth.AccessMode_ReadOnly,
 			}
 
-			unaryInterceptors = append(unaryInterceptors,
+			unaryInterceptors = append(
+				unaryInterceptors,
 				sstauth.UnaryRBACInterceptor(verifier, config.ClientID, methodRoles, ""),
 			)
-			streamInterceptors = append(streamInterceptors,
+			streamInterceptors = append(
+				streamInterceptors,
 				sstauth.StreamRBACInterceptor(verifier, config.ClientID, methodRoles, ""),
 			)
 		}
@@ -480,7 +493,8 @@ func newServerWithConfig(config *RepositoryServerConfig) *grpc.Server {
 
 	// 2) Server options: build chain ONCE
 	opts := make([]grpc.ServerOption, 0, 6)
-	opts = append(opts,
+	opts = append(
+		opts,
 		grpc.ChainUnaryInterceptor(unaryInterceptors...),
 		grpc.ChainStreamInterceptor(streamInterceptors...),
 		grpc.MaxRecvMsgSize(10*1024*1024),
@@ -489,7 +503,7 @@ func newServerWithConfig(config *RepositoryServerConfig) *grpc.Server {
 	// 3) TLS (optional)
 	if config != nil && config.ServerCert != nil {
 		opts = append(opts, grpc.Creds(credentials.NewServerTLSFromCert(config.ServerCert)))
-		log.Println("gRPC server with TLS enabled")
+		GlobalLogger.Info("gRPC server with TLS enabled")
 	}
 
 	return grpc.NewServer(opts...)
@@ -506,12 +520,28 @@ func testAuthFunc(ctx context.Context, rawToken, _ string) (info sstauth.SstUser
 			Email: "test2@semanticstep.net",
 		}, nil
 	}
+
+	// Also accept unsigned JWT-shaped tokens used by tests that need role claims.
+	// Signature is not verified here; downstream handlers re-parse the payload
+	// with extractClientRolesNoVerify to obtain OIDC roles.
+	if parts := strings.Split(rawToken, "."); len(parts) == 3 {
+		payload, err := base64.RawURLEncoding.DecodeString(parts[1])
+		if err == nil {
+			var claims struct {
+				Email string `json:"email"`
+			}
+			if err := json.Unmarshal(payload, &claims); err == nil && claims.Email != "" {
+				return sstauth.SstUserInfo{Email: claims.Email}, nil
+			}
+		}
+	}
+
 	return info, status.Errorf(codes.Unauthenticated, "unrecognized token %v", rawToken)
 }
 
 // GracefulStopAndClose gracefully stops the gRPC server and closes the repository.
 func (s RepositoryServer) GracefulStopAndClose() error {
-	log.Println("gPRC server call GracefulStopAndClose")
+	GlobalLogger.Info("gRPC server call GracefulStopAndClose")
 	s.GracefulStop()
 
 	var err error
@@ -578,7 +608,7 @@ func logStreamServerInterceptor() grpc.StreamServerInterceptor {
 	}
 }
 
-// for gRPC server - indexServiceServer using
+// for gRPC server - indexServiceServer using.
 func searchEncoded(
 	ctx context.Context, index bleve.Index, encReq []byte,
 ) (*bleve.SearchResult, error) {
@@ -588,10 +618,10 @@ func searchEncoded(
 	}
 	outputReq, err := json.MarshalIndent(req, "", "  ")
 	if err != nil {
-		log.Println("Error marshaling JSON:", err)
+		GlobalLogger.Error("error marshaling search request JSON", zap.Error(err))
 		return nil, err
 	}
-	log.Println(string(outputReq))
+	GlobalLogger.Debug("search request", zap.String("request", string(outputReq)))
 	return index.SearchInContext(ctx, req)
 }
 

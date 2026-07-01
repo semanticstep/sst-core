@@ -14,15 +14,15 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/defaultderive"
 	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/sst_test/testutil"
+	"github.com/semanticstep/sst-core/sstauth"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -62,13 +62,13 @@ func Test_LocalFullRepository_UUIDNamedGraph_RemoveBranch_CheckInfo(t *testing.T
 		info, err := repo.Info(context.TODO(), sst.DefaultBranch)
 		assert.Nil(t, err)
 		fmt.Println(info)
-		assert.Equal(t, 1, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfDatasetsInBranch)
 
 		ds, err := repo.Dataset(context.TODO(), sst.IRI(ngIDC.URN()))
 		assert.Nil(t, err)
 
 		// DS - 2 branches: master, testbranch
-		err = ds.SetBranch(context.TODO(), commitHash, "testbranch")
+		err = ds.SetBranchCommit(context.TODO(), commitHash, "testbranch")
 		assert.Nil(t, err)
 
 		// DS - 1 branch: testbranch
@@ -79,19 +79,19 @@ func Test_LocalFullRepository_UUIDNamedGraph_RemoveBranch_CheckInfo(t *testing.T
 		info, err = repo.Info(context.TODO(), sst.DefaultBranch)
 		assert.Nil(t, err)
 		fmt.Println(info)
-		assert.Equal(t, 0, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(0), info.NumberOfDatasetsInBranch)
 
 		fmt.Println("---- info on testbranch ----")
 		info, err = repo.Info(context.TODO(), "testbranch")
 		assert.Nil(t, err)
 		fmt.Println(info)
-		assert.Equal(t, 1, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfDatasetsInBranch)
 
 		fmt.Println("---- info on all branches ----")
 		info, err = repo.Info(context.TODO(), "")
 		assert.Nil(t, err)
 		fmt.Println(info)
-		assert.Equal(t, 1, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfDatasetsInBranch)
 	})
 
 	t.Run("CommitDetailsByHash", func(t *testing.T) {
@@ -118,23 +118,23 @@ func Test_LocalFullRepository_UUIDNamedGraph_RemoveBranch_CheckInfo(t *testing.T
 		assert.Nil(t, err)
 		assert.Equal(t, "First commit of C", cd.Message)
 
-		err = ds.SetBranch(context.TODO(), leafCommits[0], "testBranch")
+		err = ds.SetBranchCommit(context.TODO(), leafCommits[0], "testBranch")
 		assert.Nil(t, err)
 
 		info, err := repo.Info(context.TODO(), "")
 		assert.Nil(t, err)
-		assert.Equal(t, 1, info.NumberOfDatasets)
-		assert.Equal(t, 1, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfDatasets)
+		assert.Equal(t, int64(1), info.NumberOfDatasetsInBranch)
 
 		info, err = repo.Info(context.TODO(), "master")
 		assert.Nil(t, err)
-		assert.Equal(t, 1, info.NumberOfDatasets)
-		assert.Equal(t, 0, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfDatasets)
+		assert.Equal(t, int64(0), info.NumberOfDatasetsInBranch)
 
 		info, err = repo.Info(context.TODO(), "testBranch")
 		assert.Nil(t, err)
-		assert.Equal(t, 1, info.NumberOfDatasets)
-		assert.Equal(t, 1, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfDatasets)
+		assert.Equal(t, int64(1), info.NumberOfDatasetsInBranch)
 
 		branchesMap, err = ds.Branches(context.TODO())
 		assert.Nil(t, err)
@@ -178,7 +178,7 @@ func Test_LocalFullRepository_UUIDNamedGraph_CommitToEmptyBranch(t *testing.T) {
 		assert.Equal(t, ngIDC, modifiedDS[0])
 		info, err := repo.Info(context.TODO(), "")
 		assert.Nil(t, err)
-		assert.Equal(t, 0, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(0), info.NumberOfDatasetsInBranch)
 	})
 
 	t.Run("CommitDetailsByHash", func(t *testing.T) {
@@ -204,23 +204,23 @@ func Test_LocalFullRepository_UUIDNamedGraph_CommitToEmptyBranch(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, "First commit of C", cd.Message)
 
-		err = ds.SetBranch(context.TODO(), leafCommits[0], "testBranch")
+		err = ds.SetBranchCommit(context.TODO(), leafCommits[0], "testBranch")
 		assert.Nil(t, err)
 
 		info, err := repo.Info(context.TODO(), "")
 		assert.Nil(t, err)
-		assert.Equal(t, 1, info.NumberOfDatasets)
-		assert.Equal(t, 1, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfDatasets)
+		assert.Equal(t, int64(1), info.NumberOfDatasetsInBranch)
 
 		info, err = repo.Info(context.TODO(), "master")
 		assert.Nil(t, err)
-		assert.Equal(t, 1, info.NumberOfDatasets)
-		assert.Equal(t, 0, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfDatasets)
+		assert.Equal(t, int64(0), info.NumberOfDatasetsInBranch)
 
 		info, err = repo.Info(context.TODO(), "testBranch")
 		assert.Nil(t, err)
-		assert.Equal(t, 1, info.NumberOfDatasets)
-		assert.Equal(t, 1, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfDatasets)
+		assert.Equal(t, int64(1), info.NumberOfDatasetsInBranch)
 
 		branchesMap, err = ds.Branches(context.TODO())
 		assert.Nil(t, err)
@@ -269,7 +269,7 @@ func Test_RemoteRepository_UUIDNamedGraph_CommitToEmptyBranch(t *testing.T) {
 		assert.Equal(t, ngIDC, modifiedDS[0])
 		info, err := repo.Info(constructCtx, "")
 		assert.Nil(t, err)
-		assert.Equal(t, 0, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(0), info.NumberOfDatasetsInBranch)
 	})
 
 	t.Run("CommitDetailsByHash", func(t *testing.T) {
@@ -297,23 +297,23 @@ func Test_RemoteRepository_UUIDNamedGraph_CommitToEmptyBranch(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, "First commit of C", cd.Message)
 
-		err = ds.SetBranch(constructCtx, leafCommits[0], "testBranch")
+		err = ds.SetBranchCommit(constructCtx, leafCommits[0], "testBranch")
 		assert.Nil(t, err)
 
 		info, err := repo.Info(constructCtx, "")
 		assert.Nil(t, err)
-		assert.Equal(t, 1, info.NumberOfDatasets)
-		assert.Equal(t, 1, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfDatasets)
+		assert.Equal(t, int64(1), info.NumberOfDatasetsInBranch)
 
 		info, err = repo.Info(constructCtx, "master")
 		assert.Nil(t, err)
-		assert.Equal(t, 1, info.NumberOfDatasets)
-		assert.Equal(t, 0, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfDatasets)
+		assert.Equal(t, int64(0), info.NumberOfDatasetsInBranch)
 
 		info, err = repo.Info(constructCtx, "testBranch")
 		assert.Nil(t, err)
-		assert.Equal(t, 1, info.NumberOfDatasets)
-		assert.Equal(t, 1, info.NumberOfDatasetsInBranch)
+		assert.Equal(t, int64(1), info.NumberOfDatasets)
+		assert.Equal(t, int64(1), info.NumberOfDatasetsInBranch)
 
 		branchesMap, err = ds.Branches(constructCtx)
 		assert.Nil(t, err)
@@ -358,7 +358,7 @@ func Test_LocalFullRepository_UUIDNamedGraph_CommitToBranch(t *testing.T) {
 		ds, err := repo.Dataset(context.TODO(), sst.IRI(ngIDC.URN()))
 		assert.Nil(t, err)
 
-		err = ds.SetBranch(context.TODO(), commitHash1, "branch2")
+		err = ds.SetBranchCommit(context.TODO(), commitHash1, "branch2")
 		assert.Nil(t, err)
 	})
 
@@ -521,7 +521,7 @@ func Test_LocalFullRepository_SetBranch(t *testing.T) {
 			panic(err)
 		}
 
-		err = ds.SetBranch(context.TODO(), commitHash, "testBranch")
+		err = ds.SetBranchCommit(context.TODO(), commitHash, "testBranch")
 		if err != nil {
 			panic(err)
 		}

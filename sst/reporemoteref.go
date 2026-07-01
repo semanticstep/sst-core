@@ -6,8 +6,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/semanticstep/sst-core/bboltproto"
 	"github.com/google/uuid"
+	"github.com/semanticstep/sst-core/bboltproto"
 )
 
 var (

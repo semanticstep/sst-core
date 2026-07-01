@@ -1,0 +1,92 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:154a8f8e-68e4-4b8a-a9ac-84cf6d4da7a2#> .
+
+<urn:uuid:154a8f8e-68e4-4b8a-a9ac-84cf6d4da7a2> a owl:Ontology .
+:0ef85da1-491a-47a3-b97c-3e23e40dfdb2 a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "H" ;
+  rdfs:comment "manufacturing system disposing residues or waste" ;
+  rdfs:label "disposing system" .
+:27a65e78-ee78-49f2-9950-ccc1c788c489 a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "B" ;
+  rdfs:comment "manufacturing system designed to supply electrical energy" ;
+  rdfs:label "electrical energy supply system" .
+:4527a3cb-44d3-4178-92c6-dccd98de5530 a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "E" ;
+  rdfs:comment "manufacturing system designed to collect and store material for subsequent retrieval" ;
+  rdfs:label "storage system" .
+:4ea81890-78ee-4233-9775-dc0d93366ccb a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "F" ;
+  rdfs:comment "manufacturing system designed to control, adjust and monitor" ;
+  rdfs:label "control system" .
+:5f1fe43b-711d-4583-94e8-4805e6811dc3 a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "K" ;
+  rdfs:comment "manufacturing system designed to separate into elements" ;
+  rdfs:label "separating system" .
+:62a2e747-ee8d-464a-9a85-745fc804cb58 a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "P" ;
+  rdfs:comment "manufacturing system designed to protects any object from danger and damage" ;
+  rdfs:label "security and safety system" .
+:6977e62d-c0b6-46ae-b02c-0bbe55134430 a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "G" ;
+  rdfs:comment "manufacturing system designed to provide communication between persons or technical systems" ;
+  rdfs:label "information and communication system" .
+:70d6552b-b252-4b2a-9420-5033607e92d9 a sso:ClassSystem ;
+  sso:id "IEC81346-14_prime_system" ;
+  rdfs:label "IEC 81346-14 Classes of prime systems for manufacturing" .
+:81bc89aa-2b54-43f5-92e7-47658bb0b18c a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "J" ;
+  rdfs:comment "manufacturing system designed to merge elements" ;
+  rdfs:label "merging system" .
+:87221a4d-110e-4700-b55d-19beb5f5a999 a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "R" ;
+  rdfs:comment "manufacturing system designed to supply gaseous matter" ;
+  rdfs:label "gaseous matter supply system" .
+:a3d2a28b-9a10-41c0-8cb7-19c1f1f824be a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "S" ;
+  rdfs:comment "manufacturing system designed to supply liquid matter" ;
+  rdfs:label "liquid matter supply system" .
+:b2bb6f94-69bf-49b7-801b-2158e986665d a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "C" ;
+  rdfs:comment "manufacturing system designed to transport material or entities" ;
+  rdfs:label "transportation system" .
+:b6d8a334-16e9-48b4-9733-75300dd9e220 a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "M" ;
+  rdfs:comment "manufacturing system designed to alter the properties of elements" ;
+  rdfs:label "altering system" .
+:b6df7c8a-381d-4e42-aab4-f5487501be93 a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "A" ;
+  rdfs:comment "manufacturing system designed to make decisions" ;
+  rdfs:label "decision system" .
+:bb6de5df-0314-48e2-b4b1-e50b14e3e05f a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "Q" ;
+  rdfs:comment "manufacturing system designed to supply solid matter" ;
+  rdfs:label "solid matter supply system" .
+:bc94e845-219b-4d72-9f24-e7e83d224e65 a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "L" ;
+  rdfs:comment "manufacturing system designed to modify the shape of elements" ;
+  rdfs:label "forming system" .
+:bd9b8380-b0aa-43fb-80be-8643e22ebef8 a lci:ClassOfIndividual ,
+    :70d6552b-b252-4b2a-9420-5033607e92d9 ;
+  sso:id "T" ;
+  rdfs:comment "manufacturing system designed to supply thermal energy" ;
+  rdfs:label "thermal energy supply system" .

@@ -1,0 +1,47 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:3153c042-8483-4660-9c18-e3fa23608477#> .
+
+<urn:uuid:3153c042-8483-4660-9c18-e3fa23608477> a owl:Ontology .
+:082d0129-040c-49b0-9a84-7c8b4c8576b5 a lci:ClassOfIndividual ,
+    :f8681cea-1ee8-4868-b673-10cef6a95c07 ;
+  sso:id "Z" ;
+  rdfs:comment "Objects for housing or enclosing technical systems or installations like areas and buildings" ;
+  rdfs:label "Technical infrastructure object" .
+:3c92ac5c-371f-48b1-8fd6-691966c1767d a lci:ClassOfIndividual ,
+    :f8681cea-1ee8-4868-b673-10cef6a95c07 ;
+  sso:id "B" ;
+  rdfs:comment "Objects for main process facilities NOTE 1 Precise definitions open to different branches NOTE 2 Letters I and O are not to be used." ;
+  rdfs:label "Main process facility infrastructure object" .
+:75dbc991-6572-4094-9e1e-2279cdf47c9d a lci:ClassOfIndividual ,
+    :f8681cea-1ee8-4868-b673-10cef6a95c07 ;
+  sso:id "V" ;
+  rdfs:comment "Objects for storage of material or goods" ;
+  rdfs:label "Main process storing infrastructure object" .
+:cae2ecd4-7744-4502-b6ed-8960508ff0f5 a lci:ClassOfIndividual ,
+    :f8681cea-1ee8-4868-b673-10cef6a95c07 ;
+  sso:id "W" ;
+  rdfs:comment "Objects for administrative or social purposes or tasks" ;
+  rdfs:label "Administrative infrastructure object" .
+:cbc4a6ec-c516-416b-8856-56909c54675c a lci:ClassOfIndividual ,
+    :f8681cea-1ee8-4868-b673-10cef6a95c07 ;
+  sso:id "A" ;
+  rdfs:comment "Objects for overall management of other infrastructure objects" ;
+  rdfs:label "Common tasks infrastructure object" .
+:d59cd949-a709-429a-b59a-4e5a955c07f1 a lci:ClassOfIndividual ,
+    :f8681cea-1ee8-4868-b673-10cef6a95c07 ;
+  sso:id "X" ;
+  rdfs:comment "Objects for fulfilling auxiliary purposes or tasks without the process (for example, on a site, in a plant or building)" ;
+  rdfs:label "Auxiliary infrastructure object" .
+:efd8c9dc-19af-40a7-90c8-f3bb53146bcc a lci:ClassOfIndividual ,
+    :f8681cea-1ee8-4868-b673-10cef6a95c07 ;
+  sso:id "Y" ;
+  rdfs:comment "Objects for communication and information tasks" ;
+  rdfs:label "Communication infrastructure object" .
+:f8681cea-1ee8-4868-b673-10cef6a95c07 a sso:ClassSystem ;
+  sso:id "IEC81346-2_infrastructure" ;
+  rdfs:label "IEC 81346-2 Classes of infrastructure objects" .

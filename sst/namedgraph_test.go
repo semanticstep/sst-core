@@ -27,8 +27,8 @@ func TestNewLocalNamedGraph(t *testing.T) {
 		directImports:        map[uuid.UUID]*namedGraph{},
 		isImportedBy:         map[uuid.UUID]*namedGraph{},
 		checkedOutCommits:    []Hash{},
-		checkedOutNGRevision: emptyHash,
-		checkedOutDSRevision: emptyHash,
+		checkedOutNGRevisions: []Hash{},
+		checkedOutDSRevisions: []Hash{},
 	}
 	type args struct {
 		stage   *stage
@@ -76,8 +76,8 @@ func TestNewReferencedGraph(t *testing.T) {
 		directImports:        map[uuid.UUID]*namedGraph{},
 		isImportedBy:         map[uuid.UUID]*namedGraph{},
 		checkedOutCommits:    []Hash{},
-		checkedOutNGRevision: emptyHash,
-		checkedOutDSRevision: emptyHash,
+		checkedOutNGRevisions: []Hash{},
+		checkedOutDSRevisions: []Hash{},
 	}
 	type args struct {
 		stage   *stage

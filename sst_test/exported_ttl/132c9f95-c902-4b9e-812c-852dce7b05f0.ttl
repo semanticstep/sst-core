@@ -1,0 +1,220 @@
+@prefix lci:	<http://ontology.semanticstep.net/lci#> .
+@prefix qau:	<http://ontology.semanticstep.net/qau#> .
+@prefix ssmeta:	<http://ontology.semanticstep.net/ssmeta#> .
+@prefix sso:	<http://ontology.semanticstep.net/sso#> .
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:	<http://www.w3.org/2002/07/owl#> .
+@prefix :	<urn:uuid:132c9f95-c902-4b9e-812c-852dce7b05f0#> .
+@prefix ns3:	<urn:uuid:b562cc36-57d6-46d7-a811-0df250fec2bb#> .
+@prefix ns2:	<urn:uuid:2bd3bbaa-4715-4b19-a712-33b0311b3f01#> .
+
+<urn:uuid:132c9f95-c902-4b9e-812c-852dce7b05f0>	a	owl:Ontology ;
+	owl:imports	<urn:uuid:2bd3bbaa-4715-4b19-a712-33b0311b3f01> ,
+			<urn:uuid:b562cc36-57d6-46d7-a811-0df250fec2bb> .
+:07468327-f920-4851-9ea5-1c51e317b588	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:ObjectProperty ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	rdfs:range	lci:MinMaxQuantity ,
+			qau:Length ,
+			[
+	a	owl:Restriction ;
+	owl:onProperty	qau:milliMetre ;
+	owl:minCardinality	"1"
+] ;
+	sso:id	"n2" .
+:0899880a-95a1-497a-93c3-22b95f1a7251	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:ObjectProperty ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	rdfs:range	ns3:6d3a4f6a-4643-4f4c-878e-2dceb7c552df ;
+	sso:id	"UL-Rating" .
+:18b26325-d3fc-40d7-9d49-4b8a7f2558d2	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:ObjectProperty ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	rdfs:range	ns2:c30ac8ff-9e1a-44dc-aaeb-9cc6839b7ee3 ;
+	sso:id	"wire gage" .
+:1a4403a3-d7eb-41eb-b512-a1dd5f7507e8	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:8335c617-55af-42fe-8345-bc2c99d4c447 ;
+	sso:id	"ProtectiveCovering" .
+:2f1fa114-7e40-4288-9fb3-2c8787e0d619	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:54a8af65-c813-41e4-8394-0c558cdc1546 ;
+	sso:id	"ConnectorHousing" ;
+	rdfs:label	"Connector housing" .
+:39f37a86-97b9-4949-9abc-408a4ea2ee52	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:7091f171-3e28-441d-a7b3-6ff361b3ac3e ;
+	sso:id	"test1.1.1" .
+:3afeb898-d119-4aa6-b69a-da3fe26a7080	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:f3c6894b-14ef-48bb-9def-d1c52867f3c8 ;
+	sso:id	"Cable" ;
+	rdfs:label	"Cable" .
+:44a46272-e388-4a15-ac63-2823a97842e6	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:FunctionalProperty ,
+			owl:ObjectProperty ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	rdfs:range	lci:MinMaxQuantity ,
+			qau:ThermodynamicTemperature ,
+			[
+	a	owl:Restriction ;
+	owl:onProperty	qau:degreeCelsius ;
+	owl:minCardinality	"1"
+] ;
+	sso:id	"Temperature Range" .
+:4a3fdef8-17dd-4aa3-b68e-c64a36f91d3f	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:d9dadbc1-9b6b-4a83-9f1a-eed98d308345 ;
+	sso:id	"ConnectorCavityPlug" ;
+	rdfs:label	"Cavity plug" .
+:517ec136-80a6-4240-902e-670bdae0d404	a	lci:ClassOfIndividual ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	sso:id	"Device" ;
+	rdfs:label	"Device" .
+:54a8af65-c813-41e4-8394-0c558cdc1546	a	lci:ClassOfIndividual ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	sso:id	"Connector" ;
+	rdfs:label	"Connector" .
+:56d3fc0d-ab79-4ea2-ab73-7e90f17c1eb6	a	lci:ClassOfIndividual ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	sso:id	"ConnectorKit" ;
+	rdfs:label	"Connector kit" .
+:5c55a019-73f3-4c35-8d38-16e5c5860af0	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:ObjectProperty ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	rdfs:range	lci:NominalQuantity ,
+			qau:Mass ,
+			[
+	a	owl:Restriction ;
+	owl:onProperty	qau:kilogram ;
+	owl:minCardinality	"1"
+] ;
+	sso:id	"n1" .
+:608cdcc0-2ef2-4d51-9fc9-ce68836c4b48	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:d9dadbc1-9b6b-4a83-9f1a-eed98d308345 ;
+	sso:id	"CableSupportSleeve" ;
+	rdfs:label	"Cable support sleeve" .
+:64f60b0e-8a29-4da4-bdbc-36792a701bd0	a	lci:ClassOfIndividual ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	sso:id	"Tool" .
+:7091f171-3e28-441d-a7b3-6ff361b3ac3e	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:a690a928-e544-490c-b800-ff0fa99f8716 ;
+	sso:id	"test1.1" .
+:729e4689-43ca-437f-ad90-42f8ff482a12	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:d9dadbc1-9b6b-4a83-9f1a-eed98d308345 ;
+	sso:id	"ConnectorContact" ;
+	rdfs:label	"Connector contact" .
+:782c6fcf-7e44-4f58-b9c8-38e68f86aa6b	a	lci:ClassOfIndividual ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	sso:id	"Label" .
+:7a03f5f3-e1d8-47f0-8dc9-767d5c304912	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:ObjectProperty ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	rdfs:range	sso:ProductConfiguration ;
+	sso:id	"ProductConfiguration association" .
+:7a22571b-d7dd-41ab-a21a-81097f9fd8da	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:d9dadbc1-9b6b-4a83-9f1a-eed98d308345 ;
+	sso:id	"ConnectorDummyContact" ;
+	rdfs:label	"Dummy contact" .
+:7cd41fef-f9f7-4405-9258-341df03f9068	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:96a25900-93c2-4de1-9aab-be6cbe7d5b73 ;
+	sso:id	"ShieldedCable" .
+:81b0f827-d11a-4ca2-869e-63080249ceea	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:f3c6894b-14ef-48bb-9def-d1c52867f3c8 ;
+	sso:id	"Busbar" ;
+	rdfs:comment	" 	low-impedance conductor to which several electric circuits can be connected at separate points " ;
+	rdfs:label	"Busbar" .
+:8335c617-55af-42fe-8345-bc2c99d4c447	a	lci:ClassOfIndividual ,
+			ssmeta:AbstractClass ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	sso:id	"WireHarnessSegmentMaterials" ;
+	rdfs:label	"Wire harness segment materials" .
+:96a25900-93c2-4de1-9aab-be6cbe7d5b73	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:3afeb898-d119-4aa6-b69a-da3fe26a7080 ;
+	sso:id	"CoaxCable" .
+:9c66c973-5529-4a5b-a528-7023b38319c9	a	lci:ClassOfIndividual ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	sso:id	"FixingDevice" ;
+	rdfs:label	"Fixing device" .
+:a1dbd899-0a5b-45c7-b5b2-2c906729c5b5	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:d9dadbc1-9b6b-4a83-9f1a-eed98d308345 ;
+	sso:id	"ShrinkBoot" ;
+	rdfs:label	"Shrink boot" .
+:a44b49f1-0642-47ec-91d8-a605a267f58b	a	lci:ClassOfIndividual ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	sso:id	"Adhesive" ;
+	rdfs:label	"Adhesive" .
+:a690a928-e544-490c-b800-ff0fa99f8716	a	lci:ClassOfIndividual ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	ssmeta:formProperties	( :5c55a019-73f3-4c35-8d38-16e5c5860af0 ) ;
+	sso:id	"Test1" .
+:aac6e32d-e39c-4ffc-ac0d-9a9b717b8568	a	lci:ClassOfIndividual ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	ssmeta:formProperties	( :07468327-f920-4851-9ea5-1c51e317b588 ) ;
+	sso:id	"Cable" .
+:b0d79435-f7bc-4bb7-b9d1-434ab7ed6e3b	a	lci:ClassOfIndividual ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	sso:id	"TerminalLug" ;
+	rdfs:label	"Terminal lug" .
+:b678e74a-792d-4991-b781-43f2c9bd9400	a	sso:ClassSystem ;
+	sso:id	"PartTypes" ;
+	rdfs:comment	"xx" ;
+	rdfs:label	"Part, -Family & Physical Individual Types" .
+:b771d5f5-4645-4109-9495-f4a9a4599dba	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:1a4403a3-d7eb-41eb-b512-a1dd5f7507e8 ;
+	sso:id	"Overbraid" .
+:b7ea7847-f824-4589-9482-2c26e0f9f124	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:54a8af65-c813-41e4-8394-0c558cdc1546 ;
+	sso:id	"ConnectorInsert" ;
+	rdfs:label	"Connector insert" .
+:bb7642a0-47fe-48b6-984e-d27f12dc26b4	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:8335c617-55af-42fe-8345-bc2c99d4c447 ;
+	sso:id	"ShrinkTube" ;
+	rdfs:label	"Shrink tube" .
+:c59d4f92-b941-4316-9eaf-17d3d9840a85	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:f3c6894b-14ef-48bb-9def-d1c52867f3c8 ;
+	sso:id	"WireInsulate" ;
+	rdfs:label	"Insulated wire" .
+:c9f2b5fc-13c6-4526-9e03-2927d34f1189	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:d9dadbc1-9b6b-4a83-9f1a-eed98d308345 ;
+	sso:id	"BackshellAdapter" ;
+	rdfs:label	"Backshell adapter" .
+:ca20621e-3254-4854-9a85-80908ebf4ee3	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:8335c617-55af-42fe-8345-bc2c99d4c447 ;
+	sso:id	"ShrinkTransition" ;
+	rdfs:label	"Shrink transition" .
+:d1b1e2c2-d466-4826-97d1-580ecc2bfff4	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:d9dadbc1-9b6b-4a83-9f1a-eed98d308345 ;
+	sso:id	"BackshellStrainRelief" ;
+	rdfs:label	"Backshell strain relief" .
+:d2e5d57e-ce88-4658-a685-d41a3bde819d	a	lci:ClassOfIndividual ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	sso:id	"Wire" .
+:d5371a11-9d4c-45b8-83e5-ff557790cdf7	a	lci:ClassOfIndividual ;
+	rdfs:subClassOf	:d9dadbc1-9b6b-4a83-9f1a-eed98d308345 ;
+	sso:id	"ConnectorBackshell" ;
+	rdfs:label	"Connector backshell" .
+:d5d7f581-54c9-48fd-8266-448ee371820a	a	lci:ClassOfIndividual ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	rdfs:subClassOf	:9c66c973-5529-4a5b-a528-7023b38319c9 ;
+	sso:id	"CableFixingDevice" ;
+	rdfs:label	"Cable fixing device" .
+:d9dadbc1-9b6b-4a83-9f1a-eed98d308345	a	lci:ClassOfIndividual ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	sso:id	"ConnectorAccessory" ;
+	rdfs:label	"ConnectorAccessory" .
+:f3c6894b-14ef-48bb-9def-d1c52867f3c8	a	lci:ClassOfIndividual ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	sso:id	"Conductor" ;
+	rdfs:comment	"element intended to carry electric current" ;
+	rdfs:label	"Conductor" .
+:f653d822-cccb-46af-8ff1-dd7efe3e1422	a	lci:PhysicalProperty ,
+			lci:PropertyDefinition ,
+			owl:FunctionalProperty ,
+			owl:ObjectProperty ,
+			:b678e74a-792d-4991-b781-43f2c9bd9400 ;
+	rdfs:range	lci:InformationObject ;
+	sso:id	"Reference Document" .

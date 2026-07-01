@@ -8,26 +8,22 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/sst_test/testutil"
+	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_remoteRepository_CommitDetails(t *testing.T) {
-	testName := t.Name() + "_CommitDetails"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 
-	defer removeFolder(dir)
-
 	t.Run("writeAndReadCommitDetails", func(t *testing.T) {
-		removeFolder(dir)
 
 		url := testutil.ServerServe(t, dir)
 		ctx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
@@ -78,8 +74,7 @@ func Test_remoteRepository_CommitDetails(t *testing.T) {
 }
 
 func Test_RemoteRepositoryMultipleCommits_UUIDNamedGraph(t *testing.T) {
-	testName := t.Name() + "_RemoteRepo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 
@@ -89,10 +84,7 @@ func Test_RemoteRepositoryMultipleCommits_UUIDNamedGraph(t *testing.T) {
 	var commitHash3 sst.Hash
 	var modifiedDS []uuid.UUID
 
-	defer removeFolder(dir)
-
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		url := testutil.ServerServe(t, dir)
 		ctx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
@@ -113,7 +105,7 @@ func Test_RemoteRepositoryMultipleCommits_UUIDNamedGraph(t *testing.T) {
 
 		ds, err := repo.Dataset(ctx, sst.IRI(ngIDC.URN()))
 		require.NoError(t, err)
-		err = ds.SetBranch(ctx, commitHash1, "commit1")
+		err = ds.SetBranchCommit(ctx, commitHash1, "commit1")
 		require.NoError(t, err)
 
 		mainC.AddStatement(rdf.Bag, rep.Angle)

@@ -67,11 +67,11 @@ func Test_localFlatSstFileRepo(t *testing.T) {
 	for key, val := range st.NamedGraphs() {
 		fmt.Println(key, val.IRI())
 	}
-	assert.Equal(t, 2, len(st.NamedGraphs()))
+	assert.Equal(t, 3, len(st.NamedGraphs()))
 
 	fmt.Println("referenced NamedGraphs :")
 	for key, val := range st.ReferencedGraphs() {
 		fmt.Println(key, val.IRI())
 	}
-	assert.Equal(t, 8, len(st.ReferencedGraphs()))
+	assert.Equal(t, 7, len(st.ReferencedGraphs()))
 }

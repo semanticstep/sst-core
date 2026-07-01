@@ -1,0 +1,40 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix ssmeta: <http://ontology.semanticstep.net/ssmeta#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:40fd7c8a-5ae6-4c0c-a08f-ad6a44da8284#> .
+@prefix ns2: <urn:uuid:2bd3bbaa-4715-4b19-a712-33b0311b3f01#> .
+@prefix ns3: <urn:uuid:03431413-2c10-4be9-b144-30d4d91343c1#> .
+
+<urn:uuid:40fd7c8a-5ae6-4c0c-a08f-ad6a44da8284> a owl:Ontology .
+:192a0010-b761-4a76-9777-a0e11df3b8cd a lci:ClassOfEnumeratedIndividuals ,
+    :b4874ea9-bf7e-4c9d-914b-b127a3a7b798 ;
+  ssmeta:formProperties ( :7694d64c-4a0f-4fbf-ad76-a6b72965edad ) ;
+  owl:oneOf ( :8ab7b8ba-c224-4daa-86a6-34aea6547c8e ) ;
+  sso:id "test-aaa" ;
+  rdfs:label "test-aaa" .
+:2962a5e8-3e96-4257-8d3f-ea011c8052ab a lci:ClassOfIndividual ,
+    :b4874ea9-bf7e-4c9d-914b-b127a3a7b798 ;
+  sso:id "test-bbb" ;
+  rdfs:label "test-bbb" .
+:7694d64c-4a0f-4fbf-ad76-a6b72965edad a lci:PhysicalProperty ,
+    lci:PropertyDefinition ,
+    owl:FunctionalProperty ,
+    owl:ObjectProperty ,
+    :b4874ea9-bf7e-4c9d-914b-b127a3a7b798 ;
+  rdfs:range ns2:c30ac8ff-9e1a-44dc-aaeb-9cc6839b7ee3 ;
+  sso:id "Gage" .
+:8ab7b8ba-c224-4daa-86a6-34aea6547c8e a lci:OmnipresentIndividual ;
+  sso:id "ta" ;
+  rdfs:label "ta" .
+:b3ab53ba-c269-4a19-9f29-dcee4f9992ab a lci:ClassOfIndividual ;
+  rdfs:subClassOf :2962a5e8-3e96-4257-8d3f-ea011c8052ab ;
+  sso:id "tb" ;
+  rdfs:label "tb" .
+:b4874ea9-bf7e-4c9d-914b-b127a3a7b798 a sso:ClassSystem ,
+    ns3:f4a5e2e8-ba71-4794-a9db-b729c2307308 ;
+  sso:id "test2222" ;
+  rdfs:label "test2222" .

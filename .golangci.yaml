@@ -1,32 +1,52 @@
+version: "2"
+linters:
+  enable:
+    - errorlint
+    - exhaustive
+    - forbidigo
+    - godot
+    - godox
+    - revive
+    - unconvert
+    - unparam
+  settings:
+    forbidigo:
+      forbid:
+        - pattern: ^fmt\.Printf$
+          msg: fmt.Printf is not allowed; use fmt.Println for CLI output or GlobalLogger for library debug
+        - pattern: ^log\.(Print|Printf|Println)$
+          msg: standard log package pollutes CLI stderr; use sst.GlobalLogger
+  exclusions:
+    generated: lax
+    rules:
+      - linters:
+          - forbidigo
+        path: _test\.go
+      - linters:
+          - forbidigo
+        path: ^(cli|tools/(compiler|svg_to_sst|sst_to_svg|validate|bboltngr|hextob58|b32tob58|b64tob32)|examples|sst_test|step|singleton)/
+      - linters:
+          - forbidigo
+        path: sst/ibnode\.go
+      - path: (.+)\.go$
+        text: (?i)exported (.+) should have comment( \(or a comment on this block\))? or be unexported
+      - path: (.+)\.go$
+        text: (?i)Error return value of .((os\.)?std(out|err)\..*|.*Close|.*Flush|os\.Remove(All)?|.*print(f|ln)?|os\.(Un)?Setenv). is not checked
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
 issues:
-  exclude-use-default: false
-  exclude:
-    - "exported (.+) should have comment( \\(or a comment on this block\\))? or be unexported"
-    - "Error return value of .((os\\.)?std(out|err)\\..*|.*Close|.*Flush|os\\.Remove(All)?|.*print(f|ln)?|os\\.(Un)?Setenv). is not checked"
-  exclude-case-sensitive: true
   max-issues-per-linter: 10000
   max-same-issues: 10000
   new: false
   fix: true
-linters:
+formatters:
   enable:
-    - deadcode
-    - errcheck
-    - gosimple
-    - govet
-    - ineffassign
-    - structcheck
-    - typecheck
-    - unused
-    - varcheck
-    - staticcheck
     - gofumpt
-    - revive
-    - errcheck
-    - errorlint
-    - exhaustive
-    - exportloopref
-    - unconvert
-    - unparam
-    - godot
-    - godox
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$

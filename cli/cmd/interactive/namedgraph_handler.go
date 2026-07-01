@@ -3,13 +3,16 @@
 package interactive
 
 import (
+	"bufio"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/cli/cmd/utils"
 	"github.com/semanticstep/sst-core/sst"
-	"github.com/google/uuid"
+	ssttosvg "github.com/semanticstep/sst-core/tools/sst_to_svg"
 )
 
 func handleListForIRINode(graphAlias string) {
@@ -26,7 +29,7 @@ func handleListForIRINode(graphAlias string) {
 	})
 
 	if err != nil {
-		fmt.Printf("Error iterating IRINodes: %v\n", err)
+		utils.PrintCLIProblem("list IRI nodes", err)
 		return
 	}
 
@@ -35,7 +38,7 @@ func handleListForIRINode(graphAlias string) {
 		return
 	}
 
-	fmt.Printf("IRINodes in NamedGraph '%s':\n", graphAlias)
+	fmt.Printf("- IRINodes in NamedGraph '%s':\n", graphAlias)
 	utils.PaginateOutput(lines, 20)
 }
 
@@ -48,12 +51,16 @@ func handleListForAllIBNodes(graphAlias string) {
 
 	var lines []string
 	err := graph.ForAllIBNodes(func(node sst.IBNode) error {
-		lines = append(lines, fmt.Sprintf("- ID: %s", node.ID()))
+		if node.IsBlankNode() {
+			lines = append(lines, fmt.Sprintf("- ID: %s", node.ID()))
+		} else {
+			lines = append(lines, fmt.Sprintf("- IRI: %s", node.IRI()))
+		}
 		return nil
 	})
 
 	if err != nil {
-		fmt.Printf("Error iterating IBNodes: %v\n", err)
+		utils.PrintCLIProblem("list IB nodes", err)
 		return
 	}
 
@@ -62,7 +69,7 @@ func handleListForAllIBNodes(graphAlias string) {
 		return
 	}
 
-	fmt.Printf("IBNodes in NamedGraph '%s':\n", graphAlias)
+	fmt.Printf("- IBNodes in NamedGraph '%s':\n", graphAlias)
 	utils.PaginateOutput(lines, 20)
 }
 
@@ -80,7 +87,7 @@ func handleListForBlankNode(graphAlias string) {
 	})
 
 	if err != nil {
-		fmt.Printf("Error iterating BlankNodes: %v\n", err)
+		utils.PrintCLIProblem("list blank nodes", err)
 		return
 	}
 
@@ -89,7 +96,7 @@ func handleListForBlankNode(graphAlias string) {
 		return
 	}
 
-	fmt.Printf("BlankNodes in NamedGraph '%s':\n", graphAlias)
+	fmt.Printf("- BlankNodes in NamedGraph '%s':\n", graphAlias)
 	utils.PaginateOutput(lines, 20)
 }
 
@@ -212,9 +219,7 @@ func handleRdfWrite(graphAlias string, args []string) {
 	}
 
 	fileName := args[0]
-	if !strings.HasSuffix(fileName, ".ttl") {
-		fileName += ".ttl"
-	}
+	fileName = utils.EnsureOutputExt(fileName, ".ttl")
 
 	// Check if file exists
 	if _, err := os.Stat(fileName); err == nil {
@@ -253,6 +258,53 @@ func handleRdfWrite(graphAlias string, args []string) {
 	fmt.Printf("RDF successfully written to %s\n", fileName)
 }
 
+func handleSstWrite(graphAlias string, args []string) {
+	graph, exists := interactiveConfig.NamedGraphs[graphAlias]
+	if !exists {
+		fmt.Printf("Error: NamedGraph alias '%s' not found.\n", graphAlias)
+		return
+	}
+
+	if len(args) == 0 {
+		fmt.Println("No file path provided. Usage: <namedgraph>.sstwrite <filename>")
+		return
+	}
+
+	fileName := args[0]
+	fileName = utils.EnsureOutputExt(fileName, ".sst")
+
+	if _, err := os.Stat(fileName); err == nil {
+		fmt.Printf("File '%s' already exists. Overwrite? (y/N): ", fileName)
+		var input string
+		fmt.Scanln(&input)
+		if strings.ToLower(strings.TrimSpace(input)) != "y" {
+			fmt.Println("Aborted.")
+			return
+		}
+	} else if !os.IsNotExist(err) {
+		fmt.Fprintf(os.Stderr, "Error checking file '%s': %v\n", fileName, err)
+		return
+	}
+
+	f, err := os.Create(fileName)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to create file '%s': %v\n", fileName, err)
+		return
+	}
+	defer f.Close()
+
+	var writeErr error
+	utils.ShowLoadingIndicator(fmt.Sprintf("Writing SST for '%s'", graphAlias), func() {
+		writeErr = graph.SstWrite(f)
+	})
+	if writeErr != nil {
+		fmt.Fprintf(os.Stderr, "\nError writing SST: %v\n", writeErr)
+		return
+	}
+
+	fmt.Printf("SST successfully written to %s\n", fileName)
+}
+
 func handleTtl(alias string) {
 	if _, ok := interactiveConfig.IBNodes[alias]; ok {
 		handleIBNodettl(alias)
@@ -282,4 +334,62 @@ func handleNamedgraphTtl(graphAlias string) {
 	}
 
 	fmt.Println("\n--- End of RDF Output ---")
+}
+
+func handleNamedGraphExportSVG(graphAlias string, args []string) {
+	graph, exists := interactiveConfig.NamedGraphs[graphAlias]
+	if !exists {
+		fmt.Printf("Error: NamedGraph alias '%s' not found.\n", graphAlias)
+		return
+	}
+	if len(args) < 1 {
+		fmt.Printf("Error: Usage: %s.exportsvg <file>\n", graphAlias)
+		return
+	}
+	outPath := filepath.Clean(strings.TrimSpace(args[0]))
+	if outPath == "" || outPath == "." {
+		fmt.Println("Error: output path must be a non-empty file path.")
+		return
+	}
+	outPath = utils.EnsureOutputExt(outPath, ".svg")
+
+	if _, err := os.Stat(outPath); err == nil {
+		fmt.Printf("File '%s' already exists. Overwrite? (y/N): ", outPath)
+		var input string
+		fmt.Scanln(&input)
+		if strings.ToLower(strings.TrimSpace(input)) != "y" {
+			fmt.Println("Aborted.")
+			return
+		}
+	} else if !os.IsNotExist(err) {
+		fmt.Fprintf(os.Stderr, "Error checking file '%s': %v\n", outPath, err)
+		return
+	}
+
+	outDir := filepath.Dir(outPath)
+	if outDir != "." && outDir != "" {
+		if err := os.MkdirAll(outDir, os.ModePerm); err != nil {
+			fmt.Fprintf(os.Stderr, "exportsvg: failed to create directory %q: %v\n", outDir, err)
+			return
+		}
+	}
+
+	f, err := os.Create(outPath)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "exportsvg: failed to create %q: %v\n", outPath, err)
+		return
+	}
+	defer func() { _ = f.Close() }()
+
+	w := bufio.NewWriter(f)
+	if err := ssttosvg.ConvertGraphToSVG(graph, w); err != nil {
+		fmt.Fprintf(os.Stderr, "exportsvg: conversion failed: %v\n", err)
+		return
+	}
+	if err := w.Flush(); err != nil {
+		fmt.Fprintf(os.Stderr, "exportsvg: failed to flush %q: %v\n", outPath, err)
+		return
+	}
+
+	fmt.Printf("SVG successfully written to %s\n", outPath)
 }

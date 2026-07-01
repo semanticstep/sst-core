@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/semanticstep/sst-core/sst"
+	"github.com/semanticstep/sst-core/cli/cmd/utils"
 )
 
 func handleForAllTriples(alias string) {
@@ -31,7 +32,7 @@ func handleForAllTriples(alias string) {
 	})
 
 	if err != nil {
-		fmt.Printf("Error iterating triples: %v\n", err)
+		fmt.Println(utils.ExplainCLIError("iterate triples", err))
 	}
 }
 

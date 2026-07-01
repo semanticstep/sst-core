@@ -4,9 +4,11 @@
 package validate
 
 import (
+	"bufio"
+	"bytes"
+	"context"
 	"errors"
 	"fmt"
-	"reflect"
 	"strings"
 
 	"github.com/semanticstep/sst-core/sst"
@@ -14,6 +16,7 @@ import (
 	"github.com/semanticstep/sst-core/vocabularies/owl"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
+	"github.com/semanticstep/sst-core/vocabularies/ssmeta"
 	"github.com/semanticstep/sst-core/vocabularies/xsd"
 	"go.uber.org/zap"
 )
@@ -27,21 +30,142 @@ var (
 
 type ValidationName string
 
-func validateAll(graph sst.NamedGraph, report *ValidateReport, log Logger) error {
-	err := RdfType(graph, report, log)
-	if err != nil {
-		return err
-	}
-	err = DomainAndRange(graph, report, log)
-	if err != nil {
-		return err
+// copyStageInto copies all local NamedGraphs from src into dst by serialising
+// each graph to Turtle and reading it back into dst.  The temporary stages
+// created during copying are discarded afterwards, so only dst is modified.
+func copyStageInto(dst, src sst.Stage) error {
+	for _, ng := range src.NamedGraphs() {
+		if ng == nil || !ng.IsValid() {
+			continue
+		}
+		var buf bytes.Buffer
+		if err := ng.RdfWrite(&buf, sst.RdfFormatTurtle); err != nil {
+			return err
+		}
+		tempStage, err := sst.RdfRead(bufio.NewReader(&buf), sst.RdfFormatTurtle, sst.StrictHandler, sst.DefaultTriplexMode)
+		if err != nil {
+			return err
+		}
+		_, err = dst.MoveAndMerge(context.Background(), tempStage)
+		if err != nil {
+			return err
+		}
 	}
 	return nil
+}
+
+// ValidateAll runs all validation kinds on the given stage and returns a report.
+// validationStage contains the data to be validated.
+// referenceStages contains additional data that might be referenced from the validationStage
+// and might be needed to perform the validation. For example, a property with its domain
+// and range might be defined in a reference stage and used in the validationStage.
+// Neither validationStage nor referenceStages are modified.
+func ValidateAll(validationStage sst.Stage, referenceStages ...sst.Stage) (*ValidateReport, error) {
+	// Remember original named graphs from validationStage
+	originalGraphs := validationStage.NamedGraphs()
+	originalIRIs := make([]sst.IRI, len(originalGraphs))
+	for i, ng := range originalGraphs {
+		originalIRIs[i] = ng.IRI()
+	}
+
+	// Build a working stage so we never mutate the inputs.
+	workingStage := sst.OpenStage(sst.DefaultTriplexMode)
+
+	if err := copyStageInto(workingStage, validationStage); err != nil {
+		return nil, err
+	}
+	for _, refStage := range referenceStages {
+		if refStage == nil || !refStage.IsValid() {
+			continue
+		}
+		if err := copyStageInto(workingStage, refStage); err != nil {
+			return nil, err
+		}
+	}
+
+	kinds := []ValidationKind{KindRdfType, KindDomainRange, KindFunctionalProperty}
+	report := NewReport(kinds...)
+	for _, iri := range originalIRIs {
+		graph := workingStage.NamedGraph(iri)
+		if graph == nil || !graph.IsValid() {
+			continue
+		}
+		for _, s := range kinds {
+			switch s {
+			case KindRdfType:
+				err := RdfType(graph, &report, outputLog{graph})
+				if err != nil {
+					return &report, err
+				}
+			case KindDomainRange:
+				err := DomainAndRange(graph, &report, outputLog{graph})
+				if err != nil {
+					return &report, err
+				}
+			case KindFunctionalProperty:
+				err := FunctionalProperty(graph, &report, outputLog{graph})
+				if err != nil {
+					return &report, err
+				}
+			}
+		}
+	}
+	return &report, nil
 }
 
 type predicateObject struct {
 	p sst.IBNode
 	o sst.Term
+}
+
+func elementInformerString(ei sst.ElementInformer) string {
+	if ei == nil {
+		return "<nil>"
+	}
+	el := ei.VocabularyElement()
+	if pfx, found := sst.NamespaceToPrefix(el.Vocabulary.BaseIRI); found {
+		return pfx + ":" + el.Name
+	}
+	return "<" + el.Vocabulary.BaseIRI + "#" + el.Name + ">"
+}
+
+func ibNodeString(graph sst.NamedGraph, n sst.IBNode) string {
+	if n == nil || !n.IsValid() {
+		return "<nil>"
+	}
+	s := graphPrefixedFragment(graph, n)
+	if s != "" {
+		return s
+	}
+	if n.IsBlankNode() {
+		return "_:" + n.ID().String()
+	}
+	return "<" + string(n.IRI()) + ">"
+}
+
+func ibNodeListString(graph sst.NamedGraph, nodes []sst.IBNode) string {
+	if len(nodes) == 0 {
+		return "(none)"
+	}
+	var parts []string
+	for _, n := range nodes {
+		parts = append(parts, ibNodeString(graph, n))
+	}
+	return strings.Join(parts, ", ")
+}
+
+func ibNodeTypesString(graph sst.NamedGraph, n sst.IBNode) string {
+	var types []sst.IBNode
+	_ = n.ForAll(func(_ int, s, p sst.IBNode, o sst.Term) error {
+		if n != s {
+			return nil
+		}
+		if p.Is(rdf.Type) && (o.TermKind() == sst.TermKindIBNode || o.TermKind() == sst.TermKindTermCollection) {
+			types = append(types, o.(sst.IBNode))
+		}
+		return nil
+	})
+	return ibNodeListString(graph, types)
 }
 
 func FunctionalProperty(graph sst.NamedGraph, report *ValidateReport, log Logger) error {
@@ -70,8 +194,8 @@ func FunctionalProperty(graph sst.NamedGraph, report *ValidateReport, log Logger
 			if d != s {
 				return nil
 			}
-			sst.GlobalLogger.Debug("", zap.String("subj", s.Fragment()), zap.String("pred", p.Fragment()))
-			// if p is dictionary vocabulary, replace it
+			sst.GlobalLogger.Debug("", zap.String("subj", ibNodeString(graph, s)), zap.String("pred", ibNodeString(graph, p)))
+			// if p is dictionary vocabulary, replace it, so it can get all infomation from vocabulary
 			if p.InVocabulary() != nil {
 				p, err = sst.StaticDictionary().IBNodeByVocabulary(p.InVocabulary())
 				if err != nil {
@@ -117,7 +241,6 @@ func FunctionalProperty(graph sst.NamedGraph, report *ValidateReport, log Logger
 						})
 					}
 				}
-
 			} else {
 				sst.GlobalLogger.Debug("Not a InverseFunctionalProperty", zap.String("", p.Fragment()))
 			}
@@ -189,11 +312,15 @@ func RdfType(graph sst.NamedGraph, report *ValidateReport, log Logger) error {
 			isMainClass := false
 			isPropertyType := false
 
+			// skip class definitions
 			for _, t := range types {
-				tElementInfo := t.InVocabulary()
+				if t.Is(owl.Class) {
+					return nil
+				}
+			}
 
-				// a class from sst-Vocabulary that is identified as a ssmeta:MainClass
-				if tElementInfo != nil && tElementInfo.IsMainClass(sst.Element{}) {
+			for _, t := range types {
+				if isMainClassNode(t) {
 					isMainClass = true
 					break
 				}
@@ -234,7 +361,7 @@ func RdfType(graph sst.NamedGraph, report *ValidateReport, log Logger) error {
 	return log.LogForGraph(InfoLeaveLevel, (graph), validationName)
 }
 
-// value pass
+// value pass.
 func isFunctionalProperty(subj sst.IBNode, all map[sst.IBNode]int) bool {
 	isFunctionalPropBool := false
 	subj.ForAll(func(_ int, s, predPred sst.IBNode, o sst.Term) error {
@@ -321,13 +448,40 @@ func isInverseFunctionalProperty(subj sst.IBNode, obj sst.Term, all map[predicat
 	return isInverseFunctionalPropBool
 }
 
+func isMainClassNode(t sst.IBNode) bool {
+	if tElementInfo := t.InVocabulary(); tElementInfo != nil {
+		return tElementInfo.IsMainClass(sst.Element{})
+	}
+
+	isMainClass := false
+	t.ForAll(func(_ int, s, p sst.IBNode, o sst.Term) error {
+		if t != s {
+			return nil
+		}
+		if p.Is(rdf.Type) && o.TermKind() == sst.TermKindIBNode {
+			if o.(sst.IBNode).Is(ssmeta.MainClass) {
+				isMainClass = true
+				return errBreakFor
+			}
+		}
+		if p.Is(rdfs.SubClassOf) && o.TermKind() == sst.TermKindIBNode {
+			oo := o.(sst.IBNode)
+			if isMainClassNode(oo) {
+				isMainClass = true
+				return errBreakFor
+			}
+		}
+		return nil
+	})
+	return isMainClass
+}
+
 func isValidProperty(subj sst.IBNode) bool {
 	isPropertyBool := false
 	subj.ForAll(func(_ int, s, predPred sst.IBNode, o sst.Term) error {
 		if subj == s {
 			if predPred.Is(rdf.Type) && o.TermKind() == sst.TermKindIBNode {
 				if o.(sst.IBNode).Is(rdf.Property) || o.(sst.IBNode).Is(owl.ObjectProperty) || o.(sst.IBNode).Is(owl.DatatypeProperty) {
-
 					subj.ForAll(func(_ int, s, predPred sst.IBNode, oo sst.Term) error {
 						if subj == s {
 							if predPred.Is(rdfs.SubPropertyOf) && oo.TermKind() == sst.TermKindIBNode {
@@ -345,36 +499,22 @@ func isValidProperty(subj sst.IBNode) bool {
 						}
 						return nil
 					})
-
 				}
 				return nil
 			}
 		}
-
 		return nil
 	})
-
 	return isPropertyBool
 }
 
 func literalCheck(rang sst.ElementInformer, li sst.Literal) (expected string, real string, ok bool) {
-	// if rang.IsDatatype() {
-	switch rang.(type) {
-	case rdf.KindLangString:
-		expected = "rdf:langString"
-	case xsd.KindString:
-		expected = "xsd:string"
-	case xsd.KindDouble:
-		expected = "xsd:double"
-	case xsd.KindInteger:
-		expected = "xsd:integer"
-	case xsd.KindBoolean:
-		expected = "xsd:boolean"
-	case rdfs.KindLiteral: // range is Literal will always pass, because li is Literal
-		expected = "rdfs:Literal"
-		return "", "", true
+	expected = elementInformerString(rang)
+
+	// rdfs:Literal matches any literal
+	if _, isLiteral := rang.(rdfs.KindLiteral); isLiteral {
+		return expected, real, true
 	}
-	// }
 
 	switch li.(type) {
 	case sst.LangString:
@@ -386,14 +526,38 @@ func literalCheck(rang sst.ElementInformer, li sst.Literal) (expected string, re
 	case sst.Double:
 		_, ok = rang.(xsd.KindDouble)
 		real = "xsd:double"
+	case sst.Float:
+		_, ok = rang.(xsd.KindFloat)
+		real = "xsd:float"
 	case sst.Integer:
 		_, ok = rang.(xsd.KindInteger)
 		real = "xsd:integer"
+	case sst.Int:
+		_, ok = rang.(xsd.KindInt)
+		real = "xsd:int"
+	case sst.Long:
+		_, ok = rang.(xsd.KindLong)
+		real = "xsd:long"
+	case sst.Short:
+		_, ok = rang.(xsd.KindShort)
+		real = "xsd:short"
+	case sst.Byte:
+		_, ok = rang.(xsd.KindByte)
+		real = "xsd:byte"
 	case sst.Boolean:
 		_, ok = rang.(xsd.KindBoolean)
 		real = "xsd:boolean"
 	default:
-		// ok = true
+		dt := li.DataType()
+		if dt != nil && dt.IsValid() {
+			real = dt.PrefixedFragment()
+			if real == "" {
+				real = string(dt.IRI())
+			}
+		}
+		if real == "" {
+			real = "(unknown)"
+		}
 	}
 
 	return
@@ -405,6 +569,12 @@ func DomainAndRange(graph sst.NamedGraph, report *ValidateReport, log Logger) er
 	if err != nil {
 		return err
 	}
+
+	// Build an in-memory index of rdfs:domain, rdfs:range and rdfs:subClassOf
+	// declared inside the graph itself so that late-binding validation works
+	// for predicates/classes that are not part of a compiled vocabulary.
+	idx := buildGraphIndex(graph)
+
 	err = graph.ForAllIBNodes(func(d sst.IBNode) error {
 		var types []sst.IBNode
 		type predicateObject struct {
@@ -431,30 +601,12 @@ func DomainAndRange(graph sst.NamedGraph, report *ValidateReport, log Logger) er
 			pElementInfo := p.InVocabulary()
 			pIsProperty := false
 
-			// check in dictionary
-			if pElementInfo != nil {
-				if pElementInfo.IsProperty() {
-					pIsProperty = true
-				}
-			} else { // if p is not in vocabulary and from referenced graph
-				if p.OwningGraph().IsReferenced() {
-					err := log.Log(ErrorLevel, d, ErrDomainMismatch, p, o)
-					if err != nil {
-						return err
-					}
-					report.Error(string(graph.IRI()), Finding{
-						Kind:    KindDomainRange,
-						Rule:    RulePredicateNotKnown,
-						Message: "predicate of an unknown type",
-						S:       ibNodeValuesToLogString(graph, d),
-						P:       ibNodeValuesToLogString(graph, p),
-						O:       valuesToLogString(graph, o),
-					})
-					return nil
-				}
+			// check in compiled vocabulary (early binding)
+			if pElementInfo != nil && pElementInfo.IsProperty() {
+				pIsProperty = true
 			}
 
-			// check in application Data
+			// check in graph triples (late binding)
 			if !pIsProperty {
 				pIsProperty = isValidProperty(p)
 			}
@@ -467,7 +619,7 @@ func DomainAndRange(graph sst.NamedGraph, report *ValidateReport, log Logger) er
 				report.Error(string(graph.IRI()), Finding{
 					Kind:    KindDomainRange,
 					Rule:    RulePredicateNotProperty,
-					Message: "the predicate is not a valid property",
+					Message: "the predicate is not a valid property, found types " + ibNodeTypesString(graph, p),
 					S:       ibNodeValuesToLogString(graph, d),
 					P:       ibNodeValuesToLogString(graph, p),
 					O:       valuesToLogString(graph, o),
@@ -480,10 +632,14 @@ func DomainAndRange(graph sst.NamedGraph, report *ValidateReport, log Logger) er
 			return err
 		}
 		for _, po := range predicateObjectTuples {
-			pi := po.p.InVocabulary()
 			// when p is rdf.first, means the subject is the TermCollection BlankNode, so skip checking its domain
-			if pi != nil && !po.p.Is(rdf.First) {
-				if domain := pi.Domain(); domain != nil {
+			if po.p.Is(rdf.First) {
+				continue
+			}
+			pred := po.p.InVocabulary()
+			if pred != nil {
+				// === Early binding: predicate is in compiled vocabulary ===
+				if domain := pred.Domain(); domain != nil {
 					err := log.Log(InfoLevel, d, "domain", po.p, po.o)
 					if err != nil {
 						return err
@@ -503,21 +659,23 @@ func DomainAndRange(graph sst.NamedGraph, report *ValidateReport, log Logger) er
 						report.Error(string(graph.IRI()), Finding{
 							Kind:    KindDomainRange,
 							Rule:    RuleDomainMismatch,
-							Message: "domain mismatch",
+							Message: "domain mismatch, expected " + elementInformerString(domain) + ", found " + ibNodeListString(graph, types),
 							S:       ibNodeValuesToLogString(graph, d),
 							P:       ibNodeValuesToLogString(graph, po.p),
 							O:       valuesToLogString(graph, po.o),
 						})
 					}
 				}
-				if rang := pi.Range(); rang != nil {
+				if rang := pred.Range(); rang != nil {
 					switch po.o.TermKind() {
 					case sst.TermKindIBNode:
 						o := po.o.(sst.IBNode)
 						if o.OwningGraph().IsReferenced() {
-							v, err := sst.StaticDictionary().Element(o.InVocabulary().VocabularyElement())
-							if v != nil && err == nil {
-								o = v
+							if vocab := o.InVocabulary(); vocab != nil {
+								v, err := sst.StaticDictionary().Element(vocab.VocabularyElement())
+								if v != nil && err == nil {
+									o = v
+								}
 							}
 						}
 						if !o.OwningGraph().IsReferenced() {
@@ -549,7 +707,7 @@ func DomainAndRange(graph sst.NamedGraph, report *ValidateReport, log Logger) er
 								report.Error(string(graph.IRI()), Finding{
 									Kind:    KindDomainRange,
 									Rule:    RuleRangeMismatch,
-									Message: "Range mismatch",
+									Message: "range mismatch, expected " + elementInformerString(rang) + ", found " + ibNodeTypesString(graph, o),
 									S:       ibNodeValuesToLogString(graph, d),
 									P:       ibNodeValuesToLogString(graph, po.p),
 									O:       valuesToLogString(graph, po.o),
@@ -570,7 +728,7 @@ func DomainAndRange(graph sst.NamedGraph, report *ValidateReport, log Logger) er
 							report.Error(string(graph.IRI()), Finding{
 								Kind:    KindDomainRange,
 								Rule:    RuleRangeMismatch,
-								Message: "Range of predicate" + valuesToLogString(graph, po.p) + " is not a TermCollection",
+								Message: "Range of predicate " + valuesToLogString(graph, po.p) + " is not a TermCollection, expected " + elementInformerString(rang),
 								S:       ibNodeValuesToLogString(graph, d),
 								P:       ibNodeValuesToLogString(graph, po.p),
 								O:       "",
@@ -604,17 +762,18 @@ func DomainAndRange(graph sst.NamedGraph, report *ValidateReport, log Logger) er
 									report.Error(string(graph.IRI()), Finding{
 										Kind:    KindDomainRange,
 										Rule:    RuleRangeMismatch,
-										Message: "Term Collection member type mismatch" + valuesToLogString(graph, o),
+										Message: "Term Collection member type mismatch, expected " + elementInformerString(rang) + ", found " + ibNodeTypesString(graph, o.(sst.IBNode)),
 										S:       ibNodeValuesToLogString(graph, d),
 										P:       ibNodeValuesToLogString(graph, po.p),
 										O:       valuesToLogString(graph, o),
 									})
 								}
 							case sst.TermKindTermCollection:
-								fmt.Printf("KindIBNode:   %s\n", o.(sst.IBNode).IRI())
+								if ibo, ok := o.(sst.IBNode); ok {
+									sst.GlobalLogger.Debug("KindIBNode", zap.String("node", ibNodeString(graph, ibo)))
+								}
 
 							case sst.TermKindLiteral:
-								// fmt.Printf("KindLiteral:  %q^^%s\n", o.(sst.Literal), o.(sst.Literal).DataType().IRI())
 								err := log.Log(InfoLevel, d, "range", po.p, o)
 								if err != nil {
 									return
@@ -630,7 +789,7 @@ func DomainAndRange(graph sst.NamedGraph, report *ValidateReport, log Logger) er
 									report.Error(string(graph.IRI()), Finding{
 										Kind:    KindDomainRange,
 										Rule:    RuleRangeMismatch,
-										Message: "Range mismatch, expected datatype " + expected + ", found datatype " + real,
+										Message: "range mismatch, expected " + expected + ", found " + real,
 										S:       ibNodeValuesToLogString(graph, d),
 										P:       ibNodeValuesToLogString(graph, po.p),
 										O:       valuesToLogString(graph, o),
@@ -638,12 +797,11 @@ func DomainAndRange(graph sst.NamedGraph, report *ValidateReport, log Logger) er
 								}
 
 							case sst.TermKindLiteralCollection:
-								fmt.Printf("KindLiteralCollection:   %s\n", reflect.TypeOf(o))
+								sst.GlobalLogger.Debug("KindLiteralCollection", zap.String("type", fmt.Sprintf("%T", o)))
 
 							default:
-								fmt.Printf("default:    %s\n", o)
+								sst.GlobalLogger.Debug("default term", zap.String("term", fmt.Sprintf("%s", o)))
 							}
-
 						})
 
 					case sst.TermKindLiteral:
@@ -662,7 +820,7 @@ func DomainAndRange(graph sst.NamedGraph, report *ValidateReport, log Logger) er
 							report.Error(string(graph.IRI()), Finding{
 								Kind:    KindDomainRange,
 								Rule:    RuleRangeMismatch,
-								Message: "Range mismatch, expected datatype " + expected + ", found datatype " + real,
+								Message: "range mismatch, expected " + expected + ", found " + real,
 								S:       ibNodeValuesToLogString(graph, d),
 								P:       ibNodeValuesToLogString(graph, po.p),
 								O:       valuesToLogString(graph, po.o),
@@ -681,7 +839,7 @@ func DomainAndRange(graph sst.NamedGraph, report *ValidateReport, log Logger) er
 							report.Error(string(graph.IRI()), Finding{
 								Kind:    KindDomainRange,
 								Rule:    RuleRangeMismatch,
-								Message: "Range mismatch",
+								Message: "range mismatch, expected " + elementInformerString(rang) + ", found " + "literal collection",
 								S:       ibNodeValuesToLogString(graph, d),
 								P:       ibNodeValuesToLogString(graph, po.p),
 								O:       valuesToLogString(graph, po.o),
@@ -704,7 +862,76 @@ func DomainAndRange(graph sst.NamedGraph, report *ValidateReport, log Logger) er
 							report.Error(string(graph.IRI()), Finding{
 								Kind:    KindDomainRange,
 								Rule:    RuleRangeMismatch,
-								Message: "Range mismatch, expected datatype " + expected + ", found datatype " + real,
+								Message: "range mismatch, expected " + expected + ", found " + real,
+								S:       ibNodeValuesToLogString(graph, d),
+								P:       ibNodeValuesToLogString(graph, po.p),
+								O:       valuesToLogString(graph, po.o),
+							})
+						}
+					}
+				}
+			} else {
+				// === Late binding: predicate not in compiled vocabulary ===
+				if domain := domainFromGraph(idx, po.p); domain != nil {
+					err := log.Log(InfoLevel, d, "domain", po.p, po.o)
+					if err != nil {
+						return err
+					}
+					var found bool
+					for _, t := range types {
+						if isKindFromGraph(idx, t, domain) {
+							found = true
+							break
+						}
+					}
+					if !found {
+						err := log.Log(ErrorLevel, d, ErrDomainMismatch, po.p, po.o)
+						if err != nil {
+							return err
+						}
+						report.Error(string(graph.IRI()), Finding{
+							Kind:    KindDomainRange,
+							Rule:    RuleDomainMismatch,
+							Message: "domain mismatch (late binding), expected " + ibNodeString(graph, domain) + ", found " + ibNodeListString(graph, types),
+							S:       ibNodeValuesToLogString(graph, d),
+							P:       ibNodeValuesToLogString(graph, po.p),
+							O:       valuesToLogString(graph, po.o),
+						})
+					}
+				}
+				if rang := rangeFromGraph(idx, po.p); rang != nil {
+					switch po.o.TermKind() {
+					case sst.TermKindIBNode:
+						o := po.o.(sst.IBNode)
+						err := log.Log(InfoLevel, d, "range", po.p, po.o)
+						if err != nil {
+							return err
+						}
+						var found bool
+						err = o.ForAll(func(_ int, os, op sst.IBNode, oo sst.Term) error {
+							if o != os {
+								return nil
+							}
+							if op.Is(rdf.Type) && oo.TermKind() == sst.TermKindIBNode {
+								if isKindFromGraph(idx, oo.(sst.IBNode), rang) {
+									found = true
+									return errBreakFor
+								}
+							}
+							return nil
+						})
+						if err != nil && err != errBreakFor { // nolint:errorlint
+							return err
+						}
+						if !found {
+							err := log.Log(ErrorLevel, d, ErrRangeMismatch, po.p, o)
+							if err != nil {
+								return err
+							}
+							report.Error(string(graph.IRI()), Finding{
+								Kind:    KindDomainRange,
+								Rule:    RuleRangeMismatch,
+								Message: "range mismatch (late binding), expected " + ibNodeString(graph, rang) + ", found " + ibNodeTypesString(graph, o),
 								S:       ibNodeValuesToLogString(graph, d),
 								P:       ibNodeValuesToLogString(graph, po.p),
 								O:       valuesToLogString(graph, po.o),
@@ -738,7 +965,6 @@ func ExperimentalNamedGraphForTypeDefinitions(graph sst.NamedGraph, log Logger) 
 			if s == ibS { // not inverse
 				switch o.TermKind() {
 				case sst.TermKindIBNode, sst.TermKindTermCollection:
-					// fmt.Printf("    %s %s\n", p.IRI(), o.(sst.IBNode).IRI())
 					o := o.(sst.IBNode)
 					if p.Is(rdf.Type) {
 						isIndividual = true

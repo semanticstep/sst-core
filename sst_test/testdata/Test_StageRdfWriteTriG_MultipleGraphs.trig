@@ -1,34 +1,34 @@
-@prefix lci:	<http://ontology.semanticstep.net/lci#> .
-@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
-@prefix owl:	<http://www.w3.org/2002/07/owl#> .
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 <urn:uuid:aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1> {
-@prefix ns1:	<urn:uuid:aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1#> .
+@prefix ns1: <urn:uuid:aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1#> .
 
-<urn:uuid:aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1>	a	owl:Ontology .
-ns1:Jane	a	lci:Person ;
-	rdfs:label	"Jane Doe" .
-ns1:John	a	lci:Person ;
-	rdfs:label	"John Doe" .
+<urn:uuid:aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1> a owl:Ontology .
+ns1:Jane a lci:Person ;
+  rdfs:label "Jane Doe" .
+ns1:John a lci:Person ;
+  rdfs:label "John Doe" .
 }
 
 <urn:uuid:bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2> {
-@prefix ns2:	<urn:uuid:bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2#> .
+@prefix ns2: <urn:uuid:bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2#> .
 
-<urn:uuid:bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2>	a	owl:Ontology .
-ns2:CompanyA	a	lci:Organization ;
-	rdfs:label	"Company A" .
-ns2:CompanyB	a	lci:Organization ;
-	rdfs:label	"Company B" .
+<urn:uuid:bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2> a owl:Ontology .
+ns2:CompanyA a lci:Organization ;
+  rdfs:label "Company A" .
+ns2:CompanyB a lci:Organization ;
+  rdfs:label "Company B" .
 }
 
 <urn:uuid:cccccccc-cccc-cccc-cccc-ccccccccccc3> {
-@prefix ns3:	<urn:uuid:cccccccc-cccc-cccc-cccc-ccccccccccc3#> .
+@prefix ns3: <urn:uuid:cccccccc-cccc-cccc-cccc-ccccccccccc3#> .
 
-<urn:uuid:cccccccc-cccc-cccc-cccc-ccccccccccc3>	a	owl:Ontology .
-ns3:workFor	a	rdf:Property ;
-	rdfs:domain	lci:Person ;
-	rdfs:range	lci:Organization .
+<urn:uuid:cccccccc-cccc-cccc-cccc-ccccccccccc3> a owl:Ontology .
+ns3:workFor a rdf:Property ;
+  rdfs:domain lci:Person ;
+  rdfs:range lci:Organization .
 }

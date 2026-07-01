@@ -88,3 +88,17 @@ func HumanBytes(n int64) string {
 		return fmt.Sprintf("%d B", n)
 	}
 }
+
+// EnsureOutputExt appends ext when path lacks it (case-insensitive match)
+// and normalizes the extension to lowercase.
+func EnsureOutputExt(path, ext string) string {
+	if !strings.HasPrefix(ext, ".") {
+		ext = "." + strings.ToLower(ext)
+	} else {
+		ext = strings.ToLower(ext)
+	}
+	if strings.HasSuffix(strings.ToLower(path), ext) {
+		return path[:len(path)-len(ext)] + ext
+	}
+	return path + ext
+}

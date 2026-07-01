@@ -1,8 +1,8 @@
-@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
-@prefix owl:	<http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 <urn:uuid:99999999-9999-9999-9999-999999999999> {
 
-<urn:uuid:99999999-9999-9999-9999-999999999999>	a	owl:Ontology .
+<urn:uuid:99999999-9999-9999-9999-999999999999> a owl:Ontology .
 }

@@ -7,7 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
+	"os"
 	"strings"
 
 	"github.com/google/uuid"
@@ -82,6 +82,7 @@ var (
 	ErrMissingContent              = errors.New("missing content")
 	ErrMultipleGraphsNotSupported  = errors.New("multiple graphs not supported")
 	ErrStageNotFound               = errors.New("stage not found")
+	ErrBlankNodeInMultipleGraphs   = errors.New("blank node label appears in multiple graph blocks")
 )
 
 // rdfReader is the interface that defines access to decoded Triple instances.
@@ -120,7 +121,7 @@ var (
 func RdfRead(reader *bufio.Reader, f RdfFormat, readError readErrorHandler, Mode TriplexMode) (st Stage, err error) {
 	r := lineNumberReader{reader: reader}
 	tripleReader := newTripleReader(&r, f)
-	
+
 	// Use TriG-specific processing for TriG format
 	if f == RdfFormatTriG {
 		trigRdr := tripleReader.(*trigReader)
@@ -132,7 +133,7 @@ func RdfRead(reader *bufio.Reader, f RdfFormat, readError readErrorHandler, Mode
 			return readError(newFileLineError("", r.line(), err))
 		})
 	}
-	
+
 	if err != nil {
 		if _, ok := err.(fileLineError); !ok { //nolint:errorlint
 			err = newFileLineError("", r.line(), err)
@@ -359,44 +360,44 @@ func shouldDeleteImportSelfNode(iSelfNode IBNode, selfSubj IBNode) (bool, error)
 
 // dump NamedGraph
 func (g *namedGraph) Dump() {
-	log.Println("NamedGraph ID:", g.id)
-	log.Println("graph BaseURI:", g.baseIRI)
-	log.Println("graph flags: ", "isReferenced:", g.flags.isReferenced)
-	log.Println("             trackPredicates:", g.flags.trackPredicates, "   modified:", g.flags.modified)
-	log.Println("directImports", "(", len(g.directImports), ") :")
+	fmt.Fprintln(os.Stderr, "NamedGraph ID:", g.id)
+	fmt.Fprintln(os.Stderr, "graph BaseURI:", g.baseIRI)
+	fmt.Fprintln(os.Stderr, "graph flags: ", "isReferenced:", g.flags.isReferenced)
+	fmt.Fprintln(os.Stderr, "             trackPredicates:", g.flags.trackPredicates, "   modified:", g.flags.modified)
+	fmt.Fprintln(os.Stderr, "directImports", "(", len(g.directImports), ") :")
 	for key := range g.directImports {
-		log.Println(key)
+		fmt.Fprintln(os.Stderr, key)
 	}
 
 	count := 0
-	log.Println("stringNodes", "(", len(g.stringNodes), ") :")
+	fmt.Fprintln(os.Stderr, "stringNodes", "(", len(g.stringNodes), ") :")
 	for _, value := range g.stringNodes {
-		log.Printf("%d ", count)
+		fmt.Fprintf(os.Stderr, "%d ", count)
 		count++
 		value.ibNode.dump(false)
 	}
-	log.Println("")
+	fmt.Fprintln(os.Stderr)
 
 	count = 0
-	log.Println("uuidNodes", "(", len(g.uuidNodes), ") :")
+	fmt.Fprintln(os.Stderr, "uuidNodes", "(", len(g.uuidNodes), ") :")
 	for _, value := range g.uuidNodes {
-		log.Printf("%d ", count)
+		fmt.Fprintf(os.Stderr, "%d ", count)
 		count++
 		value.ibNode.dump(false)
 	}
-	log.Println("")
+	fmt.Fprintln(os.Stderr)
 
-	log.Println("graph triplexStorage", "(", len(g.triplexStorage), "):")
+	fmt.Fprintln(os.Stderr, "graph triplexStorage", "(", len(g.triplexStorage), "):")
 	for i, triplex := range g.triplexStorage {
 		if triplex.p != nil {
-			log.Printf("%d ", i)
+			fmt.Fprintf(os.Stderr, "%d ", i)
 			switch triplexKindAtAbs(g, triplexOffset(i)) {
 			case subjectTriplexKind:
-				log.Printf(" subjectTriplex ")
+				fmt.Fprintf(os.Stderr, " subjectTriplex ")
 			case objectTriplexKind:
-				log.Printf(" objectTriplex ")
+				fmt.Fprintf(os.Stderr, " objectTriplex ")
 			case predicateTriplexKind:
-				log.Printf(" predicateTriplex ")
+				fmt.Fprintf(os.Stderr, " predicateTriplex ")
 			}
 			triplex.dump()
 		}
@@ -405,16 +406,16 @@ func (g *namedGraph) Dump() {
 
 func (t *ibNode) dump(simple bool) {
 	if !simple {
-		log.Println("ib:", t)
-		log.Println("typedResource.typeOf:", t.typedResource.typeOf)
-		log.Println("ib.triplexStart:", t.triplexStart, "ib.triplexEnd:", t.triplexEnd)
-		log.Println("ib.flags:", t.flags)
+		fmt.Fprintln(os.Stderr, "ib:", t)
+		fmt.Fprintln(os.Stderr, "typedResource.typeOf:", t.typedResource.typeOf)
+		fmt.Fprintln(os.Stderr, "ib.triplexStart:", t.triplexStart, "ib.triplexEnd:", t.triplexEnd)
+		fmt.Fprintln(os.Stderr, "ib.flags:", t.flags)
 	}
 	switch t := t.ibNodeType().(type) {
 	case *ibNodeUuid:
-		log.Println("ib id:", t.id)
+		fmt.Fprintln(os.Stderr, "ib id:", t.id)
 	case *ibNodeString:
-		log.Println("ib frag:", t.fragment)
+		fmt.Fprintln(os.Stderr, "ib frag:", t.fragment)
 	default:
 		panic(t)
 	}
@@ -428,9 +429,9 @@ func (t triplex) dump() {
 		o := o.(IBNode)
 		switch o.ibNodeType().(type) {
 		case *ibNodeUuid:
-			log.Printf(" %s %s\n", p.IRI(), o.ID())
+			fmt.Fprintf(os.Stderr, " %s %s\n", p.IRI(), o.(*ibNode).asUuidIBNode().id)
 		case *ibNodeString:
-			log.Printf(" %s %s\n", p.IRI(), o.IRI())
+			fmt.Fprintf(os.Stderr, " %s %s\n", p.IRI(), o.IRI())
 		default:
 			panic("not known type")
 		}
@@ -439,34 +440,30 @@ func (t triplex) dump() {
 		dumpLiteral(p, o.(Literal))
 	case TermKindLiteralCollection:
 		o := o.(*literalCollection)
-		log.Printf(" %s %v^^%s\n", p.IRI(), o.Values(), o.Member(0).DataType().IRI())
+		fmt.Fprintf(os.Stderr, " %s %v^^%s\n", p.IRI(), o.Values(), o.Member(0).DataType().IRI())
 	}
 }
 
 func dumpLiteral(p *ibNode, l Literal) {
 	switch o := l.(type) {
 	case String, Boolean, Integer, Double:
-		switch p.ibNodeType().(type) {
-		case *ibNodeUuid:
-			log.Printf(" %s %v^^%s\n", p.ID(), o, o.DataType().IRI())
-		case *ibNodeString:
-			log.Printf(" %s %v^^%s\n", p.IRI(), o, o.DataType().IRI())
-		default:
-			panic("not known type")
+		if p.IsIRINode() {
+			fmt.Fprintf(os.Stderr, " %s %v^^%s\n", p.IRI(), o, o.DataType().IRI())
+		} else {
+			fmt.Fprintf(os.Stderr, " %s %v^^%s\n", p.ID(), o, o.DataType().IRI())
 		}
 	case LangString:
 		switch p.ibNodeType().(type) {
 		case *ibNodeUuid:
-			log.Printf(" %s %v%v^^%s\n", p.ID(), o.Val, o.LangTag, o.DataType().IRI())
+			fmt.Fprintf(os.Stderr, " %s %v%v^^%s\n", p.ID(), o.Val, o.LangTag, o.DataType().IRI())
 		case *ibNodeString:
-			log.Printf(" %s %v%v^^%s\n", p.IRI(), o.Val, o.LangTag, o.DataType().IRI())
+			fmt.Fprintf(os.Stderr, " %s %v%v^^%s\n", p.IRI(), o.Val, o.LangTag, o.DataType().IRI())
 		default:
 			panic("not known type")
 		}
 
 	}
 }
-
 
 // fromTriGReaderToStage reads TriG data from the provided trigReader and converts it into a Stage.
 // It handles multiple named graphs and properly assigns triples to their respective graphs.
@@ -581,7 +578,7 @@ func convertTripleSubjectInTriG(sub rdfTypeSubject, graphIRI string, st Stage, c
 		// get the IBNode by Fragment
 		return nodeForFragment(ng, fragment), nil
 	case rdfTermBlank:
-		return blankToIBNodeInTriG(sub.(rdfTypeBlank), graphIRI, st, context), nil
+		return blankToIBNodeInTriG(sub.(rdfTypeBlank), graphIRI, st, context)
 	case rdfTermLiteral:
 		fallthrough
 	default:
@@ -624,8 +621,7 @@ func convertTripleObjectInTriG(obj rdfTypeObject, graphIRI string, stage Stage, 
 		o := iriToNodeInTriG(obj.(IRI), graphIRI, stage)
 		return o, nil
 	case rdfTermBlank:
-		o := blankToIBNodeInTriG(obj.(rdfTypeBlank), graphIRI, stage, context)
-		return o, nil
+		return blankToIBNodeInTriG(obj.(rdfTypeBlank), graphIRI, stage, context)
 	case rdfTermLiteral:
 		l := obj.(rdfTypeLiteral)
 		return convertLiteral(l)
@@ -636,7 +632,8 @@ func convertTripleObjectInTriG(obj rdfTypeObject, graphIRI string, stage Stage, 
 
 // blankToIBNodeInTriG creates or retrieves a blank node in the appropriate graph for TriG.
 // For TriG, blank nodes are scoped to the current named graph.
-func blankToIBNodeInTriG(blank rdfTypeBlank, graphIRI string, stage Stage, context readToStageContext) IBNode {
+// If a blank node label has already been used in a different graph block, an error is returned.
+func blankToIBNodeInTriG(blank rdfTypeBlank, graphIRI string, stage Stage, context readToStageContext) (IBNode, error) {
 	// Get or create the NamedGraph for this blank node
 	var bGraph NamedGraph
 	if graphIRI == "" {
@@ -654,10 +651,14 @@ func blankToIBNodeInTriG(blank rdfTypeBlank, graphIRI string, stage Stage, conte
 	}
 
 	blankLabel := blank.String()
-	var d IBNode
 	if d, found := context.blankNodes[blankLabel]; found {
-		return d
+		if d.OwningGraph() != bGraph {
+			return nil, fmt.Errorf("blank node label %q appears in graph %q and graph %q: %w",
+				blankLabel, d.OwningGraph().IRI(), bGraph.IRI(), ErrBlankNodeInMultipleGraphs)
+		}
+		return d, nil
 	}
+	var d IBNode
 	blankUUID, err := uuid.Parse(blankLabel)
 	if err == nil {
 		d, err = bGraph.(*namedGraph).createBlankUuidNode(blankUUID)
@@ -669,5 +670,5 @@ func blankToIBNodeInTriG(blank rdfTypeBlank, graphIRI string, stage Stage, conte
 	}
 
 	context.blankNodes[blankLabel] = d
-	return d
+	return d, nil
 }

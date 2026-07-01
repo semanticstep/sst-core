@@ -47,15 +47,15 @@ func TestWriteDiffModifyATripleOfBlankNode(t *testing.T) {
 		assert.Equal(t, "lci:contains", diffTriples[0].Pred)
 		assert.Equal(t, "_:b0", diffTriples[0].Obj)
 
-		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[1].Flag)
+		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[1].Flag)
 		assert.Equal(t, "_:b0", diffTriples[1].Sub)
 		assert.Equal(t, "rdf:type", diffTriples[1].Pred)
-		assert.Equal(t, "lci:Individual", diffTriples[1].Obj)
+		assert.Equal(t, "lci:Thing", diffTriples[1].Obj)
 
-		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[2].Flag)
-		assert.Equal(t, "_:b0", diffTriples[2].Sub)
-		assert.Equal(t, "rdf:type", diffTriples[2].Pred)
-		assert.Equal(t, "lci:Thing", diffTriples[2].Obj)
+		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[2].Flag)
+		assert.Equal(t, "", diffTriples[2].Sub)
+		assert.Equal(t, "", diffTriples[2].Pred)
+		assert.Equal(t, "lci:Individual", diffTriples[2].Obj)
 
 		assert.Equal(t, 3, len(diffTriples))
 	})
@@ -334,15 +334,15 @@ func TestWriteDiffModifyATripleOfBlankNodeHasMultipleTriples(t *testing.T) {
 		assert.Equal(t, "lci:contains", diffTriples[0].Pred)
 		assert.Equal(t, "_:b0", diffTriples[0].Obj)
 
-		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[1].Flag)
+		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[1].Flag)
 		assert.Equal(t, "_:b0", diffTriples[1].Sub)
 		assert.Equal(t, "rdf:type", diffTriples[1].Pred)
-		assert.Equal(t, "lci:Individual", diffTriples[1].Obj)
+		assert.Equal(t, "lci:Thing", diffTriples[1].Obj)
 
-		assert.Equal(t, sst.DiffTripleFlag(-1), diffTriples[2].Flag)
-		assert.Equal(t, "_:b0", diffTriples[2].Sub)
-		assert.Equal(t, "rdf:type", diffTriples[2].Pred)
-		assert.Equal(t, "lci:Thing", diffTriples[2].Obj)
+		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[2].Flag)
+		assert.Equal(t, "", diffTriples[2].Sub)
+		assert.Equal(t, "", diffTriples[2].Pred)
+		assert.Equal(t, "lci:Individual", diffTriples[2].Obj)
 
 		assert.Equal(t, 3, len(diffTriples))
 	})

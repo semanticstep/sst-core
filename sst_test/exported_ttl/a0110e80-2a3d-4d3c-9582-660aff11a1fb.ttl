@@ -1,0 +1,225 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix qau: <http://ontology.semanticstep.net/qau#> .
+@prefix ssmeta: <http://ontology.semanticstep.net/ssmeta#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:a0110e80-2a3d-4d3c-9582-660aff11a1fb#> .
+@prefix ns2: <urn:uuid:03431413-2c10-4be9-b144-30d4d91343c1#> .
+
+<urn:uuid:a0110e80-2a3d-4d3c-9582-660aff11a1fb> a owl:Ontology ;
+  owl:imports <urn:uuid:03431413-2c10-4be9-b144-30d4d91343c1> .
+:104f92d7-990f-4c7c-8fc9-bb3d27a67628 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :5ee56a20-45dd-4b16-b901-840148749ca7 ;
+  sso:id "FE" ;
+  rdfs:comment "retrieving activity by fluids extraction processes" ;
+  rdfs:label "oil&gas activity" .
+:15d2534b-83b0-45c3-964c-f961f13be8ef a lci:ClassOfIndividual ;
+  rdfs:subClassOf :5ee56a20-45dd-4b16-b901-840148749ca7 ;
+  sso:id "FD" ;
+  rdfs:comment "retrieving activity by mining processes" ;
+  rdfs:label "mining activity" .
+:20be52ec-21c6-4c98-8e8d-d87e6584acc8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b7888369-35ce-4024-915b-1d8891abaf01 ;
+  sso:id "AD" ;
+  rdfs:comment "developing activity by establishing information containers" ;
+  rdfs:label "documenting activity" .
+:23822484-8a28-4d2d-adc9-82a812ef4ee0 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b7888369-35ce-4024-915b-1d8891abaf01 ;
+  sso:id "AB" ;
+  rdfs:comment "developing activity by predicting future events" ;
+  rdfs:label "planning activity" ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b "N" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "computing, defining, drafting, outlining, requiring" .
+:272935f5-b87a-42a8-a899-864216d62c1b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9bfaac03-cd77-42ad-9312-5aca8ea2e42d ;
+  sso:id "BE" ;
+  rdfs:comment "transforming activity by mitigating the effect of undesirable or dangerous conditions" ;
+  rdfs:label "protecting activity" .
+:2f3c6bda-0e2e-4ba0-919b-a5214ddc7d3f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b7888369-35ce-4024-915b-1d8891abaf01 ;
+  sso:id "AE" ;
+  rdfs:comment "developing activity by organizing information in groups" ;
+  rdfs:label "sorting activity" .
+:2fae3c2b-6836-4a46-acf8-c65772387778 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :5ee56a20-45dd-4b16-b901-840148749ca7 ;
+  sso:id "FA" ;
+  rdfs:comment "retrieving activity by agricultural processes" ;
+  rdfs:label "agricultural activity" .
+:3da4c175-f855-4443-a81e-59e200ceabe5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4eb19193-8530-48f4-af8f-5ab898337934 ;
+  sso:id "ED" ;
+  rdfs:comment "information activity by transferring the information" ;
+  rdfs:label "communicating activity" .
+:3ebfaa16-ebf6-4239-8def-ec0d527c7d32 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f03f3f02-b6a5-4a10-b474-2b93f2f6d2e9 ;
+  sso:id "CB" ;
+  rdfs:comment "managing activity for making a decision" ;
+  rdfs:label "deciding activity" .
+:4eb19193-8530-48f4-af8f-5ab898337934 a lci:ClassOfIndividual ,
+    :9b184b39-3310-4b83-b46a-228938c490f2 ;
+  sso:id "E" ;
+  rdfs:comment "activity process for obtaining and transferring information" ;
+  rdfs:label "information activity" ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b "N" .
+:535ef6e1-eee1-48c9-9ed9-8cf46c6467af a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4eb19193-8530-48f4-af8f-5ab898337934 ;
+  sso:id "EB" ;
+  rdfs:comment "information activity by monitoring an object" ;
+  rdfs:label "observing activity" .
+:5ee56a20-45dd-4b16-b901-840148749ca7 a lci:ClassOfIndividual ,
+    :9b184b39-3310-4b83-b46a-228938c490f2 ;
+  sso:id "F" ;
+  rdfs:comment "activity process for retrieving an object" ;
+  rdfs:label "retrieving activity" ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b "N" .
+:6094798a-6369-4012-bd8c-92d02a6ef94d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b7888369-35ce-4024-915b-1d8891abaf01 ;
+  sso:id "AA" ;
+  rdfs:comment "developing activity by expanding\nunderstanding of a subject" ;
+  rdfs:label "analysing activity" ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b "N" ;
+  ns2:eb198936-0d10-4381-a217-1287a705e967 "calculating, contemplating, estimating, evaluating, mapping, requirements analysing, refining, risk assessing, searching, thinking" .
+:619e6700-3136-456e-a2a7-1049f22fb091 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :aa2946f8-5fe3-4593-acf4-1b9fe3e2abd8 ;
+  sso:id "DA" ;
+  rdfs:comment "handling activity for transporting the object between locations" ;
+  rdfs:label "transporting activity" .
+:66ebb1b5-70ef-4328-8a05-12ab22e28f4d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :aa2946f8-5fe3-4593-acf4-1b9fe3e2abd8 ;
+  sso:id "DB" ;
+  rdfs:comment "handling activity for delivering the object for further processing or usage" ;
+  rdfs:label "delivering activity" .
+:721023a6-734a-49e6-af9e-6092cd5c5733 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9bfaac03-cd77-42ad-9312-5aca8ea2e42d ;
+  sso:id "BB" ;
+  rdfs:comment "transforming activity by reshaping" ;
+  rdfs:label "reshaping activity" .
+:765a729d-c424-4559-86db-7ea07dda462e a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9bfaac03-cd77-42ad-9312-5aca8ea2e42d ;
+  sso:id "BA" ;
+  rdfs:comment "transforming activity by preserving from failure or decline" ;
+  rdfs:label "maintaining activity" .
+:8ac8dd56-114a-4e6c-bd60-d7cc54dd0335 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4eb19193-8530-48f4-af8f-5ab898337934 ;
+  sso:id "EA" ;
+  rdfs:comment "information activity by carrying out experiments" ;
+  rdfs:label "testing activity" .
+:9b184b39-3310-4b83-b46a-228938c490f2 a sso:ClassSystem ,
+    ns2:a7f0e0f6-8448-4096-b652-55c850b3344a ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b [
+  a qau:Area
+] ;
+  sso:id "ISO81346-50_AA2_activity_processes" .
+:9bfaac03-cd77-42ad-9312-5aca8ea2e42d a lci:ClassOfIndividual ,
+    :9b184b39-3310-4b83-b46a-228938c490f2 ;
+  sso:id "B" ;
+  rdfs:comment "activity process for changing characteristics on an object" ;
+  rdfs:label "transforming activity" ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b "N" .
+:a549ccc3-49a3-45d8-975c-caf6e97555fc a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f03f3f02-b6a5-4a10-b474-2b93f2f6d2e9 ;
+  sso:id "CA" ;
+  rdfs:comment "authorizing activity" ;
+  rdfs:label "managing activity for granting permission" .
+:aa2946f8-5fe3-4593-acf4-1b9fe3e2abd8 a lci:ClassOfIndividual ,
+    :9b184b39-3310-4b83-b46a-228938c490f2 ;
+  sso:id "D" ;
+  rdfs:comment "activity process for handling a physical object without changing its characteristics" ;
+  rdfs:label "handling activity" ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b "N" .
+:ad59fc5e-2237-4e86-864b-b99b419b3f9b a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f03f3f02-b6a5-4a10-b474-2b93f2f6d2e9 ;
+  sso:id "CD" ;
+  rdfs:comment "managing activity for providing governance" ;
+  rdfs:label "supervising activity" .
+:ade2bf01-3646-4971-8692-d263cb154414 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9bfaac03-cd77-42ad-9312-5aca8ea2e42d ;
+  sso:id "BG" ;
+  rdfs:comment "transforming activity by allowing time to pass" ;
+  rdfs:label "ageing activity" .
+:b0b06560-8881-4711-b63f-b058c9ea34cd a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f03f3f02-b6a5-4a10-b474-2b93f2f6d2e9 ;
+  sso:id "CF" ;
+  rdfs:comment "managing activity for operating equipment" ;
+  rdfs:label "piloting activity" .
+:b5afa2eb-9a40-428f-a6b8-c9c7e7ea7cf8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :aa2946f8-5fe3-4593-acf4-1b9fe3e2abd8 ;
+  sso:id "DE" ;
+  rdfs:comment "handling activity for discarding the object" ;
+  rdfs:label "discarding activity" .
+:b7888369-35ce-4024-915b-1d8891abaf01 a lci:ClassOfIndividual ,
+    :9b184b39-3310-4b83-b46a-228938c490f2 ;
+  sso:id "A" ;
+  rdfs:comment "activity process for modelling data of an\nobject" ;
+  rdfs:label "developing activity" ;
+  ns2:24557887-e6d7-4ddf-9ee5-3086b8aa1606 "operational function in development workflow" ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b "N" .
+:c36936fe-c275-47fe-9da8-ca9fc9474e98 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9bfaac03-cd77-42ad-9312-5aca8ea2e42d ;
+  sso:id "BD" ;
+  rdfs:comment "transforming activity by material modification" ;
+  rdfs:label "material modification activity" .
+:cb309b0e-b9cc-4fd2-ace6-879e50680e20 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f03f3f02-b6a5-4a10-b474-2b93f2f6d2e9 ;
+  sso:id "CE" ;
+  rdfs:comment "managing activity for transferring ownership of an object" ;
+  rdfs:label "acquiring activity" .
+:cf4479ad-c74d-4434-883f-d4f09e58f7ab a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9bfaac03-cd77-42ad-9312-5aca8ea2e42d ;
+  sso:id "BC" ;
+  rdfs:comment "transforming activity by assembling or dismantling" ;
+  rdfs:label "assembly activity" .
+:d332ed98-499c-4475-91ed-661cf3fab270 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :b7888369-35ce-4024-915b-1d8891abaf01 ;
+  sso:id "AC" ;
+  rdfs:comment "developing activity by handling requirements or properties" ;
+  rdfs:label "engineering activity" .
+:d95440a4-ec9b-4143-bf58-c33527e759c8 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9bfaac03-cd77-42ad-9312-5aca8ea2e42d ;
+  sso:id "BH" ;
+  rdfs:comment "transforming activity by dismantling" ;
+  rdfs:label "dismantling activity" .
+:dd9c0c59-7fe6-473a-af20-0c176e528f1f a lci:ClassOfIndividual ;
+  rdfs:subClassOf :5ee56a20-45dd-4b16-b901-840148749ca7 ;
+  sso:id "FC" ;
+  rdfs:comment "retrieving activity by forestry processes" ;
+  rdfs:label "forestry activity" .
+:df0bf00d-d10c-4d08-af97-24d5b66e2c3a a lci:ClassOfIndividual ;
+  rdfs:subClassOf :aa2946f8-5fe3-4593-acf4-1b9fe3e2abd8 ;
+  sso:id "DC" ;
+  rdfs:comment "handling activity for receiving the object for further processing" ;
+  rdfs:label "receiving activity" .
+:e15772c1-1547-4b4d-adfc-8b6adc4ba2b5 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :aa2946f8-5fe3-4593-acf4-1b9fe3e2abd8 ;
+  sso:id "DD" ;
+  rdfs:comment "handling activity for storing the object" ;
+  rdfs:label "storing activity" .
+:e44b09c6-50e3-4789-9452-ecbe4cfa6119 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :5ee56a20-45dd-4b16-b901-840148749ca7 ;
+  sso:id "FB" ;
+  rdfs:comment "retrieving activity by aquatic processes" ;
+  rdfs:label "aquatic activity" .
+:e9d8555e-7631-4e99-94c6-b63d782f2fb1 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :f03f3f02-b6a5-4a10-b474-2b93f2f6d2e9 ;
+  sso:id "CC" ;
+  rdfs:comment "managing activity for carrying out a decision" ;
+  rdfs:label "implementing activity" .
+:f03f3f02-b6a5-4a10-b474-2b93f2f6d2e9 a lci:ClassOfIndividual ,
+    :9b184b39-3310-4b83-b46a-228938c490f2 ;
+  sso:id "C" ;
+  rdfs:comment "activity process for using executive, administrative or supervisory direction" ;
+  rdfs:label "managing activity" ;
+  ns2:940b6d17-3867-446f-a505-ede15056c36b "N" .
+:f729a4cf-0b72-4760-bf5d-25852fb29920 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :4eb19193-8530-48f4-af8f-5ab898337934 ;
+  sso:id "EC" ;
+  rdfs:comment "information activity by retrieving existing information" ;
+  rdfs:label "consulting activity" .
+:fa3fae10-3e4f-4e44-bb38-c84cd56cce36 a lci:ClassOfIndividual ;
+  rdfs:subClassOf :9bfaac03-cd77-42ad-9312-5aca8ea2e42d ;
+  sso:id "BF" ;
+  rdfs:comment "transforming activity by adapting the object to its intended use" ;
+  rdfs:label "configuring activity" .

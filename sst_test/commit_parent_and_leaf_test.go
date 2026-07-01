@@ -8,33 +8,28 @@ package sst_test
 
 import (
 	"context"
-	"os"
 	"path/filepath"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/defaultderive"
 	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/semanticstep/sst-core/sst_test/testutil"
+	"github.com/semanticstep/sst-core/sstauth"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_LocalFullRepository_CommitWithParent_BranchUpdate(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
 	var commitHash1 sst.Hash
 	var commitHash2 sst.Hash
 
-	defer os.RemoveAll(dir)
-
 	t.Run("first_commit_no_parent", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		assert.NoError(t, err)
@@ -103,17 +98,13 @@ func Test_LocalFullRepository_CommitWithParent_BranchUpdate(t *testing.T) {
 }
 
 func Test_LocalFullRepository_CommitFromCheckoutCommit_NoParent(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a364").URN())
 
 	var commitHash1 sst.Hash
 	var commitHash2 sst.Hash
 
-	defer os.RemoveAll(dir)
-
 	t.Run("first_commit_to_branch", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		assert.NoError(t, err)
@@ -175,18 +166,14 @@ func Test_LocalFullRepository_CommitFromCheckoutCommit_NoParent(t *testing.T) {
 }
 
 func Test_LocalFullRepository_LeafCommitHandling(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a365").URN())
 
 	var commitHash1 sst.Hash
 	var commitHash2 sst.Hash
 	var commitHash3 sst.Hash
 
-	defer os.RemoveAll(dir)
-
 	t.Run("commit_as_leaf_then_set_branch", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		assert.NoError(t, err)
@@ -211,7 +198,7 @@ func Test_LocalFullRepository_LeafCommitHandling(t *testing.T) {
 		assert.Equal(t, commitHash1, leafCommits[0])
 
 		// Set branch to first commit
-		err = ds.SetBranch(context.TODO(), commitHash1, sst.DefaultBranch)
+		err = ds.SetBranchCommit(context.TODO(), commitHash1, sst.DefaultBranch)
 		assert.NoError(t, err)
 
 		// After setting branch, leaf should be removed
@@ -300,16 +287,12 @@ func Test_LocalFullRepository_LeafCommitHandling(t *testing.T) {
 }
 
 func Test_LocalFullRepository_RemoveBranchCreatesLeaf(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a366").URN())
 
 	var commitHash1 sst.Hash
 
-	defer os.RemoveAll(dir)
-
 	t.Run("create_branch_then_remove", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		assert.NoError(t, err)
@@ -350,18 +333,14 @@ func Test_LocalFullRepository_RemoveBranchCreatesLeaf(t *testing.T) {
 }
 
 func Test_LocalFullRepository_CommitTwiceWithoutCheckout(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a367").URN())
 
 	var commitHash1 sst.Hash
 	var commitHash2 sst.Hash
 	var commitHash3 sst.Hash
 
-	defer os.RemoveAll(dir)
-
 	t.Run("commit_twice_without_checkout", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
 		assert.NoError(t, err)
@@ -430,17 +409,13 @@ func Test_LocalFullRepository_CommitTwiceWithoutCheckout(t *testing.T) {
 }
 
 func Test_LocalFullRepository_ReopenRepo_CreateSameNG_Commit(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a368").URN())
 
 	var commitHash1 sst.Hash
 	var commitHash2 sst.Hash
 
-	defer os.RemoveAll(dir)
-
 	t.Run("first_commit_close_reopen_create_same_ng_commit", func(t *testing.T) {
-		removeFolder(dir)
 
 		// First session: create repo and commit
 		repo1, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", true)
@@ -509,17 +484,13 @@ func Test_LocalFullRepository_ReopenRepo_CreateSameNG_Commit(t *testing.T) {
 }
 
 func Test_RemoteRepository_ReopenRepo_CreateSameNG_Commit(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a369").URN())
 	transportCreds, err := testutil.TestTransportCreds()
 	assert.NoError(t, err)
 
 	var commitHash1 sst.Hash
 	var commitHash2 sst.Hash
-
-	defer os.RemoveAll(dir)
-	removeFolder(dir)
 
 	url := testutil.ServerServe(t, dir)
 	constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
@@ -591,17 +562,13 @@ func Test_RemoteRepository_ReopenRepo_CreateSameNG_Commit(t *testing.T) {
 }
 
 func Test_RemoteRepository_ReopenRepo_CommitSameNGToDifferentBranches(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a370").URN())
 	transportCreds, err := testutil.TestTransportCreds()
 	assert.NoError(t, err)
 
 	var commitHash1 sst.Hash
 	var commitHash2 sst.Hash
-
-	defer os.RemoveAll(dir)
-	removeFolder(dir)
 
 	url := testutil.ServerServe(t, dir)
 	constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
@@ -681,17 +648,13 @@ func Test_RemoteRepository_ReopenRepo_CommitSameNGToDifferentBranches(t *testing
 }
 
 func Test_RemoteRepository_ReopenRepo_CommitSameNGToSameBranch(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a371").URN())
 	transportCreds, err := testutil.TestTransportCreds()
 	assert.NoError(t, err)
 
 	var commitHash1 sst.Hash
 	var commitHash2 sst.Hash
-
-	defer os.RemoveAll(dir)
-	removeFolder(dir)
 
 	url := testutil.ServerServe(t, dir)
 	constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
@@ -763,17 +726,13 @@ func Test_RemoteRepository_ReopenRepo_CommitSameNGToSameBranch(t *testing.T) {
 }
 
 func Test_RemoteRepository_CheckoutCommit_CommitToDifferentBranch(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a372").URN())
 	transportCreds, err := testutil.TestTransportCreds()
 	assert.NoError(t, err)
 
 	var commitHash1 sst.Hash
 	var commitHash2 sst.Hash
-
-	defer os.RemoveAll(dir)
-	removeFolder(dir)
 
 	url := testutil.ServerServe(t, dir)
 	constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)

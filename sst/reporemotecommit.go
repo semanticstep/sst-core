@@ -7,13 +7,16 @@ import (
 	"bytes"
 	"context"
 	"crypto/sha256"
+	"errors"
 	"log"
 	"sort"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/bboltproto"
 	"github.com/semanticstep/sst-core/sstauth"
-	"github.com/google/uuid"
 	"go.uber.org/zap"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type commitServiceServer struct {
@@ -24,7 +27,7 @@ type commitServiceServer struct {
 
 // To be Removed/Used
 func (s *commitServiceServer) ListCommits(stream bboltproto.CommitService_ListCommitsServer) error {
-	log.Println("gRPC commitServiceServer received ListCommits request")
+	GlobalLogger.Debug("gRPC commitServiceServer received ListCommits request")
 	panic("not used")
 }
 
@@ -131,12 +134,12 @@ func (s *commitServiceServer) CreateCommit(ctx context.Context, request *bboltpr
 	// correct NG and DS Signatures
 	for _, NamedGraphSignature := range request.CheckoutNamedGraphSignatures {
 		if ng, ok := newStorageStage.localGraphs[uuid.UUID(NamedGraphSignature.NgUuid)]; ok {
-			ng.checkedOutNGRevision = Hash(NamedGraphSignature.NgHash)
+			ng.checkedOutNGRevisions = []Hash{Hash(NamedGraphSignature.NgHash)}
 		}
 	}
 	for _, DatasetSignature := range request.CheckoutDatasetSignatures {
 		if ng, ok := newStorageStage.localGraphs[uuid.UUID(DatasetSignature.DSUuid)]; ok {
-			ng.checkedOutDSRevision = Hash(DatasetSignature.DSHash)
+			ng.checkedOutDSRevisions = []Hash{Hash(DatasetSignature.DSHash)}
 		}
 	}
 	for _, checkoutCommitHash := range request.ParentCommitOverrides {
@@ -162,16 +165,24 @@ func (s *commitServiceServer) CreateCommit(ctx context.Context, request *bboltpr
 
 	newCommitID, modifiedDSIDs, err := newStorageStage.Commit(context.TODO(), request.Message, branch)
 	if err != nil {
+		if errors.Is(err, ErrQuotaExceeded) {
+			return nil, status.Errorf(codes.ResourceExhausted, "commit failed: %v", err)
+		}
 		return &bboltproto.CreateCommitResponse{CommitId: newCommitID[:]}, err
 	}
+
+	// Ensure asynchronous Bleve index updates are visible before returning to
+	// the remote client.
+	FlushBleveIndex(repo)
 
 	// after commit, return generated NGHashes to GRPC client to update the NG checkedOutNGHash in client side
 	checkoutNamedGraphSignatures := make([]*bboltproto.NamedGraphSignature, 0, len(request.ModifiedNGs))
 	for _, modifiedID := range request.ModifiedNGs {
 		if ng, ok := newStorageStage.localGraphs[uuid.UUID(modifiedID)]; ok {
+			lastNGRev := ng.lastCheckedOutNGRevision()
 			checkoutNamedGraphSignatures = append(checkoutNamedGraphSignatures, &bboltproto.NamedGraphSignature{
 				NgUuid: ng.id[:],
-				NgHash: ng.checkedOutNGRevision[:],
+				NgHash: lastNGRev[:],
 			})
 		}
 	}
@@ -179,9 +190,10 @@ func (s *commitServiceServer) CreateCommit(ctx context.Context, request *bboltpr
 	checkoutDatasetSignatures := make([]*bboltproto.DatasetSignature, 0, len(modifiedDSIDs))
 	for _, modifiedDsID := range modifiedDSIDs {
 		if ng, ok := newStorageStage.localGraphs[uuid.UUID(modifiedDsID)]; ok {
+			lastDSRev := ng.lastCheckedOutDSRevision()
 			checkoutDatasetSignatures = append(checkoutDatasetSignatures, &bboltproto.DatasetSignature{
 				DSUuid: ng.id[:],
-				DSHash: ng.checkedOutDSRevision[:],
+				DSHash: lastDSRev[:],
 			})
 		}
 	}
@@ -200,7 +212,7 @@ func (s *commitServiceServer) CreateCommit(ctx context.Context, request *bboltpr
 }
 
 func (s *commitServiceServer) CompareCommits(ctx context.Context, request *bboltproto.CompareCommitsRequest) (*bboltproto.CompareCommitsResponse, error) {
-	log.Println("gRPC commitServiceServer received CompareCommits request")
+	GlobalLogger.Debug("gRPC commitServiceServer received CompareCommits request")
 
 	repo, err := commitServiceServerToRepository(s, ctx, request.RepoName)
 	if err != nil {

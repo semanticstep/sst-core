@@ -1,23 +1,23 @@
-@prefix lci:	<http://ontology.semanticstep.net/lci#> .
-@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
-@prefix owl:	<http://www.w3.org/2002/07/owl#> .
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 <urn:uuid:11111111-1111-1111-1111-111111111111> {
-@prefix ns1:	<urn:uuid:11111111-1111-1111-1111-111111111111#> .
+@prefix ns1: <urn:uuid:11111111-1111-1111-1111-111111111111#> .
 
-<urn:uuid:11111111-1111-1111-1111-111111111111>	a	owl:Ontology .
-ns1:workFor	a	rdf:Property ;
-	rdfs:domain	lci:Person ;
-	rdfs:range	lci:Organization .
+<urn:uuid:11111111-1111-1111-1111-111111111111> a owl:Ontology .
+ns1:workFor a rdf:Property ;
+  rdfs:domain lci:Person ;
+  rdfs:range lci:Organization .
 }
 
 <urn:uuid:22222222-2222-2222-2222-222222222222> {
-@prefix ns2:	<urn:uuid:22222222-2222-2222-2222-222222222222#> .
+@prefix ns2: <urn:uuid:22222222-2222-2222-2222-222222222222#> .
 
-<urn:uuid:22222222-2222-2222-2222-222222222222>	a	owl:Ontology .
-ns2:ECT	a	lci:Organization .
-ns2:Jane	a	lci:Person ;
-	ns1:workFor	ns2:ECT .
+<urn:uuid:22222222-2222-2222-2222-222222222222> a owl:Ontology .
+ns2:ECT a lci:Organization .
+ns2:Jane a lci:Person ;
+  ns1:workFor ns2:ECT .
 }

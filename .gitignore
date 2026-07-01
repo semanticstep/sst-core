@@ -4,7 +4,25 @@ helloworldwrite.ttl
 helloworldwrite.sst
 .DS_Store
 Makefile
-
 cli/sst
-
+mcp/sst-mcp
+mcp/sst-mcp.exe
 cli/testfile
+sst_test/testdata/exampleBboltTextOutput.yaml
+
+# Transient test outputs
+sst_test/testdata/Test*
+sst_test/testdata/aw*.ttl
+sst_test/repositoryCommitDetailsTest/testdata/
+sst_test/repositoryInfoTest/testdata/
+sst_test/repositoryLogTest/testdata/
+sst_test/setBranchRemoveBranchLogTest/testdata/
+sst_test/sstDiffTest/testdata/*.sst
+sst_test/extractSstFileTest/testdata/
+step/testdata/ewhfortest/HarnessExample_*.ttl
+step/testdata/ewhfortest/stepxmlLocalFlatRepository/
+step/testdata/ewhfortest/stepxmlLocalFullRepository/
+
+# Local design documentation (not for Git)
+.design-docs/
+.env.sst-cli

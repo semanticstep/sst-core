@@ -1,0 +1,57 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:b562cc36-57d6-46d7-a811-0df250fec2bb#> .
+@prefix ns2: <urn:uuid:03431413-2c10-4be9-b144-30d4d91343c1#> .
+
+<urn:uuid:b562cc36-57d6-46d7-a811-0df250fec2bb> a owl:Ontology .
+:03ffc9a2-672f-4bc4-b7ee-be51fd13110f a sso:ClassSystem ,
+    ns2:263ae5d6-e777-41f8-8a35-79bab1a0780c ;
+  sso:id "GeneralClassSystem" ;
+  rdfs:label "General ClassSystem for Conformance and Classifications" .
+:17707ba0-7089-40ed-a6fe-4afc152edd25 a lci:OmnipresentIndividual ;
+  sso:id "UL 94-5VB" ;
+  rdfs:comment "Surface Burn; Burning stop within 60 seconds, test specimens MAY HAVE a burn-through (A hole may be present)" .
+:242e72a1-d05d-4700-bd24-60f77fc90f4f a lci:OmnipresentIndividual ;
+  sso:id "UL 94-5VA " ;
+  rdfs:comment "Surface Burn; Burning stops within 60 seconds, test specimens MAY NOT have a burn-through (no hole). This is the highest (most flame retardant) UL94 rating." .
+:299a5c18-9e0c-4aab-b17f-4893de5b2d1f a lci:OmnipresentIndividual ;
+  sso:id "UL 94 H-B" ;
+  rdfs:comment "Horizontal Burn; Slow horizontal burn test (H-B) are considered \"self-extinguishing\". The lowest (least flame retardant) UL94 rating." .
+:3064e0a9-4050-485e-90d3-9736da5418fc a lci:OmnipresentIndividual ;
+  sso:id "EU RoHS 2" ;
+  rdfs:label "2011/65/EU Directive on the restriction of the use of certain hazardous substances in electrical and electronic equipment" .
+:593cbf9b-02e5-40b2-8fe2-7b88addfa095 a lci:OmnipresentIndividual ;
+  sso:id "EU RoHS 1" ;
+  rdfs:label "2002/95/EC Directive on the restriction of the use of certain hazardous substances in electrical and electronic equipment" .
+:6304b3b2-c6b6-4d6e-bc74-b5d2a0d15978 a lci:OmnipresentIndividual ;
+  sso:id "UL 94 V-2" ;
+  rdfs:comment "Vertical Burn; Burning stops within 60 seconds, Flaming drips ARE allowed." .
+:6d3a4f6a-4643-4f4c-878e-2dceb7c552df a lci:ClassOfEnumeratedIndividuals ,
+    :03ffc9a2-672f-4bc4-b7ee-be51fd13110f ;
+  owl:oneOf ( :242e72a1-d05d-4700-bd24-60f77fc90f4f :17707ba0-7089-40ed-a6fe-4afc152edd25
+  :f18e620e-2a72-414f-acdc-50adb4a95f71 :8b13ebe8-4a7a-4083-b6e3-440d2c17dbf3
+  :6304b3b2-c6b6-4d6e-bc74-b5d2a0d15978 :299a5c18-9e0c-4aab-b17f-4893de5b2d1f ) ;
+  sso:id "UL94" ;
+  rdfs:label "UL 94 Flame Classifications:" .
+:8b13ebe8-4a7a-4083-b6e3-440d2c17dbf3 a lci:OmnipresentIndividual ;
+  sso:id "UL 94 V-1" ;
+  rdfs:comment "Vertical Burn; Burning stops within 60 seconds, NO flaming drips are allowed" .
+:932e0e7b-37ba-43b1-bddb-0b2bc37733d6 a lci:OmnipresentIndividual ;
+  sso:id "China RoHS" ;
+  rdfs:label "GB/T 26572-2011" .
+:971fcbb4-6276-4c45-9564-c684d20400fa a lci:OmnipresentIndividual ;
+  sso:id "EU RoHS 3" ;
+  rdfs:label "2015/863 Amendment of RoHS 2" .
+:cab185ea-fcc3-4f69-a01d-318b97bad1f8 a lci:ClassOfEnumeratedIndividuals ,
+    :03ffc9a2-672f-4bc4-b7ee-be51fd13110f ;
+  owl:oneOf ( :593cbf9b-02e5-40b2-8fe2-7b88addfa095 :3064e0a9-4050-485e-90d3-9736da5418fc
+  :971fcbb4-6276-4c45-9564-c684d20400fa :932e0e7b-37ba-43b1-bddb-0b2bc37733d6 ) ;
+  sso:id "RoHS" ;
+  rdfs:label "Restriction of Hazardous Substances Directive" .
+:f18e620e-2a72-414f-acdc-50adb4a95f71 a lci:OmnipresentIndividual ;
+  sso:id "UL 94 V-0 " ;
+  rdfs:comment "Vertical Burn; Burning stops within 10 seconds, NO flaming drips are allowed" .

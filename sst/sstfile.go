@@ -9,10 +9,52 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-func newLogger() (*zap.Logger, zap.AtomicLevel) {
-	// Create a new zap logger with a JSON encoder and atomic level
-	level := zap.NewAtomicLevel()
-	encoder := zapcore.NewJSONEncoder(zapcore.EncoderConfig{
+// SST File Structure
+// ├── [8? bytes]  Magic Header "SST...."
+// ├── [varint+str] Graph URI
+// │
+// ├── IMPORTS
+// │   ├── [varint] Import Count
+// │   └── For each import:
+// │       └── [varint+str] Import Graph Base IRI
+// │
+// ├── REFERENCES
+// │   ├── [varint] Reference Count
+// │   └── For each reference:
+// │       └── [varint+str] Reference Graph IRI
+// │
+// ├── DICTIONARY
+// │   ├── [varint] IRI Node Count
+// │   ├── [varint] Blank Node Count
+// │   └── For each node (sorted):
+// │       ├── [varint+str] Fragment (blank="" )
+// │       └── [varint] Total Reference Count (tc)
+// │
+// │   ├── For each import graph (sorted by UUID):
+// │   │   ├── [varint] Ref Node Count
+// │   │   └── For each node (sorted by fragment):
+// │   │       ├── [varint+str] Fragment
+// │   │       └── [varint] Reference Count
+// │   │
+// │   └── For each reference graph (sorted by IRI):
+// │       └── (same structure as import)
+// │
+// └── CONTENT
+//     └── For each node (sorted):
+//         ├── [varint] Non-Literal Triple Count
+//         ├── Non-Literal Triples[]
+//         │   └── [varint] Pred Index, [varint] Obj Index
+//         │
+//         ├── [varint] Literal Triple Count
+//         └── Literal Triples[]
+//             ├── [varint] Pred Index
+//             └── Literal Data (type-specific encoding)
+//                 or [varint] Pred Index, [varint] Collection Flag,
+//                    [varint] Member Count, Literal Data[]
+
+// defaultEncoderConfig returns the default JSON encoder configuration for the sst package.
+func defaultEncoderConfig() zapcore.EncoderConfig {
+	return zapcore.EncoderConfig{
 		TimeKey:        "t",
 		LevelKey:       "level",
 		NameKey:        "logger",
@@ -22,24 +64,42 @@ func newLogger() (*zap.Logger, zap.AtomicLevel) {
 		StacktraceKey:  "stacktrace",
 		LineEnding:     zapcore.DefaultLineEnding,
 		EncodeLevel:    zapcore.LowercaseLevelEncoder,
-		EncodeTime:     zapcore.TimeEncoderOfLayout("15:04:05"),
-		EncodeDuration: zapcore.SecondsDurationEncoder,
+		EncodeTime:     zapcore.ISO8601TimeEncoder,
+		EncodeDuration: zapcore.StringDurationEncoder,
 		EncodeCaller:   zapcore.ShortCallerEncoder,
-	})
-
-	core := zapcore.NewCore(encoder, os.Stdout, level)
-	// for debugging, change to debugLevel, default is info level
-	// level.SetLevel(zap.DebugLevel)
-	return zap.New(core, zap.AddCaller(), zap.AddStacktrace(zap.ErrorLevel)), level
+	}
 }
 
-// GlobalLogger is an instance of a zap.Logger, which is a structured and high-performance logging library.
-// It is configured with a JSON encoder and writes logs to os.Stdout.
-// The logger includes caller information and stack traces for errors. It is used throughout the application for logging messages
-// AtomicLevel is a zap.AtomicLevel, which allows dynamic control of the logging level at runtime.
-// For example, you can change the logging level (e.g., from info to debug) by AtomicLevel.SetLevel(zap.DebugLevel) without restarting the application.
-// It is tied to the GlobalLogger and provides flexibility in managing log verbosity.
-var GlobalLogger, AtomicLevel = newLogger()
+// GlobalLogger defaults to a no-op logger and is used for all internal logging.
+// Callers can inject a custom logger via SetLogger or enable the default
+// stdout JSON logger via EnableDefaultLogger.
+var GlobalLogger *zap.Logger = zap.NewNop()
+
+// AtomicLevel controls the log level for the default logger. It can also be
+// used as a reference when adjusting logging verbosity at runtime.
+var AtomicLevel = zap.NewAtomicLevel()
+
+// SetLogger allows the caller (cli, server, or consumer application) to
+// inject a custom logger. Example: sst.SetLogger(zap.NewProduction()).
+func SetLogger(l *zap.Logger) {
+	if l != nil {
+		GlobalLogger = l
+	}
+}
+
+// EnableDefaultLogger explicitly enables the sst package default stdout JSON
+// logger. The default level is Info and can be changed at runtime through
+// AtomicLevel.SetLevel.
+func EnableDefaultLogger() {
+	encoder := zapcore.NewJSONEncoder(defaultEncoderConfig())
+	core := zapcore.NewCore(encoder, os.Stdout, AtomicLevel)
+	GlobalLogger = zap.New(core, zap.AddCaller(), zap.AddStacktrace(zap.ErrorLevel))
+}
+
+// SetLogLevel is a convenience helper to change the AtomicLevel.
+func SetLogLevel(l zapcore.Level) {
+	AtomicLevel.SetLevel(l)
+}
 
 var sstFileHeader = [8]byte{'S', 'S', 'T', '-', '1', '.', '0', 0}
 

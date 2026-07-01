@@ -1,0 +1,25 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:3bb9a425-8630-4122-9353-06555d407e7e#> .
+
+<urn:uuid:3bb9a425-8630-4122-9353-06555d407e7e> a owl:Ontology .
+:6f9e7422-3af3-4cf5-a7e1-0e8e454fafe1 a sso:ClassSystem ;
+  sso:id "BreakdownSystemType" ;
+  rdfs:label "Breakdown System Type" .
+:7a568b97-2861-4cad-8943-e17c44b0dae1 a lci:ClassOfIndividual ,
+    :6f9e7422-3af3-4cf5-a7e1-0e8e454fafe1 ;
+  sso:id "CompanySpecificBreakdownSystemType" ;
+  rdfs:label "Company Specific Breakdown System Type" .
+:ceff63b7-93f0-4d9f-9407-1e9898790c8d a lci:ClassOfIndividual ;
+  rdfs:subClassOf :e3f646fd-7f0b-44f4-af7c-b765e2ad000b ;
+  sso:id "IecIso81346BreakdownSystemType" ;
+  rdfs:comment "this includes earlier Standards such as IEC 61346" ;
+  rdfs:label "IEC/ISO 81346 BreakdownSystem type" .
+:e3f646fd-7f0b-44f4-af7c-b765e2ad000b a lci:ClassOfIndividual ,
+    :6f9e7422-3af3-4cf5-a7e1-0e8e454fafe1 ;
+  sso:id "StandardBreakdownSystem" ;
+  rdfs:label "Standard Breakdown System" .

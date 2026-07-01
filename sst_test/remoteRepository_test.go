@@ -11,10 +11,12 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 	"path/filepath"
 	"testing"
 
+	"github.com/blevesearch/bleve/v2"
+	"github.com/blevesearch/bleve/v2/search/query"
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/sst_test/testutil"
 	"github.com/semanticstep/sst-core/sstauth"
@@ -24,9 +26,6 @@ import (
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
-	"github.com/blevesearch/bleve/v2"
-	"github.com/blevesearch/bleve/v2/search/query"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -246,9 +245,8 @@ func Test_ExistRemoteRepositoryManually(t *testing.T) {
 }
 
 func Test_remoteRepository_MoveAndMergeBetweenTwoRepos(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir1 := filepath.Join("./testdata/" + testName + "1")
-	dir2 := filepath.Join("./testdata/" + testName + "2")
+	dir1 := filepath.Join(t.TempDir(), t.Name()+"1")
+	dir2 := filepath.Join(t.TempDir(), t.Name()+"2")
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 
 	transportCreds, err := testutil.TestTransportCreds()
@@ -257,12 +255,8 @@ func Test_remoteRepository_MoveAndMergeBetweenTwoRepos(t *testing.T) {
 	var commitHash sst.Hash
 	var modifiedDSIDs []uuid.UUID
 
-	defer os.RemoveAll(dir1)
-	defer os.RemoveAll(dir2)
-
 	t.Run("write_dir_1", func(t *testing.T) {
-		removeFolder(dir1)
-		removeFolder(dir2)
+
 		url := testutil.ServerServe(t, dir1)
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
 		repo, err := sst.OpenRemoteRepository(constructCtx, url, transportCreds)
@@ -353,17 +347,15 @@ func Test_remoteRepository_MoveAndMergeBetweenTwoRepos(t *testing.T) {
 }
 
 func Test_RemoteRepository_BleveCount(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 	query := bleve.NewMatchAllQuery()
 	searchRequest := bleve.NewSearchRequest(query)
 	var randomGraphID uuid.UUID
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
+
 		url := testutil.ServerServe(t, dir)
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
 		repo, err := sst.OpenRemoteRepository(constructCtx, url, transportCreds)
@@ -424,15 +416,13 @@ func Test_RemoteRepository_BleveCount(t *testing.T) {
 }
 
 func Test_RemoteRepositoryWithName_UUIDNamedGraph_Bleve(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngCIRI := sst.IRI(uuid.New().URN())
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
+
 		url := testutil.ServerServe(t, dir)
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
 		repo, err := sst.OpenRemoteRepository(constructCtx, url, transportCreds)
@@ -500,15 +490,13 @@ func Test_RemoteRepositoryWithName_UUIDNamedGraph_Bleve(t *testing.T) {
 }
 
 func Test_RemoteRepository_UUIDNamedGraph_Bleve(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngCIRI := sst.IRI(uuid.New().URN())
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
+
 		url := testutil.ServerServe(t, dir)
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
 		repo, err := sst.OpenRemoteRepository(constructCtx, url, transportCreds)
@@ -576,16 +564,14 @@ func Test_RemoteRepository_UUIDNamedGraph_Bleve(t *testing.T) {
 }
 
 func Test_RemoteRepository_CommitOnClosedRepo(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngCIRI := sst.IRI(uuid.New().URN())
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 
 	var modifiedDSIDs []uuid.UUID
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
+
 		url := testutil.ServerServe(t, dir)
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
 		repo, err := sst.OpenRemoteRepository(constructCtx, url, transportCreds)
@@ -627,17 +613,15 @@ func Test_RemoteRepository_CommitOnClosedRepo(t *testing.T) {
 }
 
 func Test_RemoteRepository_UUIDNamedGraph(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngCIRI := sst.IRI(uuid.New().URN())
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 
 	var returnedCommitHash sst.Hash
 	var modifiedDSIDs []uuid.UUID
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
+
 		url := testutil.ServerServe(t, dir)
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
 		repo, err := sst.OpenRemoteRepository(constructCtx, url, transportCreds)
@@ -723,6 +707,67 @@ func Test_RemoteRepository_UUIDNamedGraph(t *testing.T) {
 		assert.NotNil(t, cd.DatasetRevisions[ngCIRI])
 	})
 
+	t.Run("CommitForRevision", func(t *testing.T) {
+		url := testutil.ServerServe(t, dir)
+		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
+		repo, err := sst.OpenRemoteRepository(constructCtx, url, transportCreds)
+		if err != nil {
+			panic(err)
+		}
+		defer repo.Close()
+
+		ds, err := repo.Dataset(constructCtx, ngCIRI)
+		if err != nil {
+			panic(err)
+		}
+
+		cd, err := ds.CommitDetailsByHash(constructCtx, returnedCommitHash)
+		assert.NoError(t, err)
+		datasetRevisionHash, ok := cd.DatasetRevisions[ngCIRI]
+		assert.True(t, ok, "dataset revision should exist in commit details")
+
+		foundCommitHash, err := ds.CommitForRevision(constructCtx, datasetRevisionHash)
+		assert.NoError(t, err)
+		assert.Equal(t, returnedCommitHash, foundCommitHash, "CommitForRevision should return the original commit hash")
+
+		_, err = ds.CommitForRevision(constructCtx, sst.BytesToHash([]byte("non-existent-revision")))
+		assert.ErrorIs(t, err, sst.ErrDatasetRevisionNotFound)
+	})
+
+	t.Run("SetBranchRevision", func(t *testing.T) {
+		url := testutil.ServerServe(t, dir)
+		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
+		repo, err := sst.OpenRemoteRepository(constructCtx, url, transportCreds)
+		if err != nil {
+			panic(err)
+		}
+		defer repo.Close()
+
+		ds, err := repo.Dataset(constructCtx, ngCIRI)
+		if err != nil {
+			panic(err)
+		}
+
+		cd, err := ds.CommitDetailsByHash(constructCtx, returnedCommitHash)
+		assert.NoError(t, err)
+		datasetRevisionHash, ok := cd.DatasetRevisions[ngCIRI]
+		assert.True(t, ok, "dataset revision should exist in commit details")
+
+		err = ds.SetBranchRevision(constructCtx, datasetRevisionHash, "revisionBranch")
+		assert.NoError(t, err)
+
+		branchCommitHashMap, err := ds.Branches(constructCtx)
+		assert.NoError(t, err)
+		assert.Equal(t, returnedCommitHash, branchCommitHashMap["revisionBranch"], "branch should point to the commit that created the revision")
+
+		err = ds.SetBranchRevision(constructCtx, sst.BytesToHash([]byte("non-existent-revision")), "revisionBranch2")
+		assert.ErrorIs(t, err, sst.ErrDatasetRevisionNotFound)
+
+		// Clean up so that subsequent subtests see the expected branch state.
+		err = ds.RemoveBranch(constructCtx, "revisionBranch")
+		assert.NoError(t, err)
+	})
+
 	t.Run("setBranchAndBranches", func(t *testing.T) {
 		url := testutil.ServerServe(t, dir)
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
@@ -737,7 +782,7 @@ func Test_RemoteRepository_UUIDNamedGraph(t *testing.T) {
 			panic(err)
 		}
 
-		err = ds.SetBranch(constructCtx, returnedCommitHash, "testBranch")
+		err = ds.SetBranchCommit(constructCtx, returnedCommitHash, "testBranch")
 		if err != nil {
 			panic(err)
 		}
@@ -834,15 +879,13 @@ func Test_RemoteRepository_UUIDNamedGraph(t *testing.T) {
 }
 
 func Test_RemoteRepository_IRINamedGraph(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 	testIri := "http://ontology.semanticstep.net/abc#"
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
+
 		url := testutil.ServerServe(t, dir)
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
 		repo, err := sst.OpenRemoteRepository(constructCtx, url, transportCreds)
@@ -894,17 +937,14 @@ func Test_RemoteRepository_IRINamedGraph(t *testing.T) {
 }
 
 func Test_RemoteRepository_NGBImportNGC(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 	var returnedCommitHash sst.Hash
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		url := testutil.ServerServe(t, dir)
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance2)
@@ -986,17 +1026,14 @@ func Test_RemoteRepository_NGBImportNGC(t *testing.T) {
 }
 
 func Test_RemoteRepository_NGAImportsNGBImportsNGC(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		url := testutil.ServerServe(t, dir)
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
@@ -1077,8 +1114,7 @@ func Test_RemoteRepository_NGAImportsNGBImportsNGC(t *testing.T) {
 }
 
 func Test_RemoteRepository_DiamondCase(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
@@ -1086,9 +1122,7 @@ func Test_RemoteRepository_DiamondCase(t *testing.T) {
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		url := testutil.ServerServe(t, dir)
 		constructCtx := sstauth.ContextWithAuthProvider(context.TODO(), testutil.TestProviderInstance)
@@ -1181,8 +1215,7 @@ func Test_RemoteRepository_DiamondCase(t *testing.T) {
 }
 
 func Test_RemoteRepository_DiamondCaseContext(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngAIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361").URN())
 	ngBIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362").URN())
 	ngCIRI := sst.IRI(uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363").URN())
@@ -1190,9 +1223,7 @@ func Test_RemoteRepository_DiamondCaseContext(t *testing.T) {
 	transportCreds, err := testutil.TestTransportCreds()
 	require.NoError(t, err)
 
-	defer os.RemoveAll(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		// start test gRPC server
 		url := testutil.ServerServe(t, dir)

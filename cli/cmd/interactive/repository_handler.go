@@ -9,21 +9,19 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
 
+	"github.com/blevesearch/bleve/v2"
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/cli/cmd/utils"
 	"github.com/semanticstep/sst-core/defaultderive"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/sstauth"
-	"github.com/blevesearch/bleve/v2"
-	"github.com/google/uuid"
 	"go.etcd.io/bbolt"
-	"google.golang.org/grpc/status"
 )
 
 // handleClose handles closing a repository or SuperRepository based on its alias
@@ -45,7 +43,7 @@ func handleClose(alias string) {
 
 		// Close the repository
 		if err := repository.Close(); err != nil {
-			fmt.Printf("Failed to close repository '%s': %v\n", alias, err)
+			utils.PrintCLIProblem("close repository", err)
 			return
 		}
 		delete(interactiveConfig.Repositories, alias)
@@ -104,11 +102,9 @@ func handleInfo(alias string) {
 // Handle repository info
 func handleRepositoryInfo(repository sst.Repository) {
 	authCtx := utils.GetAuthContext(repository, interactiveConfig.AuthContexts)
-	utils.MuteLog()
 	info, err := repository.Info(authCtx, "")
-	utils.RestoreLog()
 	if err != nil {
-		fmt.Printf("Failed to retrieve repository info: %v\n", err)
+		utils.PrintCLIProblem("get repository info", err)
 		return
 	}
 	utils.PrintRepositoryInfo(info)
@@ -141,8 +137,8 @@ func handleRepositorySuperRepository(repoAlias string) {
 
 	if superRepoAlias == "" {
 		fmt.Printf("Repository '%s' belongs to a SuperRepository, but it's not currently opened in the CLI.\n", repoAlias)
-		fmt.Println("SuperRepository information:")
-		fmt.Println("  Type: unknown (not opened in CLI)")
+		fmt.Println("- SuperRepository information:")
+		fmt.Println("  - Type: unknown (not opened in CLI)")
 		return
 	}
 
@@ -150,9 +146,9 @@ func handleRepositorySuperRepository(repoAlias string) {
 	repoType := interactiveConfig.SuperRepositoryTypes[superRepoAlias]
 	location := interactiveConfig.SuperRepositoryLocations[superRepoAlias]
 
-	fmt.Printf("Repository '%s' belongs to SuperRepository '%s':\n", repoAlias, superRepoAlias)
-	fmt.Printf("  SuperRepository Type: %s\n", repoType)
-	fmt.Printf("  SuperRepository Location: %s\n", location)
+	fmt.Printf("- Repository '%s' belongs to SuperRepository '%s':\n", repoAlias, superRepoAlias)
+	fmt.Printf("  - SuperRepository Type: %s\n", repoType)
+	fmt.Printf("  - SuperRepository Location: %s\n", location)
 
 	// List all repositories in the SuperRepository
 	ctx := context.TODO()
@@ -162,15 +158,13 @@ func handleRepositorySuperRepository(repoAlias string) {
 		ctx = constructCtx
 	}
 
-	utils.MuteLog()
 	repoNames, err := superRepo.List(ctx)
-	utils.RestoreLog()
 	if err != nil {
-		fmt.Printf("  Error listing repositories: %v\n", err)
+		fmt.Printf("  - %s\n", utils.ExplainCLIError("list repositories", err))
 	} else {
-		fmt.Printf("  Total Repositories: %d\n", len(repoNames))
+		fmt.Printf("  - Total Repositories: %d\n", len(repoNames))
 		if len(repoNames) > 0 {
-			fmt.Print("  Repository Names: ")
+			fmt.Print("  - Repository Names: ")
 			for i, name := range repoNames {
 				if i > 0 {
 					fmt.Print(", ")
@@ -207,12 +201,10 @@ func handleDatasets(repoAlias string) {
 	authCtx := utils.GetAuthContext(repository, interactiveConfig.AuthContexts)
 
 	// get all dataset IRIs
-	utils.MuteLog()
 	// Show loading indicator while fetching dataset IRIs
 	utils.ShowLoadingIndicator("Fetching dataset IRIs...", func() {
 		datasets, err = repository.Datasets(authCtx)
 	})
-	utils.RestoreLog()
 
 	// Handle errors gracefully
 	if err != nil {
@@ -222,7 +214,7 @@ func handleDatasets(repoAlias string) {
 			fmt.Printf("No datasets found in repository '%s'. The repository is empty.\n", repoAlias)
 			return
 		}
-		fmt.Printf("Error retrieving datasets from repository '%s': %v\n", repoAlias, err)
+		utils.PrintCLIProblem("list datasets", err)
 		return
 	}
 
@@ -238,7 +230,7 @@ func handleDatasets(repoAlias string) {
 	}
 
 	// Display paginated output
-	fmt.Printf("Datasets in repository '%s':\n", repoAlias)
+	fmt.Printf("- Datasets in repository '%s':\n", repoAlias)
 	utils.PaginateOutput(lines, 20)
 }
 
@@ -288,11 +280,9 @@ func handleDataset(repoAlias string, args []string) {
 
 	authCtx := utils.GetAuthContext(repository, interactiveConfig.AuthContexts)
 
-	utils.MuteLog()
 	dataset, err := repository.Dataset(authCtx, sst.IRI(iri))
-	utils.RestoreLog()
 	if err != nil {
-		fmt.Printf("Error retrieving dataset: %v\n", err)
+		utils.PrintCLIProblem("open dataset", err)
 		return
 	}
 
@@ -302,83 +292,10 @@ func handleDataset(repoAlias string, args []string) {
 	interactiveConfig.Datasets[datasetAlias] = dataset
 	interactiveConfig.DatasetAliases = append(interactiveConfig.DatasetAliases, datasetAlias)
 
-	fmt.Printf("Dataset %s loaded successfully. ", datasetAlias)
-	displayOpenDatasets()
+	fmt.Printf("Dataset '%s' opened successfully.\n", datasetAlias)
 }
 
 var registerIndexOnce sync.Once
-
-func handleQueryUUID(alias string, args []string) {
-	repo, exists := interactiveConfig.Repositories[alias]
-	if !exists {
-		fmt.Printf("Error: Repository alias '%s' not found.\n", alias)
-		return
-	}
-
-	authCtx := utils.GetAuthContext(repo, interactiveConfig.AuthContexts)
-
-	utils.MuteLog()
-	info, err := repo.Info(authCtx, "")
-	if err != nil {
-		utils.RestoreLog()
-		fmt.Printf("Error retrieving repository info: %v\n", err)
-		return
-	}
-
-	if !info.IsRemote {
-		registerIndexOnce.Do(func() {
-			repo.RegisterIndexHandler(defaultderive.DeriveInfo())
-		})
-	}
-
-	bleveIndex := repo.Bleve()
-	if bleveIndex == nil {
-		fmt.Printf("Error: Repository '%s' does not have an index.\n", alias)
-		return
-	}
-
-	if len(args) == 0 {
-		fmt.Println("Usage: <repo-alias>.queryuuid <uuid> [--limit <number>]")
-		fmt.Println("Example: r1.queryuuid fbe2b5ad-2cc1-4549-a4d4-eb16972ce619")
-		return
-	}
-
-	limit := 10
-	var queryParts []string
-	for i := 0; i < len(args); i++ {
-		if args[i] == "--limit" && i+1 < len(args) {
-			n, err := strconv.Atoi(args[i+1])
-			if err == nil {
-				limit = n
-			}
-			i++
-		} else {
-			queryParts = append(queryParts, args[i])
-		}
-	}
-
-	uuidStr := strings.Join(queryParts, " ")
-	id, err := uuid.Parse(uuidStr)
-	if err != nil {
-		fmt.Printf("Error: Invalid UUID format: %v\n", err)
-		fmt.Println("Usage: <repo-alias>.queryuuid <uuid> [--limit <number>]")
-		return
-	}
-
-	q := bleve.NewDocIDQuery([]string{id.String()})
-	req := bleve.NewSearchRequest(q)
-	req.Size = limit
-	req.Fields = []string{"*"}
-
-	sr, err := bleveIndex.SearchInContext(authCtx, req)
-	utils.RestoreLog()
-	if err != nil {
-		log.Printf("Search error: %v\n", err)
-		return
-	}
-
-	utils.PrintSearchResultAllFields(sr)
-}
 
 func handleQuery(alias string, args []string) {
 	repo, exists := interactiveConfig.Repositories[alias]
@@ -389,11 +306,9 @@ func handleQuery(alias string, args []string) {
 
 	authCtx := utils.GetAuthContext(repo, interactiveConfig.AuthContexts)
 
-	utils.MuteLog()
 	info, err := repo.Info(authCtx, "")
 	if err != nil {
-		utils.RestoreLog()
-		fmt.Printf("Error retrieving repository info: %v\n", err)
+		utils.PrintCLIProblem("get repository info", err)
 		return
 	}
 
@@ -436,9 +351,8 @@ func handleQuery(alias string, args []string) {
 	req.Fields = []string{"*"}
 
 	sr, err := bleveIndex.SearchInContext(authCtx, req)
-	utils.RestoreLog()
 	if err != nil {
-		log.Printf("Search error: %v\n", err)
+		utils.PrintCLIProblem("search", err)
 		return
 	}
 
@@ -463,12 +377,10 @@ func handleLog(alias string, args []string) {
 
 	authCtx := utils.GetAuthContext(repo, interactiveConfig.AuthContexts)
 
-	utils.MuteLog()
 	logs, err := repo.Log(authCtx, nil, nil)
-	utils.RestoreLog()
 
 	if err != nil {
-		fmt.Printf("Error retrieving repository log: %v\n", err)
+		utils.PrintCLIProblem("get repository log", err)
 		return
 	}
 
@@ -505,13 +417,13 @@ func handleCommitInfo(alias string, args []string) {
 	commitHash := args[0]
 	hash, err := sst.StringToHash(commitHash)
 	if err != nil {
-		fmt.Printf("Invalid commit hash: %v\n", err)
+		fmt.Println(utils.FormatCLIProblem("parse commit hash", "invalid commit hash"))
 		return
 	}
 
 	detailsList, err := repo.CommitDetails(authCtx, []sst.Hash{hash})
 	if err != nil {
-		fmt.Printf("Failed to get commit details: %v\n", err)
+		utils.PrintCLIProblem("get commit details", err)
 		return
 	}
 	if len(detailsList) == 0 || detailsList[0] == nil {
@@ -521,6 +433,61 @@ func handleCommitInfo(alias string, args []string) {
 	detail := detailsList[0]
 
 	utils.PrintCommitDetails(detail)
+}
+
+func handleRepoCheckoutCommit(alias string, args []string) {
+	repo, ok := interactiveConfig.Repositories[alias]
+	if !ok {
+		fmt.Printf("Error: Repository alias '%s' not found.\n", alias)
+		return
+	}
+
+	if len(args) < 1 {
+		fmt.Println("Error: Missing arguments. Use '<repo-alias>.checkoutcommit <commit-hash>'.")
+		return
+	}
+
+	commitID := args[0]
+	aliasResult, err := utils.GetAlias(args, "stage")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	stageAlias := aliasResult.Alias
+
+	success := false
+	defer func() {
+		if success {
+			aliasResult.Confirm()
+		}
+	}()
+
+	hash, err := sst.StringToHash(commitID)
+	if err != nil {
+		fmt.Println(utils.FormatCLIProblem("parse commit hash", "invalid commit hash"))
+		return
+	}
+
+	if _, exists := interactiveConfig.Stages[stageAlias]; exists {
+		fmt.Printf("Error: Stage alias '%s' already exists.\n", stageAlias)
+		return
+	}
+
+	authCtx := utils.GetAuthContext(repo, interactiveConfig.AuthContexts)
+
+	stage, err := repo.CheckoutCommit(authCtx, hash, sst.DefaultTriplexMode)
+	if err != nil {
+		utils.PrintCLIProblem("checkout commit", err)
+		return
+	}
+
+	success = true
+
+	interactiveConfig.Stages[stageAlias] = stage
+	interactiveConfig.StageAliases = append(interactiveConfig.StageAliases, stageAlias)
+	interactiveConfig.StageCommits[stageAlias] = hash
+
+	fmt.Printf("Stage '%s' (commit %s) opened successfully.\n", stageAlias, commitID)
 }
 
 type RepoWithDB interface {
@@ -558,7 +525,7 @@ func handleDump(alias string, args []string) {
 
 	err := utils.DumpBboltFromDB(db, bucketPath)
 	if err != nil {
-		fmt.Printf("Dump failed: %v\n", err)
+		utils.PrintCLIProblem("dump repository", err)
 	}
 }
 
@@ -579,7 +546,7 @@ func handleCommitDiff(alias string, args []string) {
 	commitHashStr := args[0]
 	commitHash, err := sst.StringToHash(commitHashStr)
 	if err != nil {
-		fmt.Printf("Invalid commit hash: %v\n", err)
+		fmt.Println(utils.FormatCLIProblem("parse commit hash", "invalid commit hash"))
 		return
 	}
 
@@ -686,7 +653,7 @@ func handleDocumentSet(alias string, args []string) {
 	// Open the file
 	file, err := os.Open(inputPath)
 	if err != nil {
-		fmt.Printf("Failed to open file '%s': %v\n", inputPath, err)
+		utils.PrintCLIProblem("open file", err)
 		return
 	}
 	defer file.Close()
@@ -694,14 +661,14 @@ func handleDocumentSet(alias string, args []string) {
 	// Get file metadata
 	stat, err := file.Stat()
 	if err != nil {
-		fmt.Printf("Failed to stat file '%s': %v\n", inputPath, err)
+		utils.PrintCLIProblem("stat file", err)
 		return
 	}
 
 	// Step 1: Calculate hash first to check if document already exists
 	hasher := sha256.New()
 	if _, err := io.Copy(hasher, file); err != nil {
-		fmt.Printf("Failed to read file for hashing: %v\n", err)
+		utils.PrintCLIProblem("read file", err)
 		return
 	}
 
@@ -728,7 +695,7 @@ func handleDocumentSet(alias string, args []string) {
 
 	// Step 4: Reset file pointer and prepare for upload
 	if _, err := file.Seek(0, io.SeekStart); err != nil {
-		fmt.Printf("Failed to reset file pointer: %v\n", err)
+		utils.PrintCLIProblem("read file", err)
 		return
 	}
 
@@ -740,7 +707,7 @@ func handleDocumentSet(alias string, args []string) {
 	fmt.Printf("Uploading document '%s' to repository '%s'...\n", inputPath, alias)
 	uploadedHash, err := repo.DocumentSet(authCtx, mimeType, reader)
 	if err != nil {
-		fmt.Printf("Error uploading document: %v\n", err)
+		utils.PrintCLIProblem("upload document", err)
 		return
 	}
 
@@ -781,7 +748,7 @@ func handleDocument(alias string, args []string) {
 	var buf bytes.Buffer
 	info, err := repo.Document(authCtx, hash, &buf)
 	if err != nil {
-		fmt.Printf("Download failed: %v\n", err)
+		utils.PrintCLIProblem("download document", err)
 		return
 	}
 
@@ -798,18 +765,18 @@ func handleDocument(alias string, args []string) {
 	// Step 3: Write to file
 	outFile, err := os.Create(savePath)
 	if err != nil {
-		fmt.Printf("Failed to create file '%s': %v\n", savePath, err)
+		utils.PrintCLIProblem("write file", err)
 		return
 	}
 	defer outFile.Close()
 
 	if _, err := buf.WriteTo(outFile); err != nil {
-		fmt.Printf("Failed to write to file '%s': %v\n", savePath, err)
+		utils.PrintCLIProblem("write file", err)
 		return
 	}
 
 	fmt.Printf("Download successful. File saved as '%s'\n", savePath)
-	fmt.Println("Hash:", hash.String())
+	fmt.Printf("- Hash: %s\n", hash.String())
 }
 
 func handleDocumentInfo(alias string, args []string) {
@@ -821,7 +788,7 @@ func handleDocumentInfo(alias string, args []string) {
 	hashStr := args[0]
 	hash, err := sst.StringToHash(hashStr)
 	if err != nil {
-		fmt.Printf("Invalid hash: %v\n", err)
+		fmt.Println(utils.FormatCLIProblem("parse document hash", "invalid hash"))
 		return
 	}
 
@@ -835,7 +802,7 @@ func handleDocumentInfo(alias string, args []string) {
 
 	doc, err := repo.Document(ctx, hash, nil)
 	if err != nil {
-		fmt.Printf("Failed to retrieve document info: %v\n", err)
+		utils.PrintCLIProblem("get document info", err)
 		return
 	}
 
@@ -854,7 +821,7 @@ func handleDocuments(alias string) {
 	docs, err := repo.Documents(ctx)
 
 	if err != nil {
-		fmt.Printf("Error retrieving document list: %v\n", err)
+		utils.PrintCLIProblem("list documents", err)
 		return
 	}
 
@@ -884,11 +851,7 @@ func handleDocumentDelete(alias string, args []string) {
 
 	err = repo.DocumentDelete(ctx, hash)
 	if err != nil {
-		if s, ok := status.FromError(err); ok {
-			fmt.Printf("Failed to delete document: %s\n", s.Message())
-		} else {
-			fmt.Printf("Failed to delete document: %v\n", err)
-		}
+		utils.PrintCLIProblem("delete document", err)
 		return
 	}
 
@@ -934,20 +897,20 @@ func handleExtractSstFile(alias string, args []string) {
 	var buf bytes.Buffer
 	err = repo.ExtractSstFile(ctx, revisionHash, &buf)
 	if err != nil {
-		fmt.Printf("ExtractSstFile failed: %v\n", err)
+		utils.PrintCLIProblem("extract SST file", err)
 		return
 	}
 
 	// Write to file
 	outFile, err := os.Create(savePath)
 	if err != nil {
-		fmt.Printf("Failed to create file '%s': %v\n", savePath, err)
+		utils.PrintCLIProblem("write file", err)
 		return
 	}
 	defer outFile.Close()
 
 	if n, err := buf.WriteTo(outFile); err != nil {
-		fmt.Printf("Failed to write to file '%s': %v\n", savePath, err)
+		utils.PrintCLIProblem("write file", err)
 	} else {
 		fmt.Printf("Successfully extracted %d bytes to '%s'\n", n, savePath)
 	}
@@ -988,7 +951,7 @@ func handleOpenStage(alias string, args []string) {
 	interactiveConfig.Stages[stageAlias] = stage
 	interactiveConfig.StageAliases = append(interactiveConfig.StageAliases, stageAlias)
 
-	fmt.Printf("OpenStage '%s' successful.\n", stageAlias)
+	fmt.Printf("Stage '%s' opened successfully.\n", stageAlias)
 }
 
 func handleSyncFrom(alias string, args []string) {
@@ -1122,12 +1085,10 @@ func handleSyncFrom(alias string, args []string) {
 
 	// Perform the sync
 	fmt.Printf("Syncing from repository '%s' to repository '%s'...\n", sourceAlias, alias)
-	utils.MuteLog()
 	err := targetRepo.SyncFrom(ctx, sourceRepo, syncOptions...)
-	utils.RestoreLog()
 
 	if err != nil {
-		fmt.Printf("Error syncing from '%s' to '%s': %v\n", sourceAlias, alias, err)
+		utils.PrintCLIProblem("sync repository", err)
 		return
 	}
 

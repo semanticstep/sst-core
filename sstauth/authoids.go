@@ -294,7 +294,7 @@ func tokenFromIncomingContext(ctx context.Context) (string, error) {
 func UnaryRBACInterceptor(
 	verifier *oidc.IDTokenVerifier,
 	clientID string,
-	methodRoles map[string][]string,
+	methodRoles map[string]AccessMode,
 	expectedRepoName string,
 ) grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (any, error) {
@@ -314,10 +314,15 @@ func UnaryRBACInterceptor(
 		}
 
 		roles := RolesForClient(c, clientID)
+		roleList := make([]string, 0, len(roles))
+		for r := range roles {
+			roleList = append(roleList, r)
+		}
+		userMode := AccessModeFromRoles(roleList)
 
 		// Method-level RBAC
-		if required, ok := methodRoles[info.FullMethod]; ok && len(required) > 0 {
-			if !hasAnyRole(roles, required) {
+		if required, ok := methodRoles[info.FullMethod]; ok {
+			if !HasAccess(userMode, required) {
 				return nil, status.Error(codes.PermissionDenied, "forbidden")
 			}
 		}
@@ -351,19 +356,10 @@ func PrincipalFromContext(ctx context.Context) (*Principal, bool) {
 	return p, ok
 }
 
-func hasAnyRole(userRoles map[string]bool, required []string) bool {
-	for _, r := range required {
-		if userRoles[r] {
-			return true
-		}
-	}
-	return false
-}
-
 func StreamRBACInterceptor(
 	verifier *oidc.IDTokenVerifier,
 	clientID string,
-	methodRoles map[string][]string,
+	methodRoles map[string]AccessMode,
 	expectedRepoName string,
 ) grpc.StreamServerInterceptor {
 	return func(srv any, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
@@ -383,9 +379,14 @@ func StreamRBACInterceptor(
 		}
 
 		roles := RolesForClient(c, clientID)
+		roleList := make([]string, 0, len(roles))
+		for r := range roles {
+			roleList = append(roleList, r)
+		}
+		userMode := AccessModeFromRoles(roleList)
 
-		if required, ok := methodRoles[info.FullMethod]; ok && len(required) > 0 {
-			if !hasAnyRole(roles, required) {
+		if required, ok := methodRoles[info.FullMethod]; ok {
+			if !HasAccess(userMode, required) {
 				return status.Error(codes.PermissionDenied, "forbidden")
 			}
 		}

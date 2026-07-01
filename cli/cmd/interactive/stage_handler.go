@@ -3,10 +3,13 @@
 package interactive
 
 import (
+	"errors"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 
+	fs "github.com/relab/wrfs"
 	"github.com/semanticstep/sst-core/cli/cmd/utils"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/tools/validate"
@@ -132,7 +135,7 @@ func handleMoveAndMerge(targetAlias string, args []string) {
 
 	// 4) MoveAndMerge
 	if _, err := targetStage.MoveAndMerge(ctx, sourceStage); err != nil {
-		fmt.Printf("moveandmerge failed: %v\n", err)
+		utils.PrintCLIProblem("move and merge", err)
 		return
 	}
 
@@ -140,6 +143,44 @@ func handleMoveAndMerge(targetAlias string, args []string) {
 	cleanupStageFromConfig(sourceAlias, sourceStage)
 
 	fmt.Printf("Merged stage '%s' into '%s'.\n", sourceAlias, targetAlias)
+}
+
+// <to-stage-alias>.alignhistory <from-stage-alias>
+// Copies repository pointer and checkout metadata from from into to (see sst.Stage.AlignHistory).
+func handleAlignHistory(toAlias string, args []string) {
+	if len(args) < 1 {
+		fmt.Println("Usage: <to-stage-alias>.alignhistory <from-stage-alias>")
+		return
+	}
+	fromAlias := args[0]
+
+	toStage, ok := interactiveConfig.Stages[toAlias]
+	if !ok {
+		fmt.Printf("Stage alias '%s' not found.\n", toAlias)
+		return
+	}
+	if toStage == nil || !toStage.IsValid() {
+		fmt.Printf("Stage '%s' is not valid.\n", toAlias)
+		return
+	}
+
+	fromStage, ok := interactiveConfig.Stages[fromAlias]
+	if !ok {
+		fmt.Printf("Source stage alias '%s' not found.\n", fromAlias)
+		return
+	}
+	if fromStage == nil || !fromStage.IsValid() {
+		fmt.Printf("Source stage '%s' is not valid.\n", fromAlias)
+		return
+	}
+	if fromStage.Repository() == nil {
+		fmt.Printf("Source stage '%s' is not linked to a repository.\n", fromAlias)
+		return
+	}
+
+	toStage.AlignHistory(fromStage)
+
+	fmt.Printf("Aligned history from stage '%s' onto '%s'.\n", fromAlias, toAlias)
 }
 
 // <stage-alias>.rdfwrite <output-file>
@@ -164,10 +205,7 @@ func handleStageRdfWrite(stageAlias string, args []string) {
 	}
 
 	fileName := args[0]
-	// Default to .trig for TriG output if user didn't specify it.
-	if !strings.HasSuffix(strings.ToLower(fileName), ".trig") {
-		fileName += ".trig"
-	}
+	fileName = utils.EnsureOutputExt(fileName, ".trig")
 
 	// Check if file exists
 	if _, err := os.Stat(fileName); err == nil {
@@ -200,6 +238,71 @@ func handleStageRdfWrite(stageAlias string, args []string) {
 	}
 
 	fmt.Printf("TriG successfully written to %s\n", fileName)
+}
+
+// <stage-alias>.writesstfilesdirectory <directory>
+func handleWriteSstFilesDirectory(stageAlias string, args []string) {
+	stage, exists := interactiveConfig.Stages[stageAlias]
+	if !exists {
+		fmt.Printf("Error: Stage alias '%s' not found.\n", stageAlias)
+		return
+	}
+	if stage == nil {
+		fmt.Printf("Error: Stage '%s' is nil.\n", stageAlias)
+		return
+	}
+	if !stage.IsValid() {
+		fmt.Printf("Error: Stage '%s' is not valid.\n", stageAlias)
+		return
+	}
+
+	if len(args) == 0 {
+		fmt.Println("Usage: <stage>.writesstfilesdirectory <directory>")
+		return
+	}
+
+	dir := args[0]
+	info, err := os.Stat(dir)
+	if os.IsNotExist(err) {
+		if err := os.MkdirAll(dir, os.ModePerm); err != nil {
+			utils.PrintCLIProblem("create directory", err)
+			return
+		}
+	} else if err != nil {
+		utils.PrintCLIProblem("access directory", err)
+		return
+	} else if !info.IsDir() {
+		fmt.Printf("Error: path is not a directory: %s\n", dir)
+		return
+	}
+
+	absDir, err := filepath.Abs(dir)
+	if err != nil {
+		absDir = dir
+	}
+
+	var writeErr error
+	utils.ShowLoadingIndicator(fmt.Sprintf("Writing SST files for '%s'", stageAlias), func() {
+		writeErr = stage.WriteSstFilesDirectory(fs.DirFS(dir))
+	})
+	if writeErr != nil {
+		if errors.Is(writeErr, sst.ErrDirectoryExpectedAsBasePath) {
+			fmt.Fprintf(os.Stderr, "Error: path must be an existing directory: %s\n", dir)
+			return
+		}
+		utils.PrintCLIProblem("write SST files", writeErr)
+		return
+	}
+
+	fileCount := 0
+	if entries, err := os.ReadDir(dir); err == nil {
+		for _, e := range entries {
+			if !e.IsDir() {
+				fileCount++
+			}
+		}
+	}
+	fmt.Printf("SST files written to %s (%d file(s))\n", absDir, fileCount)
 }
 
 // <stage-alias>.trig
@@ -239,6 +342,7 @@ func cleanupStageFromConfig(stageAlias string, st sst.Stage) {
 	interactiveConfig.StageAliases = utils.RemoveAlias(interactiveConfig.StageAliases, stageAlias)
 	delete(interactiveConfig.StageBranches, stageAlias)
 	delete(interactiveConfig.StageCommits, stageAlias)
+	delete(interactiveConfig.StageRevisions, stageAlias)
 	delete(interactiveConfig.StageSources, stageAlias)
 
 	// // 2) Clean up NamedGraph aliases belonging to this stage (safe by matching NG.ID)
@@ -277,7 +381,12 @@ func handleStageCommit(stageAlias string, args []string) {
 	}
 
 	if len(args) < 1 {
-		fmt.Println("Usage: <stage-alias>.commit <message> [branch]")
+		fmt.Println(`Usage: <stage-alias>.commit <message> [branch]  (quote message if it contains spaces)`)
+		return
+	}
+	if len(args) > 2 {
+		fmt.Println(`Usage: <stage-alias>.commit <message> [branch]  (quote message if it contains spaces)`)
+		fmt.Println("Error: too many arguments.")
 		return
 	}
 
@@ -301,8 +410,8 @@ func handleStageCommit(stageAlias string, args []string) {
 		return
 	}
 
-	branchName := sst.DefaultBranch
-	if len(args) >= 2 && strings.TrimSpace(args[1]) != "" {
+	branchName := ""
+	if len(args) >= 2 {
 		branchName = strings.TrimSpace(args[1])
 	}
 
@@ -310,7 +419,7 @@ func handleStageCommit(stageAlias string, args []string) {
 
 	commitHash, _, err := stage.Commit(ctx, message, branchName)
 	if err != nil {
-		fmt.Printf("Commit failed: %v\n", err)
+		utils.PrintCLIProblem("commit", err)
 		return
 	}
 
@@ -324,27 +433,20 @@ func handleStageValidate(stageAlias string, args []string) {
 		return
 	}
 
+	if len(args) != 0 {
+		fmt.Printf("Usage: %s.validate\n", stageAlias)
+		return
+	}
+
 	// Suppress validation process output (ERROR, starting, finished messages)
 	utils.MuteStdout()
-	verbose := false
-	if len(args) > 0 {
-		for _, arg := range args {
-			if arg == "-v" || arg == "--verbose" {
-				verbose = true
-			}
-		}
-	}
 
 	report, err := validate.Validate(stage, validate.KindRdfType, validate.KindDomainRange)
 	utils.RestoreStdout()
 
 	if err != nil {
-		fmt.Printf("Validation failed: %v\n", err)
+		utils.PrintCLIProblem("validate stage", err)
 		return
 	}
-	if verbose {
-		fmt.Print(report.FormatHumanReadable())
-	} else {
-		fmt.Print(report.FormatSummary())
-	}
+	fmt.Print(report.FormatHumanReadable())
 }

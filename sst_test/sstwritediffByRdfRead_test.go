@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+	"text/tabwriter"
 
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/qau"
@@ -65,9 +66,18 @@ func readSSTFilesThenWriteDiff(t *testing.T, file1 string, file2 string) []sst.D
 	defer out.Close()
 
 	diffTriples, err := sst.SstWriteDiff(bufio.NewReader(bufioFrom), bufio.NewReader(bufioTo), out, true)
+	tw := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
 	for _, val := range diffTriples {
-		fmt.Println(val)
+		flagStr := "="
+		if val.Flag < 0 {
+			flagStr = "-"
+		}
+		if val.Flag > 0 {
+			flagStr = "+"
+		}
+		fmt.Fprintf(tw, "%s\t%s\t%s\t%s\n", flagStr, val.Sub, val.Pred, val.Obj)
 	}
+	tw.Flush()
 	if err != nil {
 		t.Fatalf("failed to write diff: %v", err)
 	}
@@ -125,8 +135,8 @@ func TestWriteDiffRdfReadV1V2(t *testing.T) {
 		assert.Equal(t, "5.00", diffTriples[1].Obj)
 
 		assert.Equal(t, sst.DiffTripleFlag(1), diffTriples[2].Flag)
-		assert.Equal(t, "_:b0", diffTriples[2].Sub)
-		assert.Equal(t, "qau:metre", diffTriples[2].Pred)
+		assert.Equal(t, "", diffTriples[2].Sub)
+		assert.Equal(t, "", diffTriples[2].Pred)
 		assert.Equal(t, "7.00", diffTriples[2].Obj)
 
 		assert.Equal(t, 3, len(diffTriples))

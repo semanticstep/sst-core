@@ -1,0 +1,13 @@
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:e755c1d9-5231-4f11-8c8b-c5aa20574919#> .
+@prefix ns3: <urn:uuid:4d7ee73d-5369-4a26-9653-0dd526496297#> .
+@prefix ns2: <urn:uuid:56a62282-d984-48c3-ba1f-98c23f67fa48#> .
+
+<urn:uuid:e755c1d9-5231-4f11-8c8b-c5aa20574919> a owl:Ontology ;
+  owl:imports <urn:uuid:56a62282-d984-48c3-ba1f-98c23f67fa48> .
+:caaad355-b625-49c5-8d71-dd0168562b47 a sso:PartSpecification ,
+    ns3:1dfd12ca-c756-4d55-ac7b-d6353dfea5f8 ;
+  ns2:f07d725b-6ac8-472e-87ac-bdf6fb3fe50a "D38999/26TD18SN" .

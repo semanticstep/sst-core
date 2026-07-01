@@ -1,0 +1,6 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:5aab126b-70ad-4b9f-accf-5121bd60779f#> .
+
+<urn:uuid:5aab126b-70ad-4b9f-accf-5121bd60779f> a owl:Ontology .

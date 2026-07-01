@@ -22,7 +22,7 @@ func TestTraversal(t *testing.T) {
 	// t.Skip("for manually using")
 	hashNil := sst.HashNil()
 	fmt.Printf("HashNil %s\n", hashNil)
-	db, err := bbolt.Open(filepath.Join("testdata/Test_RemoteRepository_CheckoutRevision_BasicServer/bbolt.db"), 0600, nil)
+	db, err := bbolt.Open(filepath.Join("testdata/Test_RemoteRepository_CheckoutRevision_BasicServer/bbolt.db"), 0600, &bbolt.Options{ReadOnly: true})
 	if err != nil {
 		fmt.Println(err)
 		return

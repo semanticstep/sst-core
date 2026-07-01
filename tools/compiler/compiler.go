@@ -8,7 +8,7 @@
 // Ontology source:
 //
 //	The compiler reads .ttl files from the standalone module
-//	    git.semanticstep.net/x/sst-ontologies
+//	    github.com/semanticstep/sst-ontologies
 //	which exposes all ontologies via an embed.FS (ontologies.FS).
 //
 //	LoadDictOntologies works with any fs.FS, so it can also be pointed at a local
@@ -122,11 +122,11 @@ var (
 		VocabOwl.BaseIRI:           {"rdf": {}, "rdfs": {}, "xsd": {}},
 		VocabLci.BaseIRI:           {"rdf": {}, "rdfs": {}, "xsd": {}, "owl": {}},
 		VocabSsrep.BaseIRI:         {"rdf": {}, "rdfs": {}, "xsd": {}, "lci": {}, "ssmeta": {}},
-		VocabSsqau.BaseIRI:         {"xsd": {}, "lci": {}},
+		VocabSsqau.BaseIRI:         {"rdf": {}, "xsd": {}, "lci": {}},
 		VocabColor.BaseIRI:         {"xsd": {}, "lci": {}},
 		VocabCountrycodes.BaseIRI:  {"xsd": {}, "lci": {}},
 		VocabCurrencycodes.BaseIRI: {"xsd": {}, "lci": {}},
-		VocabSso.BaseIRI:           {"rdf": {}, "xsd": {}, "ssmeta": {}, "lci": {}, "rep": {}},
+		VocabSso.BaseIRI:           {"rdf": {}, "xsd": {}, "ssmeta": {}, "lci": {}, "rep": {}, "qau": {}},
 		VocabSkos.BaseIRI:          {"rdf": {}, "rdfs": {}},
 	}
 
@@ -142,10 +142,10 @@ var (
 		VocabSkos.BaseIRI:   "skos",
 		VocabEed.BaseIRI:    "eed",
 		VocabSh.BaseIRI:     "sh",
+		VocabSsqau.BaseIRI:  "qau",
 	}
 
 	neededCompileDictTTL = map[string]string{
-		VocabSsqau.BaseIRI:         "qau",
 		VocabColor.BaseIRI:         "color",
 		VocabCountrycodes.BaseIRI:  "countrycodes",
 		VocabCurrencycodes.BaseIRI: "currencycodes",
@@ -272,7 +272,20 @@ type vocabProperties struct {
 	mainClassSupersedure map[sst.IBNode]struct{}
 }
 
-func collectMainClassSupersedure(ib sst.IBNode, vp vocabProperties) {
+func collectMainClassSupersedure(ib sst.IBNode, vp vocabProperties, visited map[sst.IBNode]struct{}, path []sst.IBNode) {
+	if _, ok := visited[ib]; ok {
+		var b strings.Builder
+		for _, n := range path {
+			b.WriteString(n.IRI().String())
+			b.WriteString(" -> ")
+		}
+		b.WriteString(ib.IRI().String())
+		log.Panicf("collectMainClassSupersedure: circular subClassOf inheritance detected: %s", b.String())
+	}
+	visited[ib] = struct{}{}
+	defer delete(visited, ib)
+
+	path = append(path, ib)
 	ib.ForAll(func(_ int, ibS, ibP sst.IBNode, o sst.Term) error {
 		if ibS == ib { // not inverse
 			if !sst.IsKindIBNode(o) {
@@ -280,7 +293,7 @@ func collectMainClassSupersedure(ib sst.IBNode, vp vocabProperties) {
 			}
 			o := o.(sst.IBNode)
 			if ibP.Is(rdfsSubClassOf) {
-				collectMainClassSupersedure(o, vp)
+				collectMainClassSupersedure(o, vp, visited, path)
 			} else if ibP.Is(rdfType) && o.Is(ssmetaMainClass) {
 				vp.mainClassSupersedure[ib] = struct{}{}
 			}
@@ -323,7 +336,7 @@ func collectPropertyInheritance(ib sst.IBNode) vocabProperties {
 				} else if o.Is(ssmetaMainClass) {
 					vp.mainClassSupersedure = map[sst.IBNode]struct{}{}
 					for _, s := range vp.subtypeOf {
-						collectMainClassSupersedure(s, vp)
+						collectMainClassSupersedure(s, vp, make(map[sst.IBNode]struct{}), nil)
 					}
 				} else if o.Is(ssmetaOptionClass) {
 					vp.isOptionClass = true
@@ -340,7 +353,7 @@ func collectPropertyInheritance(ib sst.IBNode) vocabProperties {
 				vp.isClass = true
 				vp.subtypeOf = append(vp.subtypeOf, o)
 				if vp.mainClassSupersedure != nil {
-					collectMainClassSupersedure(o, vp)
+					collectMainClassSupersedure(o, vp, make(map[sst.IBNode]struct{}), nil)
 				}
 			}
 			if p.Is(rdfsSubPropertyOf) {
@@ -450,7 +463,7 @@ func compileSSTtoGO(graph sst.NamedGraph, output string, vocab sst.Vocabulary, v
 		return
 	}
 
-	err := graph.Stage().ForUndefinedIBNodes(func(d sst.IBNode) error {
+	err := graph.ForUndefinedIBNodes(func(d sst.IBNode) error {
 		if d.Fragment() != "" { // skip default IBNodes representing the whole NG
 			fmt.Printf("WARNING: Unknown Node %s\n", prettyID(d, vocab))
 		}
@@ -1099,7 +1112,7 @@ func generateDict(dict sst.Stage) (map[sst.Vocabulary]sst.NamedGraph, error) {
 	if err != nil {
 		log.Panic(err)
 	}
-	err = dict.WriteToSstFilesWithBaseURL(wrfs.DirFS("vocabularies/" + destDictDir))
+	err = dict.WriteSstFilesDirectory(wrfs.DirFS("vocabularies/" + destDictDir))
 
 	if err != nil {
 		log.Panic(err)

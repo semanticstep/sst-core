@@ -1,0 +1,182 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix qau: <http://ontology.semanticstep.net/qau#> .
+@prefix ssmeta: <http://ontology.semanticstep.net/ssmeta#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:2bd3bbaa-4715-4b19-a712-33b0311b3f01#> .
+
+<urn:uuid:2bd3bbaa-4715-4b19-a712-33b0311b3f01> a owl:Ontology .
+:02787b40-48d7-472e-8bc7-e97df5005711 a lci:OmnipresentIndividual ;
+  sso:id "0000" .
+:02e843d8-1d8d-40fe-9e15-bf5febbf543c a lci:ClassOfIndividual ,
+    lci:OmnipresentIndividual ;
+  :7464d0cd-e7e1-4494-90a0-b73adfdfeac4 [
+  a qau:Length ;
+  qau:milliMetre 1.29032
+] ;
+  :a3e47836-88e3-4e8a-801c-c8e23b1395af [
+  a qau:Area ;
+  qau:squareMilliMetre 1.31
+] ;
+  sso:id "16" .
+:0fa17a26-fb12-4a4b-adb9-abffbcb37020 a lci:ClassOfIndividual ,
+    lci:OmnipresentIndividual ;
+  :7464d0cd-e7e1-4494-90a0-b73adfdfeac4 [
+  a qau:Length ;
+  qau:milliMetre 11.684
+] ;
+  :a3e47836-88e3-4e8a-801c-c8e23b1395af [
+  a qau:Area ;
+  qau:squareMilliMetre 107.0
+] ;
+  sso:id "0" .
+:194fccfb-eef5-48fb-9503-cee498b56c78 a lci:OmnipresentIndividual ;
+  sso:id "2" .
+:1f7c6404-3bd8-43fd-902f-4ab18b8596ee a lci:OmnipresentIndividual ;
+  sso:id "21" .
+:24ccde9e-cbf1-4d9d-b0c0-55055b19edef a lci:OmnipresentIndividual ;
+  sso:id "6" .
+:286fccef-da22-4afe-a85a-08048ac4f42b a lci:OmnipresentIndividual ;
+  sso:id "39" .
+:2a5d0adf-7bc6-4c36-bc78-ab1f662cf7fd a lci:OmnipresentIndividual ;
+  sso:id "8" .
+:2c42dbf6-cd68-43f9-ae6c-8d2e06038640 a lci:OmnipresentIndividual ;
+  sso:id "14" .
+:2df4869e-8cb8-44e2-8adc-ca42efa6a93d a lci:OmnipresentIndividual ;
+  sso:id "15" .
+:2ea2292c-3420-4bdc-b471-fc8a5fb67660 a lci:OmnipresentIndividual ;
+  sso:id "00" .
+:2fc8e9ab-0b75-4364-a434-a4a5d4753a5a a lci:OmnipresentIndividual ;
+  sso:id "18" .
+:326bd1ff-d7ff-4a39-a924-6b088b7bf7ae a lci:ClassOfIndividual ,
+    lci:OmnipresentIndividual ;
+  :7464d0cd-e7e1-4494-90a0-b73adfdfeac4 [
+  a qau:Length ;
+  qau:milliMetre 0.64516
+] ;
+  :a3e47836-88e3-4e8a-801c-c8e23b1395af [
+  a qau:Area ;
+  qau:squareMilliMetre 0.326
+] ;
+  sso:id "22" .
+:3cb32fa5-a994-4ae5-b7ca-379473eb53a4 a lci:OmnipresentIndividual ;
+  sso:id "24" .
+:41c33d5b-6f1d-4da1-8343-9bc39b515716 a lci:OmnipresentIndividual ;
+  sso:id "25" .
+:4a076696-379e-4f2a-8787-fc6b9afa911e a lci:OmnipresentIndividual ;
+  sso:id "3" .
+:4af51c8e-9dbc-4952-aebb-acc3882db24e a lci:OmnipresentIndividual ;
+  sso:id "10" .
+:54bb32fe-5e4d-4aff-89e8-11ff4dd9419d a lci:OmnipresentIndividual ;
+  sso:id "23" .
+:54df523f-ae44-4f95-b8ee-76139b98e6dd a lci:OmnipresentIndividual ;
+  sso:id "5" .
+:56212caa-9d1d-4ef1-9ffc-51ee2b52c0cf a lci:OmnipresentIndividual ;
+  sso:id "28" .
+:5823dc15-6309-4389-8d72-ba0b7a7883fe a lci:OmnipresentIndividual ;
+  sso:id "40" .
+:5a950b6a-8089-45b7-9325-1c99b6c8611e a lci:OmnipresentIndividual ;
+  sso:id "000" .
+:5ab96f40-39eb-482a-8946-00ea9bb8ef04 a lci:OmnipresentIndividual ;
+  sso:id "11" .
+:5c963ed0-71eb-4c98-a908-1a831676d759 a lci:OmnipresentIndividual ;
+  sso:id "17" .
+:717d7b1b-4888-4312-b067-dd618f25b208 a lci:OmnipresentIndividual ;
+  sso:id "35" .
+:7464d0cd-e7e1-4494-90a0-b73adfdfeac4 a lci:PhysicalProperty ,
+    lci:PropertyDefinition ,
+    owl:FunctionalProperty ,
+    owl:ObjectProperty ,
+    :938dab04-5175-4b32-be26-823911aa1bcb ;
+  rdfs:range lci:NominalQuantity ,
+    qau:Length ;
+  sso:id "Diameter" .
+:813e2c74-5cbe-4961-bda0-fa49b6157b66 a lci:OmnipresentIndividual ;
+  sso:id "4" .
+:82b677c8-5d61-4ad7-8cea-c5258483dcc3 a lci:OmnipresentIndividual ;
+  sso:id "13" .
+:8ce7287a-0575-435e-977e-8d8669eca410 a lci:OmnipresentIndividual ;
+  sso:id "26" .
+:8e7225e9-aac2-4518-8c64-356b18cfa762 a lci:OmnipresentIndividual ;
+  sso:id "38" .
+:9096711d-36cf-451d-90ba-7fb4462e5c1e a lci:ClassOfIndividual ,
+    lci:OmnipresentIndividual ;
+  :7464d0cd-e7e1-4494-90a0-b73adfdfeac4 [
+  a qau:Length ;
+  qau:milliMetre 0.8128
+] ;
+  :a3e47836-88e3-4e8a-801c-c8e23b1395af [
+  a qau:Area ;
+  qau:squareMilliMetre 0.518
+] ;
+  sso:id "20" .
+:92e66919-09bf-4ca2-8bef-b303401783de a lci:OmnipresentIndividual ;
+  sso:id "7" .
+:938dab04-5175-4b32-be26-823911aa1bcb a sso:ClassSystem ;
+  sso:id "EWH_Specifics" ;
+  rdfs:label "EWH Specifics" .
+:966dcab7-99d3-4806-b6ba-cb41cffbde8c a lci:OmnipresentIndividual ;
+  sso:id "30" .
+:a283d534-d55a-4a00-ba13-54c8b59caf14 a lci:OmnipresentIndividual ;
+  sso:id "29" .
+:a3e47836-88e3-4e8a-801c-c8e23b1395af a lci:PhysicalProperty ,
+    lci:PropertyDefinition ,
+    owl:FunctionalProperty ,
+    owl:ObjectProperty ,
+    :938dab04-5175-4b32-be26-823911aa1bcb ;
+  rdfs:range lci:NominalQuantity ,
+    qau:Area ;
+  sso:id "Cross Sectional Area" .
+:ab496d63-6542-4d29-99ca-1c5688746341 a lci:OmnipresentIndividual ;
+  sso:id "31" .
+:c30ac8ff-9e1a-44dc-aaeb-9cc6839b7ee3 a lci:ClassOfEnumeratedIndividuals ,
+    :938dab04-5175-4b32-be26-823911aa1bcb ;
+  ssmeta:formProperties ( :7464d0cd-e7e1-4494-90a0-b73adfdfeac4 :a3e47836-88e3-4e8a-801c-c8e23b1395af ) ;
+  owl:oneOf ( :9096711d-36cf-451d-90ba-7fb4462e5c1e :326bd1ff-d7ff-4a39-a924-6b088b7bf7ae
+  :02787b40-48d7-472e-8bc7-e97df5005711 :5a950b6a-8089-45b7-9325-1c99b6c8611e
+  :2ea2292c-3420-4bdc-b471-fc8a5fb67660 :d514301a-528b-489d-ae75-23ff1f974c4f
+  :194fccfb-eef5-48fb-9503-cee498b56c78 :4a076696-379e-4f2a-8787-fc6b9afa911e
+  :813e2c74-5cbe-4961-bda0-fa49b6157b66 :54df523f-ae44-4f95-b8ee-76139b98e6dd
+  :24ccde9e-cbf1-4d9d-b0c0-55055b19edef :92e66919-09bf-4ca2-8bef-b303401783de
+  :2a5d0adf-7bc6-4c36-bc78-ab1f662cf7fd :ec721df7-31b4-43c0-9380-85c17257b5d2
+  :4af51c8e-9dbc-4952-aebb-acc3882db24e :5ab96f40-39eb-482a-8946-00ea9bb8ef04
+  :f4e958c4-6d34-4af3-805f-a6c5f96e7080 :2c42dbf6-cd68-43f9-ae6c-8d2e06038640
+  :2df4869e-8cb8-44e2-8adc-ca42efa6a93d :02e843d8-1d8d-40fe-9e15-bf5febbf543c
+  :5c963ed0-71eb-4c98-a908-1a831676d759 :2fc8e9ab-0b75-4364-a434-a4a5d4753a5a
+  :ff743da3-7e89-4f29-b333-f643b438fdf2 :1f7c6404-3bd8-43fd-902f-4ab18b8596ee
+  :54bb32fe-5e4d-4aff-89e8-11ff4dd9419d :3cb32fa5-a994-4ae5-b7ca-379473eb53a4
+  :41c33d5b-6f1d-4da1-8343-9bc39b515716 :8ce7287a-0575-435e-977e-8d8669eca410
+  :dccb9327-0940-49e1-962a-66ab1747a44a :56212caa-9d1d-4ef1-9ffc-51ee2b52c0cf
+  :a283d534-d55a-4a00-ba13-54c8b59caf14 :966dcab7-99d3-4806-b6ba-cb41cffbde8c
+  :ab496d63-6542-4d29-99ca-1c5688746341 :d926bef1-ff89-495e-86d1-8ea9a876595d
+  :da354c72-f0e7-4015-a31d-2d680dafbbe4 :dc69b5c3-4e21-4582-9b75-8ad06d519256
+  :717d7b1b-4888-4312-b067-dd618f25b208 :c9277003-82a3-43a3-b99a-436e7214cb48
+  :f1c9a83d-4603-4648-9ef7-cdfb0f9040f5 :8e7225e9-aac2-4518-8c64-356b18cfa762
+  :286fccef-da22-4afe-a85a-08048ac4f42b :5823dc15-6309-4389-8d72-ba0b7a7883fe
+  :0fa17a26-fb12-4a4b-adb9-abffbcb37020 ) ;
+  sso:id "AWG" ;
+  rdfs:comment "a logarithmic stepped standardized wire gauge system used since 1857, predominantly in North America, for the diameters of round, solid, nonferrous, electrically conducting wire." ;
+  rdfs:label "American Wire Gauge" .
+:c9277003-82a3-43a3-b99a-436e7214cb48 a lci:OmnipresentIndividual ;
+  sso:id "36" .
+:d514301a-528b-489d-ae75-23ff1f974c4f a lci:OmnipresentIndividual ;
+  sso:id "1" .
+:d926bef1-ff89-495e-86d1-8ea9a876595d a lci:OmnipresentIndividual ;
+  sso:id "32" .
+:da354c72-f0e7-4015-a31d-2d680dafbbe4 a lci:OmnipresentIndividual ;
+  sso:id "33" .
+:dc69b5c3-4e21-4582-9b75-8ad06d519256 a lci:OmnipresentIndividual ;
+  sso:id "34" .
+:dccb9327-0940-49e1-962a-66ab1747a44a a lci:OmnipresentIndividual ;
+  sso:id "27" .
+:ec721df7-31b4-43c0-9380-85c17257b5d2 a lci:OmnipresentIndividual ;
+  sso:id "9" .
+:f1c9a83d-4603-4648-9ef7-cdfb0f9040f5 a lci:OmnipresentIndividual ;
+  sso:id "37" .
+:f4e958c4-6d34-4af3-805f-a6c5f96e7080 a lci:OmnipresentIndividual ;
+  sso:id "12" .
+:ff743da3-7e89-4f29-b333-f643b438fdf2 a lci:OmnipresentIndividual ;
+  sso:id "19" .

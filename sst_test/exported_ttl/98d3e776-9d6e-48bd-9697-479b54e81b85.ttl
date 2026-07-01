@@ -1,0 +1,61 @@
+@prefix lci: <http://ontology.semanticstep.net/lci#> .
+@prefix sso: <http://ontology.semanticstep.net/sso#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:98d3e776-9d6e-48bd-9697-479b54e81b85#> .
+
+<urn:uuid:98d3e776-9d6e-48bd-9697-479b54e81b85> a owl:Ontology .
+:0d84196e-d15e-4348-8121-0ac6973bded3 a lci:ClassOfIndividual ,
+    :3ffb3e73-40c8-4210-ad80-3dd7f37f86bf ;
+  sso:id "G" ;
+  rdfs:comment "prime process of governing activities and interactions of other prime processes" ;
+  rdfs:label "managing process" .
+:0e5c0877-3617-4385-b109-36f1610d58ef a lci:ClassOfIndividual ,
+    :3ffb3e73-40c8-4210-ad80-3dd7f37f86bf ;
+  sso:id "E" ;
+  rdfs:comment "prime process of moving an object" ;
+  rdfs:label "transporting process" .
+:12b4b492-cf9b-4347-9435-4c3141ae75db a lci:ClassOfIndividual ,
+    :3ffb3e73-40c8-4210-ad80-3dd7f37f86bf ;
+  sso:id "B" ;
+  rdfs:comment "prime process of retrieving an object" ;
+  rdfs:label "extracting process" .
+:3ffb3e73-40c8-4210-ad80-3dd7f37f86bf a sso:ClassSystem ;
+  sso:id "ISO81346-50_AA1_prime_processes" .
+:4fb357ba-53d1-46f3-8a9c-2db084babbe5 a lci:ClassOfIndividual ,
+    :3ffb3e73-40c8-4210-ad80-3dd7f37f86bf ;
+  sso:id "J" ;
+  rdfs:comment "prime process of destroying an existing object" ;
+  rdfs:label "destroying process" .
+:7efecfa0-b9b8-47d5-a467-112d531a7c6e a lci:ClassOfIndividual ,
+    :3ffb3e73-40c8-4210-ad80-3dd7f37f86bf ;
+  sso:id "D" ;
+  rdfs:comment "prime process of treating an existing object to serve the same purposes or needs" ;
+  rdfs:label "treating process" .
+:bc96cdbd-1050-4c0e-84c2-00d40110bfa5 a lci:ClassOfIndividual ,
+    :3ffb3e73-40c8-4210-ad80-3dd7f37f86bf ;
+  sso:id "C" ;
+  rdfs:comment "prime process of making a new object" ;
+  rdfs:label "producing process" .
+:d312f008-137d-47f5-927e-558e2aeef97d a lci:ClassOfIndividual ,
+    :3ffb3e73-40c8-4210-ad80-3dd7f37f86bf ;
+  sso:id "A" ;
+  rdfs:comment "prime process of designing an object" ;
+  rdfs:label "designing process" .
+:ea8ee7d7-eea2-40d6-8e68-c3a1a33bdf0e a lci:ClassOfIndividual ,
+    :3ffb3e73-40c8-4210-ad80-3dd7f37f86bf ;
+  sso:id "K" ;
+  rdfs:comment "prime process of modifying an existing entity to serve new purposes or needs" ;
+  rdfs:label "modifying process" .
+:f1cb74ec-dd6e-4837-91ac-66dd7be76e94 a lci:ClassOfIndividual ,
+    :3ffb3e73-40c8-4210-ad80-3dd7f37f86bf ;
+  sso:id "H" ;
+  rdfs:comment "prime process of facilitating the exchange of ownership" ;
+  rdfs:label "transacting process" .
+:f3efb938-fa17-425b-a468-2c47b09c629e a lci:ClassOfIndividual ,
+    :3ffb3e73-40c8-4210-ad80-3dd7f37f86bf ;
+  sso:id "F" ;
+  rdfs:comment "prime process of transmitting information" ;
+  rdfs:label "communicating process" .

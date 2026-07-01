@@ -1,8 +1,8 @@
-@prefix rep:	<http://ontology.semanticstep.net/rep#> .
-@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
-@prefix owl:	<http://www.w3.org/2002/07/owl#> .
-@prefix :	<urn:uuid:c1efcf54-3e8e-4cc7-a7d1-82a9f613a363#> .
+@prefix rep: <http://ontology.semanticstep.net/rep#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <urn:uuid:c1efcf54-3e8e-4cc7-a7d1-82a9f613a363#> .
 
-<urn:uuid:c1efcf54-3e8e-4cc7-a7d1-82a9f613a363>	a	owl:Ontology .
-:mainC	a	rep:SchematicPort .
+<urn:uuid:c1efcf54-3e8e-4cc7-a7d1-82a9f613a363> a owl:Ontology .
+:mainC a rep:SchematicPort .

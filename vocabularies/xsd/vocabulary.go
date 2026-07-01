@@ -6,6 +6,7 @@ package xsd
 
 import (
 	"reflect"
+
 	"github.com/semanticstep/sst-core/sst"
 )
 
@@ -42,7 +43,7 @@ var AnySimpleType = anySimpleTypeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "anySimpleType"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -71,7 +72,7 @@ var AnyURI = anyURII{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "anyURI"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -100,7 +101,7 @@ var Base64Binary = base64BinaryI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "base64Binary"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -129,7 +130,7 @@ var Boolean = booleanI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "boolean"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -163,7 +164,7 @@ var Byte = byteI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "byte"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -192,7 +193,7 @@ var Date = dateI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "date"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -221,7 +222,7 @@ var DateTime = dateTimeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "dateTime"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -250,7 +251,7 @@ var DateTimeStamp = dateTimeStampI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "dateTimeStamp"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -279,7 +280,7 @@ var Decimal = decimalI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "decimal"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -308,7 +309,7 @@ var Double = doubleI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "double"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -337,7 +338,7 @@ var Duration = durationI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "duration"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -366,7 +367,7 @@ var Float = floatI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "float"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -392,10 +393,10 @@ var fractionDigitsKindInterface reflect.Type
 
 var FractionDigits = fractionDigitsI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "fractionDigits"},
-	ARange:            NonNegativeInteger,
+	ARange:  NonNegativeInteger,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -424,7 +425,7 @@ var HexBinary = hexBinaryI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "hexBinary"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -456,7 +457,7 @@ var Int = intI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "int"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -486,7 +487,7 @@ var Integer = integerI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "integer"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -518,7 +519,7 @@ var Language = languageI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "language"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -544,10 +545,10 @@ var lengthKindInterface reflect.Type
 
 var Length = lengthI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "length"},
-	ARange:            NonNegativeInteger,
+	ARange:  NonNegativeInteger,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -578,7 +579,7 @@ var Long = longI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "long"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -606,7 +607,7 @@ var MaxExclusive = maxExclusiveI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "maxExclusive"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -634,7 +635,7 @@ var MaxInclusive = maxInclusiveI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "maxInclusive"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -660,10 +661,10 @@ var maxLengthKindInterface reflect.Type
 
 var MaxLength = maxLengthI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "maxLength"},
-	ARange:            NonNegativeInteger,
+	ARange:  NonNegativeInteger,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -691,7 +692,7 @@ var MinExclusive = minExclusiveI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "minExclusive"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -719,7 +720,7 @@ var MinInclusive = minInclusiveI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "minInclusive"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -745,10 +746,10 @@ var minLengthKindInterface reflect.Type
 
 var MinLength = minLengthI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "minLength"},
-	ARange:            NonNegativeInteger,
+	ARange:  NonNegativeInteger,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -766,13 +767,14 @@ type KindNegativeInteger interface {
 
 type negativeIntegerI struct{ sst.ElementInfo }
 
-func (negativeIntegerI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23negativeInteger()      {}
-func (negativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
-func (negativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23anySimpleType()      {}
-func (negativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23decimal()            {}
-func (negativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23integer()            {}
-func (negativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23negativeInteger()    {}
-func (negativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23nonPositiveInteger() {}
+func (negativeIntegerI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23negativeInteger()    {}
+func (negativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (negativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23anySimpleType()    {}
+func (negativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23decimal()          {}
+func (negativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23integer()          {}
+func (negativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23negativeInteger()  {}
+func (negativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23nonPositiveInteger() {
+}
 
 var negativeIntegerKindInterface reflect.Type
 
@@ -780,7 +782,7 @@ var NegativeInteger = negativeIntegerI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "negativeInteger"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -798,12 +800,15 @@ type KindNonNegativeInteger interface {
 
 type nonNegativeIntegerI struct{ sst.ElementInfo }
 
-func (nonNegativeIntegerI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23nonNegativeInteger()   {}
-func (nonNegativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
-func (nonNegativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23anySimpleType()      {}
-func (nonNegativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23decimal()            {}
-func (nonNegativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23integer()            {}
-func (nonNegativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23nonNegativeInteger() {}
+func (nonNegativeIntegerI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23nonNegativeInteger() {
+}
+func (nonNegativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (nonNegativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23anySimpleType() {}
+func (nonNegativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23decimal()       {}
+func (nonNegativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23integer()       {}
+func (nonNegativeIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23nonNegativeInteger() {
+}
 
 var nonNegativeIntegerKindInterface reflect.Type
 
@@ -811,7 +816,7 @@ var NonNegativeInteger = nonNegativeIntegerI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "nonNegativeInteger"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -829,12 +834,15 @@ type KindNonPositiveInteger interface {
 
 type nonPositiveIntegerI struct{ sst.ElementInfo }
 
-func (nonPositiveIntegerI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23nonPositiveInteger()   {}
-func (nonPositiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
-func (nonPositiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23anySimpleType()      {}
-func (nonPositiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23decimal()            {}
-func (nonPositiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23integer()            {}
-func (nonPositiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23nonPositiveInteger() {}
+func (nonPositiveIntegerI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23nonPositiveInteger() {
+}
+func (nonPositiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
+}
+func (nonPositiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23anySimpleType() {}
+func (nonPositiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23decimal()       {}
+func (nonPositiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23integer()       {}
+func (nonPositiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23nonPositiveInteger() {
+}
 
 var nonPositiveIntegerKindInterface reflect.Type
 
@@ -842,7 +850,7 @@ var NonPositiveInteger = nonPositiveIntegerI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "nonPositiveInteger"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -872,7 +880,7 @@ var NormalizedString = normalizedStringI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "normalizedString"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -898,10 +906,10 @@ var patternKindInterface reflect.Type
 
 var Pattern = patternI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "pattern"},
-	ARange:            String,
+	ARange:  String,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -919,13 +927,14 @@ type KindPositiveInteger interface {
 
 type positiveIntegerI struct{ sst.ElementInfo }
 
-func (positiveIntegerI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23positiveInteger()      {}
-func (positiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
-func (positiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23anySimpleType()      {}
-func (positiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23decimal()            {}
-func (positiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23integer()            {}
-func (positiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23nonNegativeInteger() {}
-func (positiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23positiveInteger()    {}
+func (positiveIntegerI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23positiveInteger()    {}
+func (positiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (positiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23anySimpleType()    {}
+func (positiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23decimal()          {}
+func (positiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23integer()          {}
+func (positiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23nonNegativeInteger() {
+}
+func (positiveIntegerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2001_2FXMLSchema_23positiveInteger() {}
 
 var positiveIntegerKindInterface reflect.Type
 
@@ -933,7 +942,7 @@ var PositiveInteger = positiveIntegerI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "positiveInteger"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -966,7 +975,7 @@ var Short = shortI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "short"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -995,7 +1004,7 @@ var String = stringI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "string"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -1024,7 +1033,7 @@ var Time = timeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "time"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -1055,7 +1064,7 @@ var Token = tokenI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "token"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -1081,10 +1090,10 @@ var totalDigitsKindInterface reflect.Type
 
 var TotalDigits = totalDigitsI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "totalDigits"},
-	ARange:            NonNegativeInteger,
+	ARange:  NonNegativeInteger,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1119,7 +1128,7 @@ var UnsignedByte = unsignedByteI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "unsignedByte"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -1152,7 +1161,7 @@ var UnsignedInt = unsignedIntI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "unsignedInt"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -1184,7 +1193,7 @@ var UnsignedLong = unsignedLongI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "unsignedLong"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -1218,7 +1227,7 @@ var UnsignedShort = unsignedShortI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "unsignedShort"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -1246,6 +1255,6 @@ var WhiteSpace = whiteSpaceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: XSDVocabulary, Name: "whiteSpace"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
 	ADatatype: false, AnIndividual: false,
 }}

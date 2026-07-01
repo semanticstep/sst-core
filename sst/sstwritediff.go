@@ -4,6 +4,7 @@ package sst
 
 import (
 	"bufio"
+	"bytes"
 	"errors"
 	"fmt"
 	"io"
@@ -12,6 +13,81 @@ import (
 
 	"go.uber.org/zap"
 )
+
+// SST Diff File
+// ├── IMPORTED GRAPHS HEADER
+// │   ├── [varint] Removed Count
+// │   ├── [varint] Added Count
+// │   └── For each merged graph (sorted by IRI):
+// │       ├── [varint] Status (0=Same, 1=Removed, 2=Added)
+// │       └── If Same: [varint] Span
+// │           Removed: [str] Graph IRI
+// │           Added:   [str] Graph IRI
+// │
+// ├── REFERENCED GRAPHS HEADER
+// │   └── (same structure as imported)
+// │
+// ├── CURRENT GRAPH DICTIONARY
+// │   ├── [varint] IRI Removed Count
+// │   ├── [varint] IRI Added Count
+// │   ├── [varint] Blank Removed Count
+// │   ├── [varint] Blank Added Count
+// │   │
+// │   ├── IRI Nodes Status Sequence
+// │   │   └── For each merged node:
+// │   │       ├── [varint] Status (0-3)
+// │   │       └── If Same:       [varint] Span
+// │   │           Removed:       [str] Fragment, [int64] TriplexCntDelta
+// │   │           Added:         [str] Fragment, [int64] TriplexCntDelta
+// │   │           TripleModified:  [int64] TriplexCntDelta
+// │   │
+// │   └── Blank Nodes Status Sequence
+// │       └── (same, no Fragment for Removed/Added)
+// │
+// ├── IMPORTED GRAPHS DICTIONARY
+// │   └── For each import graph:
+// │       ├── [varint] Deleted Count
+// │       ├── [varint] Added Count
+// │       └── Node Status Sequence (same as current graph)
+// │
+// ├── REFERENCED GRAPHS DICTIONARY
+// │   └── (same structure as imported)
+// │
+// └── CONTENT
+//     └── For each node (in dictionary order):
+//         ├── If identical nodes span > 0:
+//         │   └── [varint] span << 1  (even = unchanged)
+//         │
+//         └── If modified:
+//             ├── NON-LITERAL TRIPLES
+//             │   ├── [varint] (removed << 1) | 1  (odd = modified)
+//             │   ├── [varint] added
+//             │   └── If removed+added > 0, Triple Changes:
+//             │       ├── [varint] sameCnt << 2     (flag 00 = same count)
+//             │       ├── [varint] pred<<2 | 1, [varint] obj   (flag 01 = removed)
+//             │       └── [varint] pred<<2 | 2, [varint] obj   (flag 10 = added)
+//             │
+//             └── LITERAL TRIPLES (if any)
+//                 ├── [varint] (removed << 1) | 1
+//                 ├── [varint] added
+//                 └── If removed+added > 0, Literal Changes:
+//                     ├── [varint] sameCnt << 2
+//                     ├── [varint] pred<<2 | 1, [varint] kind, [value]  (removed)
+//                     └── [varint] pred<<2 | 2, [varint] kind, [value]  (added)
+
+// Node/Graph status flags
+// diffEntrySame           = 0  // Unchanged
+// diffEntryRemoved        = 1  // Removed
+// diffEntryAdded          = 2  // Added
+// diffEntryTripleModified = 3  // Triple count changed
+
+// // Content area flag bits
+// diffIdenticalOrModifiedOffset = 1       // Left shift bits
+// diffModifiedFlag              = 0b01    // Modified marker
+// diffSameRemovedOrAddedOffset  = 2       // Left shift bits
+// diffSameRemovedOrAddedMask    = 0b11    // Low 2 bits mask
+// diffRemovedFlag               = 0b01    // Removed marker
+// diffAddedFlag                 = 0b10    // Added marker
 
 // Diff File Structure
 //
@@ -231,30 +307,36 @@ type DiffTriple struct {
 // rTo: Reader for the target SST file.
 // w: Writer to output the diff file.
 // writeDiffTriple: If true, returns a slice of DiffTriple describing the changes.
-
 // Returns:
 // A slice of DiffTriple (if writeDiffTriple is true), otherwise nil.
 // An error if the operation fails.
 func SstWriteDiff(rFrom, rTo *bufio.Reader, w io.Writer, writeDiffTriple bool) ([]DiffTriple, error) {
+	GlobalLogger.Debug("SstWriteDiff started", zap.Bool("writeDiffTriple", writeDiffTriple))
 	err := readHeaderMagic(rFrom)
 	if err != nil {
+		GlobalLogger.Debug("SstWriteDiff failed to read header magic from rFrom", zap.Error(err))
 		return nil, err
 	}
 	err = readHeaderMagic(rTo)
 	if err != nil {
+		GlobalLogger.Debug("SstWriteDiff failed to read header magic from rTo", zap.Error(err))
 		return nil, err
 	}
 	// read graph IRI
 	gFromIRI, err := readString(rFrom)
 	if err != nil {
+		GlobalLogger.Debug("SstWriteDiff failed to read graph IRI from rFrom", zap.Error(err))
 		return nil, err
 	}
 	gToIRI, err := readString(rTo)
 	if err != nil {
+		GlobalLogger.Debug("SstWriteDiff failed to read graph IRI from rTo", zap.Error(err))
 		return nil, err
 	}
+	GlobalLogger.Debug("SstWriteDiff graph IRIs", zap.String("from", gFromIRI), zap.String("to", gToIRI))
 	// check if graph IRIs are the same
 	if gFromIRI != gToIRI {
+		GlobalLogger.Debug("SstWriteDiff graph IRI mismatch", zap.String("from", gFromIRI), zap.String("to", gToIRI))
 		return nil, ErrGraphIRIsMismatch
 	}
 	var dc diffWriteContext
@@ -296,7 +378,6 @@ func SstWriteDiff(rFrom, rTo *bufio.Reader, w io.Writer, writeDiffTriple bool) (
 	}
 
 	if writeDiffTriple {
-		var diffTriples []DiffTriple
 		modifiedBlankNodes := make(map[string]struct{})
 
 		// diffTripleIndex now have all triples, including equal, added and removed
@@ -317,6 +398,16 @@ func SstWriteDiff(rFrom, rTo *bufio.Reader, w io.Writer, writeDiffTriple bool) (
 			}
 		}
 
+		// Group triples by subject, preserving first-seen order of subjects.
+		subjMap := make(map[string][]DiffTriple)
+		subjOrder := make([]string, 0)
+		ensureSubj := func(subj string) {
+			if _, ok := subjMap[subj]; !ok {
+				subjMap[subj] = nil
+				subjOrder = append(subjOrder, subj)
+			}
+		}
+
 		for _, diffIndex := range dc.diffTripleIndex {
 			switch diffIndex.flag {
 			case TripleEqual:
@@ -324,7 +415,8 @@ func SstWriteDiff(rFrom, rTo *bufio.Reader, w io.Writer, writeDiffTriple bool) (
 				if _, found := modifiedBlankNodes[diffIndex.subj]; found {
 					// member count >= 0 means this triple is a Term Collection triple
 					if diffIndex.member >= 0 {
-						diffTriples = append(diffTriples, DiffTriple{
+						ensureSubj(diffIndex.subj)
+						subjMap[diffIndex.subj] = append(subjMap[diffIndex.subj], DiffTriple{
 							Flag: diffIndex.flag,
 							Sub:  diffIndex.subj,
 							Pred: dc.toNodesDict[dc.combinedToto[int(diffIndex.pred)]],
@@ -335,7 +427,8 @@ func SstWriteDiff(rFrom, rTo *bufio.Reader, w io.Writer, writeDiffTriple bool) (
 
 				// add triples which have modified blank nodes as object
 				if _, found := modifiedBlankNodes[dc.toNodesDict[dc.combinedToto[int(diffIndex.obj)]]]; found {
-					diffTriples = append(diffTriples, DiffTriple{
+					ensureSubj(diffIndex.subj)
+					subjMap[diffIndex.subj] = append(subjMap[diffIndex.subj], DiffTriple{
 						Flag: diffIndex.flag,
 						Sub:  diffIndex.subj,
 						Pred: dc.toNodesDict[dc.combinedToto[int(diffIndex.pred)]],
@@ -344,7 +437,8 @@ func SstWriteDiff(rFrom, rTo *bufio.Reader, w io.Writer, writeDiffTriple bool) (
 				}
 
 			case TripleAdded:
-				diffTriples = append(diffTriples, DiffTriple{
+				ensureSubj(diffIndex.subj)
+				subjMap[diffIndex.subj] = append(subjMap[diffIndex.subj], DiffTriple{
 					Flag: diffIndex.flag,
 					Sub:  diffIndex.subj,
 					Pred: dc.toNodesDict[dc.combinedToto[int(diffIndex.pred)]],
@@ -352,7 +446,8 @@ func SstWriteDiff(rFrom, rTo *bufio.Reader, w io.Writer, writeDiffTriple bool) (
 				})
 
 			case TripleRemoved:
-				diffTriples = append(diffTriples, DiffTriple{
+				ensureSubj(diffIndex.subj)
+				subjMap[diffIndex.subj] = append(subjMap[diffIndex.subj], DiffTriple{
 					Flag: diffIndex.flag,
 					Sub:  diffIndex.subj,
 					Pred: dc.fromNodesDict[dc.combinedToFrom[int(diffIndex.pred)]],
@@ -376,7 +471,8 @@ func SstWriteDiff(rFrom, rTo *bufio.Reader, w io.Writer, writeDiffTriple bool) (
 
 			switch diffIndex.flag {
 			case TripleEqual:
-				diffTriples = append(diffTriples, DiffTriple{
+				ensureSubj(diffIndex.subj)
+				subjMap[diffIndex.subj] = append(subjMap[diffIndex.subj], DiffTriple{
 					Flag: diffIndex.flag,
 					Sub:  diffIndex.subj,
 					Pred: dc.toNodesDict[dc.combinedToto[int(diffIndex.pred)]],
@@ -384,7 +480,8 @@ func SstWriteDiff(rFrom, rTo *bufio.Reader, w io.Writer, writeDiffTriple bool) (
 				})
 
 			case TripleAdded:
-				diffTriples = append(diffTriples, DiffTriple{
+				ensureSubj(diffIndex.subj)
+				subjMap[diffIndex.subj] = append(subjMap[diffIndex.subj], DiffTriple{
 					Flag: diffIndex.flag,
 					Sub:  diffIndex.subj,
 					Pred: dc.toNodesDict[dc.combinedToto[int(diffIndex.pred)]],
@@ -392,7 +489,8 @@ func SstWriteDiff(rFrom, rTo *bufio.Reader, w io.Writer, writeDiffTriple bool) (
 				})
 
 			case TripleRemoved:
-				diffTriples = append(diffTriples, DiffTriple{
+				ensureSubj(diffIndex.subj)
+				subjMap[diffIndex.subj] = append(subjMap[diffIndex.subj], DiffTriple{
 					Flag: diffIndex.flag,
 					Sub:  diffIndex.subj,
 					Pred: dc.fromNodesDict[dc.combinedToFrom[int(diffIndex.pred)]],
@@ -401,7 +499,43 @@ func SstWriteDiff(rFrom, rTo *bufio.Reader, w io.Writer, writeDiffTriple bool) (
 			}
 		}
 
+		// Assemble final slice: per-subject groups in original order,
+		// each group internally sorted by (Pred, Flag, Obj) so identical
+		// (Sub, Pred) rows become adjacent and can be compacted.
+		var diffTriples []DiffTriple
+		for _, subj := range subjOrder {
+			list := subjMap[subj]
+			sort.SliceStable(list, func(i, j int) bool {
+				if list[i].Pred != list[j].Pred {
+					return list[i].Pred < list[j].Pred
+				}
+				if list[i].Flag != list[j].Flag {
+					return list[i].Flag < list[j].Flag
+				}
+				return list[i].Obj < list[j].Obj
+			})
+			diffTriples = append(diffTriples, list...)
+		}
+
 		returnedDiffTriples := reorderCollectionsAfterFirstObjectReference(renderDiffWithCollections(diffTriples))
+
+		// Compact: hierarchical elision.
+		// If Sub is the same as the previous row, omit Sub.
+		// If both Sub and Pred are the same, omit both.
+		if len(returnedDiffTriples) > 0 {
+			prevSub, prevPred := returnedDiffTriples[0].Sub, returnedDiffTriples[0].Pred
+			for i := 1; i < len(returnedDiffTriples); i++ {
+				currSub, currPred := returnedDiffTriples[i].Sub, returnedDiffTriples[i].Pred
+				if currSub == prevSub {
+					returnedDiffTriples[i].Sub = ""
+					if currPred == prevPred {
+						returnedDiffTriples[i].Pred = ""
+					}
+				}
+				prevSub = currSub
+				prevPred = currPred
+			}
+		}
 
 		return returnedDiffTriples, nil
 	} else {
@@ -566,6 +700,7 @@ func diffWriteHeader(from, to *bufio.Reader, dc *diffWriteContext, w io.Writer) 
 	if err != nil {
 		return err
 	}
+	GlobalLogger.Debug("diffWriteHeader imported graphs", zap.Int("count", len(importedGraphs)), zap.Uint("removed", iRemoved), zap.Uint("added", iAdded))
 	err = diffWriteGraphsHeader(importedGraphs, iRemoved, iAdded, &dc.varintBuf, w)
 	if err != nil {
 		return err
@@ -575,6 +710,7 @@ func diffWriteHeader(from, to *bufio.Reader, dc *diffWriteContext, w io.Writer) 
 	if err != nil {
 		return err
 	}
+	GlobalLogger.Debug("diffWriteHeader referenced graphs", zap.Int("count", len(referencedGraphs)), zap.Uint("removed", rRemoved), zap.Uint("added", rAdded))
 	err = diffWriteGraphsHeader(referencedGraphs, rRemoved, rAdded, &dc.varintBuf, w)
 	if err != nil {
 		return err
@@ -611,6 +747,7 @@ func diffGraphHeader(from, to *bufio.Reader) (graphs []diffWriteGraph, removed, 
 	if err != nil {
 		return
 	}
+	GlobalLogger.Debug("diffGraphHeader", zap.Uint("fromGraphsCount", fromGraphsCount), zap.Uint("toGraphsCount", toGraphsCount))
 	i, j := uint(0), uint(0)
 	hi, hj := false, false
 	var fromGraphURI, toGraphURI string
@@ -837,6 +974,7 @@ func diffWriteCurrentGraphDictionary(
 	if err != nil {
 		return err
 	}
+	GlobalLogger.Debug("diffWriteCurrentGraphDictionary node counts", zap.String("graphIRI", graphIRI), zap.Uint("fromIRI", fromIRINodeCount), zap.Uint("fromBlank", fromBlankNodeCount), zap.Uint("toIRI", toIRINodeCount), zap.Uint("toBlank", toBlankNodeCount))
 	combinedIRINodes, IRINodeDeletedCount, IRINodeAddedCount, err := computeDiffNodesDictionary(from, to, fromIRINodeCount, toIRINodeCount, d, true, graphIRI)
 	if err != nil {
 		return err
@@ -845,6 +983,7 @@ func diffWriteCurrentGraphDictionary(
 	if err != nil {
 		return err
 	}
+	GlobalLogger.Debug("diffWriteCurrentGraphDictionary diff results", zap.String("graphIRI", graphIRI), zap.Uint("IRIDeleted", IRINodeDeletedCount), zap.Uint("IRIAdded", IRINodeAddedCount), zap.Uint("blankDeleted", blankNodeDeletedCount), zap.Uint("blankAdded", blankNodeAddedCount))
 	err = writeUint(IRINodeDeletedCount, &d.varintBuf, w)
 	if err != nil {
 		return err
@@ -890,6 +1029,7 @@ func computeDiffNodesDictionary(
 	from, to *bufio.Reader, fromNodeCount, toNodeCount uint, d *diffWriteContext,
 	isIRINode bool, graphIRI string,
 ) (combinedNodes []diffWriteCombinedNode, deleted, added uint, err error) {
+	GlobalLogger.Debug("computeDiffNodesDictionary started", zap.String("graphIRI", graphIRI), zap.Bool("isIRINode", isIRINode), zap.Uint("fromNodeCount", fromNodeCount), zap.Uint("toNodeCount", toNodeCount))
 	fromIndex, toIndex := uint(0), uint(0)
 	hi, hj := false, false
 	var fromFragment, toFragment string
@@ -1012,6 +1152,7 @@ func computeDiffNodesDictionary(
 		added++
 		hj = false
 	}
+	GlobalLogger.Debug("computeDiffNodesDictionary finished", zap.String("graphIRI", graphIRI), zap.Bool("isIRINode", isIRINode), zap.Int("combinedNodes", len(combinedNodes)), zap.Uint("deleted", deleted), zap.Uint("added", added))
 	return
 }
 
@@ -1331,6 +1472,7 @@ func diffWriteAddedCombinedNode(cs diffWriteCombinedNode, varintBuf *varintBufT,
 }
 
 func diffWriteContent(from, to *bufio.Reader, d *diffWriteContext, w io.Writer) error {
+	GlobalLogger.Debug("diffWriteContent started", zap.Int("iriNodes", len(d.iriNodes)), zap.Int("blankNodes", len(d.blankNodes)))
 	GlobalLogger.Debug("diffWriteCombinedNodeRange for IRI Nodes")
 	err := diffWriteNodesContent(from, to, d, w, d.iriNodes, false)
 	if err != nil {
@@ -1386,7 +1528,7 @@ func diffWriteNodesContent(from *bufio.Reader, to *bufio.Reader, d *diffWriteCon
 }
 
 func diffComputeAndWriteNodeContent(from *bufio.Reader, to *bufio.Reader, fragment string, d *diffWriteContext, w io.Writer, bBlankNode bool) error {
-	GlobalLogger.Debug("diffComputeAndWriteNodeContent", zap.String("fragment", fragment))
+	GlobalLogger.Debug("diffComputeAndWriteNodeContent", zap.String("fragment", fragment), zap.Bool("bBlankNode", bBlankNode))
 	removedTripleCount, addedTripleCount, err := diffComputeNodeTriples(from, to, fragment, d, bBlankNode) // non-literal triples
 	if err != nil {
 		return err
@@ -1439,6 +1581,7 @@ func diffComputeAndWriteNodeContent(from *bufio.Reader, to *bufio.Reader, fragme
 }
 
 func diffComputeNodeTriples(from, to *bufio.Reader, fragment string, d *diffWriteContext, bBlankNode bool) (removed, added uint, err error) {
+	GlobalLogger.Debug("diffComputeNodeTriples started", zap.String("fragment", fragment), zap.Bool("bBlankNode", bBlankNode))
 	fromTripleCnt, toTripleCnt := uint(0), uint(0)
 	if from != nil {
 		fromTripleCnt, err = readUint(from)
@@ -1454,6 +1597,7 @@ func diffComputeNodeTriples(from, to *bufio.Reader, fragment string, d *diffWrit
 			return
 		}
 	}
+	GlobalLogger.Debug("diffComputeNodeTriples counts", zap.String("fragment", fragment), zap.Uint("fromTripleCnt", fromTripleCnt), zap.Uint("toTripleCnt", toTripleCnt))
 	d.nodeTripleBuf = d.nodeTripleBuf[:0]
 	sameCnt := uint(0)
 	i, j := uint(0), uint(0)
@@ -1469,6 +1613,7 @@ func diffComputeNodeTriples(from, to *bufio.Reader, fragment string, d *diffWrit
 			}
 			// check if the fromTriple has a rdf:first predicate and bBlankNode parameter -> this triple is for TermCollection
 			hi = true
+			fromTermCollectionTriple = false
 			if bBlankNode && d.combinedToFrom[int(fromTriple.predIndex)] == d.fromRdfFirstIndex {
 				fromTermCollectionTriple = true
 			}
@@ -1479,6 +1624,7 @@ func diffComputeNodeTriples(from, to *bufio.Reader, fragment string, d *diffWrit
 			if err != nil {
 				return
 			}
+			toTermCollectionTriple = false
 			if bBlankNode && d.combinedToto[int(toTriple.predIndex)] == d.toRdfFirstIndex {
 				toTermCollectionTriple = true
 			}
@@ -1575,6 +1721,7 @@ func diffComputeNodeTriples(from, to *bufio.Reader, fragment string, d *diffWrit
 		hj = false
 	}
 	maybeDiffSameNodeTriple(&sameCnt, d)
+	GlobalLogger.Debug("diffComputeNodeTriples finished", zap.String("fragment", fragment), zap.Uint("removed", removed), zap.Uint("added", added))
 	return
 }
 
@@ -1670,6 +1817,12 @@ func diffWriteNodeTriples(fragment string, removed, added uint, d *diffWriteCont
 		return err
 	}
 	GlobalLogger.Debug("writeDiff node triples", zap.Uint("removed", removed), zap.Uint("removedShifted", (removed<<diffIdenticalOrModifiedOffset|diffModifiedFlag)), zap.Uint("added", added))
+	// When there are no removed/added triples, the reader reads directly from base.
+	// Do not write same triple counts to avoid diff stream misalignment.
+	if removed+added == 0 {
+		d.nodeTripleBuf = d.nodeTripleBuf[:0]
+		return nil
+	}
 	for index, st := range d.nodeTripleBuf {
 		switch st.predIndex & diffSameRemovedOrAddedMask {
 		case 0:
@@ -1707,6 +1860,7 @@ func diffWriteNodeTriples(fragment string, removed, added uint, d *diffWriteCont
 }
 
 func diffComputeNodeLiteralTriples(from, to *bufio.Reader, d *diffWriteContext) (removed, added uint, err error) {
+	GlobalLogger.Debug("diffComputeNodeLiteralTriples started")
 	fromTripleCnt, toTripleCnt := uint(0), uint(0)
 	if from != nil {
 		fromTripleCnt, err = readUint(from)
@@ -1722,93 +1876,117 @@ func diffComputeNodeLiteralTriples(from, to *bufio.Reader, d *diffWriteContext) 
 			return
 		}
 	}
-	d.nodeTripleBuf = d.nodeTripleBuf[:0]
+	GlobalLogger.Debug("diffComputeNodeLiteralTriples counts", zap.Uint("fromTripleCnt", fromTripleCnt), zap.Uint("toTripleCnt", toTripleCnt))
+	fromTriples := make([]predicateIndexWithLiteralT, 0, fromTripleCnt)
+	toTriples := make([]predicateIndexWithLiteralT, 0, toTripleCnt)
+	for i := uint(0); i < fromTripleCnt; i++ {
+		var t predicateIndexWithLiteralT
+		t, err = diffNextLiteralTriple(from, 0, d.fromTranslations)
+		if err != nil {
+			return
+		}
+		fromTriples = append(fromTriples, t)
+	}
+	for i := uint(0); i < toTripleCnt; i++ {
+		var t predicateIndexWithLiteralT
+		t, err = diffNextLiteralTriple(to, 1, d.toTranslations)
+		if err != nil {
+			return
+		}
+		toTriples = append(toTriples, t)
+	}
+	sort.Slice(fromTriples, func(i, j int) bool {
+		if fromTriples[i].pred != fromTriples[j].pred {
+			return fromTriples[i].pred < fromTriples[j].pred
+		}
+		if fromTriples[i].kind != fromTriples[j].kind {
+			return fromTriples[i].kind < fromTriples[j].kind
+		}
+		cmp, _ := diffCompareLiteralValue(fromTriples[i].value, fromTriples[j].value)
+		return cmp < 0
+	})
+	sort.Slice(toTriples, func(i, j int) bool {
+		if toTriples[i].pred != toTriples[j].pred {
+			return toTriples[i].pred < toTriples[j].pred
+		}
+		if toTriples[i].kind != toTriples[j].kind {
+			return toTriples[i].kind < toTriples[j].kind
+		}
+		cmp, _ := diffCompareLiteralValue(toTriples[i].value, toTriples[j].value)
+		return cmp < 0
+	})
+
+	d.literalTripleBuf = d.literalTripleBuf[:0]
 	sameCnt := uint(0)
-	i, j := uint(0), uint(0)
-	hi, hj := false, false
-	var fromTriple, toTriple predicateIndexWithLiteralT
-	for i < fromTripleCnt && j < toTripleCnt {
-		if !hi {
-			fromTriple, err = diffNextLiteralTriple(from, 0, d.fromTranslations)
-			if err != nil {
-				return
-			}
-			hi = true
-		}
-		if !hj {
-			toTriple, err = diffNextLiteralTriple(to, 1, d.toTranslations)
-			if err != nil {
-				return
-			}
-			hj = true
-		}
-		if fromTriple.pred < toTriple.pred {
+	i, j := 0, 0
+	for i < len(fromTriples) && j < len(toTriples) {
+		ft := fromTriples[i]
+		tt := toTriples[j]
+		GlobalLogger.Debug("diffComputeNodeLiteralTriples compare", zap.Uint("fromPred", ft.pred), zap.Uint("toPred", tt.pred), zap.Uint("fromKind", uint(ft.kind)), zap.Uint("toKind", uint(tt.kind)), zap.String("fromValue", fmt.Sprintf("%v", ft.value)), zap.String("toValue", fmt.Sprintf("%v", tt.value)))
+		if ft.pred < tt.pred {
+			GlobalLogger.Debug("diffComputeNodeLiteralTriples decision: from removed (pred <)")
 			maybeDiffSameLiteralTriple(&sameCnt, d)
-			diffRemovedLiteralTriple(fromTriple, d)
+			diffRemovedLiteralTriple(ft, d)
 			removed++
 			i++
-			hi = false
-			continue
-		}
-		if fromTriple.pred == toTriple.pred {
-			if fromTriple.kind < toTriple.kind {
+		} else if ft.pred > tt.pred {
+			GlobalLogger.Debug("diffComputeNodeLiteralTriples decision: to added (pred >)")
+			maybeDiffSameLiteralTriple(&sameCnt, d)
+			diffAddedLiteralTriple(tt, d)
+			added++
+			j++
+		} else { // pred equal
+			if ft.kind < tt.kind {
+				GlobalLogger.Debug("diffComputeNodeLiteralTriples decision: from removed (kind <)")
 				maybeDiffSameLiteralTriple(&sameCnt, d)
-				diffRemovedLiteralTriple(fromTriple, d)
+				diffRemovedLiteralTriple(ft, d)
 				removed++
 				i++
-				hi = false
-				continue
-			}
-			if fromTriple.kind == toTriple.kind {
-				cmp := diffCompareLiteralValue(fromTriple.value, toTriple.value)
+			} else if ft.kind > tt.kind {
+				GlobalLogger.Debug("diffComputeNodeLiteralTriples decision: to added (kind >)")
+				maybeDiffSameLiteralTriple(&sameCnt, d)
+				diffAddedLiteralTriple(tt, d)
+				added++
+				j++
+			} else { // kind equal
+				cmp, cmpErr := diffCompareLiteralValue(ft.value, tt.value)
+				if cmpErr != nil {
+					err = cmpErr
+					return
+				}
 				if cmp < 0 {
+					GlobalLogger.Debug("diffComputeNodeLiteralTriples decision: from removed (value <)")
 					maybeDiffSameLiteralTriple(&sameCnt, d)
-					diffRemovedLiteralTriple(fromTriple, d)
+					diffRemovedLiteralTriple(ft, d)
 					removed++
 					i++
-					hi = false
-					continue
-				}
-				if cmp == 0 {
+				} else if cmp > 0 {
+					GlobalLogger.Debug("diffComputeNodeLiteralTriples decision: to added (value >)")
+					maybeDiffSameLiteralTriple(&sameCnt, d)
+					diffAddedLiteralTriple(tt, d)
+					added++
+					j++
+				} else { // value equal
+					GlobalLogger.Debug("diffComputeNodeLiteralTriples decision: same")
 					sameCnt++
 					i++
 					j++
-					hi, hj = false, false
-					continue
 				}
 			}
 		}
-		maybeDiffSameLiteralTriple(&sameCnt, d)
-		diffAddedLiteralTriple(toTriple, d)
-		added++
-		j++
-		hj = false
 	}
-	for ; i < fromTripleCnt; i++ {
-		if !hi {
-			fromTriple, err = diffNextLiteralTriple(from, 0, d.fromTranslations)
-			if err != nil {
-				return
-			}
-		}
+	for ; i < len(fromTriples); i++ {
 		maybeDiffSameLiteralTriple(&sameCnt, d)
-		diffRemovedLiteralTriple(fromTriple, d)
+		diffRemovedLiteralTriple(fromTriples[i], d)
 		removed++
-		hi = false
 	}
-	for ; j < toTripleCnt; j++ {
-		if !hj {
-			toTriple, err = diffNextLiteralTriple(to, 1, d.toTranslations)
-			if err != nil {
-				return
-			}
-		}
+	for ; j < len(toTriples); j++ {
 		maybeDiffSameLiteralTriple(&sameCnt, d)
-		diffAddedLiteralTriple(toTriple, d)
+		diffAddedLiteralTriple(toTriples[j], d)
 		added++
-		hj = false
 	}
 	maybeDiffSameLiteralTriple(&sameCnt, d)
+	GlobalLogger.Debug("diffComputeNodeLiteralTriples finished", zap.Uint("removed", removed), zap.Uint("added", added))
 	return
 }
 
@@ -1817,13 +1995,14 @@ func diffNextLiteralTriple(r *bufio.Reader, readerSource int, t []originToTransl
 	if err != nil {
 		return
 	}
+	origPred := n.pred
+	n.pred = diffTranslateNode(n.pred, t)
 	if readerSource == 0 {
-		GlobalLogger.Debug("read from from", zap.Uint("pred", n.pred))
+		GlobalLogger.Debug("read from from", zap.Uint("origPred", origPred), zap.Uint("translatedPred", n.pred))
 	} else {
-		GlobalLogger.Debug("read from to", zap.Uint("pred", n.pred))
+		GlobalLogger.Debug("read from to", zap.Uint("origPred", origPred), zap.Uint("translatedPred", n.pred))
 	}
 
-	n.pred = diffTranslateNode(n.pred, t)
 	n.diffLiteralT, err = diffLiteral(r, readerSource)
 	return
 }
@@ -1930,7 +2109,8 @@ func diffLiteral(r *bufio.Reader, readerSource int) (n diffLiteralT, err error) 
 		}
 		n.value = lc
 	default:
-		panic("unsupported literal kind")
+		err = fmt.Errorf("unsupported literal kind: %d", n.kind)
+		return
 	}
 	return
 }
@@ -2059,7 +2239,7 @@ func diffWriteLiteralTriples(fragment string, removed, added uint, d *diffWriteC
 				}
 
 			default:
-				panic("not recognized")
+				return fmt.Errorf("unsupported literal value in diffWriteLiteralTriples: %T", value)
 			}
 			err := writeUint(lt.pred, &d.varintBuf, w)
 			GlobalLogger.Debug("writeDiff literal triple", zap.Uint("pred index", lt.pred>>diffSameRemovedOrAddedOffset), zap.Uint("shifted", lt.pred))
@@ -2125,13 +2305,48 @@ func diffWriteCombinedLiteral(lt diffLiteralT, varintBuf *varintBufT, w io.Write
 		if err != nil {
 			return err
 		}
+	case int8:
+		err := writeByte(value, varintBuf, w)
+		if err != nil {
+			return err
+		}
 	case int16:
 		err := writeShort(value, varintBuf, w)
 		if err != nil {
 			return err
 		}
+	case int32:
+		err := writeInt(value, varintBuf, w)
+		if err != nil {
+			return err
+		}
 	case uint:
 		err := writeUint(value, varintBuf, w)
+		if err != nil {
+			return err
+		}
+	case uint8:
+		err := writeUnsignedByte(value, varintBuf, w)
+		if err != nil {
+			return err
+		}
+	case uint16:
+		err := writeUnsignedShort(value, varintBuf, w)
+		if err != nil {
+			return err
+		}
+	case uint32:
+		err := writeUnsignedInt(value, varintBuf, w)
+		if err != nil {
+			return err
+		}
+	case uint64:
+		err := writeUnsignedLong(value, varintBuf, w)
+		if err != nil {
+			return err
+		}
+	case float32:
+		err := writeFloat32(value, varintBuf, w)
 		if err != nil {
 			return err
 		}
@@ -2147,62 +2362,152 @@ func diffWriteCombinedLiteral(lt diffLiteralT, varintBuf *varintBufT, w io.Write
 			}
 		}
 	default:
-		panic("unsupported literal value")
+		return fmt.Errorf("unsupported literal value in diffWriteCombinedLiteral: %T", value)
 	}
 	return nil
 }
 
-func diffCompareLiteralValue(v1, v2 interface{}) int {
+func diffCompareLiteralValue(v1, v2 interface{}) (int, error) {
 	switch v1 := v1.(type) {
 	case string:
 		v2 := v2.(string)
 		switch {
 		case v1 < v2:
-			return -1
+			return -1, nil
 		case v1 == v2:
-			return 0
+			return 0, nil
 		default:
-			return 1
+			return 1, nil
 		}
 	case LangString:
 		v2 := v2.(LangString)
 		switch {
 		case v1.Val < v2.Val:
-			return -1
+			return -1, nil
 		case v1.Val == v2.Val:
-			return 0
+			return 0, nil
 		default:
-			return 1
+			return 1, nil
 		}
 	case bool:
 		v2 := v2.(bool)
 		switch {
 		case v1 != v2:
-			return -1
+			return -1, nil
 		case v1 == v2:
-			return 0
+			return 0, nil
 		default:
-			return 1
+			return 1, nil
+		}
+	case int8:
+		v2 := v2.(int8)
+		switch {
+		case v1 < v2:
+			return -1, nil
+		case v1 == v2:
+			return 0, nil
+		default:
+			return 1, nil
+		}
+	case int16:
+		v2 := v2.(int16)
+		switch {
+		case v1 < v2:
+			return -1, nil
+		case v1 == v2:
+			return 0, nil
+		default:
+			return 1, nil
+		}
+	case int32:
+		v2 := v2.(int32)
+		switch {
+		case v1 < v2:
+			return -1, nil
+		case v1 == v2:
+			return 0, nil
+		default:
+			return 1, nil
 		}
 	case int64:
 		v2 := v2.(int64)
 		switch {
 		case v1 < v2:
-			return -1
+			return -1, nil
 		case v1 == v2:
-			return 0
+			return 0, nil
 		default:
-			return 1
+			return 1, nil
+		}
+	case uint:
+		v2 := v2.(uint)
+		switch {
+		case v1 < v2:
+			return -1, nil
+		case v1 == v2:
+			return 0, nil
+		default:
+			return 1, nil
+		}
+	case uint8:
+		v2 := v2.(uint8)
+		switch {
+		case v1 < v2:
+			return -1, nil
+		case v1 == v2:
+			return 0, nil
+		default:
+			return 1, nil
+		}
+	case uint16:
+		v2 := v2.(uint16)
+		switch {
+		case v1 < v2:
+			return -1, nil
+		case v1 == v2:
+			return 0, nil
+		default:
+			return 1, nil
+		}
+	case uint32:
+		v2 := v2.(uint32)
+		switch {
+		case v1 < v2:
+			return -1, nil
+		case v1 == v2:
+			return 0, nil
+		default:
+			return 1, nil
+		}
+	case uint64:
+		v2 := v2.(uint64)
+		switch {
+		case v1 < v2:
+			return -1, nil
+		case v1 == v2:
+			return 0, nil
+		default:
+			return 1, nil
+		}
+	case float32:
+		v2 := v2.(float32)
+		switch {
+		case v1 < v2:
+			return -1, nil
+		case v1 == v2:
+			return 0, nil
+		default:
+			return 1, nil
 		}
 	case float64:
 		v2 := v2.(float64)
 		switch {
 		case v1 < v2:
-			return -1
+			return -1, nil
 		case v1 == v2:
-			return 0
+			return 0, nil
 		default:
-			return 1
+			return 1, nil
 		}
 	case []diffLiteralT:
 		v2 := v2.([]diffLiteralT)
@@ -2211,33 +2516,134 @@ func diffCompareLiteralValue(v1, v2 interface{}) int {
 				lt2 := v2[i]
 				switch {
 				case lt1.kind < lt2.kind:
-					return -1
+					return -1, nil
 				case lt1.kind == lt2.kind:
-					cmp := diffCompareLiteralValue(lt1.value, lt2.value)
+					cmp, err := diffCompareLiteralValue(lt1.value, lt2.value)
+					if err != nil {
+						return 0, err
+					}
 					if cmp != 0 {
-						return cmp
+						return cmp, nil
 					}
 				}
 			}
 			if len(v1) < len(v2) {
-				return -1
+				return -1, nil
 			}
-			return 0
+			return 0, nil
 		}
 		for i, lt2 := range v2 {
 			lt1 := v1[i]
 			switch {
 			case lt1.kind < lt2.kind:
-				return -1
+				return -1, nil
 			case lt1.kind == lt2.kind:
-				cmp := diffCompareLiteralValue(lt1.value, lt2.value)
+				cmp, err := diffCompareLiteralValue(lt1.value, lt2.value)
+				if err != nil {
+					return 0, err
+				}
 				if cmp != 0 {
-					return cmp
+					return cmp, nil
 				}
 			}
 		}
-		return 1
+		return 1, nil
 	default:
-		panic("unsupported literal value")
+		return 0, fmt.Errorf("unsupported literal value: %T", v1)
 	}
+}
+
+// Diff implements NamedGraph.Diff. See the interface documentation for the
+// comparison semantics and output format.
+func (g *namedGraph) Diff(graph2 NamedGraph) ([]DiffTriple, error) {
+	otherNG, ok := graph2.(*namedGraph)
+	if !ok {
+		return nil, fmt.Errorf("other is not a namedGraph")
+	}
+
+	// 1. Serialize both graphs to SST.
+	var fromBuf, toBuf bytes.Buffer
+	if err := g.SstWrite(&fromBuf); err != nil {
+		return nil, err
+	}
+	if err := otherNG.SstWrite(&toBuf); err != nil {
+		return nil, err
+	}
+
+	// 2. SstWriteDiff for content-level differences.
+	diffTriples, err := SstWriteDiff(
+		bufio.NewReader(&fromBuf),
+		bufio.NewReader(&toBuf),
+		io.Discard,
+		true,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	// 3. Prepend import-level differences so they appear first.
+	importDiffs := diffImports(g, otherNG)
+	diffTriples = append(importDiffs, diffTriples...)
+
+	return diffTriples, nil
+}
+
+// diffImports compares direct imports of two NamedGraphs and returns synthetic
+// DiffTriple entries describing added, removed, and revision-changed imports.
+// The Obj field is extended to include the hash value:
+//   - added/removed: "<iri> #<hash>"
+//   - modified old:  "<iri> #<oldHash>"
+//   - modified new:  "#<newHash>"
+func diffImports(from, to *namedGraph) []DiffTriple {
+	fromImports := make(map[string]Hash)
+	for _, ng := range from.directImports {
+		fromImports[string(ng.IRI())] = ng.lastCheckedOutDSRevision()
+	}
+	toImports := make(map[string]Hash)
+	for _, ng := range to.directImports {
+		toImports[string(ng.IRI())] = ng.lastCheckedOutDSRevision()
+	}
+
+	var diffs []DiffTriple
+	// Added imports: IRI and hash combined in Obj.
+	for iri, rev := range toImports {
+		if _, ok := fromImports[iri]; !ok {
+			diffs = append(diffs, DiffTriple{
+				Flag: TripleAdded,
+				Sub:  string(from.IRI()),
+				Pred: "owl:imports",
+				Obj:  iri + " #" + rev.String(),
+			})
+		}
+	}
+	// Removed imports: IRI and hash combined in Obj.
+	for iri, rev := range fromImports {
+		if _, ok := toImports[iri]; !ok {
+			diffs = append(diffs, DiffTriple{
+				Flag: TripleRemoved,
+				Sub:  string(from.IRI()),
+				Pred: "owl:imports",
+				Obj:  iri + " #" + rev.String(),
+			})
+		}
+	}
+	// Modified imports (same IRI, different revision).
+	// Old revision as "<iri> #<oldHash>", new revision as "#<newHash>".
+	for iri, fromRev := range fromImports {
+		if toRev, ok := toImports[iri]; ok && fromRev != toRev {
+			diffs = append(diffs, DiffTriple{
+				Flag: TripleRemoved,
+				Sub:  string(from.IRI()),
+				Pred: "owl:imports",
+				Obj:  iri + " #" + fromRev.String(),
+			})
+			diffs = append(diffs, DiffTriple{
+				Flag: TripleAdded,
+				Sub:  "",
+				Pred: "",
+				Obj:  strings.Repeat(" ", len(iri)+1) + "#" + toRev.String(),
+			})
+		}
+	}
+	return diffs
 }

@@ -402,13 +402,9 @@ func gatherDiffTriplesForReading(
 				return nil
 			}
 			GlobalLogger.Debug("createAllocatedNode", zap.String("Fragment", string(fragment)), zap.Int("tripleStart", tripleCount), zap.Int("triple Count", int(allocatedTriplexCnt)+a))
-			sortedNodes[i], tripleCount, err = ng.createAllocatedNode(string(fragment), iriNodeType,
+			sortedNodes[i], tripleCount = ng.createAllocatedNode(string(fragment), iriNodeType,
 				tripleCount, int(allocatedTriplexCnt)+a)
 			i++
-
-			if err != nil {
-				return err
-			}
 		case diffEntrySame:
 		}
 		if readerSource == 0 {
@@ -467,12 +463,9 @@ func gatherDiffBlankTriplesForReading(
 				}
 				return nil
 			}
-			gc.sortedNodes[i+fragmentTreeCount], tripleCount, err = ng.createAllocatedNode("", blankNodeType,
+			gc.sortedNodes[i+fragmentTreeCount], tripleCount = ng.createAllocatedNode("", blankNodeType,
 				tripleCount, int(allocatedTriplexCnt)+a)
 			i++
-			if err != nil {
-				return err
-			}
 		case diffEntrySame:
 		}
 		if readerSource == 0 {

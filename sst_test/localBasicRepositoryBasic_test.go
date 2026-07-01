@@ -15,22 +15,20 @@ import (
 	"sort"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_LocalBasicRepository_UUIDNamedGraph(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIDC := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363")
 
-	defer removeFolder(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
+
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", false)
 		if err != nil {
 			panic(err)
@@ -77,13 +75,10 @@ func Test_LocalBasicRepository_UUIDNamedGraph(t *testing.T) {
 }
 
 func Test_LocalBasicRepository_IRINamedGraph(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	testIri := "http://ontology.semanticstep.net/abc#"
 
-	defer removeFolder(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", false)
 		if err != nil {
@@ -128,14 +123,11 @@ func Test_LocalBasicRepository_IRINamedGraph(t *testing.T) {
 }
 
 func Test_LocalBasicRepository_NGBImportNGC(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIDB := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362")
 	ngIDC := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363")
 
-	defer removeFolder(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", false)
 		if err != nil {
@@ -199,15 +191,12 @@ func Test_LocalBasicRepository_NGBImportNGC(t *testing.T) {
 }
 
 func Test_LocalBasicRepository_NGAImportsNGBImportsNGC(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIDA := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361")
 	ngIDB := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362")
 	ngIDC := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363")
 
-	defer removeFolder(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", false)
 		if err != nil {
@@ -292,16 +281,13 @@ func Test_LocalBasicRepository_NGAImportsNGBImportsNGC(t *testing.T) {
 }
 
 func Test_LocalBasicRepository_DiamondCase(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIDA := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361")
 	ngIDB := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362")
 	ngIDC := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363")
 	ngIDD := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a364")
 
-	defer removeFolder(dir)
 	t.Run("write", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "default@semanticstep.net", "default", false)
 		if err != nil {
@@ -409,16 +395,13 @@ func Test_LocalBasicRepository_DiamondCase(t *testing.T) {
 }
 
 func Test_LocalBasicRepository_DiamondCaseCreateAndOpen(t *testing.T) {
-	testName := t.Name() + "Repo"
-	dir := filepath.Join("./testdata/" + testName)
+	dir := filepath.Join(t.TempDir(), t.Name())
 	ngIDA := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a361")
 	ngIDB := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a362")
 	ngIDC := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a363")
 	ngIDD := uuid.MustParse("c1efcf54-3e8e-4cc7-a7d1-82a9f613a364")
 
-	defer removeFolder(dir)
 	t.Run("create", func(t *testing.T) {
-		removeFolder(dir)
 
 		repo, err := sst.CreateLocalRepository(dir, "", "", false)
 		if err != nil {

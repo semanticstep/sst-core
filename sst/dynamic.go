@@ -14,8 +14,15 @@ const (
 	kindMethodsFldNum = 1
 )
 
+// Elementer is the base interface for all types that represent a vocabulary element.
+// It provides a single method to obtain the underlying [Element] identity,
+// which carries the vocabulary and the element name.
+//
+// This interface is implemented by [Element], [ElementInfo], and the generated
+// ontology constants (e.g., lci.Part, rdfs.Label).
 type (
 	Elementer interface {
+		// VocabularyElement returns the Element identity (vocabulary + name) for this element.
 		VocabularyElement() Element
 	}
 )

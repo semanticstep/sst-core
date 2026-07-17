@@ -65,6 +65,7 @@ func readDocumentInfo(db *bolt.DB, hash Hash) (*DocumentInfo, error) {
 			return fmt.Errorf("no document info found for hash: %s", key)
 		}
 
+		info.Hash = hash
 		info.MIMEType = string(sub.Get([]byte("mime_type")))
 		info.Author = string(sub.Get([]byte("author")))
 

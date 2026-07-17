@@ -9,15 +9,15 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/google/uuid"
-	fs "github.com/relab/wrfs"
 	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/sst_test/testutil"
 	"github.com/semanticstep/sst-core/sstauth"
+	"github.com/semanticstep/sst-core/sst_test/testutil"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
+	"github.com/google/uuid"
+	fs "github.com/relab/wrfs"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

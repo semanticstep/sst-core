@@ -7,13 +7,13 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/google/uuid"
-	fs "github.com/relab/wrfs"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
+	"github.com/google/uuid"
+	fs "github.com/relab/wrfs"
 	"github.com/stretchr/testify/assert"
 )
 

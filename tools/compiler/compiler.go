@@ -38,9 +38,9 @@ import (
 	"strings"
 	"unicode"
 
-	wrfs "github.com/relab/wrfs"
-	"github.com/semanticstep/sst-core/sst"
 	ontologies "github.com/semanticstep/sst-ontologies"
+	"github.com/semanticstep/sst-core/sst"
+	wrfs "github.com/relab/wrfs"
 )
 
 // Copy of used vocabulary elements.
@@ -70,6 +70,10 @@ var (
 	owlInverseOf                 = sst.Element{Vocabulary: owlVocabulary, Name: "inverseOf"} // InverseObjectProperties
 	owlObjectProperty            = sst.Element{Vocabulary: owlVocabulary, Name: "ObjectProperty"}
 	owlOnDatatype                = sst.Element{Vocabulary: owlVocabulary, Name: "onDatatype"}
+	owlUnionOf                   = sst.Element{Vocabulary: owlVocabulary, Name: "unionOf"}
+	owlDisjointUnionOf           = sst.Element{Vocabulary: owlVocabulary, Name: "disjointUnionOf"}
+	owlIntersectionOf            = sst.Element{Vocabulary: owlVocabulary, Name: "intersectionOf"}
+	owlEquivalentClass           = sst.Element{Vocabulary: owlVocabulary, Name: "equivalentClass"}
 	ssmetaVocabulary             = sst.Vocabulary{BaseIRI: "http://ontology.semanticstep.net/ssmeta"}
 	ssmetaMainClass              = sst.Element{Vocabulary: ssmetaVocabulary, Name: "MainClass"}
 	ssmetaOptionClass            = sst.Element{Vocabulary: ssmetaVocabulary, Name: "OptionClass"}
@@ -126,7 +130,7 @@ var (
 		VocabColor.BaseIRI:         {"xsd": {}, "lci": {}},
 		VocabCountrycodes.BaseIRI:  {"xsd": {}, "lci": {}},
 		VocabCurrencycodes.BaseIRI: {"xsd": {}, "lci": {}},
-		VocabSso.BaseIRI:           {"rdf": {}, "xsd": {}, "ssmeta": {}, "lci": {}, "rep": {}, "qau": {}},
+		VocabSso.BaseIRI:           {"rdf": {}, "xsd": {}, "ssmeta": {}, "lci": {}, "rep": {}, "qau": {}, "owl": {}},
 		VocabSkos.BaseIRI:          {"rdf": {}, "rdfs": {}},
 	}
 
@@ -230,22 +234,38 @@ func prettyID(d sst.IBNode, vocab sst.Vocabulary) string {
 	}
 }
 
-func searchInheritanceInterfaces(ib sst.IBNode, receiver string, inheritanceFunctions map[string]struct{}) {
+// searchInheritanceInterfaces fills inheritanceFunctions with AsKind_* marker
+// methods that the receiver type should implement.
+//
+// Class-level super-type relationships (subClassOf, unionOf, intersectionOf,
+// equivalentClass, onDatatype) are resolved by the subsumptionGraph.
+// Property-level relationships (subPropertyOf) are still walked explicitly
+// because properties live in a separate hierarchy from classes.
+func searchInheritanceInterfaces(ib sst.IBNode, receiver string, inheritanceFunctions map[string]struct{}, graph *subsumptionGraph) {
+	// 1. Add kind methods for all reachable named super-classes from the reasoner.
+	for superKey := range graph.superClasses(ibNodeKey(ib)) {
+		superNode := graph.nodes[superKey]
+		if superNode == nil || !superNode.named {
+			continue
+		}
+		inheritanceFunctions[kindMethodFor(receiver, superNode)] = struct{}{}
+	}
+
+	// 2. Walk rdfs:subPropertyOf for properties.
 	ib.ForAll(func(_ int, ibS, ibP sst.IBNode, o sst.Term) error {
-		if ibS == ib { // not inverse
-			if o.TermKind() != sst.TermKindIBNode && o.TermKind() != sst.TermKindTermCollection {
-				return nil
-			}
-			if ibP.Is(rdfsSubClassOf) ||
-				ibP.Is(rdfsSubPropertyOf) ||
-				ibP.Is(owlOnDatatype) && (o.TermKind() == sst.TermKindIBNode || o.TermKind() == sst.TermKindTermCollection) {
-				o := o.(sst.IBNode)
-				inheritanceFunctions[fmt.Sprintf("func (%s) %s()", receiver, kindMethodOf(sst.Element{
-					Vocabulary: sst.Vocabulary{BaseIRI: o.OwningGraph().IRI().String()},
-					Name:       o.Fragment(),
-				}))] = struct{}{}
-				searchInheritanceInterfaces(o, receiver, inheritanceFunctions)
-			}
+		if ibS != ib { // not inverse
+			return nil
+		}
+		if o.TermKind() != sst.TermKindIBNode && o.TermKind() != sst.TermKindTermCollection {
+			return nil
+		}
+		if ibP.Is(rdfsSubPropertyOf) {
+			o := o.(sst.IBNode)
+			inheritanceFunctions[fmt.Sprintf("func (%s) %s()", receiver, kindMethodOf(sst.Element{
+				Vocabulary: sst.Vocabulary{BaseIRI: o.OwningGraph().IRI().String()},
+				Name:       o.Fragment(),
+			}))] = struct{}{}
+			searchInheritanceInterfaces(o, receiver, inheritanceFunctions, graph)
 		}
 		return nil
 	})
@@ -303,7 +323,7 @@ func collectMainClassSupersedure(ib sst.IBNode, vp vocabProperties, visited map[
 }
 
 // collectPropertyInheritance() analysis the Class and Property definitions of an IBNode
-// and returns the findings in a vocabProperties structure
+// and returns the findings in a vocabProperties structure.
 func collectPropertyInheritance(ib sst.IBNode) vocabProperties {
 	var vp vocabProperties
 
@@ -455,7 +475,31 @@ type sstToGo struct {
 	vp  vocabProperties
 }
 
-func compileSSTtoGO(graph sst.NamedGraph, output string, vocab sst.Vocabulary, vocabMaps *[]vocabMapPkg, data *vocabData) {
+// collectSSTToGos collects all IRI nodes in graph together with their
+// vocabProperties. It is used both for building a global subsumption graph
+// and for generating a single vocabulary file.
+func collectSSTToGos(graph sst.NamedGraph, vocab sst.Vocabulary) []sstToGo {
+	ibFragments := make([]string, 0, graph.IRINodeCount())
+
+	graph.ForIRINodes(func(d sst.IBNode) error {
+		ibFragments = append(ibFragments, d.Fragment())
+		return nil
+	})
+
+	sort.Slice(ibFragments, func(i, j int) bool {
+		return strings.Compare(string(ibFragments[i]), string(ibFragments[j])) < 0
+	})
+
+	var sstToGos []sstToGo
+	for _, f := range ibFragments {
+		ibS := graph.GetIRINodeByFragment(f)
+		vp := checkRangeDomain(ibS, vocab)
+		sstToGos = append(sstToGos, sstToGo{ibS, vp})
+	}
+	return sstToGos
+}
+
+func compileSSTtoGO(graph sst.NamedGraph, output string, vocab sst.Vocabulary, vocabMaps *[]vocabMapPkg, data *vocabData, reasonerGraph *subsumptionGraph) {
 	pkg := urlPackageMap[vocab.BaseIRI]
 
 	if graph == nil {
@@ -554,29 +598,19 @@ func compileSSTtoGO(graph sst.NamedGraph, output string, vocab sst.Vocabulary, v
 	fprintf(out, "var %sVocabulary = sst.Vocabulary{BaseIRI: \"%s\"}\n\n", vocabularyPKG, vocab.BaseIRI)
 	fprint(out, "var (\n\tPKG = sst.ElementPkg(pkg{})\n\t_   = PKG\n)\n")
 
-	ibFragments := make([]string, 0, graph.IRINodeCount())
-
-	graph.ForIRINodes(func(d sst.IBNode) error {
-		ibFragments = append(ibFragments, d.Fragment())
-		return nil
-	})
-
-	sort.Slice(ibFragments, func(i, j int) bool {
-		return strings.Compare(string(ibFragments[i]), string(ibFragments[j])) < 0
-	})
+	sstToGos := collectSSTToGos(graph, vocab)
 
 	vocabMap := vocabMapPkg{
 		pkg:     pkg.pkg,
-		entries: make([]string, 0, len(ibFragments)),
+		entries: make([]string, 0, len(sstToGos)),
 	}
 
-	var sstToGos []sstToGo
-
-	// collect all information
-	for _, f := range ibFragments {
-		ibS := graph.GetIRINodeByFragment(f)
-		vp := checkRangeDomain(ibS, vocab)
-		sstToGos = append(sstToGos, sstToGo{ibS, vp})
+	// Build the OWL subsumption graph. It captures all class-level super-type
+	// relationships (subClassOf, unionOf, intersectionOf, equivalentClass,
+	// onDatatype) and computes their transitive closure. The graph is then used
+	// by searchInheritanceInterfaces to emit the correct AsKind_* methods.
+	if reasonerGraph == nil {
+		reasonerGraph = buildSubsumptionGraph(sstToGos)
 	}
 
 	var alreadyPrintedInverseOfNode []sst.IBNode
@@ -643,7 +677,7 @@ func compileSSTtoGO(graph sst.NamedGraph, output string, vocab sst.Vocabulary, v
 				Vocabulary: owlVocabulary, Name: "Thing",
 			}))] = struct{}{}
 		}
-		searchInheritanceInterfaces(ibS, s4, inheritanceFunctions)
+		searchInheritanceInterfaces(ibS, s4, inheritanceFunctions, reasonerGraph)
 		sortedInheritanceFunctions := make([]string, 0, len(inheritanceFunctions))
 		for k := range inheritanceFunctions {
 			sortedInheritanceFunctions = append(sortedInheritanceFunctions, k)
@@ -761,7 +795,8 @@ func dictSSTtoGO(graph sst.NamedGraph, output string, vocab sst.Vocabulary, data
 			continue
 		}
 		elemVarName := sst.Element{Name: s0}.GoSimpleName()
-		fprintf(out,
+		fprintf(
+			out,
 			"\t%s = sst.Element{Vocabulary: %sVocabulary, Name: \"%s\"}\n",
 			elemVarName,
 			vocabularyPKG,
@@ -815,9 +850,20 @@ func main() {
 	var vocabMaps []vocabMapPkg
 	var data vocabData
 
+	// Collect class/datatype information from all vocabularies and build a
+	// single global subsumption graph. This ensures cross-vocabulary
+	// super-classes (e.g. eed:MasterPort ⊑ lci:Individual ⊑ lci:Thing) are
+	// resolved correctly for every generated vocabulary.
+	var allSSTToGos []sstToGo
+	for k := range neededCompileTTL {
+		tempVocab := sst.Vocabulary{BaseIRI: k}
+		allSSTToGos = append(allSSTToGos, collectSSTToGos(ontologies[tempVocab], tempVocab)...)
+	}
+	globalReasonerGraph := buildSubsumptionGraph(allSSTToGos)
+
 	for k, v := range neededCompileTTL {
 		tempVocab := sst.Vocabulary{BaseIRI: k}
-		compileSSTtoGO(ontologies[tempVocab], "vocabularies/"+v+"/vocabulary.go", tempVocab, &vocabMaps, &data)
+		compileSSTtoGO(ontologies[tempVocab], "vocabularies/"+v+"/vocabulary.go", tempVocab, &vocabMaps, &data, globalReasonerGraph)
 	}
 
 	for k, v := range neededCompileDictTTL {
@@ -1025,7 +1071,6 @@ func generateDict(dict sst.Stage) (map[sst.Vocabulary]sst.NamedGraph, error) {
 				}
 				return nil
 			})
-
 		}
 	}
 
@@ -1113,7 +1158,6 @@ func generateDict(dict sst.Stage) (map[sst.Vocabulary]sst.NamedGraph, error) {
 		log.Panic(err)
 	}
 	err = dict.WriteSstFilesDirectory(wrfs.DirFS("vocabularies/" + destDictDir))
-
 	if err != nil {
 		log.Panic(err)
 	}
@@ -1132,7 +1176,7 @@ func writeHeader(f io.StringWriter) {
 	}
 }
 
-// copied from sst-core starts
+// copied from sst-core starts.
 const (
 	typeMethodPrefix = "AsIs"
 	kindMethodPrefix = "AsKind"
@@ -1144,7 +1188,7 @@ const (
 // escaped to be a valid Go identifier and encodes the vocabulary base IRI
 // and element name, ensuring uniqueness and avoiding invalid characters.
 //
-// Example output: "TypeMethod_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractIndividual"
+// Example output: "TypeMethod_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractIndividual".
 func typeMethodOf(e sst.Elementer) string {
 	return escapedMethod(e, typeMethodPrefix)
 }
@@ -1154,7 +1198,7 @@ func typeMethodOf(e sst.Elementer) string {
 // escaped to be a valid Go identifier and encodes the vocabulary base IRI
 // and element name, ensuring uniqueness and avoiding invalid characters.
 //
-// Example output: "KindMethod_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractIndividual"
+// Example output: "KindMethod_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractIndividual".
 func kindMethodOf(e sst.Elementer) string {
 	return escapedMethod(e, kindMethodPrefix)
 }

@@ -15,12 +15,12 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/blevesearch/bleve/v2"
-	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/cli/cmd/utils"
 	"github.com/semanticstep/sst-core/defaultderive"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/sstauth"
+	"github.com/blevesearch/bleve/v2"
+	"github.com/google/uuid"
 	"go.etcd.io/bbolt"
 )
 
@@ -1077,11 +1077,10 @@ func handleSyncFrom(alias string, args []string) {
 	targetType := interactiveConfig.RepositoryTypes[alias]
 	sourceType := interactiveConfig.RepositoryTypes[sourceAlias]
 
-	repo := targetRepo
+	ctx := utils.GetAuthContext(targetRepo, interactiveConfig.AuthContexts)
 	if targetType != "remote" && sourceType == "remote" {
-		repo = sourceRepo
+		ctx = utils.GetAuthContext(sourceRepo, interactiveConfig.AuthContexts)
 	}
-	ctx := utils.GetAuthContext(repo, interactiveConfig.AuthContexts)
 
 	// Perform the sync
 	fmt.Printf("Syncing from repository '%s' to repository '%s'...\n", sourceAlias, alias)

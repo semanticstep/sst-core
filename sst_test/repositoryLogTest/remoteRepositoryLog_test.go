@@ -9,8 +9,8 @@ import (
 	"testing"
 
 	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/sst_test/testutil"
 	"github.com/semanticstep/sst-core/sstauth"
+	"github.com/semanticstep/sst-core/sst_test/testutil"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/stretchr/testify/require"

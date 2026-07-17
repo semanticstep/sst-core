@@ -6,7 +6,6 @@ package rdf
 
 import (
 	"reflect"
-
 	"github.com/semanticstep/sst-core/sst"
 )
 
@@ -44,7 +43,7 @@ var Alt = altI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "Alt"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -73,7 +72,7 @@ var Bag = bagI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "Bag"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -91,11 +90,9 @@ type KindCompoundLiteral interface {
 
 type compoundLiteralI struct{ sst.ElementInfo }
 
-func (compoundLiteralI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23CompoundLiteral() {
-}
-func (compoundLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23CompoundLiteral() {
-}
-func (compoundLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (compoundLiteralI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23CompoundLiteral()   {}
+func (compoundLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23CompoundLiteral() {}
+func (compoundLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                  {}
 
 var compoundLiteralKindInterface reflect.Type
 
@@ -103,7 +100,7 @@ var CompoundLiteral = compoundLiteralI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "CompoundLiteral"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -132,7 +129,7 @@ var HTML = htmlI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "HTML"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -161,7 +158,7 @@ var JSON = jsonI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "JSON"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -189,7 +186,7 @@ var List = listI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "List"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -207,12 +204,10 @@ type KindPlainLiteral interface {
 
 type plainLiteralI struct{ sst.ElementInfo }
 
-func (plainLiteralI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23PlainLiteral() {
-}
-func (plainLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23PlainLiteral() {
-}
-func (plainLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Literal()  {}
-func (plainLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (plainLiteralI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23PlainLiteral()   {}
+func (plainLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23PlainLiteral() {}
+func (plainLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Literal()                {}
+func (plainLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
 
 var plainLiteralKindInterface reflect.Type
 
@@ -220,7 +215,7 @@ var PlainLiteral = plainLiteralI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "PlainLiteral"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -238,10 +233,9 @@ type KindProperty interface {
 
 type propertyI struct{ sst.ElementInfo }
 
-func (propertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
-func (propertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
-}
-func (propertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (propertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property()   {}
+func (propertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
+func (propertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
 
 var propertyKindInterface reflect.Type
 
@@ -249,7 +243,7 @@ var Property = propertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "Property"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -278,7 +272,7 @@ var Seq = seqI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "Seq"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -296,11 +290,9 @@ type KindStatement interface {
 
 type statementI struct{ sst.ElementInfo }
 
-func (statementI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Statement() {
-}
-func (statementI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Statement() {
-}
-func (statementI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (statementI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Statement()   {}
+func (statementI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Statement() {}
+func (statementI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()            {}
 
 var statementKindInterface reflect.Type
 
@@ -308,7 +300,7 @@ var Statement = statementI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "Statement"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -326,12 +318,10 @@ type KindXMLLiteral interface {
 
 type xmlliteralI struct{ sst.ElementInfo }
 
-func (xmlliteralI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23XMLLiteral() {
-}
-func (xmlliteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23XMLLiteral() {
-}
-func (xmlliteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Literal()  {}
-func (xmlliteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (xmlliteralI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23XMLLiteral()   {}
+func (xmlliteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23XMLLiteral() {}
+func (xmlliteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Literal()              {}
+func (xmlliteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
 
 var xmlliteralKindInterface reflect.Type
 
@@ -339,7 +329,7 @@ var XMLLiteral = xmlliteralI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "XMLLiteral"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -357,20 +347,18 @@ type KindDirection interface {
 
 type directionI struct{ sst.ElementInfo }
 
-func (directionI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23direction() {
-}
-func (directionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23direction() {
-}
-func (directionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (directionI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23direction()   {}
+func (directionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23direction() {}
+func (directionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()            {}
 
 var directionKindInterface reflect.Type
 
 var Direction = directionI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "direction"},
-	ADomain: CompoundLiteral,
+	ADomain:           CompoundLiteral,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -396,10 +384,10 @@ var firstKindInterface reflect.Type
 
 var First = firstI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "first"},
-	ADomain: List,
+	ADomain:           List,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -417,12 +405,10 @@ type KindLangString interface {
 
 type langStringI struct{ sst.ElementInfo }
 
-func (langStringI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23langString() {
-}
-func (langStringI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23langString() {
-}
-func (langStringI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Literal()  {}
-func (langStringI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (langStringI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23langString()   {}
+func (langStringI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23langString() {}
+func (langStringI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Literal()              {}
+func (langStringI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
 
 var langStringKindInterface reflect.Type
 
@@ -430,7 +416,7 @@ var LangString = langStringI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "langString"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: true, AnIndividual: false,
 }}
 
@@ -448,19 +434,18 @@ type KindLanguage interface {
 
 type languageI struct{ sst.ElementInfo }
 
-func (languageI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23language() {}
-func (languageI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23language() {
-}
-func (languageI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (languageI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23language()   {}
+func (languageI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23language() {}
+func (languageI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
 
 var languageKindInterface reflect.Type
 
 var Language = languageI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "language"},
-	ADomain: CompoundLiteral,
+	ADomain:           CompoundLiteral,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -489,7 +474,7 @@ var Nil = nilI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "nil"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -515,10 +500,10 @@ var objectKindInterface reflect.Type
 
 var Object = objectI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "object"},
-	ADomain: Statement,
+	ADomain:           Statement,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -536,20 +521,18 @@ type KindPredicate interface {
 
 type predicateI struct{ sst.ElementInfo }
 
-func (predicateI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23predicate() {
-}
-func (predicateI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23predicate() {
-}
-func (predicateI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (predicateI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23predicate()   {}
+func (predicateI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23predicate() {}
+func (predicateI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()            {}
 
 var predicateKindInterface reflect.Type
 
 var Predicate = predicateI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "predicate"},
-	ADomain: Statement,
+	ADomain:           Statement,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -575,11 +558,11 @@ var restKindInterface reflect.Type
 
 var Rest = restI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "rest"},
-	ADomain: List,
-	ARange:  List,
+	ADomain:           List,
+	ARange:            List,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -605,10 +588,10 @@ var subjectKindInterface reflect.Type
 
 var Subject = subjectI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "subject"},
-	ADomain: Statement,
+	ADomain:           Statement,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -636,7 +619,7 @@ var Type = typeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "type"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -664,6 +647,6 @@ var Value = valueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFVocabulary, Name: "value"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}

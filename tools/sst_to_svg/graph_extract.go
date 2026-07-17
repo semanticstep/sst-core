@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
+	"github.com/google/uuid"
 )
 
 func getCurveAndIdListForSvg(graph sst.NamedGraph) map[string][]map[string]string {
@@ -109,3 +109,4 @@ func generateStyleMap(graph sst.NamedGraph) map[uuid.UUID]map[string]string {
 
 	return styleMap
 }
+

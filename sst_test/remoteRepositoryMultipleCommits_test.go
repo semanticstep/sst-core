@@ -18,7 +18,6 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/sst_test/testutil"
 	"github.com/semanticstep/sst-core/sstauth"
@@ -28,6 +27,7 @@ import (
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

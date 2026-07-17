@@ -3,8 +3,12 @@
 package validate_test
 
 import (
+	"bufio"
+	"bytes"
+	"strings"
 	"testing"
 
+	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/sst_test/testutil"
 	"github.com/semanticstep/sst-core/tools/validate"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
@@ -80,4 +84,40 @@ func TestValidateAll(t *testing.T) {
 			assert.Contains(t, refIRIs, string(ng.IRI()), "unexpected graph in refStage")
 		}
 	})
+}
+
+// TestValidateGeometricSetWithCartesianPoint verifies that a GeometricSet whose
+// rep:element points to a CartesianPoint passes validation. CartesianPoint is a
+// sub-class of Point, and Point is a member of the GeometricSetSelect union,
+// so the range constraint is satisfied.
+func TestValidateGeometricSetWithCartesianPoint(t *testing.T) {
+	ttl := `@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rep: <http://ontology.semanticstep.net/rep#> .
+@prefix : <urn:uuid:12345678-1234-1234-1234-123456789abc#> .
+
+<urn:uuid:12345678-1234-1234-1234-123456789abc> a owl:Ontology .
+
+:geometric-set a rep:GeometricSet ;
+    rep:element :point-left ;
+    rdfs:label "position" .
+
+:point-left a rep:CartesianPoint ;
+    rdfs:label "terminator pointLEFT" ;
+    rep:coordinates ( -16.9371183559714 -53.8 -21.3387537506001 ) .
+`
+
+	data := []byte(strings.ReplaceAll(ttl, "\r\n", "\n"))
+	stage, err := sst.RdfRead(
+		bufio.NewReader(bytes.NewReader(data)),
+		sst.RdfFormatTurtle,
+		sst.StrictHandler,
+		sst.DefaultTriplexMode,
+	)
+	require.NoError(t, err)
+
+	report, err := validate.ValidateAll(stage)
+	require.NoError(t, err)
+	assert.True(t, report.Passed, "validation failed: %s", report.String())
 }

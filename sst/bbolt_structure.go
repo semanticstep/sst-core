@@ -3,6 +3,7 @@
 package sst
 
 import (
+	"bytes"
 	"errors"
 	"reflect"
 	"unsafe"
@@ -203,6 +204,12 @@ func bytesToRefKey(b []byte, prefix refPrefix) []byte {
 
 func bytesToKeyInternal(b []byte, prefix byte) []byte {
 	return append([]byte{prefix}, b...)
+}
+
+// isMasterBranchRefKey reports whether b is the branch ref key for the
+// default (master) branch.
+func isMasterBranchRefKey(b []byte) bool {
+	return bytes.Equal(b, bytesToRefKey(stringAsImmutableBytes(DefaultBranch), refBranchPrefix))
 }
 
 // create datasets sub-bucket with dsID, and if it is already existed, return that

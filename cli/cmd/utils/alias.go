@@ -70,6 +70,32 @@ func RemoveAliasFlag(args []string) []string {
 	return result
 }
 
+// ExtractOutputFlag returns the file path after '-o' if present.
+func ExtractOutputFlag(args []string) (string, error) {
+	for i, arg := range args {
+		if arg == "-o" && i+1 < len(args) {
+			return args[i+1], nil
+		}
+		if arg == "-o" && i+1 >= len(args) {
+			return "", fmt.Errorf("error: missing path after '-o' flag")
+		}
+	}
+	return "", nil
+}
+
+// ArgsWithoutOutputFlag removes the first occurrence of '-o' and its value from args.
+func ArgsWithoutOutputFlag(args []string) []string {
+	result := make([]string, 0, len(args))
+	for i := 0; i < len(args); i++ {
+		if args[i] == "-o" && i+1 < len(args) {
+			i++
+			continue
+		}
+		result = append(result, args[i])
+	}
+	return result
+}
+
 // extractAliasAfterFlag extracts the alias after a flag in the form of '-a <alias>'
 func extractAliasAfterFlag(args []string) (string, error) {
 	for i, arg := range args {

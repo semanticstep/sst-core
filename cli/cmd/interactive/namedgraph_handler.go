@@ -9,10 +9,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/cli/cmd/utils"
 	"github.com/semanticstep/sst-core/sst"
 	ssttosvg "github.com/semanticstep/sst-core/tools/sst_to_svg"
+	"github.com/google/uuid"
 )
 
 func handleListForIRINode(graphAlias string) {

@@ -34,6 +34,9 @@ var (
 	ErrNamedGraphIsImported                = errors.New("this NamedGraph is imported by others")
 	ErrIBNodeInNamedGraphIsUsedElseWhere   = errors.New("this NamedGraph is referenced by others")
 	ErrReferencedNamedGraphCanNotBeDeleted = errors.New("referenced NamedGraph can not be deleted")
+	ErrEmptyBranchName                     = errors.New("branch name is empty")
+	ErrNamedGraphAlreadyLinked             = errors.New("NamedGraph is already linked to a repository")
+	ErrReferencedNamedGraphCannotBeLinked  = errors.New("referenced NamedGraph cannot be linked to a repository")
 )
 
 type (
@@ -322,6 +325,28 @@ type NamedGraph interface {
 	//       In all other cases, SST takes care of all the correct parent commits when making a new commit.
 	SetCommits(Commits ...Hash)
 
+	// LinkToRepository associates this NamedGraph with the given Repository and
+	// prepares it for a subsequent commit that preserves history.
+	//
+	// For each NamedGraph, the method looks up whether a Dataset with the same IRI
+	// already exists in repo.
+	//   - If no such Dataset exists, the NamedGraph will create a new Dataset on the
+	//     next commit. It will have no parent history.
+	//   - If the Dataset exists but the given branch does not, the next commit will
+	//     create a new branch on that Dataset with no parent history.
+	//   - If the Dataset and branch both exist, the current branch tip is used as
+	//     the parent commit, and the corresponding NamedGraphRevision and
+	//     DatasetRevision are copied into this NamedGraph so that the next commit
+	//     continues the branch.
+	//
+	// The owning Stage is linked to repo if it was not already linked. If the Stage
+	// was already linked to a different Repository, an error is returned.
+	//
+	// This method is intended for NamedGraphs that have no prior repository history,
+	// such as those created by RdfRead. It must not be called on a NamedGraph that
+	// already carries checkout metadata from a previous checkout or commit.
+	LinkToRepository(ctx context.Context, repo Repository, branch string) error
+
 	allocateTriplexes(count int)
 
 	// createAllocatedNode creates or retrieves an IBNode of the given type in this NamedGraph
@@ -385,6 +410,96 @@ type NamedGraph interface {
 
 func (g *namedGraph) SetCommits(Commits ...Hash) {
 	g.checkedOutCommits = Commits
+}
+
+// LinkToRepository associates this NamedGraph with the given Repository and
+// prepares it for a subsequent commit that preserves history.
+//
+// For each NamedGraph, the method looks up whether a Dataset with the same IRI
+// already exists in repo.
+//   - If no such Dataset exists, the NamedGraph will create a new Dataset on the
+//     next commit. It will have no parent history.
+//   - If the Dataset exists but the given branch does not, the next commit will
+//     create a new branch on that Dataset with no parent history.
+//   - If the Dataset and branch both exist, the current branch tip is used as
+//     the parent commit, and the corresponding NamedGraphRevision and
+//     DatasetRevision are copied into this NamedGraph so that the next commit
+//     continues the branch.
+//
+// The owning Stage is linked to repo if it was not already linked. If the Stage
+// was already linked to a different Repository, an error is returned.
+//
+// This method is intended for NamedGraphs that have no prior repository history,
+// such as those created by RdfRead. It must not be called on a NamedGraph that
+// already carries checkout metadata from a previous checkout or commit.
+func (g *namedGraph) LinkToRepository(ctx context.Context, repo Repository, branch string) error {
+	if repo == nil {
+		return wrapError(ErrRepositoryNotFound)
+	}
+	if branch == "" {
+		return wrapError(ErrEmptyBranchName)
+	}
+	if err := g.assertAccess(); err != nil {
+		return err
+	}
+	if g.flags.isReferenced {
+		return wrapError(ErrReferencedNamedGraphCannotBeLinked)
+	}
+	if g.flags.deleted {
+		return wrapError(ErrNamedGraphAlreadyDeleted)
+	}
+
+	st := g.stage
+	if st.repo != nil && st.repo != repo {
+		return wrapError(ErrStagesRepositoryMismatch)
+	}
+	st.repo = repo
+
+	// If this NamedGraph already carries checkout history, refuse to overwrite.
+	if len(g.checkedOutCommits) > 0 || len(g.checkedOutNGRevisions) > 0 || len(g.checkedOutDSRevisions) > 0 {
+		return wrapError(ErrNamedGraphAlreadyLinked)
+	}
+
+	// Look up whether a Dataset with the same IRI already exists.
+	ds, err := repo.Dataset(ctx, g.IRI())
+	if err != nil {
+		if errors.Is(err, ErrDatasetNotFound) {
+			// New Dataset: no parent history.
+			return nil
+		}
+		return wrapError(err)
+	}
+
+	branches, err := ds.Branches(ctx)
+	if err != nil {
+		return wrapError(err)
+	}
+
+	commitHash, ok := branches[branch]
+	if !ok {
+		// New branch on existing Dataset: no parent history.
+		return nil
+	}
+
+	cd, err := ds.CommitDetailsByHash(ctx, commitHash)
+	if err != nil {
+		return wrapError(err)
+	}
+
+	ngRev, ok := cd.NamedGraphRevisions[g.IRI()]
+	if !ok {
+		return wrapError(ErrNamedGraphRevisionNotFound)
+	}
+	dsRev, ok := cd.DatasetRevisions[g.IRI()]
+	if !ok {
+		return wrapError(ErrDatasetRevisionNotFound)
+	}
+
+	g.checkedOutCommits = []Hash{commitHash}
+	g.checkedOutNGRevisions = []Hash{ngRev}
+	g.checkedOutDSRevisions = []Hash{dsRev}
+
+	return nil
 }
 
 func (g *namedGraph) PrintTriples() {
@@ -761,7 +876,6 @@ func (g *namedGraph) Info() NamedGraphInfo {
 			numberOfAllImportedGraphs++
 			countFunc(tempNg)
 		}
-
 	}
 	for _, ng := range g.directImports {
 		countFunc(ng)
@@ -1467,7 +1581,6 @@ func (g *namedGraph) deleteNodesWithNoTriples() error {
 		}
 		if triplexCnt == 0 {
 			d.Delete()
-
 		}
 	}
 	return nil

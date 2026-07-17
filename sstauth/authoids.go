@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"net/http"
+	"slices"
 	"strings"
 	"sync/atomic"
 	"time"
@@ -25,7 +26,23 @@ const (
 	tokenVerifierUpdatePeriod = 30 * time.Second
 	maxTokenCacheSize         = 128
 	tokenExpiryDelta          = 10 * time.Second
+
+	// perRepoClientIDSeparator is the delimiter between the super client ID and
+	// the repository name when building per-repository Keycloak client IDs.
+	perRepoClientIDSeparator = "#"
 )
+
+// PerRepoClientID returns the Keycloak client ID / token audience used for a
+// single repository managed by a SuperRepository.
+func PerRepoClientID(superClientID, repoName string) string {
+	return superClientID + perRepoClientIDSeparator + repoName
+}
+
+// IsPerRepoClientID reports whether audience is a per-repository client ID for
+// the given super client ID.
+func IsPerRepoClientID(superClientID, audience string) bool {
+	return strings.HasPrefix(audience, superClientID+perRepoClientIDSeparator)
+}
 
 type Provider interface {
 	Oauth2Token() (*oauth2.Token, error)
@@ -131,7 +148,7 @@ func authTokenFromHeader(r *http.Request) string {
 	return ""
 }
 
-// call oidcTokenVerificationAndCaching to verify the rawToken and get SstUserInfo
+// call oidcTokenVerificationAndCaching to verify the rawToken and get SstUserInfo.
 func verifyTokenAndClaimSstUserInfo(
 	ctx context.Context,
 	rawToken, issuer string,
@@ -197,8 +214,11 @@ func NewOIDCVerifier(ctx context.Context, issuer string, clientID string) (*oidc
 	if err != nil {
 		return nil, err
 	}
-	// This enforces audience check.
-	return provider.Verifier(&oidc.Config{ClientID: clientID}), nil
+	// Skip the default audience check because per-repo tokens have the repo URL
+	// as their audience, not the fixed super client ID. The RBAC interceptors
+	// validate the audience manually against the expected client ID for each
+	// request.
+	return provider.Verifier(&oidc.Config{SkipClientIDCheck: true}), nil
 }
 
 func (t *tokenVerifier) init(ctx context.Context, issuer string) {
@@ -291,11 +311,72 @@ func tokenFromIncomingContext(ctx context.Context) (string, error) {
 	return parts[1], nil
 }
 
+// RepoNameFromRequest extracts the RepoName field from any gRPC request that
+// exposes GetRepoName(). If the request has no RepoName or it is empty, it
+// returns "default".
+func RepoNameFromRequest(req any) string {
+	type repoNamer interface{ GetRepoName() string }
+	if r, ok := req.(repoNamer); ok {
+		if name := r.GetRepoName(); name != "" {
+			return name
+		}
+	}
+	return "default"
+}
+
+// AccessModeForClientID returns the effective access mode for the given
+// Keycloak client ID by looking up roles in the token claims.
+func AccessModeForClientID(claims KCClaims, clientID string) AccessMode {
+	roles := RolesForClient(claims, clientID)
+	roleList := make([]string, 0, len(roles))
+	for r := range roles {
+		roleList = append(roleList, r)
+	}
+	return AccessModeFromRoles(roleList)
+}
+
+// CheckRepoAccess validates that the principal in ctx has the required access
+// mode for the requested repo URL. It is intended for streaming RPC handlers
+// that receive the repo name in their first message.
+//
+// If useSuperClient is true, repoURL is ignored and the super client ID is used.
+// Otherwise repoURL is expected to be the full repo client ID (superClientID + "#" + repoName).
+func CheckRepoAccess(
+	ctx context.Context,
+	repoURL string,
+	fullMethod string,
+	methodRoles map[string]AccessMode,
+	superClientID string,
+	useSuperClient bool,
+) error {
+	p, ok := PrincipalFromContext(ctx)
+	if !ok {
+		return status.Error(codes.Unauthenticated, "missing principal")
+	}
+
+	expectedClientID := superClientID
+	if !useSuperClient {
+		expectedClientID = repoURL
+	}
+
+	if !slices.Contains(p.Audience, expectedClientID) {
+		return status.Error(codes.PermissionDenied, "invalid audience")
+	}
+
+	mode := AccessModeForClientID(p.Claims, expectedClientID)
+	if required, found := methodRoles[fullMethod]; found {
+		if !HasAccess(mode, required) {
+			return status.Error(codes.PermissionDenied, "forbidden")
+		}
+	}
+	return nil
+}
+
 func UnaryRBACInterceptor(
 	verifier *oidc.IDTokenVerifier,
-	clientID string,
+	superClientID string,
+	perRepoAuth bool,
 	methodRoles map[string]AccessMode,
-	expectedRepoName string,
 ) grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (any, error) {
 		tok, err := tokenFromIncomingContext(ctx)
@@ -313,34 +394,39 @@ func UnaryRBACInterceptor(
 			return nil, status.Error(codes.Unauthenticated, "bad claims")
 		}
 
-		roles := RolesForClient(c, clientID)
-		roleList := make([]string, 0, len(roles))
-		for r := range roles {
-			roleList = append(roleList, r)
+		// SuperRepository management methods always use the super client ID.
+		// Otherwise, when per-repo auth is enabled, resolve the target repo's
+		// client ID from the request.
+		useSuperClient := !perRepoAuth || strings.HasPrefix(info.FullMethod, "/sst.repository.RepoManagerService/")
+		expectedClientID := superClientID
+		if !useSuperClient {
+			repoName := RepoNameFromRequest(req)
+			expectedClientID = PerRepoClientID(superClientID, repoName)
 		}
-		userMode := AccessModeFromRoles(roleList)
+
+		if !slices.Contains(idToken.Audience, expectedClientID) {
+			return nil, status.Error(codes.PermissionDenied, "invalid audience")
+		}
+
+		mode := AccessModeForClientID(c, expectedClientID)
 
 		// Method-level RBAC
 		if required, ok := methodRoles[info.FullMethod]; ok {
-			if !HasAccess(userMode, required) {
+			if !HasAccess(mode, required) {
 				return nil, status.Error(codes.PermissionDenied, "forbidden")
 			}
 		}
 
-		// Optional: single-repo entrance check
-		// if err := checkRepoName(req, expectedRepoName); err != nil {
-		// 	return nil, err
-		// }
-
-		p := &Principal{Email: c.Email, Name: c.Name, Roles: roles}
+		p := &Principal{Email: c.Email, Name: c.Name, Claims: c, Audience: idToken.Audience}
 		return handler(WithPrincipal(ctx, p), req)
 	}
 }
 
 type Principal struct {
-	Email string
-	Name  string
-	Roles map[string]bool // roles for ONE clientID (the API client)
+	Email    string
+	Name     string
+	Claims   KCClaims
+	Audience []string
 }
 
 type ctxKey int
@@ -358,9 +444,9 @@ func PrincipalFromContext(ctx context.Context) (*Principal, bool) {
 
 func StreamRBACInterceptor(
 	verifier *oidc.IDTokenVerifier,
-	clientID string,
+	superClientID string,
+	perRepoAuth bool,
 	methodRoles map[string]AccessMode,
-	expectedRepoName string,
 ) grpc.StreamServerInterceptor {
 	return func(srv any, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
 		tok, err := tokenFromIncomingContext(ss.Context())
@@ -378,23 +464,45 @@ func StreamRBACInterceptor(
 			return status.Error(codes.Unauthenticated, "bad claims")
 		}
 
-		roles := RolesForClient(c, clientID)
-		roleList := make([]string, 0, len(roles))
-		for r := range roles {
-			roleList = append(roleList, r)
-		}
-		userMode := AccessModeFromRoles(roleList)
-
-		if required, ok := methodRoles[info.FullMethod]; ok {
-			if !HasAccess(userMode, required) {
-				return status.Error(codes.PermissionDenied, "forbidden")
+		// For streaming RPCs the target repo name arrives in the first message,
+		// so we can only verify that the token belongs to this server (super
+		// client or any per-repo client) and that the principal carries the
+		// audience list. The per-repo access check (audience + roles) is done
+		// by the handler after reading the first message.
+		if perRepoAuth {
+			audienceOK := false
+			for _, aud := range idToken.Audience {
+				if aud == superClientID || IsPerRepoClientID(superClientID, aud) {
+					audienceOK = true
+					break
+				}
+			}
+			if !audienceOK {
+				return status.Error(codes.PermissionDenied, "invalid audience")
+			}
+		} else {
+			if !slices.Contains(idToken.Audience, superClientID) {
+				return status.Error(codes.PermissionDenied, "invalid audience")
 			}
 		}
 
-		// For streaming RPCs, repoName check is harder because requests arrive later.
-		// If you need it, do it in your stream handler on first message using PrincipalFromContext.
+		methodRequired, hasMethodRole := methodRoles[info.FullMethod]
+		if hasMethodRole {
+			// When per-repo auth is enabled and the token only carries a
+			// per-repo audience, the target repo is unknown until the first
+			// message. The handler will enforce the per-repo method role there.
+			// Only enforce super-client roles here when the token actually
+			// targets the super client.
+			enforceSuperRole := !perRepoAuth || slices.Contains(idToken.Audience, superClientID)
+			if enforceSuperRole {
+				superMode := AccessModeForClientID(c, superClientID)
+				if !HasAccess(superMode, methodRequired) {
+					return status.Error(codes.PermissionDenied, "forbidden")
+				}
+			}
+		}
 
-		p := &Principal{Email: c.Email, Name: c.Name, Roles: roles}
+		p := &Principal{Email: c.Email, Name: c.Name, Claims: c, Audience: idToken.Audience}
 		wrapped := &wrappedStream{ServerStream: ss, ctx: WithPrincipal(ss.Context(), p)}
 
 		return handler(srv, wrapped)

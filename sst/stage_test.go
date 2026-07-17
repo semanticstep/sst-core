@@ -3,11 +3,13 @@
 package sst
 
 import (
+	"context"
 	"path/filepath"
 	"testing"
 
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestStage_NamedGraphIDs(t *testing.T) {
@@ -83,6 +85,7 @@ func TestStage_NamedGraphIDs(t *testing.T) {
 		})
 	}
 }
+
 func compareUUIDSlicesUnordered(slice1, slice2 []uuid.UUID) bool {
 	if len(slice1) != len(slice2) {
 		return false
@@ -192,6 +195,61 @@ func TestStage_AlignHistory(t *testing.T) {
 	assert.Equal(t, fromMissingNg.checkedOutCommits, toMissingNg.checkedOutCommits)
 	assert.Equal(t, fromMissingNg.checkedOutNGRevisions, toMissingNg.checkedOutNGRevisions)
 	assert.Equal(t, fromMissingNg.checkedOutDSRevisions, toMissingNg.checkedOutDSRevisions)
+}
+
+func TestStage_LinkToRepository(t *testing.T) {
+	t.Run("links stage to repository", func(t *testing.T) {
+		repoDir := filepath.Join(t.TempDir(), "repo")
+		repo, err := CreateLocalRepository(repoDir, "test@example.com", "test", true)
+		require.NoError(t, err)
+		defer repo.Close()
+
+		st := OpenStage(DefaultTriplexMode).(*stage)
+		st.CreateNamedGraph(IRI("http://example.com/one"))
+		st.CreateNamedGraph(IRI("http://example.com/two"))
+
+		err = st.LinkToRepository(context.TODO(), repo, DefaultBranch)
+		require.NoError(t, err)
+
+		assert.Equal(t, repo, st.repo)
+	})
+
+	t.Run("nil repository returns error", func(t *testing.T) {
+		st := OpenStage(DefaultTriplexMode).(*stage)
+		st.CreateNamedGraph(IRI("http://example.com/ng"))
+		err := st.LinkToRepository(context.TODO(), nil, DefaultBranch)
+		assert.ErrorIs(t, err, ErrRepositoryNotFound)
+	})
+
+	t.Run("empty branch returns error", func(t *testing.T) {
+		repoDir := filepath.Join(t.TempDir(), "repo")
+		repo, err := CreateLocalRepository(repoDir, "test@example.com", "test", true)
+		require.NoError(t, err)
+		defer repo.Close()
+
+		st := OpenStage(DefaultTriplexMode).(*stage)
+		st.CreateNamedGraph(IRI("http://example.com/ng"))
+		err = st.LinkToRepository(context.TODO(), repo, "")
+		assert.ErrorIs(t, err, ErrEmptyBranchName)
+	})
+
+	t.Run("stage linked to different repo returns error", func(t *testing.T) {
+		repoDir1 := filepath.Join(t.TempDir(), "repo1")
+		repo1, err := CreateLocalRepository(repoDir1, "test@example.com", "test", true)
+		require.NoError(t, err)
+		defer repo1.Close()
+
+		repoDir2 := filepath.Join(t.TempDir(), "repo2")
+		repo2, err := CreateLocalRepository(repoDir2, "test@example.com", "test", true)
+		require.NoError(t, err)
+		defer repo2.Close()
+
+		st := OpenStage(DefaultTriplexMode).(*stage)
+		st.repo = repo1
+		st.CreateNamedGraph(IRI("http://example.com/ng"))
+		err = st.LinkToRepository(context.TODO(), repo2, DefaultBranch)
+		assert.ErrorIs(t, err, ErrStagesRepositoryMismatch)
+	})
 }
 
 type noError struct{ assert.TestingT }

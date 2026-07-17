@@ -26,3 +26,4 @@ step/testdata/ewhfortest/stepxmlLocalFullRepository/
 # Local design documentation (not for Git)
 .design-docs/
 .env.sst-cli
+.env.sst-test

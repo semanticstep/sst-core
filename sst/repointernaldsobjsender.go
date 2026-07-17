@@ -10,8 +10,8 @@ import (
 	"io"
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/bboltproto"
+	"github.com/google/uuid"
 	"go.etcd.io/bbolt"
 	"go.uber.org/zap"
 	"google.golang.org/protobuf/types/known/timestamppb"

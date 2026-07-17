@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 

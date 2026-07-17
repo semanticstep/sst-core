@@ -635,9 +635,10 @@ Validate stage content:
 
 ```
 sst > <stage-alias>.validate
+sst > <stage-alias>.validate -o <file>
 ```
 
-This validates the stage content for RDF syntax and domain-range constraints. The output is a detailed report organized by NamedGraph, with each finding showing the message and the related triple (Subject, Predicate, Object).
+This validates the stage content for RDF syntax and domain-range constraints. Without `-o`, the detailed report is printed to the console (organized by NamedGraph, with each finding showing the message and the related triple). With `-o <file>`, the full report is written to a file; if the path has no extension, `.txt` is appended automatically.
 
 ### Commit Changes
 

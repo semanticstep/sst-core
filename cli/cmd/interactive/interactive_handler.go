@@ -960,10 +960,17 @@ func handleNamedGraphExportAP242XML(graphAlias string, args []string) {
 
 func handleImportP21(args []string) {
 	if len(args) < 1 {
-		fmt.Println("Error: Missing arguments. Usage: importp21 <file-path>")
+		fmt.Println("Error: Missing arguments. Usage: importp21 <file-path> [-o <raw-ttl-path>] [-a <stage-alias>]")
 		return
 	}
 	filePath := args[0]
+
+	rawOutputPath, err := utils.ExtractOutputFlag(args)
+	if err != nil {
+		fmt.Println(err)
+		fmt.Println("Error: Missing arguments. Usage: importp21 <file-path> [-o <raw-ttl-path>] [-a <stage-alias>]")
+		return
+	}
 
 	aliasResult, err := utils.GetAlias(args, "stage")
 	if err != nil {
@@ -997,12 +1004,25 @@ func handleImportP21(args []string) {
 		}
 	}()
 
-	reader := bufio.NewReader(file)
-
 	var graph sst.NamedGraph
-	graph, err = p21.Parse(reader, log.Default())
+	if rawOutputPath != "" {
+		graph, err = p21.ParseRaw(bufio.NewReader(file), log.Default())
+		if err != nil {
+			utils.PrintCLIProblem("import P21 file", err)
+			return
+		}
+		if err := writeP21Turtle(rawOutputPath, graph); err != nil {
+			utils.PrintCLIProblem("write raw P21 graph", err)
+			return
+		}
+		if _, err := file.Seek(0, 0); err != nil {
+			utils.PrintCLIProblem("rewind P21 file", err)
+			return
+		}
+	}
+	graph, err = p21.Parse(bufio.NewReader(file), log.Default())
 	if err != nil {
-		utils.PrintCLIProblem("import P21 file", err)
+		utils.PrintCLIProblem("convert P21 file", err)
 		return
 	}
 
@@ -1025,7 +1045,7 @@ func handleImportP21(args []string) {
 	interactiveConfig.StageSources[stageAlias] = filePath
 
 	// Create alias for the graph (remove stage alias flag from args first)
-	remainingArgs := utils.RemoveAliasFlag(args)
+	remainingArgs := utils.ArgsWithoutOutputFlag(utils.RemoveAliasFlag(args))
 	graphAliasResult, err := utils.GetAlias(remainingArgs, "namedgraph")
 	var graphAlias string
 	if err != nil {
@@ -1049,12 +1069,27 @@ func handleImportP21(args []string) {
 	}
 
 	fmt.Printf("Stage '%s' (file '%s') opened successfully.\n", stageAlias, filePath)
+	if rawOutputPath != "" {
+		fmt.Printf("Raw P21 graph written to %s\n", rawOutputPath)
+	}
 
 	if graphAlias != "" {
 		if _, exists := interactiveConfig.NamedGraphs[graphAlias]; exists {
 			utils.PrintNamedGraphDetails(graphAlias, graph)
 		}
 	}
+}
+
+func writeP21Turtle(path string, graph sst.NamedGraph) error {
+	file, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		_ = file.Close()
+	}()
+
+	return graph.RdfWrite(file, sst.RdfFormatTurtle)
 }
 
 func handleImportSVG(args []string) {

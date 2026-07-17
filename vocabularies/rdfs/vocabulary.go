@@ -6,7 +6,6 @@ package rdfs
 
 import (
 	"reflect"
-
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 )
@@ -41,11 +40,11 @@ func (classI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Re
 var classKindInterface reflect.Type
 
 var Class = classI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: RDFSVocabulary, Name: "Class"},
-	ASubtypeOf: []sst.ElementInformer{Resource},
+	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "Class"},
+	ASubtypeOf:        []sst.ElementInformer{Resource},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -70,11 +69,11 @@ func (containerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_
 var containerKindInterface reflect.Type
 
 var Container = containerI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: RDFSVocabulary, Name: "Container"},
-	ASubtypeOf: []sst.ElementInformer{Resource},
+	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "Container"},
+	ASubtypeOf:        []sst.ElementInformer{Resource},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -92,23 +91,19 @@ type KindContainerMembershipProperty interface {
 
 type containerMembershipPropertyI struct{ sst.ElementInfo }
 
-func (containerMembershipPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23ContainerMembershipProperty() {
-}
-func (containerMembershipPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
-}
-func (containerMembershipPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23ContainerMembershipProperty() {
-}
-func (containerMembershipPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (containerMembershipPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23ContainerMembershipProperty()   {}
+func (containerMembershipPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property()          {}
+func (containerMembershipPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23ContainerMembershipProperty() {}
+func (containerMembershipPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                    {}
 
 var containerMembershipPropertyKindInterface reflect.Type
 
 var ContainerMembershipProperty = containerMembershipPropertyI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: RDFSVocabulary, Name: "ContainerMembershipProperty"},
-	ASubtypeOf: []sst.ElementInformer{rdf.Property},
+	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "ContainerMembershipProperty"},
+	ASubtypeOf:        []sst.ElementInformer{rdf.Property},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -134,11 +129,11 @@ func (datatypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_2
 var datatypeKindInterface reflect.Type
 
 var Datatype = datatypeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: RDFSVocabulary, Name: "Datatype"},
-	ASubtypeOf: []sst.ElementInformer{Class},
+	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "Datatype"},
+	ASubtypeOf:        []sst.ElementInformer{Class},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -163,11 +158,11 @@ func (literalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23
 var literalKindInterface reflect.Type
 
 var Literal = literalI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: RDFSVocabulary, Name: "Literal"},
-	ASubtypeOf: []sst.ElementInformer{Resource},
+	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "Literal"},
+	ASubtypeOf:        []sst.ElementInformer{Resource},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -194,7 +189,7 @@ var Resource = resourceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "Resource"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -220,11 +215,11 @@ var commentKindInterface reflect.Type
 
 var Comment = commentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "comment"},
-	ADomain: Resource,
-	ARange:  Literal,
+	ADomain:           Resource,
+	ARange:            Literal,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -250,11 +245,11 @@ var domainKindInterface reflect.Type
 
 var Domain = domainI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "domain"},
-	ADomain: rdf.Property,
-	ARange:  Class,
+	ADomain:           rdf.Property,
+	ARange:            Class,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -280,13 +275,13 @@ func (isDefinedByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschem
 var isDefinedByKindInterface reflect.Type
 
 var IsDefinedBy = isDefinedByI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: RDFSVocabulary, Name: "isDefinedBy"},
-	ADomain:        Resource,
-	ARange:         Resource,
-	ASubPropertyOf: SeeAlso,
+	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "isDefinedBy"},
+	ADomain:           Resource,
+	ARange:            Resource,
+	ASubPropertyOf:    SeeAlso,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -312,11 +307,11 @@ var labelKindInterface reflect.Type
 
 var Label = labelI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "label"},
-	ADomain: Resource,
-	ARange:  Literal,
+	ADomain:           Resource,
+	ARange:            Literal,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -342,11 +337,11 @@ var memberKindInterface reflect.Type
 
 var Member = memberI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "member"},
-	ADomain: Resource,
-	ARange:  Resource,
+	ADomain:           Resource,
+	ARange:            Resource,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -372,11 +367,11 @@ var rangeKindInterface reflect.Type
 
 var Range = rangeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "range"},
-	ADomain: rdf.Property,
-	ARange:  Class,
+	ADomain:           rdf.Property,
+	ARange:            Class,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -402,11 +397,11 @@ var seeAlsoKindInterface reflect.Type
 
 var SeeAlso = seeAlsoI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "seeAlso"},
-	ADomain: Resource,
-	ARange:  Resource,
+	ADomain:           Resource,
+	ARange:            Resource,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -432,11 +427,11 @@ var subClassOfKindInterface reflect.Type
 
 var SubClassOf = subClassOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "subClassOf"},
-	ADomain: Class,
-	ARange:  Class,
+	ADomain:           Class,
+	ARange:            Class,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -454,19 +449,18 @@ type KindSubPropertyOf interface {
 
 type subPropertyOfI struct{ sst.ElementInfo }
 
-func (subPropertyOfI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23subPropertyOf() {}
-func (subPropertyOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
-func (subPropertyOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23subPropertyOf() {
-}
+func (subPropertyOfI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23subPropertyOf()   {}
+func (subPropertyOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (subPropertyOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23subPropertyOf() {}
 
 var subPropertyOfKindInterface reflect.Type
 
 var SubPropertyOf = subPropertyOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: RDFSVocabulary, Name: "subPropertyOf"},
-	ADomain: rdf.Property,
-	ARange:  rdf.Property,
+	ADomain:           rdf.Property,
+	ARange:            rdf.Property,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}

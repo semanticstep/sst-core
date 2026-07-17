@@ -1500,6 +1500,7 @@ func (x *GetLeafCommitsResponse) GetCommitHashes() [][]byte {
 
 type GetRepoBleveInfoRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	RepoName      string                 `protobuf:"bytes,1,opt,name=repo_name,json=repoName,proto3" json:"repo_name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1532,6 +1533,13 @@ func (x *GetRepoBleveInfoRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use GetRepoBleveInfoRequest.ProtoReflect.Descriptor instead.
 func (*GetRepoBleveInfoRequest) Descriptor() ([]byte, []int) {
 	return file_repository_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *GetRepoBleveInfoRequest) GetRepoName() string {
+	if x != nil {
+		return x.RepoName
+	}
+	return ""
 }
 
 type GetRepoBleveInfoResponse struct {
@@ -6026,8 +6034,9 @@ const file_repository_proto_rawDesc = "" +
 	"\x04uuid\x18\x01 \x01(\fR\x04uuid\x12\x1a\n" +
 	"\brepoName\x18\x02 \x01(\tR\brepoName\"<\n" +
 	"\x16GetLeafCommitsResponse\x12\"\n" +
-	"\fcommitHashes\x18\x01 \x03(\fR\fcommitHashes\"\x19\n" +
-	"\x17GetRepoBleveInfoRequest\"H\n" +
+	"\fcommitHashes\x18\x01 \x03(\fR\fcommitHashes\"6\n" +
+	"\x17GetRepoBleveInfoRequest\x12\x1b\n" +
+	"\trepo_name\x18\x01 \x01(\tR\brepoName\"H\n" +
 	"\x18GetRepoBleveInfoResponse\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x18\n" +
 	"\aversion\x18\x02 \x01(\tR\aversion\"<\n" +

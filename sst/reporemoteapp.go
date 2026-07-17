@@ -20,14 +20,14 @@ import (
 	"sync"
 	"time"
 
+	"github.com/semanticstep/sst-core/bboltproto"
+	"github.com/semanticstep/sst-core/bleveproto"
+	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/blevesearch/bleve/v2"
 	"github.com/blevesearch/bleve/v2/document"
 	"github.com/google/uuid"
 	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
-	"github.com/semanticstep/sst-core/bboltproto"
-	"github.com/semanticstep/sst-core/bleveproto"
-	"github.com/semanticstep/sst-core/sstauth"
 	"go.uber.org/multierr"
 	"go.uber.org/zap"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -37,6 +37,64 @@ import (
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/status"
 )
+
+// repositoryMethodRoles maps gRPC method names to the minimum AccessMode
+// required to invoke them. AccessMode values are ordered so that higher levels
+// imply lower ones: SuperAdmin >= Admin >= ReadWrite >= ReadOnly.
+var repositoryMethodRoles = map[string]sstauth.AccessMode{
+	// ===== package sst.repository =====
+	// RepoManagerService (SuperRepository operations require SuperAdmin)
+	"/sst.repository.RepoManagerService/ListRepos":       sstauth.AccessMode_SuperAdmin,
+	"/sst.repository.RepoManagerService/CreateRepo":      sstauth.AccessMode_SuperAdmin,
+	"/sst.repository.RepoManagerService/DeleteRepo":      sstauth.AccessMode_SuperAdmin,
+	"/sst.repository.RepoManagerService/GetRepoQuota":    sstauth.AccessMode_SuperAdmin,
+	"/sst.repository.RepoManagerService/SetRepoQuota":    sstauth.AccessMode_SuperAdmin,
+	"/sst.repository.RepoManagerService/GetSuperQuota":   sstauth.AccessMode_SuperAdmin,
+	"/sst.repository.RepoManagerService/SetSuperQuota":   sstauth.AccessMode_SuperAdmin,
+	"/sst.repository.RepoManagerService/GetMaxRepoCount": sstauth.AccessMode_SuperAdmin,
+	"/sst.repository.RepoManagerService/SetMaxRepoCount": sstauth.AccessMode_SuperAdmin,
+
+	// DatasetService (read)
+	"/sst.repository.DatasetService/GetBranches":                 sstauth.AccessMode_ReadOnly,
+	"/sst.repository.DatasetService/GetLeafCommits":              sstauth.AccessMode_ReadOnly,
+	"/sst.repository.DatasetService/GetBleveInfo":                sstauth.AccessMode_ReadOnly,
+	"/sst.repository.DatasetService/ListDatasets":                sstauth.AccessMode_ReadOnly,
+	"/sst.repository.DatasetService/GetDataset":                  sstauth.AccessMode_ReadOnly,
+	"/sst.repository.DatasetService/FetchDatasets":               sstauth.AccessMode_ReadOnly,
+	"/sst.repository.DatasetService/GetRepositoryInfo":           sstauth.AccessMode_ReadOnly,
+	"/sst.repository.DatasetService/GetRepositoryLog":            sstauth.AccessMode_ReadOnly,
+	"/sst.repository.DatasetService/Document":                    sstauth.AccessMode_ReadOnly,
+	"/sst.repository.DatasetService/Documents":                   sstauth.AccessMode_ReadOnly,
+	"/sst.repository.DatasetService/DownloadNamedGraphRevision":  sstauth.AccessMode_ReadOnly,
+	"/sst.repository.DatasetService/FindCommonParentRevision":    sstauth.AccessMode_ReadOnly,
+	"/sst.repository.DatasetService/GetCommitForDatasetRevision": sstauth.AccessMode_ReadOnly,
+	"/sst.repository.DatasetService/SyncTo":                      sstauth.AccessMode_ReadOnly,
+
+	// DatasetService (write)
+	"/sst.repository.DatasetService/CreateDataset": sstauth.AccessMode_ReadWrite,
+	"/sst.repository.DatasetService/SetBranch":     sstauth.AccessMode_ReadWrite,
+	"/sst.repository.DatasetService/PushDatasets":  sstauth.AccessMode_ReadWrite,
+	"/sst.repository.DatasetService/DocumentSet":   sstauth.AccessMode_ReadWrite,
+	"/sst.repository.DatasetService/SyncFrom":      sstauth.AccessMode_ReadWrite,
+
+	// DatasetService (high-risk write)
+	"/sst.repository.DatasetService/RemoveBranch":   sstauth.AccessMode_ReadWrite,
+	"/sst.repository.DatasetService/DocumentDelete": sstauth.AccessMode_ReadWrite,
+
+	// RefService (read)
+	"/sst.repository.RefService/ListRefs": sstauth.AccessMode_ReadOnly,
+	"/sst.repository.RefService/GetRef":   sstauth.AccessMode_ReadOnly,
+
+	// CommitService
+	"/sst.repository.CommitService/ListCommits":           sstauth.AccessMode_ReadOnly,
+	"/sst.repository.CommitService/GetCommit":             sstauth.AccessMode_ReadOnly,
+	"/sst.repository.CommitService/CompareCommits":        sstauth.AccessMode_ReadOnly,
+	"/sst.repository.CommitService/GetCommitDetailsBatch": sstauth.AccessMode_ReadOnly,
+	"/sst.repository.CommitService/CreateCommit":          sstauth.AccessMode_ReadWrite,
+
+	// ===== package sst.ssquery =====
+	"/sst.ssquery.IndexService/Search": sstauth.AccessMode_ReadOnly,
+}
 
 func stagePreCommitConstraints(
 	repo Repository, index bleve.Index, batchUpdateBatched *sync.Map, stage Stage,
@@ -235,12 +293,13 @@ type RepositoryServer struct {
 
 // Repository initial setup configuration.
 type RepositoryServerConfig struct {
-	RepoDir    string           // repository folder
-	Issuer     string           // OIDC issuer URL
-	ClientID   string           // OIDC client ID
-	ServerCert *tls.Certificate // tls.Certificate
-	Verbose    bool             // verbose log output, the value is a bool value, default false
-	DeriveInfo *SSTDeriveInfo   `json:"-"` // the bleve configuration(mapping)
+	RepoDir     string           // repository folder
+	Issuer      string           // OIDC issuer URL
+	ClientID    string           // OIDC client ID and SuperRepository URL
+	ServerCert  *tls.Certificate // tls.Certificate
+	Verbose     bool             // verbose log output, the value is a bool value, default false
+	DeriveInfo  *SSTDeriveInfo   `json:"-"` // the bleve configuration(mapping)
+	PerRepoAuth bool             // enable per-repository Keycloak client authorization
 }
 
 // NewServer creates and initializes a new RepositoryServer instance using the provided configuration.
@@ -267,6 +326,9 @@ type RepositoryServerConfig struct {
 //		log.Fatalf("failed to serve: %v", err)
 //	}
 func NewServer(c *RepositoryServerConfig) (*RepositoryServer, error) {
+	// Single-repository mode does not use per-repository client authorization.
+	c.PerRepoAuth = false
+
 	repo, err := OpenLocalRepository(c.RepoDir, "default@semanticstep.net", "default")
 	if err != nil {
 		if err == ErrRepositoryDoesNotExist {
@@ -287,13 +349,16 @@ func NewServer(c *RepositoryServerConfig) (*RepositoryServer, error) {
 }
 
 type indexServiceServer struct {
-	r  Repository
-	sr SuperRepository
+	r             Repository
+	sr            SuperRepository
+	superClientID string
+	perRepoAuth   bool
+	methodRoles   map[string]sstauth.AccessMode
 	bleveproto.UnimplementedIndexServiceServer
 }
 
-func initIndexServiceServer(r Repository, sr SuperRepository) indexServiceServer {
-	return indexServiceServer{r: r, sr: sr}
+func initIndexServiceServer(r Repository, sr SuperRepository, superClientID string, perRepoAuth bool, methodRoles map[string]sstauth.AccessMode) indexServiceServer {
+	return indexServiceServer{r: r, sr: sr, superClientID: superClientID, perRepoAuth: perRepoAuth, methodRoles: methodRoles}
 }
 
 func indexServiceServerToRepository(i *indexServiceServer, ctx context.Context, repoName string) (Repository, error) {
@@ -323,6 +388,20 @@ func (i indexServiceServer) Search(stream bleveproto.IndexService_SearchServer) 
 	req, err := stream.Recv()
 	if err != nil {
 		return err
+	}
+
+	if i.perRepoAuth {
+		repoURL := sstauth.PerRepoClientID(i.superClientID, sstauth.RepoNameFromRequest(req))
+		if err := sstauth.CheckRepoAccess(
+			stream.Context(),
+			repoURL,
+			"/sst.ssquery.IndexService/Search",
+			i.methodRoles,
+			i.superClientID,
+			false,
+		); err != nil {
+			return err
+		}
 	}
 
 	repo, err := indexServiceServerToRepository(&i, stream.Context(), req.RepoName)
@@ -362,7 +441,7 @@ func newRepositoryServer(r Repository, c *RepositoryServerConfig) (*RepositorySe
 	bboltproto.RegisterCommitServiceServer(s, &commitService)
 	GlobalLogger.Info("commitService has been registered")
 
-	bleveproto.RegisterIndexServiceServer(s, initIndexServiceServer(r, nil))
+	bleveproto.RegisterIndexServiceServer(s, initIndexServiceServer(r, nil, c.ClientID, c.PerRepoAuth, repositoryMethodRoles))
 	GlobalLogger.Info("IndexService has been registered")
 
 	reflection.Register(s)
@@ -421,72 +500,13 @@ func newServerWithConfig(config *RepositoryServerConfig) *grpc.Server {
 				log.Fatalf("init verifier failed: %v", err)
 			}
 
-			// 2) RBAC rules for proto package: sst.repository
-			// AccessMode values are ordered so that higher levels imply lower ones:
-			// SuperAdmin >= Admin >= ReadWrite >= ReadOnly.
-			// Each entry only needs to declare the minimum required level.
-			methodRoles := map[string]sstauth.AccessMode{
-				// ===== package sst.repository =====
-				// RepoManagerService (SuperRepository operations require SuperAdmin)
-				"/sst.repository.RepoManagerService/ListRepos":       sstauth.AccessMode_SuperAdmin,
-				"/sst.repository.RepoManagerService/CreateRepo":      sstauth.AccessMode_SuperAdmin,
-				"/sst.repository.RepoManagerService/DeleteRepo":      sstauth.AccessMode_SuperAdmin,
-				"/sst.repository.RepoManagerService/GetRepoQuota":    sstauth.AccessMode_SuperAdmin,
-				"/sst.repository.RepoManagerService/SetRepoQuota":    sstauth.AccessMode_SuperAdmin,
-				"/sst.repository.RepoManagerService/GetSuperQuota":   sstauth.AccessMode_SuperAdmin,
-				"/sst.repository.RepoManagerService/SetSuperQuota":   sstauth.AccessMode_SuperAdmin,
-				"/sst.repository.RepoManagerService/GetMaxRepoCount": sstauth.AccessMode_SuperAdmin,
-				"/sst.repository.RepoManagerService/SetMaxRepoCount": sstauth.AccessMode_SuperAdmin,
-
-				// DatasetService (read)
-				"/sst.repository.DatasetService/GetBranches":                 sstauth.AccessMode_ReadOnly,
-				"/sst.repository.DatasetService/GetLeafCommits":              sstauth.AccessMode_ReadOnly,
-				"/sst.repository.DatasetService/GetBleveInfo":                sstauth.AccessMode_ReadOnly,
-				"/sst.repository.DatasetService/ListDatasets":                sstauth.AccessMode_ReadOnly,
-				"/sst.repository.DatasetService/GetDataset":                  sstauth.AccessMode_ReadOnly,
-				"/sst.repository.DatasetService/FetchDatasets":               sstauth.AccessMode_ReadOnly,
-				"/sst.repository.DatasetService/GetRepositoryInfo":           sstauth.AccessMode_ReadOnly,
-				"/sst.repository.DatasetService/GetRepositoryLog":            sstauth.AccessMode_ReadOnly,
-				"/sst.repository.DatasetService/Document":                    sstauth.AccessMode_ReadOnly,
-				"/sst.repository.DatasetService/Documents":                   sstauth.AccessMode_ReadOnly,
-				"/sst.repository.DatasetService/DownloadNamedGraphRevision":  sstauth.AccessMode_ReadOnly,
-				"/sst.repository.DatasetService/FindCommonParentRevision":    sstauth.AccessMode_ReadOnly,
-				"/sst.repository.DatasetService/GetCommitForDatasetRevision": sstauth.AccessMode_ReadOnly,
-				"/sst.repository.DatasetService/SyncTo":                      sstauth.AccessMode_ReadOnly,
-
-				// DatasetService (write)
-				"/sst.repository.DatasetService/CreateDataset": sstauth.AccessMode_ReadWrite,
-				"/sst.repository.DatasetService/SetBranch":     sstauth.AccessMode_ReadWrite,
-				"/sst.repository.DatasetService/PushDatasets":  sstauth.AccessMode_ReadWrite,
-				"/sst.repository.DatasetService/DocumentSet":   sstauth.AccessMode_ReadWrite,
-				"/sst.repository.DatasetService/SyncFrom":      sstauth.AccessMode_ReadWrite,
-
-				// DatasetService (high-risk write)
-				"/sst.repository.DatasetService/RemoveBranch":   sstauth.AccessMode_ReadWrite,
-				"/sst.repository.DatasetService/DocumentDelete": sstauth.AccessMode_ReadWrite,
-
-				// RefService (read)
-				"/sst.repository.RefService/ListRefs": sstauth.AccessMode_ReadOnly,
-				"/sst.repository.RefService/GetRef":   sstauth.AccessMode_ReadOnly,
-
-				// CommitService
-				"/sst.repository.CommitService/ListCommits":           sstauth.AccessMode_ReadOnly,
-				"/sst.repository.CommitService/GetCommit":             sstauth.AccessMode_ReadOnly,
-				"/sst.repository.CommitService/CompareCommits":        sstauth.AccessMode_ReadOnly,
-				"/sst.repository.CommitService/GetCommitDetailsBatch": sstauth.AccessMode_ReadOnly,
-				"/sst.repository.CommitService/CreateCommit":          sstauth.AccessMode_ReadWrite,
-
-				// ===== package sst.ssquery =====
-				"/sst.ssquery.IndexService/Search": sstauth.AccessMode_ReadOnly,
-			}
-
 			unaryInterceptors = append(
 				unaryInterceptors,
-				sstauth.UnaryRBACInterceptor(verifier, config.ClientID, methodRoles, ""),
+				sstauth.UnaryRBACInterceptor(verifier, config.ClientID, config.PerRepoAuth, repositoryMethodRoles),
 			)
 			streamInterceptors = append(
 				streamInterceptors,
-				sstauth.StreamRBACInterceptor(verifier, config.ClientID, methodRoles, ""),
+				sstauth.StreamRBACInterceptor(verifier, config.ClientID, config.PerRepoAuth, repositoryMethodRoles),
 			)
 		}
 	}

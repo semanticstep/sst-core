@@ -37,12 +37,12 @@ func SstUserInfoFromContext(ctx context.Context) *SstUserInfo {
 
 type authenticationProvider struct{}
 
-// takes an input context and returns an enhanced context with authenticationProvider
+// takes an input context and returns an enhanced context with authenticationProvider.
 func ContextWithAuthProvider(ctx context.Context, provider AuthProvider) context.Context {
 	return context.WithValue(ctx, authenticationProvider{}, provider)
 }
 
-// takes an input context and extract the authenticationProvider out
+// takes an input context and extract the authenticationProvider out.
 func AuthProviderFromContext(ctx context.Context) AuthProvider {
 	provider := ctx.Value(authenticationProvider{})
 	if provider, ok := provider.(AuthProvider); ok {

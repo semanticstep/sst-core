@@ -6,7 +6,6 @@ package sh
 
 import (
 	"reflect"
-
 	"github.com/semanticstep/sst-core/sst"
 )
 
@@ -43,7 +42,7 @@ var AbstractResult = abstractResultI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "AbstractResult"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -61,13 +60,10 @@ type KindAndConstraintComponent interface {
 
 type andConstraintComponentI struct{ sst.ElementInfo }
 
-func (andConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23AndConstraintComponent() {
-}
-func (andConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (andConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (andConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23AndConstraintComponent() {
-}
+func (andConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23AndConstraintComponent()   {}
+func (andConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (andConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (andConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23AndConstraintComponent() {}
 
 var andConstraintComponentKindInterface reflect.Type
 
@@ -75,7 +71,7 @@ var AndConstraintComponent = andConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "AndConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -93,13 +89,10 @@ type KindAndConstraintComponentAnd interface {
 
 type andConstraintComponent_AndI struct{ sst.ElementInfo }
 
-func (andConstraintComponent_AndI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23AndConstraintComponent_2Dand() {
-}
-func (andConstraintComponent_AndI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (andConstraintComponent_AndI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (andConstraintComponent_AndI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23AndConstraintComponent_2Dand() {
-}
+func (andConstraintComponent_AndI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23AndConstraintComponent_2Dand()   {}
+func (andConstraintComponent_AndI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (andConstraintComponent_AndI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                   {}
+func (andConstraintComponent_AndI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23AndConstraintComponent_2Dand() {}
 
 var andConstraintComponent_AndKindInterface reflect.Type
 
@@ -107,7 +100,7 @@ var AndConstraintComponentAnd = andConstraintComponent_AndI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "AndConstraintComponent-and"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -136,7 +129,7 @@ var BlankNode = blankNodeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "BlankNode"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -165,7 +158,7 @@ var BlankNodeOrIRI = blankNodeOrIRII{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "BlankNodeOrIRI"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -183,11 +176,10 @@ type KindBlankNodeOrLiteral interface {
 
 type blankNodeOrLiteralI struct{ sst.ElementInfo }
 
-func (blankNodeOrLiteralI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23BlankNodeOrLiteral() {}
-func (blankNodeOrLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (blankNodeOrLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()         {}
-func (blankNodeOrLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23BlankNodeOrLiteral() {}
+func (blankNodeOrLiteralI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23BlankNodeOrLiteral()       {}
+func (blankNodeOrLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (blankNodeOrLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (blankNodeOrLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23BlankNodeOrLiteral()     {}
 
 var blankNodeOrLiteralKindInterface reflect.Type
 
@@ -195,7 +187,7 @@ var BlankNodeOrLiteral = blankNodeOrLiteralI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "BlankNodeOrLiteral"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -213,13 +205,10 @@ type KindClassConstraintComponent interface {
 
 type classConstraintComponentI struct{ sst.ElementInfo }
 
-func (classConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClassConstraintComponent() {
-}
-func (classConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (classConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (classConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClassConstraintComponent() {
-}
+func (classConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClassConstraintComponent()   {}
+func (classConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
+func (classConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()               {}
+func (classConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClassConstraintComponent() {}
 
 var classConstraintComponentKindInterface reflect.Type
 
@@ -227,7 +216,7 @@ var ClassConstraintComponent = classConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "ClassConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -245,14 +234,10 @@ type KindClassConstraintComponentClass interface {
 
 type classConstraintComponent_ClassI struct{ sst.ElementInfo }
 
-func (classConstraintComponent_ClassI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClassConstraintComponent_2Dclass() {
-}
-func (classConstraintComponent_ClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (classConstraintComponent_ClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (classConstraintComponent_ClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClassConstraintComponent_2Dclass() {
-}
+func (classConstraintComponent_ClassI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClassConstraintComponent_2Dclass()   {}
+func (classConstraintComponent_ClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
+func (classConstraintComponent_ClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                       {}
+func (classConstraintComponent_ClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClassConstraintComponent_2Dclass() {}
 
 var classConstraintComponent_ClassKindInterface reflect.Type
 
@@ -260,7 +245,7 @@ var ClassConstraintComponentClass = classConstraintComponent_ClassI{sst.ElementI
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "ClassConstraintComponent-class"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -278,13 +263,10 @@ type KindClosedConstraintComponent interface {
 
 type closedConstraintComponentI struct{ sst.ElementInfo }
 
-func (closedConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClosedConstraintComponent() {
-}
-func (closedConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (closedConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (closedConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClosedConstraintComponent() {
-}
+func (closedConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClosedConstraintComponent()   {}
+func (closedConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (closedConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
+func (closedConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClosedConstraintComponent() {}
 
 var closedConstraintComponentKindInterface reflect.Type
 
@@ -292,7 +274,7 @@ var ClosedConstraintComponent = closedConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "ClosedConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -310,14 +292,10 @@ type KindClosedConstraintComponentClosed interface {
 
 type closedConstraintComponent_ClosedI struct{ sst.ElementInfo }
 
-func (closedConstraintComponent_ClosedI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClosedConstraintComponent_2Dclosed() {
-}
-func (closedConstraintComponent_ClosedI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (closedConstraintComponent_ClosedI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (closedConstraintComponent_ClosedI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClosedConstraintComponent_2Dclosed() {
-}
+func (closedConstraintComponent_ClosedI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClosedConstraintComponent_2Dclosed()   {}
+func (closedConstraintComponent_ClosedI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (closedConstraintComponent_ClosedI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                         {}
+func (closedConstraintComponent_ClosedI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClosedConstraintComponent_2Dclosed() {}
 
 var closedConstraintComponent_ClosedKindInterface reflect.Type
 
@@ -325,7 +303,7 @@ var ClosedConstraintComponentClosed = closedConstraintComponent_ClosedI{sst.Elem
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "ClosedConstraintComponent-closed"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -343,14 +321,10 @@ type KindClosedConstraintComponentIgnoredProperties interface {
 
 type closedConstraintComponent_IgnoredPropertiesI struct{ sst.ElementInfo }
 
-func (closedConstraintComponent_IgnoredPropertiesI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClosedConstraintComponent_2DignoredProperties() {
-}
-func (closedConstraintComponent_IgnoredPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (closedConstraintComponent_IgnoredPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (closedConstraintComponent_IgnoredPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClosedConstraintComponent_2DignoredProperties() {
-}
+func (closedConstraintComponent_IgnoredPropertiesI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClosedConstraintComponent_2DignoredProperties()   {}
+func (closedConstraintComponent_IgnoredPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                        {}
+func (closedConstraintComponent_IgnoredPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                    {}
+func (closedConstraintComponent_IgnoredPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ClosedConstraintComponent_2DignoredProperties() {}
 
 var closedConstraintComponent_IgnoredPropertiesKindInterface reflect.Type
 
@@ -358,7 +332,7 @@ var ClosedConstraintComponentIgnoredProperties = closedConstraintComponent_Ignor
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "ClosedConstraintComponent-ignoredProperties"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -376,20 +350,19 @@ type KindConstraintComponent interface {
 
 type constraintComponentI struct{ sst.ElementInfo }
 
-func (constraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ConstraintComponent() {}
-func (constraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (constraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ConstraintComponent() {}
-func (constraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Parameterizable()     {}
+func (constraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ConstraintComponent()      {}
+func (constraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (constraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ConstraintComponent()    {}
+func (constraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Parameterizable()        {}
 
 var constraintComponentKindInterface reflect.Type
 
 var ConstraintComponent = constraintComponentI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "ConstraintComponent"},
-	ASubtypeOf: []sst.ElementInformer{Parameterizable},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "ConstraintComponent"},
+	ASubtypeOf:        []sst.ElementInformer{Parameterizable},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -407,13 +380,10 @@ type KindDatatypeConstraintComponent interface {
 
 type datatypeConstraintComponentI struct{ sst.ElementInfo }
 
-func (datatypeConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DatatypeConstraintComponent() {
-}
-func (datatypeConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (datatypeConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (datatypeConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DatatypeConstraintComponent() {
-}
+func (datatypeConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DatatypeConstraintComponent()   {}
+func (datatypeConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (datatypeConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
+func (datatypeConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DatatypeConstraintComponent() {}
 
 var datatypeConstraintComponentKindInterface reflect.Type
 
@@ -421,7 +391,7 @@ var DatatypeConstraintComponent = datatypeConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "DatatypeConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -439,14 +409,10 @@ type KindDatatypeConstraintComponentDatatype interface {
 
 type datatypeConstraintComponent_DatatypeI struct{ sst.ElementInfo }
 
-func (datatypeConstraintComponent_DatatypeI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DatatypeConstraintComponent_2Ddatatype() {
-}
-func (datatypeConstraintComponent_DatatypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (datatypeConstraintComponent_DatatypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (datatypeConstraintComponent_DatatypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DatatypeConstraintComponent_2Ddatatype() {
-}
+func (datatypeConstraintComponent_DatatypeI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DatatypeConstraintComponent_2Ddatatype()   {}
+func (datatypeConstraintComponent_DatatypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
+func (datatypeConstraintComponent_DatatypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                             {}
+func (datatypeConstraintComponent_DatatypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DatatypeConstraintComponent_2Ddatatype() {}
 
 var datatypeConstraintComponent_DatatypeKindInterface reflect.Type
 
@@ -454,7 +420,7 @@ var DatatypeConstraintComponentDatatype = datatypeConstraintComponent_DatatypeI{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "DatatypeConstraintComponent-datatype"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -472,13 +438,10 @@ type KindDisjointConstraintComponent interface {
 
 type disjointConstraintComponentI struct{ sst.ElementInfo }
 
-func (disjointConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DisjointConstraintComponent() {
-}
-func (disjointConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (disjointConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (disjointConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DisjointConstraintComponent() {
-}
+func (disjointConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DisjointConstraintComponent()   {}
+func (disjointConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (disjointConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
+func (disjointConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DisjointConstraintComponent() {}
 
 var disjointConstraintComponentKindInterface reflect.Type
 
@@ -486,7 +449,7 @@ var DisjointConstraintComponent = disjointConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "DisjointConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -504,14 +467,10 @@ type KindDisjointConstraintComponentDisjoint interface {
 
 type disjointConstraintComponent_DisjointI struct{ sst.ElementInfo }
 
-func (disjointConstraintComponent_DisjointI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DisjointConstraintComponent_2Ddisjoint() {
-}
-func (disjointConstraintComponent_DisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (disjointConstraintComponent_DisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (disjointConstraintComponent_DisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DisjointConstraintComponent_2Ddisjoint() {
-}
+func (disjointConstraintComponent_DisjointI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DisjointConstraintComponent_2Ddisjoint()   {}
+func (disjointConstraintComponent_DisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
+func (disjointConstraintComponent_DisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                             {}
+func (disjointConstraintComponent_DisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23DisjointConstraintComponent_2Ddisjoint() {}
 
 var disjointConstraintComponent_DisjointKindInterface reflect.Type
 
@@ -519,7 +478,7 @@ var DisjointConstraintComponentDisjoint = disjointConstraintComponent_DisjointI{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "DisjointConstraintComponent-disjoint"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -537,13 +496,10 @@ type KindEqualsConstraintComponent interface {
 
 type equalsConstraintComponentI struct{ sst.ElementInfo }
 
-func (equalsConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23EqualsConstraintComponent() {
-}
-func (equalsConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (equalsConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (equalsConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23EqualsConstraintComponent() {
-}
+func (equalsConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23EqualsConstraintComponent()   {}
+func (equalsConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (equalsConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
+func (equalsConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23EqualsConstraintComponent() {}
 
 var equalsConstraintComponentKindInterface reflect.Type
 
@@ -551,7 +507,7 @@ var EqualsConstraintComponent = equalsConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "EqualsConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -569,14 +525,10 @@ type KindEqualsConstraintComponentEquals interface {
 
 type equalsConstraintComponent_EqualsI struct{ sst.ElementInfo }
 
-func (equalsConstraintComponent_EqualsI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23EqualsConstraintComponent_2Dequals() {
-}
-func (equalsConstraintComponent_EqualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (equalsConstraintComponent_EqualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (equalsConstraintComponent_EqualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23EqualsConstraintComponent_2Dequals() {
-}
+func (equalsConstraintComponent_EqualsI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23EqualsConstraintComponent_2Dequals()   {}
+func (equalsConstraintComponent_EqualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (equalsConstraintComponent_EqualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                         {}
+func (equalsConstraintComponent_EqualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23EqualsConstraintComponent_2Dequals() {}
 
 var equalsConstraintComponent_EqualsKindInterface reflect.Type
 
@@ -584,7 +536,7 @@ var EqualsConstraintComponentEquals = equalsConstraintComponent_EqualsI{sst.Elem
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "EqualsConstraintComponent-equals"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -602,14 +554,10 @@ type KindExpressionConstraintComponent interface {
 
 type expressionConstraintComponentI struct{ sst.ElementInfo }
 
-func (expressionConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ExpressionConstraintComponent() {
-}
-func (expressionConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (expressionConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (expressionConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ExpressionConstraintComponent() {
-}
+func (expressionConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ExpressionConstraintComponent()   {}
+func (expressionConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
+func (expressionConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                    {}
+func (expressionConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ExpressionConstraintComponent() {}
 
 var expressionConstraintComponentKindInterface reflect.Type
 
@@ -617,7 +565,7 @@ var ExpressionConstraintComponent = expressionConstraintComponentI{sst.ElementIn
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "ExpressionConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -635,14 +583,10 @@ type KindExpressionConstraintComponentExpression interface {
 
 type expressionConstraintComponent_ExpressionI struct{ sst.ElementInfo }
 
-func (expressionConstraintComponent_ExpressionI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ExpressionConstraintComponent_2Dexpression() {
-}
-func (expressionConstraintComponent_ExpressionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (expressionConstraintComponent_ExpressionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (expressionConstraintComponent_ExpressionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ExpressionConstraintComponent_2Dexpression() {
-}
+func (expressionConstraintComponent_ExpressionI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ExpressionConstraintComponent_2Dexpression()   {}
+func (expressionConstraintComponent_ExpressionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                     {}
+func (expressionConstraintComponent_ExpressionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                 {}
+func (expressionConstraintComponent_ExpressionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ExpressionConstraintComponent_2Dexpression() {}
 
 var expressionConstraintComponent_ExpressionKindInterface reflect.Type
 
@@ -650,7 +594,7 @@ var ExpressionConstraintComponentExpression = expressionConstraintComponent_Expr
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "ExpressionConstraintComponent-expression"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -676,11 +620,11 @@ func (functionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Parameterizab
 var functionKindInterface reflect.Type
 
 var Function = functionI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "Function"},
-	ASubtypeOf: []sst.ElementInformer{Parameterizable},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "Function"},
+	ASubtypeOf:        []sst.ElementInformer{Parameterizable},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -698,13 +642,10 @@ type KindHasValueConstraintComponent interface {
 
 type hasValueConstraintComponentI struct{ sst.ElementInfo }
 
-func (hasValueConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23HasValueConstraintComponent() {
-}
-func (hasValueConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (hasValueConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (hasValueConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23HasValueConstraintComponent() {
-}
+func (hasValueConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23HasValueConstraintComponent()   {}
+func (hasValueConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (hasValueConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
+func (hasValueConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23HasValueConstraintComponent() {}
 
 var hasValueConstraintComponentKindInterface reflect.Type
 
@@ -712,7 +653,7 @@ var HasValueConstraintComponent = hasValueConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "HasValueConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -730,14 +671,10 @@ type KindHasValueConstraintComponentHasValue interface {
 
 type hasValueConstraintComponent_HasValueI struct{ sst.ElementInfo }
 
-func (hasValueConstraintComponent_HasValueI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23HasValueConstraintComponent_2DhasValue() {
-}
-func (hasValueConstraintComponent_HasValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (hasValueConstraintComponent_HasValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (hasValueConstraintComponent_HasValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23HasValueConstraintComponent_2DhasValue() {
-}
+func (hasValueConstraintComponent_HasValueI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23HasValueConstraintComponent_2DhasValue()   {}
+func (hasValueConstraintComponent_HasValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
+func (hasValueConstraintComponent_HasValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                             {}
+func (hasValueConstraintComponent_HasValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23HasValueConstraintComponent_2DhasValue() {}
 
 var hasValueConstraintComponent_HasValueKindInterface reflect.Type
 
@@ -745,7 +682,7 @@ var HasValueConstraintComponentHasValue = hasValueConstraintComponent_HasValueI{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "HasValueConstraintComponent-hasValue"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -774,7 +711,7 @@ var IRI = iriI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "IRI"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -803,7 +740,7 @@ var IRIOrLiteral = iriorLiteralI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "IRIOrLiteral"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -821,13 +758,10 @@ type KindInConstraintComponent interface {
 
 type inConstraintComponentI struct{ sst.ElementInfo }
 
-func (inConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23InConstraintComponent() {
-}
-func (inConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (inConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (inConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23InConstraintComponent() {
-}
+func (inConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23InConstraintComponent()    {}
+func (inConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (inConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (inConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23InConstraintComponent()  {}
 
 var inConstraintComponentKindInterface reflect.Type
 
@@ -835,7 +769,7 @@ var InConstraintComponent = inConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "InConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -853,13 +787,10 @@ type KindInConstraintComponentIn interface {
 
 type inConstraintComponent_InI struct{ sst.ElementInfo }
 
-func (inConstraintComponent_InI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23InConstraintComponent_2Din() {
-}
-func (inConstraintComponent_InI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (inConstraintComponent_InI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (inConstraintComponent_InI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23InConstraintComponent_2Din() {
-}
+func (inConstraintComponent_InI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23InConstraintComponent_2Din()   {}
+func (inConstraintComponent_InI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
+func (inConstraintComponent_InI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                 {}
+func (inConstraintComponent_InI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23InConstraintComponent_2Din() {}
 
 var inConstraintComponent_InKindInterface reflect.Type
 
@@ -867,7 +798,7 @@ var InConstraintComponentIn = inConstraintComponent_InI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "InConstraintComponent-in"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -896,7 +827,7 @@ var Info = infoI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "Info"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -922,11 +853,11 @@ func (jsconstraintI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23JSExecuta
 var jsconstraintKindInterface reflect.Type
 
 var JSConstraint = jsconstraintI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "JSConstraint"},
-	ASubtypeOf: []sst.ElementInformer{JSExecutable},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "JSConstraint"},
+	ASubtypeOf:        []sst.ElementInformer{JSExecutable},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -955,7 +886,7 @@ var JSConstraintJs = jsconstraint_JsI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "JSConstraint-js"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -973,13 +904,10 @@ type KindJSConstraintComponent interface {
 
 type jsconstraintComponentI struct{ sst.ElementInfo }
 
-func (jsconstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23JSConstraintComponent() {
-}
-func (jsconstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (jsconstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (jsconstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23JSConstraintComponent() {
-}
+func (jsconstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23JSConstraintComponent()    {}
+func (jsconstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (jsconstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (jsconstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23JSConstraintComponent()  {}
 
 var jsconstraintComponentKindInterface reflect.Type
 
@@ -987,7 +915,7 @@ var JSConstraintComponent = jsconstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "JSConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1015,7 +943,7 @@ var JSExecutable = jsexecutableI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "JSExecutable"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1043,11 +971,11 @@ func (jsfunctionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Parameteriz
 var jsfunctionKindInterface reflect.Type
 
 var JSFunction = jsfunctionI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "JSFunction"},
-	ASubtypeOf: []sst.ElementInformer{Function, JSExecutable},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "JSFunction"},
+	ASubtypeOf:        []sst.ElementInformer{Function, JSExecutable},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1075,7 +1003,7 @@ var JSLibrary = jslibraryI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "JSLibrary"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1102,11 +1030,11 @@ func (jsruleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Rule()         
 var jsruleKindInterface reflect.Type
 
 var JSRule = jsruleI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "JSRule"},
-	ASubtypeOf: []sst.ElementInformer{JSExecutable, Rule},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "JSRule"},
+	ASubtypeOf:        []sst.ElementInformer{JSExecutable, Rule},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1133,11 +1061,11 @@ func (jstargetI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Target()     
 var jstargetKindInterface reflect.Type
 
 var JSTarget = jstargetI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "JSTarget"},
-	ASubtypeOf: []sst.ElementInformer{JSExecutable, Target},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "JSTarget"},
+	ASubtypeOf:        []sst.ElementInformer{JSExecutable, Target},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1166,11 +1094,11 @@ func (jstargetTypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23TargetTyp
 var jstargetTypeKindInterface reflect.Type
 
 var JSTargetType = jstargetTypeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "JSTargetType"},
-	ASubtypeOf: []sst.ElementInformer{JSExecutable, TargetType},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "JSTargetType"},
+	ASubtypeOf:        []sst.ElementInformer{JSExecutable, TargetType},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1197,11 +1125,11 @@ func (jsvalidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Validator(
 var jsvalidatorKindInterface reflect.Type
 
 var JSValidator = jsvalidatorI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "JSValidator"},
-	ASubtypeOf: []sst.ElementInformer{JSExecutable, Validator},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "JSValidator"},
+	ASubtypeOf:        []sst.ElementInformer{JSExecutable, Validator},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1219,14 +1147,10 @@ type KindLanguageInConstraintComponent interface {
 
 type languageInConstraintComponentI struct{ sst.ElementInfo }
 
-func (languageInConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LanguageInConstraintComponent() {
-}
-func (languageInConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (languageInConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (languageInConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LanguageInConstraintComponent() {
-}
+func (languageInConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LanguageInConstraintComponent()   {}
+func (languageInConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
+func (languageInConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                    {}
+func (languageInConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LanguageInConstraintComponent() {}
 
 var languageInConstraintComponentKindInterface reflect.Type
 
@@ -1234,7 +1158,7 @@ var LanguageInConstraintComponent = languageInConstraintComponentI{sst.ElementIn
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "LanguageInConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1252,14 +1176,10 @@ type KindLanguageInConstraintComponentLanguageIn interface {
 
 type languageInConstraintComponent_LanguageInI struct{ sst.ElementInfo }
 
-func (languageInConstraintComponent_LanguageInI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LanguageInConstraintComponent_2DlanguageIn() {
-}
-func (languageInConstraintComponent_LanguageInI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (languageInConstraintComponent_LanguageInI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (languageInConstraintComponent_LanguageInI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LanguageInConstraintComponent_2DlanguageIn() {
-}
+func (languageInConstraintComponent_LanguageInI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LanguageInConstraintComponent_2DlanguageIn()   {}
+func (languageInConstraintComponent_LanguageInI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                     {}
+func (languageInConstraintComponent_LanguageInI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                 {}
+func (languageInConstraintComponent_LanguageInI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LanguageInConstraintComponent_2DlanguageIn() {}
 
 var languageInConstraintComponent_LanguageInKindInterface reflect.Type
 
@@ -1267,7 +1187,7 @@ var LanguageInConstraintComponentLanguageIn = languageInConstraintComponent_Lang
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "LanguageInConstraintComponent-languageIn"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1285,13 +1205,10 @@ type KindLessThanConstraintComponent interface {
 
 type lessThanConstraintComponentI struct{ sst.ElementInfo }
 
-func (lessThanConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanConstraintComponent() {
-}
-func (lessThanConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (lessThanConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (lessThanConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanConstraintComponent() {
-}
+func (lessThanConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanConstraintComponent()   {}
+func (lessThanConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (lessThanConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
+func (lessThanConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanConstraintComponent() {}
 
 var lessThanConstraintComponentKindInterface reflect.Type
 
@@ -1299,7 +1216,7 @@ var LessThanConstraintComponent = lessThanConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "LessThanConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1317,14 +1234,10 @@ type KindLessThanConstraintComponentLessThan interface {
 
 type lessThanConstraintComponent_LessThanI struct{ sst.ElementInfo }
 
-func (lessThanConstraintComponent_LessThanI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanConstraintComponent_2DlessThan() {
-}
-func (lessThanConstraintComponent_LessThanI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (lessThanConstraintComponent_LessThanI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (lessThanConstraintComponent_LessThanI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanConstraintComponent_2DlessThan() {
-}
+func (lessThanConstraintComponent_LessThanI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanConstraintComponent_2DlessThan()   {}
+func (lessThanConstraintComponent_LessThanI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
+func (lessThanConstraintComponent_LessThanI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                             {}
+func (lessThanConstraintComponent_LessThanI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanConstraintComponent_2DlessThan() {}
 
 var lessThanConstraintComponent_LessThanKindInterface reflect.Type
 
@@ -1332,7 +1245,7 @@ var LessThanConstraintComponentLessThan = lessThanConstraintComponent_LessThanI{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "LessThanConstraintComponent-lessThan"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1350,14 +1263,10 @@ type KindLessThanOrEqualsConstraintComponent interface {
 
 type lessThanOrEqualsConstraintComponentI struct{ sst.ElementInfo }
 
-func (lessThanOrEqualsConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanOrEqualsConstraintComponent() {
-}
-func (lessThanOrEqualsConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (lessThanOrEqualsConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (lessThanOrEqualsConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanOrEqualsConstraintComponent() {
-}
+func (lessThanOrEqualsConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanOrEqualsConstraintComponent()   {}
+func (lessThanOrEqualsConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
+func (lessThanOrEqualsConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                          {}
+func (lessThanOrEqualsConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanOrEqualsConstraintComponent() {}
 
 var lessThanOrEqualsConstraintComponentKindInterface reflect.Type
 
@@ -1365,7 +1274,7 @@ var LessThanOrEqualsConstraintComponent = lessThanOrEqualsConstraintComponentI{s
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "LessThanOrEqualsConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1383,14 +1292,10 @@ type KindLessThanOrEqualsConstraintComponentLessThanOrEquals interface {
 
 type lessThanOrEqualsConstraintComponent_LessThanOrEqualsI struct{ sst.ElementInfo }
 
-func (lessThanOrEqualsConstraintComponent_LessThanOrEqualsI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanOrEqualsConstraintComponent_2DlessThanOrEquals() {
-}
-func (lessThanOrEqualsConstraintComponent_LessThanOrEqualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (lessThanOrEqualsConstraintComponent_LessThanOrEqualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (lessThanOrEqualsConstraintComponent_LessThanOrEqualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanOrEqualsConstraintComponent_2DlessThanOrEquals() {
-}
+func (lessThanOrEqualsConstraintComponent_LessThanOrEqualsI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanOrEqualsConstraintComponent_2DlessThanOrEquals()   {}
+func (lessThanOrEqualsConstraintComponent_LessThanOrEqualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                                 {}
+func (lessThanOrEqualsConstraintComponent_LessThanOrEqualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                             {}
+func (lessThanOrEqualsConstraintComponent_LessThanOrEqualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23LessThanOrEqualsConstraintComponent_2DlessThanOrEquals() {}
 
 var lessThanOrEqualsConstraintComponent_LessThanOrEqualsKindInterface reflect.Type
 
@@ -1398,7 +1303,7 @@ var LessThanOrEqualsConstraintComponentLessThanOrEquals = lessThanOrEqualsConstr
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "LessThanOrEqualsConstraintComponent-lessThanOrEquals"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1427,7 +1332,7 @@ var Literal = literalI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "Literal"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1445,13 +1350,10 @@ type KindMaxCountConstraintComponent interface {
 
 type maxCountConstraintComponentI struct{ sst.ElementInfo }
 
-func (maxCountConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxCountConstraintComponent() {
-}
-func (maxCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (maxCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (maxCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxCountConstraintComponent() {
-}
+func (maxCountConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxCountConstraintComponent()   {}
+func (maxCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (maxCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
+func (maxCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxCountConstraintComponent() {}
 
 var maxCountConstraintComponentKindInterface reflect.Type
 
@@ -1459,7 +1361,7 @@ var MaxCountConstraintComponent = maxCountConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MaxCountConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1477,14 +1379,10 @@ type KindMaxCountConstraintComponentMaxCount interface {
 
 type maxCountConstraintComponent_MaxCountI struct{ sst.ElementInfo }
 
-func (maxCountConstraintComponent_MaxCountI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxCountConstraintComponent_2DmaxCount() {
-}
-func (maxCountConstraintComponent_MaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (maxCountConstraintComponent_MaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (maxCountConstraintComponent_MaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxCountConstraintComponent_2DmaxCount() {
-}
+func (maxCountConstraintComponent_MaxCountI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxCountConstraintComponent_2DmaxCount()   {}
+func (maxCountConstraintComponent_MaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
+func (maxCountConstraintComponent_MaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                             {}
+func (maxCountConstraintComponent_MaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxCountConstraintComponent_2DmaxCount() {}
 
 var maxCountConstraintComponent_MaxCountKindInterface reflect.Type
 
@@ -1492,7 +1390,7 @@ var MaxCountConstraintComponentMaxCount = maxCountConstraintComponent_MaxCountI{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MaxCountConstraintComponent-maxCount"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1510,14 +1408,10 @@ type KindMaxExclusiveConstraintComponent interface {
 
 type maxExclusiveConstraintComponentI struct{ sst.ElementInfo }
 
-func (maxExclusiveConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxExclusiveConstraintComponent() {
-}
-func (maxExclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (maxExclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (maxExclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxExclusiveConstraintComponent() {
-}
+func (maxExclusiveConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxExclusiveConstraintComponent()   {}
+func (maxExclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
+func (maxExclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                      {}
+func (maxExclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxExclusiveConstraintComponent() {}
 
 var maxExclusiveConstraintComponentKindInterface reflect.Type
 
@@ -1525,7 +1419,7 @@ var MaxExclusiveConstraintComponent = maxExclusiveConstraintComponentI{sst.Eleme
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MaxExclusiveConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1543,14 +1437,10 @@ type KindMaxExclusiveConstraintComponentMaxExclusive interface {
 
 type maxExclusiveConstraintComponent_MaxExclusiveI struct{ sst.ElementInfo }
 
-func (maxExclusiveConstraintComponent_MaxExclusiveI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxExclusiveConstraintComponent_2DmaxExclusive() {
-}
-func (maxExclusiveConstraintComponent_MaxExclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (maxExclusiveConstraintComponent_MaxExclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (maxExclusiveConstraintComponent_MaxExclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxExclusiveConstraintComponent_2DmaxExclusive() {
-}
+func (maxExclusiveConstraintComponent_MaxExclusiveI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxExclusiveConstraintComponent_2DmaxExclusive()   {}
+func (maxExclusiveConstraintComponent_MaxExclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                         {}
+func (maxExclusiveConstraintComponent_MaxExclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                     {}
+func (maxExclusiveConstraintComponent_MaxExclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxExclusiveConstraintComponent_2DmaxExclusive() {}
 
 var maxExclusiveConstraintComponent_MaxExclusiveKindInterface reflect.Type
 
@@ -1558,7 +1448,7 @@ var MaxExclusiveConstraintComponentMaxExclusive = maxExclusiveConstraintComponen
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MaxExclusiveConstraintComponent-maxExclusive"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1576,14 +1466,10 @@ type KindMaxInclusiveConstraintComponent interface {
 
 type maxInclusiveConstraintComponentI struct{ sst.ElementInfo }
 
-func (maxInclusiveConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxInclusiveConstraintComponent() {
-}
-func (maxInclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (maxInclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (maxInclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxInclusiveConstraintComponent() {
-}
+func (maxInclusiveConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxInclusiveConstraintComponent()   {}
+func (maxInclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
+func (maxInclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                      {}
+func (maxInclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxInclusiveConstraintComponent() {}
 
 var maxInclusiveConstraintComponentKindInterface reflect.Type
 
@@ -1591,7 +1477,7 @@ var MaxInclusiveConstraintComponent = maxInclusiveConstraintComponentI{sst.Eleme
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MaxInclusiveConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1609,14 +1495,10 @@ type KindMaxInclusiveConstraintComponentMaxInclusive interface {
 
 type maxInclusiveConstraintComponent_MaxInclusiveI struct{ sst.ElementInfo }
 
-func (maxInclusiveConstraintComponent_MaxInclusiveI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxInclusiveConstraintComponent_2DmaxInclusive() {
-}
-func (maxInclusiveConstraintComponent_MaxInclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (maxInclusiveConstraintComponent_MaxInclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (maxInclusiveConstraintComponent_MaxInclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxInclusiveConstraintComponent_2DmaxInclusive() {
-}
+func (maxInclusiveConstraintComponent_MaxInclusiveI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxInclusiveConstraintComponent_2DmaxInclusive()   {}
+func (maxInclusiveConstraintComponent_MaxInclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                         {}
+func (maxInclusiveConstraintComponent_MaxInclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                     {}
+func (maxInclusiveConstraintComponent_MaxInclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxInclusiveConstraintComponent_2DmaxInclusive() {}
 
 var maxInclusiveConstraintComponent_MaxInclusiveKindInterface reflect.Type
 
@@ -1624,7 +1506,7 @@ var MaxInclusiveConstraintComponentMaxInclusive = maxInclusiveConstraintComponen
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MaxInclusiveConstraintComponent-maxInclusive"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1642,13 +1524,10 @@ type KindMaxLengthConstraintComponent interface {
 
 type maxLengthConstraintComponentI struct{ sst.ElementInfo }
 
-func (maxLengthConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxLengthConstraintComponent() {
-}
-func (maxLengthConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (maxLengthConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (maxLengthConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxLengthConstraintComponent() {
-}
+func (maxLengthConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxLengthConstraintComponent()   {}
+func (maxLengthConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (maxLengthConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                   {}
+func (maxLengthConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxLengthConstraintComponent() {}
 
 var maxLengthConstraintComponentKindInterface reflect.Type
 
@@ -1656,7 +1535,7 @@ var MaxLengthConstraintComponent = maxLengthConstraintComponentI{sst.ElementInfo
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MaxLengthConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1674,14 +1553,10 @@ type KindMaxLengthConstraintComponentMaxLength interface {
 
 type maxLengthConstraintComponent_MaxLengthI struct{ sst.ElementInfo }
 
-func (maxLengthConstraintComponent_MaxLengthI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxLengthConstraintComponent_2DmaxLength() {
-}
-func (maxLengthConstraintComponent_MaxLengthI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (maxLengthConstraintComponent_MaxLengthI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (maxLengthConstraintComponent_MaxLengthI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxLengthConstraintComponent_2DmaxLength() {
-}
+func (maxLengthConstraintComponent_MaxLengthI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxLengthConstraintComponent_2DmaxLength()   {}
+func (maxLengthConstraintComponent_MaxLengthI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                   {}
+func (maxLengthConstraintComponent_MaxLengthI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                               {}
+func (maxLengthConstraintComponent_MaxLengthI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MaxLengthConstraintComponent_2DmaxLength() {}
 
 var maxLengthConstraintComponent_MaxLengthKindInterface reflect.Type
 
@@ -1689,7 +1564,7 @@ var MaxLengthConstraintComponentMaxLength = maxLengthConstraintComponent_MaxLeng
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MaxLengthConstraintComponent-maxLength"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1707,13 +1582,10 @@ type KindMinCountConstraintComponent interface {
 
 type minCountConstraintComponentI struct{ sst.ElementInfo }
 
-func (minCountConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinCountConstraintComponent() {
-}
-func (minCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (minCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (minCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinCountConstraintComponent() {
-}
+func (minCountConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinCountConstraintComponent()   {}
+func (minCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (minCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
+func (minCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinCountConstraintComponent() {}
 
 var minCountConstraintComponentKindInterface reflect.Type
 
@@ -1721,7 +1593,7 @@ var MinCountConstraintComponent = minCountConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MinCountConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1739,14 +1611,10 @@ type KindMinCountConstraintComponentMinCount interface {
 
 type minCountConstraintComponent_MinCountI struct{ sst.ElementInfo }
 
-func (minCountConstraintComponent_MinCountI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinCountConstraintComponent_2DminCount() {
-}
-func (minCountConstraintComponent_MinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (minCountConstraintComponent_MinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (minCountConstraintComponent_MinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinCountConstraintComponent_2DminCount() {
-}
+func (minCountConstraintComponent_MinCountI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinCountConstraintComponent_2DminCount()   {}
+func (minCountConstraintComponent_MinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
+func (minCountConstraintComponent_MinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                             {}
+func (minCountConstraintComponent_MinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinCountConstraintComponent_2DminCount() {}
 
 var minCountConstraintComponent_MinCountKindInterface reflect.Type
 
@@ -1754,7 +1622,7 @@ var MinCountConstraintComponentMinCount = minCountConstraintComponent_MinCountI{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MinCountConstraintComponent-minCount"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1772,14 +1640,10 @@ type KindMinExclusiveConstraintComponent interface {
 
 type minExclusiveConstraintComponentI struct{ sst.ElementInfo }
 
-func (minExclusiveConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinExclusiveConstraintComponent() {
-}
-func (minExclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (minExclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (minExclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinExclusiveConstraintComponent() {
-}
+func (minExclusiveConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinExclusiveConstraintComponent()   {}
+func (minExclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
+func (minExclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                      {}
+func (minExclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinExclusiveConstraintComponent() {}
 
 var minExclusiveConstraintComponentKindInterface reflect.Type
 
@@ -1787,7 +1651,7 @@ var MinExclusiveConstraintComponent = minExclusiveConstraintComponentI{sst.Eleme
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MinExclusiveConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1805,14 +1669,10 @@ type KindMinExclusiveConstraintComponentMinExclusive interface {
 
 type minExclusiveConstraintComponent_MinExclusiveI struct{ sst.ElementInfo }
 
-func (minExclusiveConstraintComponent_MinExclusiveI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinExclusiveConstraintComponent_2DminExclusive() {
-}
-func (minExclusiveConstraintComponent_MinExclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (minExclusiveConstraintComponent_MinExclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (minExclusiveConstraintComponent_MinExclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinExclusiveConstraintComponent_2DminExclusive() {
-}
+func (minExclusiveConstraintComponent_MinExclusiveI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinExclusiveConstraintComponent_2DminExclusive()   {}
+func (minExclusiveConstraintComponent_MinExclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                         {}
+func (minExclusiveConstraintComponent_MinExclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                     {}
+func (minExclusiveConstraintComponent_MinExclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinExclusiveConstraintComponent_2DminExclusive() {}
 
 var minExclusiveConstraintComponent_MinExclusiveKindInterface reflect.Type
 
@@ -1820,7 +1680,7 @@ var MinExclusiveConstraintComponentMinExclusive = minExclusiveConstraintComponen
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MinExclusiveConstraintComponent-minExclusive"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1838,14 +1698,10 @@ type KindMinInclusiveConstraintComponent interface {
 
 type minInclusiveConstraintComponentI struct{ sst.ElementInfo }
 
-func (minInclusiveConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinInclusiveConstraintComponent() {
-}
-func (minInclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (minInclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (minInclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinInclusiveConstraintComponent() {
-}
+func (minInclusiveConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinInclusiveConstraintComponent()   {}
+func (minInclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
+func (minInclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                      {}
+func (minInclusiveConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinInclusiveConstraintComponent() {}
 
 var minInclusiveConstraintComponentKindInterface reflect.Type
 
@@ -1853,7 +1709,7 @@ var MinInclusiveConstraintComponent = minInclusiveConstraintComponentI{sst.Eleme
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MinInclusiveConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1871,14 +1727,10 @@ type KindMinInclusiveConstraintComponentMinInclusive interface {
 
 type minInclusiveConstraintComponent_MinInclusiveI struct{ sst.ElementInfo }
 
-func (minInclusiveConstraintComponent_MinInclusiveI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinInclusiveConstraintComponent_2DminInclusive() {
-}
-func (minInclusiveConstraintComponent_MinInclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (minInclusiveConstraintComponent_MinInclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (minInclusiveConstraintComponent_MinInclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinInclusiveConstraintComponent_2DminInclusive() {
-}
+func (minInclusiveConstraintComponent_MinInclusiveI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinInclusiveConstraintComponent_2DminInclusive()   {}
+func (minInclusiveConstraintComponent_MinInclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                         {}
+func (minInclusiveConstraintComponent_MinInclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                     {}
+func (minInclusiveConstraintComponent_MinInclusiveI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinInclusiveConstraintComponent_2DminInclusive() {}
 
 var minInclusiveConstraintComponent_MinInclusiveKindInterface reflect.Type
 
@@ -1886,7 +1738,7 @@ var MinInclusiveConstraintComponentMinInclusive = minInclusiveConstraintComponen
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MinInclusiveConstraintComponent-minInclusive"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1904,13 +1756,10 @@ type KindMinLengthConstraintComponent interface {
 
 type minLengthConstraintComponentI struct{ sst.ElementInfo }
 
-func (minLengthConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinLengthConstraintComponent() {
-}
-func (minLengthConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (minLengthConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (minLengthConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinLengthConstraintComponent() {
-}
+func (minLengthConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinLengthConstraintComponent()   {}
+func (minLengthConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (minLengthConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                   {}
+func (minLengthConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinLengthConstraintComponent() {}
 
 var minLengthConstraintComponentKindInterface reflect.Type
 
@@ -1918,7 +1767,7 @@ var MinLengthConstraintComponent = minLengthConstraintComponentI{sst.ElementInfo
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MinLengthConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1936,14 +1785,10 @@ type KindMinLengthConstraintComponentMinLength interface {
 
 type minLengthConstraintComponent_MinLengthI struct{ sst.ElementInfo }
 
-func (minLengthConstraintComponent_MinLengthI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinLengthConstraintComponent_2DminLength() {
-}
-func (minLengthConstraintComponent_MinLengthI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (minLengthConstraintComponent_MinLengthI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (minLengthConstraintComponent_MinLengthI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinLengthConstraintComponent_2DminLength() {
-}
+func (minLengthConstraintComponent_MinLengthI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinLengthConstraintComponent_2DminLength()   {}
+func (minLengthConstraintComponent_MinLengthI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                   {}
+func (minLengthConstraintComponent_MinLengthI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                               {}
+func (minLengthConstraintComponent_MinLengthI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23MinLengthConstraintComponent_2DminLength() {}
 
 var minLengthConstraintComponent_MinLengthKindInterface reflect.Type
 
@@ -1951,7 +1796,7 @@ var MinLengthConstraintComponentMinLength = minLengthConstraintComponent_MinLeng
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "MinLengthConstraintComponent-minLength"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -1969,13 +1814,10 @@ type KindNodeConstraintComponent interface {
 
 type nodeConstraintComponentI struct{ sst.ElementInfo }
 
-func (nodeConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeConstraintComponent() {
-}
-func (nodeConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (nodeConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (nodeConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeConstraintComponent() {
-}
+func (nodeConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeConstraintComponent()   {}
+func (nodeConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()  {}
+func (nodeConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()              {}
+func (nodeConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeConstraintComponent() {}
 
 var nodeConstraintComponentKindInterface reflect.Type
 
@@ -1983,7 +1825,7 @@ var NodeConstraintComponent = nodeConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "NodeConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2001,13 +1843,10 @@ type KindNodeConstraintComponentNode interface {
 
 type nodeConstraintComponent_NodeI struct{ sst.ElementInfo }
 
-func (nodeConstraintComponent_NodeI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeConstraintComponent_2Dnode() {
-}
-func (nodeConstraintComponent_NodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (nodeConstraintComponent_NodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (nodeConstraintComponent_NodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeConstraintComponent_2Dnode() {
-}
+func (nodeConstraintComponent_NodeI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeConstraintComponent_2Dnode()   {}
+func (nodeConstraintComponent_NodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
+func (nodeConstraintComponent_NodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                     {}
+func (nodeConstraintComponent_NodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeConstraintComponent_2Dnode() {}
 
 var nodeConstraintComponent_NodeKindInterface reflect.Type
 
@@ -2015,7 +1854,7 @@ var NodeConstraintComponentNode = nodeConstraintComponent_NodeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "NodeConstraintComponent-node"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2043,7 +1882,7 @@ var NodeKind = nodeKindI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "NodeKind"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2061,13 +1900,10 @@ type KindNodeKindConstraintComponent interface {
 
 type nodeKindConstraintComponentI struct{ sst.ElementInfo }
 
-func (nodeKindConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeKindConstraintComponent() {
-}
-func (nodeKindConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (nodeKindConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (nodeKindConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeKindConstraintComponent() {
-}
+func (nodeKindConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeKindConstraintComponent()   {}
+func (nodeKindConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (nodeKindConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
+func (nodeKindConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeKindConstraintComponent() {}
 
 var nodeKindConstraintComponentKindInterface reflect.Type
 
@@ -2075,7 +1911,7 @@ var NodeKindConstraintComponent = nodeKindConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "NodeKindConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2093,14 +1929,10 @@ type KindNodeKindConstraintComponentNodeKind interface {
 
 type nodeKindConstraintComponent_NodeKindI struct{ sst.ElementInfo }
 
-func (nodeKindConstraintComponent_NodeKindI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeKindConstraintComponent_2DnodeKind() {
-}
-func (nodeKindConstraintComponent_NodeKindI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (nodeKindConstraintComponent_NodeKindI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (nodeKindConstraintComponent_NodeKindI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeKindConstraintComponent_2DnodeKind() {
-}
+func (nodeKindConstraintComponent_NodeKindI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeKindConstraintComponent_2DnodeKind()   {}
+func (nodeKindConstraintComponent_NodeKindI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
+func (nodeKindConstraintComponent_NodeKindI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                             {}
+func (nodeKindConstraintComponent_NodeKindI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NodeKindConstraintComponent_2DnodeKind() {}
 
 var nodeKindConstraintComponent_NodeKindKindInterface reflect.Type
 
@@ -2108,7 +1940,7 @@ var NodeKindConstraintComponentNodeKind = nodeKindConstraintComponent_NodeKindI{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "NodeKindConstraintComponent-nodeKind"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2134,11 +1966,11 @@ func (nodeShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Shape()     
 var nodeShapeKindInterface reflect.Type
 
 var NodeShape = nodeShapeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "NodeShape"},
-	ASubtypeOf: []sst.ElementInformer{Shape},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "NodeShape"},
+	ASubtypeOf:        []sst.ElementInformer{Shape},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2156,13 +1988,10 @@ type KindNotConstraintComponent interface {
 
 type notConstraintComponentI struct{ sst.ElementInfo }
 
-func (notConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NotConstraintComponent() {
-}
-func (notConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (notConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (notConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NotConstraintComponent() {
-}
+func (notConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NotConstraintComponent()   {}
+func (notConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (notConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (notConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NotConstraintComponent() {}
 
 var notConstraintComponentKindInterface reflect.Type
 
@@ -2170,7 +1999,7 @@ var NotConstraintComponent = notConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "NotConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2188,13 +2017,10 @@ type KindNotConstraintComponentNot interface {
 
 type notConstraintComponent_NotI struct{ sst.ElementInfo }
 
-func (notConstraintComponent_NotI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NotConstraintComponent_2Dnot() {
-}
-func (notConstraintComponent_NotI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (notConstraintComponent_NotI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (notConstraintComponent_NotI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NotConstraintComponent_2Dnot() {
-}
+func (notConstraintComponent_NotI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NotConstraintComponent_2Dnot()   {}
+func (notConstraintComponent_NotI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (notConstraintComponent_NotI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                   {}
+func (notConstraintComponent_NotI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23NotConstraintComponent_2Dnot() {}
 
 var notConstraintComponent_NotKindInterface reflect.Type
 
@@ -2202,7 +2028,7 @@ var NotConstraintComponentNot = notConstraintComponent_NotI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "NotConstraintComponent-not"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2220,13 +2046,10 @@ type KindOrConstraintComponent interface {
 
 type orConstraintComponentI struct{ sst.ElementInfo }
 
-func (orConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23OrConstraintComponent() {
-}
-func (orConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (orConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (orConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23OrConstraintComponent() {
-}
+func (orConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23OrConstraintComponent()    {}
+func (orConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (orConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (orConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23OrConstraintComponent()  {}
 
 var orConstraintComponentKindInterface reflect.Type
 
@@ -2234,7 +2057,7 @@ var OrConstraintComponent = orConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "OrConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2252,13 +2075,10 @@ type KindOrConstraintComponentOr interface {
 
 type orConstraintComponent_OrI struct{ sst.ElementInfo }
 
-func (orConstraintComponent_OrI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23OrConstraintComponent_2Dor() {
-}
-func (orConstraintComponent_OrI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (orConstraintComponent_OrI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (orConstraintComponent_OrI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23OrConstraintComponent_2Dor() {
-}
+func (orConstraintComponent_OrI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23OrConstraintComponent_2Dor()   {}
+func (orConstraintComponent_OrI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
+func (orConstraintComponent_OrI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                 {}
+func (orConstraintComponent_OrI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23OrConstraintComponent_2Dor() {}
 
 var orConstraintComponent_OrKindInterface reflect.Type
 
@@ -2266,7 +2086,7 @@ var OrConstraintComponentOr = orConstraintComponent_OrI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "OrConstraintComponent-or"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2293,11 +2113,11 @@ func (parameterI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Shape()     
 var parameterKindInterface reflect.Type
 
 var Parameter = parameterI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "Parameter"},
-	ASubtypeOf: []sst.ElementInformer{PropertyShape},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "Parameter"},
+	ASubtypeOf:        []sst.ElementInformer{PropertyShape},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2325,7 +2145,7 @@ var Parameterizable = parameterizableI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "Parameterizable"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2343,13 +2163,10 @@ type KindPatternConstraintComponent interface {
 
 type patternConstraintComponentI struct{ sst.ElementInfo }
 
-func (patternConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PatternConstraintComponent() {
-}
-func (patternConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (patternConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (patternConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PatternConstraintComponent() {
-}
+func (patternConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PatternConstraintComponent()   {}
+func (patternConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
+func (patternConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                 {}
+func (patternConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PatternConstraintComponent() {}
 
 var patternConstraintComponentKindInterface reflect.Type
 
@@ -2357,7 +2174,7 @@ var PatternConstraintComponent = patternConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "PatternConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2375,14 +2192,10 @@ type KindPatternConstraintComponentFlags interface {
 
 type patternConstraintComponent_FlagsI struct{ sst.ElementInfo }
 
-func (patternConstraintComponent_FlagsI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PatternConstraintComponent_2Dflags() {
-}
-func (patternConstraintComponent_FlagsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (patternConstraintComponent_FlagsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (patternConstraintComponent_FlagsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PatternConstraintComponent_2Dflags() {
-}
+func (patternConstraintComponent_FlagsI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PatternConstraintComponent_2Dflags()   {}
+func (patternConstraintComponent_FlagsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (patternConstraintComponent_FlagsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                         {}
+func (patternConstraintComponent_FlagsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PatternConstraintComponent_2Dflags() {}
 
 var patternConstraintComponent_FlagsKindInterface reflect.Type
 
@@ -2390,7 +2203,7 @@ var PatternConstraintComponentFlags = patternConstraintComponent_FlagsI{sst.Elem
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "PatternConstraintComponent-flags"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2408,14 +2221,10 @@ type KindPatternConstraintComponentPattern interface {
 
 type patternConstraintComponent_PatternI struct{ sst.ElementInfo }
 
-func (patternConstraintComponent_PatternI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PatternConstraintComponent_2Dpattern() {
-}
-func (patternConstraintComponent_PatternI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (patternConstraintComponent_PatternI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (patternConstraintComponent_PatternI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PatternConstraintComponent_2Dpattern() {
-}
+func (patternConstraintComponent_PatternI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PatternConstraintComponent_2Dpattern()   {}
+func (patternConstraintComponent_PatternI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
+func (patternConstraintComponent_PatternI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                           {}
+func (patternConstraintComponent_PatternI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PatternConstraintComponent_2Dpattern() {}
 
 var patternConstraintComponent_PatternKindInterface reflect.Type
 
@@ -2423,7 +2232,7 @@ var PatternConstraintComponentPattern = patternConstraintComponent_PatternI{sst.
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "PatternConstraintComponent-pattern"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2441,10 +2250,9 @@ type KindPrefixDeclaration interface {
 
 type prefixDeclarationI struct{ sst.ElementInfo }
 
-func (prefixDeclarationI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PrefixDeclaration() {}
-func (prefixDeclarationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (prefixDeclarationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PrefixDeclaration() {}
+func (prefixDeclarationI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PrefixDeclaration()        {}
+func (prefixDeclarationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (prefixDeclarationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PrefixDeclaration()      {}
 
 var prefixDeclarationKindInterface reflect.Type
 
@@ -2452,7 +2260,7 @@ var PrefixDeclaration = prefixDeclarationI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "PrefixDeclaration"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2470,13 +2278,10 @@ type KindPropertyConstraintComponent interface {
 
 type propertyConstraintComponentI struct{ sst.ElementInfo }
 
-func (propertyConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PropertyConstraintComponent() {
-}
-func (propertyConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (propertyConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (propertyConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PropertyConstraintComponent() {
-}
+func (propertyConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PropertyConstraintComponent()   {}
+func (propertyConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (propertyConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
+func (propertyConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PropertyConstraintComponent() {}
 
 var propertyConstraintComponentKindInterface reflect.Type
 
@@ -2484,7 +2289,7 @@ var PropertyConstraintComponent = propertyConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "PropertyConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2502,14 +2307,10 @@ type KindPropertyConstraintComponentProperty interface {
 
 type propertyConstraintComponent_PropertyI struct{ sst.ElementInfo }
 
-func (propertyConstraintComponent_PropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PropertyConstraintComponent_2Dproperty() {
-}
-func (propertyConstraintComponent_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (propertyConstraintComponent_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (propertyConstraintComponent_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PropertyConstraintComponent_2Dproperty() {
-}
+func (propertyConstraintComponent_PropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PropertyConstraintComponent_2Dproperty()   {}
+func (propertyConstraintComponent_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
+func (propertyConstraintComponent_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                             {}
+func (propertyConstraintComponent_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23PropertyConstraintComponent_2Dproperty() {}
 
 var propertyConstraintComponent_PropertyKindInterface reflect.Type
 
@@ -2517,7 +2318,7 @@ var PropertyConstraintComponentProperty = propertyConstraintComponent_PropertyI{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "PropertyConstraintComponent-property"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2545,7 +2346,7 @@ var PropertyGroup = propertyGroupI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "PropertyGroup"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2571,11 +2372,11 @@ func (propertyShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Shape() 
 var propertyShapeKindInterface reflect.Type
 
 var PropertyShape = propertyShapeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "PropertyShape"},
-	ASubtypeOf: []sst.ElementInformer{Shape},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "PropertyShape"},
+	ASubtypeOf:        []sst.ElementInformer{Shape},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2593,14 +2394,10 @@ type KindQualifiedMaxCountConstraintComponent interface {
 
 type qualifiedMaxCountConstraintComponentI struct{ sst.ElementInfo }
 
-func (qualifiedMaxCountConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent() {
-}
-func (qualifiedMaxCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (qualifiedMaxCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (qualifiedMaxCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent() {
-}
+func (qualifiedMaxCountConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent()   {}
+func (qualifiedMaxCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
+func (qualifiedMaxCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                           {}
+func (qualifiedMaxCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent() {}
 
 var qualifiedMaxCountConstraintComponentKindInterface reflect.Type
 
@@ -2608,7 +2405,7 @@ var QualifiedMaxCountConstraintComponent = qualifiedMaxCountConstraintComponentI
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "QualifiedMaxCountConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2626,14 +2423,10 @@ type KindQualifiedMaxCountConstraintComponentQualifiedMaxCount interface {
 
 type qualifiedMaxCountConstraintComponent_QualifiedMaxCountI struct{ sst.ElementInfo }
 
-func (qualifiedMaxCountConstraintComponent_QualifiedMaxCountI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent_2DqualifiedMaxCount() {
-}
-func (qualifiedMaxCountConstraintComponent_QualifiedMaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (qualifiedMaxCountConstraintComponent_QualifiedMaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (qualifiedMaxCountConstraintComponent_QualifiedMaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent_2DqualifiedMaxCount() {
-}
+func (qualifiedMaxCountConstraintComponent_QualifiedMaxCountI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent_2DqualifiedMaxCount()   {}
+func (qualifiedMaxCountConstraintComponent_QualifiedMaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                                   {}
+func (qualifiedMaxCountConstraintComponent_QualifiedMaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                               {}
+func (qualifiedMaxCountConstraintComponent_QualifiedMaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent_2DqualifiedMaxCount() {}
 
 var qualifiedMaxCountConstraintComponent_QualifiedMaxCountKindInterface reflect.Type
 
@@ -2641,7 +2434,7 @@ var QualifiedMaxCountConstraintComponentQualifiedMaxCount = qualifiedMaxCountCon
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "QualifiedMaxCountConstraintComponent-qualifiedMaxCount"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2659,14 +2452,10 @@ type KindQualifiedMaxCountConstraintComponentQualifiedValueShape interface {
 
 type qualifiedMaxCountConstraintComponent_QualifiedValueShapeI struct{ sst.ElementInfo }
 
-func (qualifiedMaxCountConstraintComponent_QualifiedValueShapeI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent_2DqualifiedValueShape() {
-}
-func (qualifiedMaxCountConstraintComponent_QualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (qualifiedMaxCountConstraintComponent_QualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (qualifiedMaxCountConstraintComponent_QualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent_2DqualifiedValueShape() {
-}
+func (qualifiedMaxCountConstraintComponent_QualifiedValueShapeI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent_2DqualifiedValueShape()   {}
+func (qualifiedMaxCountConstraintComponent_QualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                                     {}
+func (qualifiedMaxCountConstraintComponent_QualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                                 {}
+func (qualifiedMaxCountConstraintComponent_QualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent_2DqualifiedValueShape() {}
 
 var qualifiedMaxCountConstraintComponent_QualifiedValueShapeKindInterface reflect.Type
 
@@ -2674,7 +2463,7 @@ var QualifiedMaxCountConstraintComponentQualifiedValueShape = qualifiedMaxCountC
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "QualifiedMaxCountConstraintComponent-qualifiedValueShape"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2692,14 +2481,10 @@ type KindQualifiedMaxCountConstraintComponentQualifiedValueShapesDisjoint interf
 
 type qualifiedMaxCountConstraintComponent_QualifiedValueShapesDisjointI struct{ sst.ElementInfo }
 
-func (qualifiedMaxCountConstraintComponent_QualifiedValueShapesDisjointI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent_2DqualifiedValueShapesDisjoint() {
-}
-func (qualifiedMaxCountConstraintComponent_QualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (qualifiedMaxCountConstraintComponent_QualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (qualifiedMaxCountConstraintComponent_QualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent_2DqualifiedValueShapesDisjoint() {
-}
+func (qualifiedMaxCountConstraintComponent_QualifiedValueShapesDisjointI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent_2DqualifiedValueShapesDisjoint()   {}
+func (qualifiedMaxCountConstraintComponent_QualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                                              {}
+func (qualifiedMaxCountConstraintComponent_QualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                                          {}
+func (qualifiedMaxCountConstraintComponent_QualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMaxCountConstraintComponent_2DqualifiedValueShapesDisjoint() {}
 
 var qualifiedMaxCountConstraintComponent_QualifiedValueShapesDisjointKindInterface reflect.Type
 
@@ -2707,7 +2492,7 @@ var QualifiedMaxCountConstraintComponentQualifiedValueShapesDisjoint = qualified
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2725,14 +2510,10 @@ type KindQualifiedMinCountConstraintComponent interface {
 
 type qualifiedMinCountConstraintComponentI struct{ sst.ElementInfo }
 
-func (qualifiedMinCountConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent() {
-}
-func (qualifiedMinCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (qualifiedMinCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (qualifiedMinCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent() {
-}
+func (qualifiedMinCountConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent()   {}
+func (qualifiedMinCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
+func (qualifiedMinCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                           {}
+func (qualifiedMinCountConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent() {}
 
 var qualifiedMinCountConstraintComponentKindInterface reflect.Type
 
@@ -2740,7 +2521,7 @@ var QualifiedMinCountConstraintComponent = qualifiedMinCountConstraintComponentI
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "QualifiedMinCountConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2758,14 +2539,10 @@ type KindQualifiedMinCountConstraintComponentQualifiedMinCount interface {
 
 type qualifiedMinCountConstraintComponent_QualifiedMinCountI struct{ sst.ElementInfo }
 
-func (qualifiedMinCountConstraintComponent_QualifiedMinCountI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent_2DqualifiedMinCount() {
-}
-func (qualifiedMinCountConstraintComponent_QualifiedMinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (qualifiedMinCountConstraintComponent_QualifiedMinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (qualifiedMinCountConstraintComponent_QualifiedMinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent_2DqualifiedMinCount() {
-}
+func (qualifiedMinCountConstraintComponent_QualifiedMinCountI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent_2DqualifiedMinCount()   {}
+func (qualifiedMinCountConstraintComponent_QualifiedMinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                                   {}
+func (qualifiedMinCountConstraintComponent_QualifiedMinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                               {}
+func (qualifiedMinCountConstraintComponent_QualifiedMinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent_2DqualifiedMinCount() {}
 
 var qualifiedMinCountConstraintComponent_QualifiedMinCountKindInterface reflect.Type
 
@@ -2773,7 +2550,7 @@ var QualifiedMinCountConstraintComponentQualifiedMinCount = qualifiedMinCountCon
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "QualifiedMinCountConstraintComponent-qualifiedMinCount"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2791,14 +2568,10 @@ type KindQualifiedMinCountConstraintComponentQualifiedValueShape interface {
 
 type qualifiedMinCountConstraintComponent_QualifiedValueShapeI struct{ sst.ElementInfo }
 
-func (qualifiedMinCountConstraintComponent_QualifiedValueShapeI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent_2DqualifiedValueShape() {
-}
-func (qualifiedMinCountConstraintComponent_QualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (qualifiedMinCountConstraintComponent_QualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (qualifiedMinCountConstraintComponent_QualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent_2DqualifiedValueShape() {
-}
+func (qualifiedMinCountConstraintComponent_QualifiedValueShapeI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent_2DqualifiedValueShape()   {}
+func (qualifiedMinCountConstraintComponent_QualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                                     {}
+func (qualifiedMinCountConstraintComponent_QualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                                 {}
+func (qualifiedMinCountConstraintComponent_QualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent_2DqualifiedValueShape() {}
 
 var qualifiedMinCountConstraintComponent_QualifiedValueShapeKindInterface reflect.Type
 
@@ -2806,7 +2579,7 @@ var QualifiedMinCountConstraintComponentQualifiedValueShape = qualifiedMinCountC
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "QualifiedMinCountConstraintComponent-qualifiedValueShape"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2824,14 +2597,10 @@ type KindQualifiedMinCountConstraintComponentQualifiedValueShapesDisjoint interf
 
 type qualifiedMinCountConstraintComponent_QualifiedValueShapesDisjointI struct{ sst.ElementInfo }
 
-func (qualifiedMinCountConstraintComponent_QualifiedValueShapesDisjointI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent_2DqualifiedValueShapesDisjoint() {
-}
-func (qualifiedMinCountConstraintComponent_QualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (qualifiedMinCountConstraintComponent_QualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (qualifiedMinCountConstraintComponent_QualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent_2DqualifiedValueShapesDisjoint() {
-}
+func (qualifiedMinCountConstraintComponent_QualifiedValueShapesDisjointI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent_2DqualifiedValueShapesDisjoint()   {}
+func (qualifiedMinCountConstraintComponent_QualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                                              {}
+func (qualifiedMinCountConstraintComponent_QualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                                          {}
+func (qualifiedMinCountConstraintComponent_QualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23QualifiedMinCountConstraintComponent_2DqualifiedValueShapesDisjoint() {}
 
 var qualifiedMinCountConstraintComponent_QualifiedValueShapesDisjointKindInterface reflect.Type
 
@@ -2839,7 +2608,7 @@ var QualifiedMinCountConstraintComponentQualifiedValueShapesDisjoint = qualified
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -2867,7 +2636,7 @@ var ResultAnnotation = resultAnnotationI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "ResultAnnotation"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2895,7 +2664,7 @@ var Rule = ruleI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "Rule"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2913,20 +2682,19 @@ type KindSPARQLAskExecutable interface {
 
 type sparqlaskExecutableI struct{ sst.ElementInfo }
 
-func (sparqlaskExecutableI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLAskExecutable() {}
-func (sparqlaskExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (sparqlaskExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLAskExecutable() {}
-func (sparqlaskExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLExecutable()    {}
+func (sparqlaskExecutableI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLAskExecutable()      {}
+func (sparqlaskExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (sparqlaskExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLAskExecutable()    {}
+func (sparqlaskExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLExecutable()       {}
 
 var sparqlaskExecutableKindInterface reflect.Type
 
 var SPARQLAskExecutable = sparqlaskExecutableI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLAskExecutable"},
-	ASubtypeOf: []sst.ElementInformer{SPARQLExecutable},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLAskExecutable"},
+	ASubtypeOf:        []sst.ElementInformer{SPARQLExecutable},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2944,22 +2712,21 @@ type KindSPARQLAskValidator interface {
 
 type sparqlaskValidatorI struct{ sst.ElementInfo }
 
-func (sparqlaskValidatorI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLAskValidator() {}
-func (sparqlaskValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (sparqlaskValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLAskExecutable() {}
-func (sparqlaskValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLAskValidator()  {}
-func (sparqlaskValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLExecutable()    {}
-func (sparqlaskValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Validator()           {}
+func (sparqlaskValidatorI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLAskValidator()       {}
+func (sparqlaskValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (sparqlaskValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLAskExecutable()    {}
+func (sparqlaskValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLAskValidator()     {}
+func (sparqlaskValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLExecutable()       {}
+func (sparqlaskValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Validator()              {}
 
 var sparqlaskValidatorKindInterface reflect.Type
 
 var SPARQLAskValidator = sparqlaskValidatorI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLAskValidator"},
-	ASubtypeOf: []sst.ElementInformer{SPARQLAskExecutable, Validator},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLAskValidator"},
+	ASubtypeOf:        []sst.ElementInformer{SPARQLAskExecutable, Validator},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2986,11 +2753,11 @@ func (sparqlconstraintI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQ
 var sparqlconstraintKindInterface reflect.Type
 
 var SPARQLConstraint = sparqlconstraintI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLConstraint"},
-	ASubtypeOf: []sst.ElementInformer{SPARQLSelectExecutable},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLConstraint"},
+	ASubtypeOf:        []sst.ElementInformer{SPARQLSelectExecutable},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3008,13 +2775,10 @@ type KindSPARQLConstraintComponent interface {
 
 type sparqlconstraintComponentI struct{ sst.ElementInfo }
 
-func (sparqlconstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLConstraintComponent() {
-}
-func (sparqlconstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (sparqlconstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (sparqlconstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLConstraintComponent() {
-}
+func (sparqlconstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLConstraintComponent()   {}
+func (sparqlconstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (sparqlconstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
+func (sparqlconstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLConstraintComponent() {}
 
 var sparqlconstraintComponentKindInterface reflect.Type
 
@@ -3022,7 +2786,7 @@ var SPARQLConstraintComponent = sparqlconstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -3040,14 +2804,10 @@ type KindSPARQLConstraintComponentSparql interface {
 
 type sparqlconstraintComponent_SparqlI struct{ sst.ElementInfo }
 
-func (sparqlconstraintComponent_SparqlI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLConstraintComponent_2Dsparql() {
-}
-func (sparqlconstraintComponent_SparqlI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (sparqlconstraintComponent_SparqlI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (sparqlconstraintComponent_SparqlI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLConstraintComponent_2Dsparql() {
-}
+func (sparqlconstraintComponent_SparqlI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLConstraintComponent_2Dsparql()   {}
+func (sparqlconstraintComponent_SparqlI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (sparqlconstraintComponent_SparqlI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                         {}
+func (sparqlconstraintComponent_SparqlI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLConstraintComponent_2Dsparql() {}
 
 var sparqlconstraintComponent_SparqlKindInterface reflect.Type
 
@@ -3055,7 +2815,7 @@ var SPARQLConstraintComponentSparql = sparqlconstraintComponent_SparqlI{sst.Elem
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLConstraintComponent-sparql"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -3073,23 +2833,19 @@ type KindSPARQLConstructExecutable interface {
 
 type sparqlconstructExecutableI struct{ sst.ElementInfo }
 
-func (sparqlconstructExecutableI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLConstructExecutable() {
-}
-func (sparqlconstructExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (sparqlconstructExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLConstructExecutable() {
-}
-func (sparqlconstructExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLExecutable() {
-}
+func (sparqlconstructExecutableI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLConstructExecutable()   {}
+func (sparqlconstructExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (sparqlconstructExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLConstructExecutable() {}
+func (sparqlconstructExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLExecutable()          {}
 
 var sparqlconstructExecutableKindInterface reflect.Type
 
 var SPARQLConstructExecutable = sparqlconstructExecutableI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLConstructExecutable"},
-	ASubtypeOf: []sst.ElementInformer{SPARQLExecutable},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLConstructExecutable"},
+	ASubtypeOf:        []sst.ElementInformer{SPARQLExecutable},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3117,7 +2873,7 @@ var SPARQLExecutable = sparqlexecutableI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLExecutable"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3147,11 +2903,11 @@ func (sparqlfunctionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLS
 var sparqlfunctionKindInterface reflect.Type
 
 var SPARQLFunction = sparqlfunctionI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLFunction"},
-	ASubtypeOf: []sst.ElementInformer{Function, SPARQLAskExecutable, SPARQLSelectExecutable},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLFunction"},
+	ASubtypeOf:        []sst.ElementInformer{Function, SPARQLAskExecutable, SPARQLSelectExecutable},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3179,11 +2935,11 @@ func (sparqlruleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLRule(
 var sparqlruleKindInterface reflect.Type
 
 var SPARQLRule = sparqlruleI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLRule"},
-	ASubtypeOf: []sst.ElementInformer{Rule, SPARQLConstructExecutable},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLRule"},
+	ASubtypeOf:        []sst.ElementInformer{Rule, SPARQLConstructExecutable},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3201,22 +2957,19 @@ type KindSPARQLSelectExecutable interface {
 
 type sparqlselectExecutableI struct{ sst.ElementInfo }
 
-func (sparqlselectExecutableI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLSelectExecutable() {
-}
-func (sparqlselectExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (sparqlselectExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLExecutable() {}
-func (sparqlselectExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLSelectExecutable() {
-}
+func (sparqlselectExecutableI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLSelectExecutable()   {}
+func (sparqlselectExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (sparqlselectExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLExecutable()       {}
+func (sparqlselectExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLSelectExecutable() {}
 
 var sparqlselectExecutableKindInterface reflect.Type
 
 var SPARQLSelectExecutable = sparqlselectExecutableI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLSelectExecutable"},
-	ASubtypeOf: []sst.ElementInformer{SPARQLExecutable},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLSelectExecutable"},
+	ASubtypeOf:        []sst.ElementInformer{SPARQLExecutable},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3234,25 +2987,21 @@ type KindSPARQLSelectValidator interface {
 
 type sparqlselectValidatorI struct{ sst.ElementInfo }
 
-func (sparqlselectValidatorI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLSelectValidator() {
-}
-func (sparqlselectValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (sparqlselectValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLExecutable() {}
-func (sparqlselectValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLSelectExecutable() {
-}
-func (sparqlselectValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLSelectValidator() {
-}
-func (sparqlselectValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Validator() {}
+func (sparqlselectValidatorI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLSelectValidator()    {}
+func (sparqlselectValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (sparqlselectValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLExecutable()       {}
+func (sparqlselectValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLSelectExecutable() {}
+func (sparqlselectValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLSelectValidator()  {}
+func (sparqlselectValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Validator()              {}
 
 var sparqlselectValidatorKindInterface reflect.Type
 
 var SPARQLSelectValidator = sparqlselectValidatorI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLSelectValidator"},
-	ASubtypeOf: []sst.ElementInformer{SPARQLSelectExecutable, Validator},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLSelectValidator"},
+	ASubtypeOf:        []sst.ElementInformer{SPARQLSelectExecutable, Validator},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3281,11 +3030,11 @@ func (sparqltargetI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Target() 
 var sparqltargetKindInterface reflect.Type
 
 var SPARQLTarget = sparqltargetI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLTarget"},
-	ASubtypeOf: []sst.ElementInformer{SPARQLAskExecutable, SPARQLSelectExecutable, Target},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLTarget"},
+	ASubtypeOf:        []sst.ElementInformer{SPARQLAskExecutable, SPARQLSelectExecutable, Target},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3316,11 +3065,11 @@ func (sparqltargetTypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Targe
 var sparqltargetTypeKindInterface reflect.Type
 
 var SPARQLTargetType = sparqltargetTypeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLTargetType"},
-	ASubtypeOf: []sst.ElementInformer{SPARQLAskExecutable, SPARQLSelectExecutable, TargetType},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLTargetType"},
+	ASubtypeOf:        []sst.ElementInformer{SPARQLAskExecutable, SPARQLSelectExecutable, TargetType},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3338,22 +3087,19 @@ type KindSPARQLUpdateExecutable interface {
 
 type sparqlupdateExecutableI struct{ sst.ElementInfo }
 
-func (sparqlupdateExecutableI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLUpdateExecutable() {
-}
-func (sparqlupdateExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (sparqlupdateExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLExecutable() {}
-func (sparqlupdateExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLUpdateExecutable() {
-}
+func (sparqlupdateExecutableI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLUpdateExecutable()   {}
+func (sparqlupdateExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (sparqlupdateExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLExecutable()       {}
+func (sparqlupdateExecutableI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23SPARQLUpdateExecutable() {}
 
 var sparqlupdateExecutableKindInterface reflect.Type
 
 var SPARQLUpdateExecutable = sparqlupdateExecutableI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLUpdateExecutable"},
-	ASubtypeOf: []sst.ElementInformer{SPARQLExecutable},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "SPARQLUpdateExecutable"},
+	ASubtypeOf:        []sst.ElementInformer{SPARQLExecutable},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3381,7 +3127,7 @@ var Severity = severityI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "Severity"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3409,7 +3155,7 @@ var Shape = shapeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "Shape"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3437,7 +3183,7 @@ var Target = targetI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "Target"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3464,11 +3210,11 @@ func (targetTypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23TargetType(
 var targetTypeKindInterface reflect.Type
 
 var TargetType = targetTypeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "TargetType"},
-	ASubtypeOf: []sst.ElementInformer{Parameterizable},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "TargetType"},
+	ASubtypeOf:        []sst.ElementInformer{Parameterizable},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3494,11 +3240,11 @@ func (tripleRuleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23TripleRule(
 var tripleRuleKindInterface reflect.Type
 
 var TripleRule = tripleRuleI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "TripleRule"},
-	ASubtypeOf: []sst.ElementInformer{Rule},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "TripleRule"},
+	ASubtypeOf:        []sst.ElementInformer{Rule},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3516,14 +3262,10 @@ type KindUniqueLangConstraintComponent interface {
 
 type uniqueLangConstraintComponentI struct{ sst.ElementInfo }
 
-func (uniqueLangConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23UniqueLangConstraintComponent() {
-}
-func (uniqueLangConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (uniqueLangConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (uniqueLangConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23UniqueLangConstraintComponent() {
-}
+func (uniqueLangConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23UniqueLangConstraintComponent()   {}
+func (uniqueLangConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
+func (uniqueLangConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                    {}
+func (uniqueLangConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23UniqueLangConstraintComponent() {}
 
 var uniqueLangConstraintComponentKindInterface reflect.Type
 
@@ -3531,7 +3273,7 @@ var UniqueLangConstraintComponent = uniqueLangConstraintComponentI{sst.ElementIn
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "UniqueLangConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -3549,14 +3291,10 @@ type KindUniqueLangConstraintComponentUniqueLang interface {
 
 type uniqueLangConstraintComponent_UniqueLangI struct{ sst.ElementInfo }
 
-func (uniqueLangConstraintComponent_UniqueLangI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23UniqueLangConstraintComponent_2DuniqueLang() {
-}
-func (uniqueLangConstraintComponent_UniqueLangI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (uniqueLangConstraintComponent_UniqueLangI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
-func (uniqueLangConstraintComponent_UniqueLangI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23UniqueLangConstraintComponent_2DuniqueLang() {
-}
+func (uniqueLangConstraintComponent_UniqueLangI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23UniqueLangConstraintComponent_2DuniqueLang()   {}
+func (uniqueLangConstraintComponent_UniqueLangI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                     {}
+func (uniqueLangConstraintComponent_UniqueLangI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                                 {}
+func (uniqueLangConstraintComponent_UniqueLangI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23UniqueLangConstraintComponent_2DuniqueLang() {}
 
 var uniqueLangConstraintComponent_UniqueLangKindInterface reflect.Type
 
@@ -3564,7 +3302,7 @@ var UniqueLangConstraintComponentUniqueLang = uniqueLangConstraintComponent_Uniq
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "UniqueLangConstraintComponent-uniqueLang"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -3592,7 +3330,7 @@ var ValidationReport = validationReportI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "ValidationReport"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3618,11 +3356,11 @@ func (validationResultI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23Valid
 var validationResultKindInterface reflect.Type
 
 var ValidationResult = validationResultI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: SHACLVocabulary, Name: "ValidationResult"},
-	ASubtypeOf: []sst.ElementInformer{AbstractResult},
+	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "ValidationResult"},
+	ASubtypeOf:        []sst.ElementInformer{AbstractResult},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3650,7 +3388,7 @@ var Validator = validatorI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "Validator"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3679,7 +3417,7 @@ var Violation = violationI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "Violation"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -3708,7 +3446,7 @@ var Warning = warningI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "Warning"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -3726,13 +3464,10 @@ type KindXoneConstraintComponent interface {
 
 type xoneConstraintComponentI struct{ sst.ElementInfo }
 
-func (xoneConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23XoneConstraintComponent() {
-}
-func (xoneConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (xoneConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (xoneConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23XoneConstraintComponent() {
-}
+func (xoneConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23XoneConstraintComponent()   {}
+func (xoneConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()  {}
+func (xoneConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()              {}
+func (xoneConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23XoneConstraintComponent() {}
 
 var xoneConstraintComponentKindInterface reflect.Type
 
@@ -3740,7 +3475,7 @@ var XoneConstraintComponent = xoneConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "XoneConstraintComponent"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -3758,13 +3493,10 @@ type KindXoneConstraintComponentXone interface {
 
 type xoneConstraintComponent_XoneI struct{ sst.ElementInfo }
 
-func (xoneConstraintComponent_XoneI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23XoneConstraintComponent_2Dxone() {
-}
-func (xoneConstraintComponent_XoneI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (xoneConstraintComponent_XoneI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
-func (xoneConstraintComponent_XoneI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23XoneConstraintComponent_2Dxone() {
-}
+func (xoneConstraintComponent_XoneI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23XoneConstraintComponent_2Dxone()   {}
+func (xoneConstraintComponent_XoneI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
+func (xoneConstraintComponent_XoneI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                     {}
+func (xoneConstraintComponent_XoneI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23XoneConstraintComponent_2Dxone() {}
 
 var xoneConstraintComponent_XoneKindInterface reflect.Type
 
@@ -3772,7 +3504,7 @@ var XoneConstraintComponentXone = xoneConstraintComponent_XoneI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "XoneConstraintComponent-xone"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -3800,7 +3532,7 @@ var AlternativePath = alternativePathI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "alternativePath"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3828,7 +3560,7 @@ var And = andI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "and"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3846,19 +3578,18 @@ type KindAnnotationProperty interface {
 
 type annotationPropertyI struct{ sst.ElementInfo }
 
-func (annotationPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23annotationProperty() {}
-func (annotationPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (annotationPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23annotationProperty() {}
+func (annotationPropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23annotationProperty()       {}
+func (annotationPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (annotationPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23annotationProperty()     {}
 
 var annotationPropertyKindInterface reflect.Type
 
 var AnnotationProperty = annotationPropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "annotationProperty"},
-	ADomain: ResultAnnotation,
+	ADomain:           ResultAnnotation,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3884,10 +3615,10 @@ var annotationValueKindInterface reflect.Type
 
 var AnnotationValue = annotationValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "annotationValue"},
-	ADomain: ResultAnnotation,
+	ADomain:           ResultAnnotation,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3905,19 +3636,18 @@ type KindAnnotationVarName interface {
 
 type annotationVarNameI struct{ sst.ElementInfo }
 
-func (annotationVarNameI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23annotationVarName() {}
-func (annotationVarNameI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (annotationVarNameI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23annotationVarName() {}
+func (annotationVarNameI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23annotationVarName()        {}
+func (annotationVarNameI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (annotationVarNameI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23annotationVarName()      {}
 
 var annotationVarNameKindInterface reflect.Type
 
 var AnnotationVarName = annotationVarNameI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "annotationVarName"},
-	ADomain: ResultAnnotation,
+	ADomain:           ResultAnnotation,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3943,10 +3673,10 @@ var askKindInterface reflect.Type
 
 var Ask = askI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "ask"},
-	ADomain: SPARQLAskExecutable,
+	ADomain:           SPARQLAskExecutable,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3974,7 +3704,7 @@ var Class = classI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "class"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4002,7 +3732,7 @@ var Closed = closedI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "closed"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4028,11 +3758,11 @@ var conditionKindInterface reflect.Type
 
 var Condition = conditionI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "condition"},
-	ADomain: Rule,
-	ARange:  Shape,
+	ADomain:           Rule,
+	ARange:            Shape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4058,10 +3788,10 @@ var conformsKindInterface reflect.Type
 
 var Conforms = conformsI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "conforms"},
-	ADomain: ValidationReport,
+	ADomain:           ValidationReport,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4087,10 +3817,10 @@ var constructKindInterface reflect.Type
 
 var Construct = constructI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "construct"},
-	ADomain: SPARQLConstructExecutable,
+	ADomain:           SPARQLConstructExecutable,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4118,7 +3848,7 @@ var Datatype = datatypeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "datatype"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4146,7 +3876,7 @@ var Deactivated = deactivatedI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "deactivated"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4172,10 +3902,10 @@ var declareKindInterface reflect.Type
 
 var Declare = declareI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "declare"},
-	ARange:  PrefixDeclaration,
+	ARange:            PrefixDeclaration,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4201,10 +3931,10 @@ var defaultValueKindInterface reflect.Type
 
 var DefaultValue = defaultValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "defaultValue"},
-	ADomain: PropertyShape,
+	ADomain:           PropertyShape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4230,10 +3960,10 @@ var descriptionKindInterface reflect.Type
 
 var Description = descriptionI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "description"},
-	ADomain: PropertyShape,
+	ADomain:           PropertyShape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4259,11 +3989,11 @@ var detailKindInterface reflect.Type
 
 var Detail = detailI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "detail"},
-	ADomain: AbstractResult,
-	ARange:  AbstractResult,
+	ADomain:           AbstractResult,
+	ARange:            AbstractResult,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4291,7 +4021,7 @@ var Disjoint = disjointI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "disjoint"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4319,7 +4049,7 @@ var Entailment = entailmentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "entailment"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4347,7 +4077,7 @@ var Equals = equalsI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "equals"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4375,7 +4105,7 @@ var Expression = expressionI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "expression"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4401,10 +4131,10 @@ var filterShapeKindInterface reflect.Type
 
 var FilterShape = filterShapeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "filterShape"},
-	ARange:  Shape,
+	ARange:            Shape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4432,7 +4162,7 @@ var Flags = flagsI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "flags"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4458,10 +4188,10 @@ var focusNodeKindInterface reflect.Type
 
 var FocusNode = focusNodeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "focusNode"},
-	ADomain: AbstractResult,
+	ADomain:           AbstractResult,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4487,11 +4217,11 @@ var groupKindInterface reflect.Type
 
 var Group = groupI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "group"},
-	ADomain: PropertyShape,
-	ARange:  PropertyGroup,
+	ADomain:           PropertyShape,
+	ARange:            PropertyGroup,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4519,7 +4249,7 @@ var HasValue = hasValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "hasValue"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4537,10 +4267,9 @@ type KindIgnoredProperties interface {
 
 type ignoredPropertiesI struct{ sst.ElementInfo }
 
-func (ignoredPropertiesI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ignoredProperties() {}
-func (ignoredPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (ignoredPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ignoredProperties() {}
+func (ignoredPropertiesI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ignoredProperties()        {}
+func (ignoredPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (ignoredPropertiesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23ignoredProperties()      {}
 
 var ignoredPropertiesKindInterface reflect.Type
 
@@ -4548,7 +4277,7 @@ var IgnoredProperties = ignoredPropertiesI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "ignoredProperties"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4576,7 +4305,7 @@ var In = inI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "in"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4604,7 +4333,7 @@ var Intersection = intersectionI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "intersection"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4632,7 +4361,7 @@ var InversePath = inversePathI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "inversePath"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4658,10 +4387,10 @@ var jsKindInterface reflect.Type
 
 var Js = jsI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "js"},
-	ARange:  JSConstraint,
+	ARange:            JSConstraint,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4687,10 +4416,10 @@ var jsFunctionNameKindInterface reflect.Type
 
 var JsFunctionName = jsFunctionNameI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "jsFunctionName"},
-	ADomain: JSExecutable,
+	ADomain:           JSExecutable,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4716,10 +4445,10 @@ var jsLibraryKindInterface reflect.Type
 
 var JsLibrary = jsLibraryI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "jsLibrary"},
-	ARange:  JSLibrary,
+	ARange:            JSLibrary,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4745,10 +4474,10 @@ var jsLibraryURLKindInterface reflect.Type
 
 var JsLibraryURL = jsLibraryURLI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "jsLibraryURL"},
-	ADomain: JSLibrary,
+	ADomain:           JSLibrary,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4774,10 +4503,10 @@ var labelTemplateKindInterface reflect.Type
 
 var LabelTemplate = labelTemplateI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "labelTemplate"},
-	ADomain: Parameterizable,
+	ADomain:           Parameterizable,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4805,7 +4534,7 @@ var LanguageIn = languageInI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "languageIn"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4833,7 +4562,7 @@ var LessThan = lessThanI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "lessThan"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4861,7 +4590,7 @@ var LessThanOrEquals = lessThanOrEqualsI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "lessThanOrEquals"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4889,7 +4618,7 @@ var MaxCount = maxCountI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "maxCount"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4917,7 +4646,7 @@ var MaxExclusive = maxExclusiveI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "maxExclusive"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4945,7 +4674,7 @@ var MaxInclusive = maxInclusiveI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "maxInclusive"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4973,7 +4702,7 @@ var MaxLength = maxLengthI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "maxLength"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5001,7 +4730,7 @@ var Message = messageI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "message"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5029,7 +4758,7 @@ var MinCount = minCountI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "minCount"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5057,7 +4786,7 @@ var MinExclusive = minExclusiveI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "minExclusive"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5085,7 +4814,7 @@ var MinInclusive = minInclusiveI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "minInclusive"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5113,7 +4842,7 @@ var MinLength = minLengthI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "minLength"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5139,10 +4868,10 @@ var nameKindInterface reflect.Type
 
 var Name = nameI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "name"},
-	ADomain: PropertyShape,
+	ADomain:           PropertyShape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5168,10 +4897,10 @@ var namespaceKindInterface reflect.Type
 
 var Namespace = namespaceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "namespace"},
-	ADomain: PrefixDeclaration,
+	ADomain:           PrefixDeclaration,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5197,10 +4926,10 @@ var nodeKindInterface reflect.Type
 
 var Node = nodeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "node"},
-	ARange:  NodeShape,
+	ARange:            NodeShape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5218,19 +4947,18 @@ type KindNodeKind_property interface {
 
 type nodeKind_PropertyI struct{ sst.ElementInfo }
 
-func (nodeKind_PropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23nodeKind() {}
-func (nodeKind_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (nodeKind_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23nodeKind() {}
+func (nodeKind_PropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23nodeKind()                 {}
+func (nodeKind_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (nodeKind_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23nodeKind()               {}
 
 var nodeKind_PropertyKindInterface reflect.Type
 
 var NodeKind_property = nodeKind_PropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "nodeKind"},
-	ARange:  NodeKind,
+	ARange:            NodeKind,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5256,11 +4984,11 @@ var nodeValidatorKindInterface reflect.Type
 
 var NodeValidator = nodeValidatorI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "nodeValidator"},
-	ADomain: ConstraintComponent,
-	ARange:  Validator,
+	ADomain:           ConstraintComponent,
+	ARange:            Validator,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5288,7 +5016,7 @@ var Nodes = nodesI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "nodes"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5314,10 +5042,10 @@ var notKindInterface reflect.Type
 
 var Not = notI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "not"},
-	ARange:  Shape,
+	ARange:            Shape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5343,10 +5071,10 @@ var objectKindInterface reflect.Type
 
 var Object = objectI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "object"},
-	ADomain: TripleRule,
+	ADomain:           TripleRule,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5374,7 +5102,7 @@ var OneOrMorePath = oneOrMorePathI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "oneOrMorePath"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5400,10 +5128,10 @@ var optionalKindInterface reflect.Type
 
 var Optional = optionalI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "optional"},
-	ADomain: Parameter,
+	ADomain:           Parameter,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5431,7 +5159,7 @@ var Or = orI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "or"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5459,7 +5187,7 @@ var Order = orderI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "order"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5477,20 +5205,19 @@ type KindParameter_property interface {
 
 type parameter_PropertyI struct{ sst.ElementInfo }
 
-func (parameter_PropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23parameter() {}
-func (parameter_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (parameter_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23parameter() {}
+func (parameter_PropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23parameter()                {}
+func (parameter_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (parameter_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23parameter()              {}
 
 var parameter_PropertyKindInterface reflect.Type
 
 var Parameter_property = parameter_PropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "parameter"},
-	ADomain: Parameterizable,
-	ARange:  Parameter,
+	ADomain:           Parameterizable,
+	ARange:            Parameter,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5516,10 +5243,10 @@ var pathKindInterface reflect.Type
 
 var Path = pathI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "path"},
-	ADomain: PropertyShape,
+	ADomain:           PropertyShape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5547,7 +5274,7 @@ var Pattern = patternI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "pattern"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5573,10 +5300,10 @@ var predicateKindInterface reflect.Type
 
 var Predicate = predicateI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "predicate"},
-	ADomain: TripleRule,
+	ADomain:           TripleRule,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5602,10 +5329,10 @@ var prefixKindInterface reflect.Type
 
 var Prefix = prefixI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "prefix"},
-	ADomain: PrefixDeclaration,
+	ADomain:           PrefixDeclaration,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5631,10 +5358,10 @@ var prefixesKindInterface reflect.Type
 
 var Prefixes = prefixesI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "prefixes"},
-	ADomain: SPARQLExecutable,
+	ADomain:           SPARQLExecutable,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5660,11 +5387,11 @@ var propertyKindInterface reflect.Type
 
 var Property = propertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "property"},
-	ADomain: Shape,
-	ARange:  PropertyShape,
+	ADomain:           Shape,
+	ARange:            PropertyShape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5682,20 +5409,19 @@ type KindPropertyValidator interface {
 
 type propertyValidatorI struct{ sst.ElementInfo }
 
-func (propertyValidatorI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23propertyValidator() {}
-func (propertyValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (propertyValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23propertyValidator() {}
+func (propertyValidatorI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23propertyValidator()        {}
+func (propertyValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (propertyValidatorI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23propertyValidator()      {}
 
 var propertyValidatorKindInterface reflect.Type
 
 var PropertyValidator = propertyValidatorI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "propertyValidator"},
-	ADomain: ConstraintComponent,
-	ARange:  Validator,
+	ADomain:           ConstraintComponent,
+	ARange:            Validator,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5713,10 +5439,9 @@ type KindQualifiedMaxCount interface {
 
 type qualifiedMaxCountI struct{ sst.ElementInfo }
 
-func (qualifiedMaxCountI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedMaxCount() {}
-func (qualifiedMaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (qualifiedMaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedMaxCount() {}
+func (qualifiedMaxCountI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedMaxCount()        {}
+func (qualifiedMaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (qualifiedMaxCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedMaxCount()      {}
 
 var qualifiedMaxCountKindInterface reflect.Type
 
@@ -5724,7 +5449,7 @@ var QualifiedMaxCount = qualifiedMaxCountI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "qualifiedMaxCount"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5742,10 +5467,9 @@ type KindQualifiedMinCount interface {
 
 type qualifiedMinCountI struct{ sst.ElementInfo }
 
-func (qualifiedMinCountI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedMinCount() {}
-func (qualifiedMinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (qualifiedMinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedMinCount() {}
+func (qualifiedMinCountI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedMinCount()        {}
+func (qualifiedMinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (qualifiedMinCountI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedMinCount()      {}
 
 var qualifiedMinCountKindInterface reflect.Type
 
@@ -5753,7 +5477,7 @@ var QualifiedMinCount = qualifiedMinCountI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "qualifiedMinCount"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5771,19 +5495,18 @@ type KindQualifiedValueShape interface {
 
 type qualifiedValueShapeI struct{ sst.ElementInfo }
 
-func (qualifiedValueShapeI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedValueShape() {}
-func (qualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (qualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedValueShape() {}
+func (qualifiedValueShapeI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedValueShape()      {}
+func (qualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (qualifiedValueShapeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedValueShape()    {}
 
 var qualifiedValueShapeKindInterface reflect.Type
 
 var QualifiedValueShape = qualifiedValueShapeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "qualifiedValueShape"},
-	ARange:  Shape,
+	ARange:            Shape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5801,12 +5524,9 @@ type KindQualifiedValueShapesDisjoint interface {
 
 type qualifiedValueShapesDisjointI struct{ sst.ElementInfo }
 
-func (qualifiedValueShapesDisjointI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedValueShapesDisjoint() {
-}
-func (qualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (qualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedValueShapesDisjoint() {
-}
+func (qualifiedValueShapesDisjointI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedValueShapesDisjoint()   {}
+func (qualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (qualifiedValueShapesDisjointI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23qualifiedValueShapesDisjoint() {}
 
 var qualifiedValueShapesDisjointKindInterface reflect.Type
 
@@ -5814,7 +5534,7 @@ var QualifiedValueShapesDisjoint = qualifiedValueShapesDisjointI{sst.ElementInfo
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "qualifiedValueShapesDisjoint"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5840,11 +5560,11 @@ var resultKindInterface reflect.Type
 
 var Result = resultI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "result"},
-	ADomain: ValidationReport,
-	ARange:  ValidationResult,
+	ADomain:           ValidationReport,
+	ARange:            ValidationResult,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5862,22 +5582,19 @@ type KindResultAnnotation_property interface {
 
 type resultAnnotation_PropertyI struct{ sst.ElementInfo }
 
-func (resultAnnotation_PropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23resultAnnotation() {
-}
-func (resultAnnotation_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (resultAnnotation_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23resultAnnotation() {
-}
+func (resultAnnotation_PropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23resultAnnotation()         {}
+func (resultAnnotation_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (resultAnnotation_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23resultAnnotation()       {}
 
 var resultAnnotation_PropertyKindInterface reflect.Type
 
 var ResultAnnotation_property = resultAnnotation_PropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "resultAnnotation"},
-	ADomain: SPARQLSelectValidator,
-	ARange:  ResultAnnotation,
+	ADomain:           SPARQLSelectValidator,
+	ARange:            ResultAnnotation,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5903,10 +5620,10 @@ var resultMessageKindInterface reflect.Type
 
 var ResultMessage = resultMessageI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "resultMessage"},
-	ADomain: AbstractResult,
+	ADomain:           AbstractResult,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5932,10 +5649,10 @@ var resultPathKindInterface reflect.Type
 
 var ResultPath = resultPathI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "resultPath"},
-	ADomain: AbstractResult,
+	ADomain:           AbstractResult,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5953,20 +5670,19 @@ type KindResultSeverity_property interface {
 
 type resultSeverity_PropertyI struct{ sst.ElementInfo }
 
-func (resultSeverity_PropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23resultSeverity() {}
-func (resultSeverity_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (resultSeverity_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23resultSeverity() {}
+func (resultSeverity_PropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23resultSeverity()           {}
+func (resultSeverity_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (resultSeverity_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23resultSeverity()         {}
 
 var resultSeverity_PropertyKindInterface reflect.Type
 
 var ResultSeverity_property = resultSeverity_PropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "resultSeverity"},
-	ADomain: AbstractResult,
-	ARange:  Severity,
+	ADomain:           AbstractResult,
+	ARange:            Severity,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5992,10 +5708,10 @@ var returnTypeKindInterface reflect.Type
 
 var ReturnType = returnTypeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "returnType"},
-	ADomain: Function,
+	ADomain:           Function,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6021,11 +5737,11 @@ var rule_PropertyKindInterface reflect.Type
 
 var Rule_property = rule_PropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "rule"},
-	ADomain: Shape,
-	ARange:  Rule,
+	ADomain:           Shape,
+	ARange:            Rule,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6051,10 +5767,10 @@ var selectKindInterface reflect.Type
 
 var Select = selectI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "select"},
-	ADomain: SPARQLSelectExecutable,
+	ADomain:           SPARQLSelectExecutable,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6072,20 +5788,19 @@ type KindSeverity_property interface {
 
 type severity_PropertyI struct{ sst.ElementInfo }
 
-func (severity_PropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23severity() {}
-func (severity_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (severity_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23severity() {}
+func (severity_PropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23severity()                 {}
+func (severity_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (severity_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23severity()               {}
 
 var severity_PropertyKindInterface reflect.Type
 
 var Severity_property = severity_PropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "severity"},
-	ADomain: Shape,
-	ARange:  Severity,
+	ADomain:           Shape,
+	ARange:            Severity,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6113,7 +5828,7 @@ var ShapesGraph = shapesGraphI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "shapesGraph"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6131,21 +5846,18 @@ type KindShapesGraphWellFormed interface {
 
 type shapesGraphWellFormedI struct{ sst.ElementInfo }
 
-func (shapesGraphWellFormedI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23shapesGraphWellFormed() {
-}
-func (shapesGraphWellFormedI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (shapesGraphWellFormedI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23shapesGraphWellFormed() {
-}
+func (shapesGraphWellFormedI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23shapesGraphWellFormed()    {}
+func (shapesGraphWellFormedI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (shapesGraphWellFormedI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23shapesGraphWellFormed()  {}
 
 var shapesGraphWellFormedKindInterface reflect.Type
 
 var ShapesGraphWellFormed = shapesGraphWellFormedI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "shapesGraphWellFormed"},
-	ADomain: ValidationReport,
+	ADomain:           ValidationReport,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6171,10 +5883,10 @@ var sourceConstraintKindInterface reflect.Type
 
 var SourceConstraint = sourceConstraintI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "sourceConstraint"},
-	ADomain: AbstractResult,
+	ADomain:           AbstractResult,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6192,22 +5904,19 @@ type KindSourceConstraintComponent interface {
 
 type sourceConstraintComponentI struct{ sst.ElementInfo }
 
-func (sourceConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23sourceConstraintComponent() {
-}
-func (sourceConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (sourceConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23sourceConstraintComponent() {
-}
+func (sourceConstraintComponentI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23sourceConstraintComponent()   {}
+func (sourceConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (sourceConstraintComponentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23sourceConstraintComponent() {}
 
 var sourceConstraintComponentKindInterface reflect.Type
 
 var SourceConstraintComponent = sourceConstraintComponentI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "sourceConstraintComponent"},
-	ADomain: AbstractResult,
-	ARange:  ConstraintComponent,
+	ADomain:           AbstractResult,
+	ARange:            ConstraintComponent,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6233,11 +5942,11 @@ var sourceShapeKindInterface reflect.Type
 
 var SourceShape = sourceShapeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "sourceShape"},
-	ADomain: AbstractResult,
-	ARange:  Shape,
+	ADomain:           AbstractResult,
+	ARange:            Shape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6263,11 +5972,11 @@ var sparqlKindInterface reflect.Type
 
 var Sparql = sparqlI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "sparql"},
-	ADomain: Shape,
-	ARange:  SPARQLConstraint,
+	ADomain:           Shape,
+	ARange:            SPARQLConstraint,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6293,10 +6002,10 @@ var subjectKindInterface reflect.Type
 
 var Subject = subjectI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "subject"},
-	ADomain: TripleRule,
+	ADomain:           TripleRule,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6314,11 +6023,9 @@ type KindSuggestedShapesGraph interface {
 
 type suggestedShapesGraphI struct{ sst.ElementInfo }
 
-func (suggestedShapesGraphI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23suggestedShapesGraph() {}
-func (suggestedShapesGraphI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (suggestedShapesGraphI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23suggestedShapesGraph() {
-}
+func (suggestedShapesGraphI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23suggestedShapesGraph()     {}
+func (suggestedShapesGraphI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (suggestedShapesGraphI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23suggestedShapesGraph()   {}
 
 var suggestedShapesGraphKindInterface reflect.Type
 
@@ -6326,7 +6033,7 @@ var SuggestedShapesGraph = suggestedShapesGraphI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "suggestedShapesGraph"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6352,11 +6059,11 @@ var target_PropertyKindInterface reflect.Type
 
 var Target_property = target_PropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "target"},
-	ADomain: Shape,
-	ARange:  Target,
+	ADomain:           Shape,
+	ARange:            Target,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6382,10 +6089,10 @@ var targetClassKindInterface reflect.Type
 
 var TargetClass = targetClassI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "targetClass"},
-	ADomain: Shape,
+	ADomain:           Shape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6411,10 +6118,10 @@ var targetNodeKindInterface reflect.Type
 
 var TargetNode = targetNodeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "targetNode"},
-	ADomain: Shape,
+	ADomain:           Shape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6440,10 +6147,10 @@ var targetObjectsOfKindInterface reflect.Type
 
 var TargetObjectsOf = targetObjectsOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "targetObjectsOf"},
-	ADomain: Shape,
+	ADomain:           Shape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6469,10 +6176,10 @@ var targetSubjectsOfKindInterface reflect.Type
 
 var TargetSubjectsOf = targetSubjectsOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "targetSubjectsOf"},
-	ADomain: Shape,
+	ADomain:           Shape,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6501,7 +6208,7 @@ var This = thisI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "this"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -6529,7 +6236,7 @@ var Union = unionI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "union"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6557,7 +6264,7 @@ var UniqueLang = uniqueLangI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "uniqueLang"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6583,10 +6290,10 @@ var updateKindInterface reflect.Type
 
 var Update = updateI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "update"},
-	ADomain: SPARQLUpdateExecutable,
+	ADomain:           SPARQLUpdateExecutable,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6604,20 +6311,19 @@ type KindValidator_property interface {
 
 type validator_PropertyI struct{ sst.ElementInfo }
 
-func (validator_PropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23validator() {}
-func (validator_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (validator_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23validator() {}
+func (validator_PropertyI) AsIs_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23validator()                {}
+func (validator_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (validator_PropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2Fns_2Fshacl_23validator()              {}
 
 var validator_PropertyKindInterface reflect.Type
 
 var Validator_property = validator_PropertyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "validator"},
-	ADomain: ConstraintComponent,
-	ARange:  Validator,
+	ADomain:           ConstraintComponent,
+	ARange:            Validator,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6643,10 +6349,10 @@ var valueKindInterface reflect.Type
 
 var Value = valueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "value"},
-	ADomain: AbstractResult,
+	ADomain:           AbstractResult,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6674,7 +6380,7 @@ var Xone = xoneI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "xone"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6702,7 +6408,7 @@ var ZeroOrMorePath = zeroOrMorePathI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "zeroOrMorePath"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6730,6 +6436,6 @@ var ZeroOrOnePath = zeroOrOnePathI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: SHACLVocabulary, Name: "zeroOrOnePath"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}

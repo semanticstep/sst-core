@@ -7,9 +7,9 @@ import (
 	"os"
 	"sort"
 
-	"github.com/blevesearch/bleve/v2"
-	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/cli/cmd/utils"
+	"github.com/semanticstep/sst-core/sst"
+	"github.com/blevesearch/bleve/v2"
 )
 
 func handleCommits(datasetAlias, command string, args []string) {

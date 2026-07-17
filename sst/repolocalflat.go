@@ -16,10 +16,10 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/blevesearch/bleve/v2"
 	"github.com/google/uuid"
 	fs "github.com/relab/wrfs"
-	"github.com/semanticstep/sst-core/sstauth"
 	"go.uber.org/zap"
 )
 

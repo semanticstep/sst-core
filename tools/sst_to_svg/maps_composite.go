@@ -7,9 +7,9 @@ import (
 	"log"
 	"strings"
 
-	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
+	"github.com/google/uuid"
 )
 
 func getStyledItemMap(o sst.Term, styleMap map[uuid.UUID]map[string]string) map[string]string {
@@ -237,3 +237,4 @@ func processCompositeCurveSegment(segmentNode sst.Term, styleMap map[uuid.UUID]m
 
 	return segmentResult
 }
+

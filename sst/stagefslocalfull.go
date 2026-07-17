@@ -125,5 +125,4 @@ func (f datasetFileReadWriter) Close() error {
 		return nil
 	}
 	panic(ErrNamedGraphNotFound)
-	return ErrNamedGraphNotFound
 }

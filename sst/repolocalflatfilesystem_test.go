@@ -73,5 +73,5 @@ func Test_localFlatSstFileRepo(t *testing.T) {
 	for key, val := range st.ReferencedGraphs() {
 		fmt.Println(key, val.IRI())
 	}
-	assert.Equal(t, 7, len(st.ReferencedGraphs()))
+	assert.Equal(t, 6, len(st.ReferencedGraphs()))
 }

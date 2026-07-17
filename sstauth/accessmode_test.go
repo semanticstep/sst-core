@@ -35,6 +35,12 @@ func TestAccessModeSuperAdmin(t *testing.T) {
 	if got := AccessModeFromRoles([]string{"super_admin"}); got != AccessMode_SuperAdmin {
 		t.Fatalf("AccessModeFromRoles(super_admin) = %v, want SuperAdmin", got)
 	}
+	if got := AccessModeFromRoles([]string{}); got != AccessMode_None {
+		t.Fatalf("AccessModeFromRoles(empty) = %v, want None", got)
+	}
+	if got := AccessModeFromRoles([]string{"unknown-role"}); got != AccessMode_None {
+		t.Fatalf("AccessModeFromRoles(unknown-role) = %v, want None", got)
+	}
 	if !HasAccess(AccessMode_SuperAdmin, AccessMode_Admin) {
 		t.Fatalf("SuperAdmin should have Admin access")
 	}

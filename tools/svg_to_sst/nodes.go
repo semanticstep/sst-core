@@ -6,13 +6,12 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
+	"github.com/google/uuid"
 )
-
 func createNodesForGroups(graph sst.NamedGraph, groups []group, itemUUIDs *[]sst.Term, parentTransform string, parentStyle shapeStyle) {
 	for _, group := range groups {
 		combinedStyle := combineShapeStyles(parentStyle, group.shapeStyle)
@@ -408,3 +407,4 @@ func createNodesForPaths(graph sst.NamedGraph, paths []path, itemUUIDs *[]sst.Te
 		*itemUUIDs = append(*itemUUIDs, styledNode)
 	}
 }
+

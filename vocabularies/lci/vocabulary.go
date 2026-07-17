@@ -6,7 +6,6 @@ package lci
 
 import (
 	"reflect"
-
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/owl"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
@@ -46,11 +45,11 @@ func (abstractObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Th
 var abstractObjectKindInterface reflect.Type
 
 var AbstractObject = abstractObjectI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "AbstractObject"},
-	ASubtypeOf: []sst.ElementInformer{Thing},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "AbstractObject"},
+	ASubtypeOf:        []sst.ElementInformer{Thing},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: true, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -78,11 +77,11 @@ func (activityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() 
 var activityKindInterface reflect.Type
 
 var Activity = activityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Activity"},
-	ASubtypeOf: []sst.ElementInformer{Individual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Activity"},
+	ASubtypeOf:        []sst.ElementInformer{Individual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}},
 }}
@@ -101,24 +100,22 @@ type KindActualIndividual interface {
 
 type actualIndividualI struct{ sst.ElementInfo }
 
-func (actualIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ActualIndividual() {}
-func (actualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ActualIndividual() {
-}
-func (actualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (actualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SpecificIndividual() {
-}
-func (actualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (actualIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (actualIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (actualIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ActualIndividual()     {}
+func (actualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ActualIndividual()   {}
+func (actualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()         {}
+func (actualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SpecificIndividual() {}
+func (actualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()              {}
+func (actualIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
+func (actualIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                 {}
 
 var actualIndividualKindInterface reflect.Type
 
 var ActualIndividual = actualIndividualI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ActualIndividual"},
-	ASubtypeOf: []sst.ElementInformer{SpecificIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ActualIndividual"},
+	ASubtypeOf:        []sst.ElementInformer{SpecificIndividual},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -136,24 +133,21 @@ type KindAnimateIndividual interface {
 
 type animateIndividualI struct{ sst.ElementInfo }
 
-func (animateIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AnimateIndividual() {
-}
-func (animateIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AnimateIndividual() {
-}
-func (animateIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (animateIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()      {}
-func (animateIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (animateIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (animateIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AnimateIndividual()   {}
+func (animateIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AnimateIndividual() {}
+func (animateIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()        {}
+func (animateIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (animateIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (animateIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var animateIndividualKindInterface reflect.Type
 
 var AnimateIndividual = animateIndividualI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "AnimateIndividual"},
-	ASubtypeOf: []sst.ElementInformer{Individual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "AnimateIndividual"},
+	ASubtypeOf:        []sst.ElementInformer{Individual},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -171,24 +165,21 @@ type KindArrangedIndividual interface {
 
 type arrangedIndividualI struct{ sst.ElementInfo }
 
-func (arrangedIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (arrangedIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (arrangedIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (arrangedIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()      {}
-func (arrangedIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (arrangedIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (arrangedIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual()   {}
+func (arrangedIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {}
+func (arrangedIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()         {}
+func (arrangedIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()              {}
+func (arrangedIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
+func (arrangedIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                 {}
 
 var arrangedIndividualKindInterface reflect.Type
 
 var ArrangedIndividual = arrangedIndividualI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ArrangedIndividual"},
-	ASubtypeOf: []sst.ElementInformer{Individual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ArrangedIndividual"},
+	ASubtypeOf:        []sst.ElementInformer{Individual},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -206,25 +197,24 @@ type KindBiologicalMatter interface {
 
 type biologicalMatterI struct{ sst.ElementInfo }
 
-func (biologicalMatterI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23BiologicalMatter() {}
-func (biologicalMatterI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23BiologicalMatter() {
-}
-func (biologicalMatterI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()     {}
-func (biologicalMatterI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()         {}
-func (biologicalMatterI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {}
-func (biologicalMatterI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidBody()      {}
-func (biologicalMatterI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (biologicalMatterI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (biologicalMatterI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (biologicalMatterI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23BiologicalMatter()   {}
+func (biologicalMatterI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23BiologicalMatter() {}
+func (biologicalMatterI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()       {}
+func (biologicalMatterI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()           {}
+func (biologicalMatterI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()   {}
+func (biologicalMatterI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidBody()        {}
+func (biologicalMatterI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()            {}
+func (biologicalMatterI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
+func (biologicalMatterI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()               {}
 
 var biologicalMatterKindInterface reflect.Type
 
 var BiologicalMatter = biologicalMatterI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "BiologicalMatter"},
-	ASubtypeOf: []sst.ElementInformer{SolidBody},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "BiologicalMatter"},
+	ASubtypeOf:        []sst.ElementInformer{SolidBody},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}, SolidBody.Element: {}},
 }}
@@ -254,11 +244,11 @@ func (booleanI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()  
 var booleanKindInterface reflect.Type
 
 var Boolean = booleanI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Boolean"},
-	ASubtypeOf: []sst.ElementInformer{Number},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Boolean"},
+	ASubtypeOf:        []sst.ElementInformer{Number},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -276,26 +266,24 @@ type KindChemicalCompound interface {
 
 type chemicalCompoundI struct{ sst.ElementInfo }
 
-func (chemicalCompoundI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalCompound() {}
-func (chemicalCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalCompound() {
-}
-func (chemicalCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance() {
-}
-func (chemicalCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()     {}
-func (chemicalCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()         {}
-func (chemicalCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {}
-func (chemicalCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (chemicalCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (chemicalCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (chemicalCompoundI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalCompound()    {}
+func (chemicalCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalCompound()  {}
+func (chemicalCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance() {}
+func (chemicalCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()        {}
+func (chemicalCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()            {}
+func (chemicalCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()    {}
+func (chemicalCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (chemicalCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (chemicalCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var chemicalCompoundKindInterface reflect.Type
 
 var ChemicalCompound = chemicalCompoundI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ChemicalCompound"},
-	ASubtypeOf: []sst.ElementInformer{ChemicalSubstance},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ChemicalCompound"},
+	ASubtypeOf:        []sst.ElementInformer{ChemicalSubstance},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalSubstance.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -314,25 +302,24 @@ type KindChemicalElement interface {
 
 type chemicalElementI struct{ sst.ElementInfo }
 
-func (chemicalElementI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalElement()   {}
-func (chemicalElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalElement() {}
-func (chemicalElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance() {
-}
-func (chemicalElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()     {}
-func (chemicalElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()         {}
-func (chemicalElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {}
-func (chemicalElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (chemicalElementI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (chemicalElementI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (chemicalElementI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalElement()     {}
+func (chemicalElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalElement()   {}
+func (chemicalElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance() {}
+func (chemicalElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()        {}
+func (chemicalElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()            {}
+func (chemicalElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()    {}
+func (chemicalElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (chemicalElementI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (chemicalElementI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var chemicalElementKindInterface reflect.Type
 
 var ChemicalElement = chemicalElementI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ChemicalElement"},
-	ASubtypeOf: []sst.ElementInformer{ChemicalSubstance},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ChemicalElement"},
+	ASubtypeOf:        []sst.ElementInformer{ChemicalSubstance},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalSubstance.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -363,11 +350,11 @@ func (chemicalMixtureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23T
 var chemicalMixtureKindInterface reflect.Type
 
 var ChemicalMixture = chemicalMixtureI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ChemicalMixture"},
-	ASubtypeOf: []sst.ElementInformer{Matter},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ChemicalMixture"},
+	ASubtypeOf:        []sst.ElementInformer{Matter},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -386,28 +373,25 @@ type KindChemicalSolution interface {
 
 type chemicalSolutionI struct{ sst.ElementInfo }
 
-func (chemicalSolutionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSolution() {}
-func (chemicalSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture() {
-}
-func (chemicalSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSolution() {
-}
-func (chemicalSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {
-}
-func (chemicalSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()     {}
-func (chemicalSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()         {}
-func (chemicalSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {}
-func (chemicalSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (chemicalSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (chemicalSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (chemicalSolutionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSolution()             {}
+func (chemicalSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture()            {}
+func (chemicalSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSolution()           {}
+func (chemicalSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {}
+func (chemicalSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                 {}
+func (chemicalSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()                     {}
+func (chemicalSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()             {}
+func (chemicalSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                      {}
+func (chemicalSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (chemicalSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                         {}
 
 var chemicalSolutionKindInterface reflect.Type
 
 var ChemicalSolution = chemicalSolutionI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ChemicalSolution"},
-	ASubtypeOf: []sst.ElementInformer{HomogeneousChemicalMixture},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ChemicalSolution"},
+	ASubtypeOf:        []sst.ElementInformer{HomogeneousChemicalMixture},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalMixture.Element: {}, HomogeneousChemicalMixture.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -426,27 +410,23 @@ type KindChemicalSubstance interface {
 
 type chemicalSubstanceI struct{ sst.ElementInfo }
 
-func (chemicalSubstanceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance() {
-}
-func (chemicalSubstanceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance() {
-}
-func (chemicalSubstanceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (chemicalSubstanceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()     {}
-func (chemicalSubstanceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (chemicalSubstanceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (chemicalSubstanceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (chemicalSubstanceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (chemicalSubstanceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance()   {}
+func (chemicalSubstanceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance() {}
+func (chemicalSubstanceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()        {}
+func (chemicalSubstanceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()            {}
+func (chemicalSubstanceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()    {}
+func (chemicalSubstanceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (chemicalSubstanceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (chemicalSubstanceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var chemicalSubstanceKindInterface reflect.Type
 
 var ChemicalSubstance = chemicalSubstanceI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ChemicalSubstance"},
-	ASubtypeOf: []sst.ElementInformer{Matter},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ChemicalSubstance"},
+	ASubtypeOf:        []sst.ElementInformer{Matter},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -475,11 +455,11 @@ func (classI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()    
 var classKindInterface reflect.Type
 
 var Class = classI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Class"},
-	ASubtypeOf: []sst.ElementInformer{AbstractObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Class"},
+	ASubtypeOf:        []sst.ElementInformer{AbstractObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -497,26 +477,22 @@ type KindClassOfAbstractObject interface {
 
 type classOfAbstractObjectI struct{ sst.ElementInfo }
 
-func (classOfAbstractObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfAbstractObject() {
-}
-func (classOfAbstractObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (classOfAbstractObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {}
-func (classOfAbstractObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfAbstractObject() {
-}
-func (classOfAbstractObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (classOfAbstractObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (classOfAbstractObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (classOfAbstractObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfAbstractObject()   {}
+func (classOfAbstractObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()        {}
+func (classOfAbstractObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                 {}
+func (classOfAbstractObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfAbstractObject() {}
+func (classOfAbstractObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                 {}
+func (classOfAbstractObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
+func (classOfAbstractObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                    {}
 
 var classOfAbstractObjectKindInterface reflect.Type
 
 var ClassOfAbstractObject = classOfAbstractObjectI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfAbstractObject"},
-	ASubtypeOf: []sst.ElementInformer{Class},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfAbstractObject"},
+	ASubtypeOf:        []sst.ElementInformer{Class},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: true, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -534,24 +510,23 @@ type KindClassOfActivity interface {
 
 type classOfActivityI struct{ sst.ElementInfo }
 
-func (classOfActivityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfActivity()   {}
-func (classOfActivityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()  {}
-func (classOfActivityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()           {}
-func (classOfActivityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfActivity() {}
-func (classOfActivityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (classOfActivityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (classOfActivityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (classOfActivityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (classOfActivityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfActivity()     {}
+func (classOfActivityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()    {}
+func (classOfActivityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()             {}
+func (classOfActivityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfActivity()   {}
+func (classOfActivityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {}
+func (classOfActivityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (classOfActivityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (classOfActivityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var classOfActivityKindInterface reflect.Type
 
 var ClassOfActivity = classOfActivityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfActivity"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfActivity"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfIndividual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -569,24 +544,23 @@ type KindClassOfClass interface {
 
 type classOfClassI struct{ sst.ElementInfo }
 
-func (classOfClassI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClass()     {}
-func (classOfClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {}
-func (classOfClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()          {}
-func (classOfClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfAbstractObject() {
-}
-func (classOfClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClass()   {}
-func (classOfClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (classOfClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (classOfClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (classOfClassI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClass()            {}
+func (classOfClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()        {}
+func (classOfClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                 {}
+func (classOfClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfAbstractObject() {}
+func (classOfClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClass()          {}
+func (classOfClassI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                 {}
+func (classOfClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
+func (classOfClassI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                    {}
 
 var classOfClassKindInterface reflect.Type
 
 var ClassOfClass = classOfClassI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfClass"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfAbstractObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfClass"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfAbstractObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -604,30 +578,24 @@ type KindClassOfClassOfIndividual interface {
 
 type classOfClassOfIndividualI struct{ sst.ElementInfo }
 
-func (classOfClassOfIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClassOfIndividual() {
-}
-func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {}
-func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfAbstractObject() {
-}
-func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClass() {
-}
-func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClassOfIndividual() {
-}
-func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (classOfClassOfIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClassOfIndividual()   {}
+func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()           {}
+func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                    {}
+func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfAbstractObject()    {}
+func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClass()             {}
+func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClassOfIndividual() {}
+func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                    {}
+func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
+func (classOfClassOfIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                       {}
 
 var classOfClassOfIndividualKindInterface reflect.Type
 
 var ClassOfClassOfIndividual = classOfClassOfIndividualI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfClassOfIndividual"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfClass},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfClassOfIndividual"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfClass},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -646,34 +614,25 @@ type KindClassOfClassOfPhysicalObject interface {
 
 type classOfClassOfPhysicalObjectI struct{ sst.ElementInfo }
 
-func (classOfClassOfPhysicalObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClassOfPhysicalObject() {
-}
-func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {
-}
-func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfAbstractObject() {
-}
-func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClass() {
-}
-func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClassOfIndividual() {
-}
-func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClassOfPhysicalObject() {
-}
-func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {
-}
-func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (classOfClassOfPhysicalObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClassOfPhysicalObject()   {}
+func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()               {}
+func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                        {}
+func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfAbstractObject()        {}
+func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClass()                 {}
+func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClassOfIndividual()     {}
+func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClassOfPhysicalObject() {}
+func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                        {}
+func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
+func (classOfClassOfPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                           {}
 
 var classOfClassOfPhysicalObjectKindInterface reflect.Type
 
 var ClassOfClassOfPhysicalObject = classOfClassOfPhysicalObjectI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfClassOfPhysicalObject"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfClassOfIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfClassOfPhysicalObject"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfClassOfIndividual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -691,30 +650,23 @@ type KindClassOfEnumeratedIndividuals interface {
 
 type classOfEnumeratedIndividualsI struct{ sst.ElementInfo }
 
-func (classOfEnumeratedIndividualsI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfEnumeratedIndividuals() {
-}
-func (classOfEnumeratedIndividualsI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (classOfEnumeratedIndividualsI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {
-}
-func (classOfEnumeratedIndividualsI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfEnumeratedIndividuals() {
-}
-func (classOfEnumeratedIndividualsI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (classOfEnumeratedIndividualsI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {
-}
-func (classOfEnumeratedIndividualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (classOfEnumeratedIndividualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (classOfEnumeratedIndividualsI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfEnumeratedIndividuals()   {}
+func (classOfEnumeratedIndividualsI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()               {}
+func (classOfEnumeratedIndividualsI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                        {}
+func (classOfEnumeratedIndividualsI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfEnumeratedIndividuals() {}
+func (classOfEnumeratedIndividualsI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()            {}
+func (classOfEnumeratedIndividualsI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                        {}
+func (classOfEnumeratedIndividualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
+func (classOfEnumeratedIndividualsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                           {}
 
 var classOfEnumeratedIndividualsKindInterface reflect.Type
 
 var ClassOfEnumeratedIndividuals = classOfEnumeratedIndividualsI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfEnumeratedIndividuals"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfEnumeratedIndividuals"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfIndividual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ClassOfIndividual.Element: {}},
 }}
@@ -745,11 +697,11 @@ func (classOfEventI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thin
 var classOfEventKindInterface reflect.Type
 
 var ClassOfEvent = classOfEventI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfEvent"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfEvent"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfIndividual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -767,26 +719,22 @@ type KindClassOfIndividual interface {
 
 type classOfIndividualI struct{ sst.ElementInfo }
 
-func (classOfIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (classOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (classOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {}
-func (classOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (classOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (classOfIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (classOfIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (classOfIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()   {}
+func (classOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()    {}
+func (classOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()             {}
+func (classOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {}
+func (classOfIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (classOfIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (classOfIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var classOfIndividualKindInterface reflect.Type
 
 var ClassOfIndividual = classOfIndividualI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfIndividual"},
-	ASubtypeOf: []sst.ElementInformer{Class},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfIndividual"},
+	ASubtypeOf:        []sst.ElementInformer{Class},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -805,28 +753,23 @@ type KindClassOfPeriodInTime interface {
 
 type classOfPeriodInTimeI struct{ sst.ElementInfo }
 
-func (classOfPeriodInTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPeriodInTime() {
-}
-func (classOfPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (classOfPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {}
-func (classOfPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (classOfPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPeriodInTime() {
-}
-func (classOfPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (classOfPeriodInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (classOfPeriodInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (classOfPeriodInTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPeriodInTime()   {}
+func (classOfPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()      {}
+func (classOfPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()               {}
+func (classOfPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()   {}
+func (classOfPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPeriodInTime() {}
+func (classOfPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()               {}
+func (classOfPeriodInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (classOfPeriodInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
 
 var classOfPeriodInTimeKindInterface reflect.Type
 
 var ClassOfPeriodInTime = classOfPeriodInTimeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfPeriodInTime"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfPeriodInTime"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfIndividual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -844,28 +787,23 @@ type KindClassOfPhysicalObject interface {
 
 type classOfPhysicalObjectI struct{ sst.ElementInfo }
 
-func (classOfPhysicalObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPhysicalObject() {
-}
-func (classOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (classOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {}
-func (classOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (classOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPhysicalObject() {
-}
-func (classOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (classOfPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (classOfPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (classOfPhysicalObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPhysicalObject()   {}
+func (classOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()        {}
+func (classOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                 {}
+func (classOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()     {}
+func (classOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPhysicalObject() {}
+func (classOfPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                 {}
+func (classOfPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
+func (classOfPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                    {}
 
 var classOfPhysicalObjectKindInterface reflect.Type
 
 var ClassOfPhysicalObject = classOfPhysicalObjectI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfPhysicalObject"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfPhysicalObject"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfIndividual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -883,30 +821,24 @@ type KindClassOfPhysicalQuantity interface {
 
 type classOfPhysicalQuantityI struct{ sst.ElementInfo }
 
-func (classOfPhysicalQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPhysicalQuantity() {
-}
-func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {}
-func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPhysicalQuantity() {
-}
-func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfQuantity() {
-}
-func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (classOfPhysicalQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPhysicalQuantity()   {}
+func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()          {}
+func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                   {}
+func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()       {}
+func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPhysicalQuantity() {}
+func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfQuantity()         {}
+func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                   {}
+func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
+func (classOfPhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                      {}
 
 var classOfPhysicalQuantityKindInterface reflect.Type
 
 var ClassOfPhysicalQuantity = classOfPhysicalQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfPhysicalQuantity"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfQuantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfPhysicalQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfQuantity},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -924,28 +856,23 @@ type KindClassOfPointInSpace interface {
 
 type classOfPointInSpaceI struct{ sst.ElementInfo }
 
-func (classOfPointInSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPointInSpace() {
-}
-func (classOfPointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (classOfPointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {}
-func (classOfPointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (classOfPointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPointInSpace() {
-}
-func (classOfPointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (classOfPointInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (classOfPointInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (classOfPointInSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPointInSpace()   {}
+func (classOfPointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()      {}
+func (classOfPointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()               {}
+func (classOfPointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()   {}
+func (classOfPointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPointInSpace() {}
+func (classOfPointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()               {}
+func (classOfPointInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (classOfPointInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
 
 var classOfPointInSpaceKindInterface reflect.Type
 
 var ClassOfPointInSpace = classOfPointInSpaceI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfPointInSpace"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfPointInSpace"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfIndividual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -963,29 +890,24 @@ type KindClassOfPointInTime interface {
 
 type classOfPointInTimeI struct{ sst.ElementInfo }
 
-func (classOfPointInTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPointInTime() {
-}
-func (classOfPointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (classOfPointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()        {}
-func (classOfPointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfEvent() {}
-func (classOfPointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (classOfPointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPointInTime() {
-}
-func (classOfPointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (classOfPointInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (classOfPointInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (classOfPointInTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPointInTime()   {}
+func (classOfPointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()     {}
+func (classOfPointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()              {}
+func (classOfPointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfEvent()       {}
+func (classOfPointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()  {}
+func (classOfPointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPointInTime() {}
+func (classOfPointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()              {}
+func (classOfPointInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
+func (classOfPointInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                 {}
 
 var classOfPointInTimeKindInterface reflect.Type
 
 var ClassOfPointInTime = classOfPointInTimeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfPointInTime"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfEvent},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfPointInTime"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfEvent},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1003,24 +925,23 @@ type KindClassOfQuantity interface {
 
 type classOfQuantityI struct{ sst.ElementInfo }
 
-func (classOfQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfQuantity()  {}
-func (classOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {}
-func (classOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()          {}
-func (classOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (classOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfQuantity() {}
-func (classOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()           {}
-func (classOfQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()  {}
-func (classOfQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()              {}
+func (classOfQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfQuantity()     {}
+func (classOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()    {}
+func (classOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()             {}
+func (classOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {}
+func (classOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfQuantity()   {}
+func (classOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (classOfQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (classOfQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var classOfQuantityKindInterface reflect.Type
 
 var ClassOfQuantity = classOfQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfQuantity"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfIndividual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1038,28 +959,23 @@ type KindClassOfRegionInSpace interface {
 
 type classOfRegionInSpaceI struct{ sst.ElementInfo }
 
-func (classOfRegionInSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfRegionInSpace() {
-}
-func (classOfRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (classOfRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {}
-func (classOfRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (classOfRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfRegionInSpace() {
-}
-func (classOfRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (classOfRegionInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (classOfRegionInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (classOfRegionInSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfRegionInSpace()   {}
+func (classOfRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()       {}
+func (classOfRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                {}
+func (classOfRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()    {}
+func (classOfRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfRegionInSpace() {}
+func (classOfRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                {}
+func (classOfRegionInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (classOfRegionInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                   {}
 
 var classOfRegionInSpaceKindInterface reflect.Type
 
 var ClassOfRegionInSpace = classOfRegionInSpaceI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfRegionInSpace"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfRegionInSpace"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfIndividual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1077,27 +993,25 @@ type KindClassOfStatus interface {
 
 type classOfStatusI struct{ sst.ElementInfo }
 
-func (classOfStatusI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfStatus()    {}
-func (classOfStatusI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {}
-func (classOfStatusI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()          {}
-func (classOfStatusI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfAbstractObject() {
-}
-func (classOfStatusI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClass() {}
-func (classOfStatusI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClassOfIndividual() {
-}
-func (classOfStatusI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfStatus()  {}
-func (classOfStatusI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (classOfStatusI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (classOfStatusI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (classOfStatusI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfStatus()              {}
+func (classOfStatusI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()           {}
+func (classOfStatusI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                    {}
+func (classOfStatusI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfAbstractObject()    {}
+func (classOfStatusI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClass()             {}
+func (classOfStatusI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfClassOfIndividual() {}
+func (classOfStatusI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfStatus()            {}
+func (classOfStatusI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                    {}
+func (classOfStatusI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
+func (classOfStatusI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                       {}
 
 var classOfStatusKindInterface reflect.Type
 
 var ClassOfStatus = classOfStatusI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfStatus"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfClassOfIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ClassOfStatus"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfClassOfIndividual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1115,28 +1029,24 @@ type KindCompositeMaterial interface {
 
 type compositeMaterialI struct{ sst.ElementInfo }
 
-func (compositeMaterialI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23CompositeMaterial() {
-}
-func (compositeMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23CompositeMaterial() {
-}
-func (compositeMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (compositeMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()     {}
-func (compositeMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (compositeMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidBody() {}
-func (compositeMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()     {}
-func (compositeMaterialI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (compositeMaterialI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (compositeMaterialI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23CompositeMaterial()   {}
+func (compositeMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23CompositeMaterial() {}
+func (compositeMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()        {}
+func (compositeMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()            {}
+func (compositeMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()    {}
+func (compositeMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidBody()         {}
+func (compositeMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (compositeMaterialI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (compositeMaterialI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var compositeMaterialKindInterface reflect.Type
 
 var CompositeMaterial = compositeMaterialI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "CompositeMaterial"},
-	ASubtypeOf: []sst.ElementInformer{SolidBody},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "CompositeMaterial"},
+	ASubtypeOf:        []sst.ElementInformer{SolidBody},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}, SolidBody.Element: {}},
 }}
@@ -1166,11 +1076,11 @@ func (computerFileI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thin
 var computerFileKindInterface reflect.Type
 
 var ComputerFile = computerFileI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ComputerFile"},
-	ASubtypeOf: []sst.ElementInformer{InformationObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ComputerFile"},
+	ASubtypeOf:        []sst.ElementInformer{InformationObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, InformationObject.Element: {}},
 }}
@@ -1189,28 +1099,23 @@ type KindComputerFileContent interface {
 
 type computerFileContentI struct{ sst.ElementInfo }
 
-func (computerFileContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ComputerFileContent() {
-}
-func (computerFileContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ComputerFile() {
-}
-func (computerFileContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ComputerFileContent() {
-}
-func (computerFileContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (computerFileContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationObject() {
-}
-func (computerFileContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (computerFileContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (computerFileContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (computerFileContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ComputerFileContent()   {}
+func (computerFileContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ComputerFile()        {}
+func (computerFileContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ComputerFileContent() {}
+func (computerFileContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()          {}
+func (computerFileContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationObject()   {}
+func (computerFileContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()               {}
+func (computerFileContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (computerFileContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
 
 var computerFileContentKindInterface reflect.Type
 
 var ComputerFileContent = computerFileContentI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ComputerFileContent"},
-	ASubtypeOf: []sst.ElementInformer{ComputerFile},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ComputerFileContent"},
+	ASubtypeOf:        []sst.ElementInformer{ComputerFile},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ComputerFile.Element: {}, Individual.Element: {}, InformationObject.Element: {}},
 }}
@@ -1229,29 +1134,24 @@ type KindComputerFileFormat interface {
 
 type computerFileFormatI struct{ sst.ElementInfo }
 
-func (computerFileFormatI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ComputerFileFormat() {
-}
-func (computerFileFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ComputerFile() {}
-func (computerFileFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ComputerFileFormat() {
-}
-func (computerFileFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (computerFileFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationObject() {
-}
-func (computerFileFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalRepresentationType() {
-}
-func (computerFileFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (computerFileFormatI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (computerFileFormatI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (computerFileFormatI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ComputerFileFormat()           {}
+func (computerFileFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ComputerFile()               {}
+func (computerFileFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ComputerFileFormat()         {}
+func (computerFileFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                 {}
+func (computerFileFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationObject()          {}
+func (computerFileFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalRepresentationType() {}
+func (computerFileFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                      {}
+func (computerFileFormatI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (computerFileFormatI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                         {}
 
 var computerFileFormatKindInterface reflect.Type
 
 var ComputerFileFormat = computerFileFormatI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ComputerFileFormat"},
-	ASubtypeOf: []sst.ElementInformer{ComputerFile, PhysicalRepresentationType},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ComputerFileFormat"},
+	ASubtypeOf:        []sst.ElementInformer{ComputerFile, PhysicalRepresentationType},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ComputerFile.Element: {}, Individual.Element: {}, InformationObject.Element: {}},
 }}
@@ -1270,31 +1170,25 @@ type KindCoordinationComplex interface {
 
 type coordinationComplexI struct{ sst.ElementInfo }
 
-func (coordinationComplexI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23CoordinationComplex() {
-}
-func (coordinationComplexI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalCompound() {
-}
-func (coordinationComplexI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance() {
-}
-func (coordinationComplexI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23CoordinationComplex() {
-}
-func (coordinationComplexI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (coordinationComplexI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()     {}
-func (coordinationComplexI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (coordinationComplexI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (coordinationComplexI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (coordinationComplexI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (coordinationComplexI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23CoordinationComplex()   {}
+func (coordinationComplexI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalCompound()    {}
+func (coordinationComplexI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance()   {}
+func (coordinationComplexI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23CoordinationComplex() {}
+func (coordinationComplexI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()          {}
+func (coordinationComplexI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()              {}
+func (coordinationComplexI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()      {}
+func (coordinationComplexI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()               {}
+func (coordinationComplexI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (coordinationComplexI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
 
 var coordinationComplexKindInterface reflect.Type
 
 var CoordinationComplex = coordinationComplexI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "CoordinationComplex"},
-	ASubtypeOf: []sst.ElementInformer{ChemicalCompound},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "CoordinationComplex"},
+	ASubtypeOf:        []sst.ElementInformer{ChemicalCompound},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalCompound.Element: {}, ChemicalSubstance.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -1313,26 +1207,22 @@ type KindCrystallineStructure interface {
 
 type crystallineStructureI struct{ sst.ElementInfo }
 
-func (crystallineStructureI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23CrystallineStructure() {
-}
-func (crystallineStructureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (crystallineStructureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23CrystallineStructure() {
-}
-func (crystallineStructureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (crystallineStructureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()      {}
-func (crystallineStructureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (crystallineStructureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (crystallineStructureI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23CrystallineStructure()   {}
+func (crystallineStructureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual()   {}
+func (crystallineStructureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23CrystallineStructure() {}
+func (crystallineStructureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()           {}
+func (crystallineStructureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                {}
+func (crystallineStructureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (crystallineStructureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                   {}
 
 var crystallineStructureKindInterface reflect.Type
 
 var CrystallineStructure = crystallineStructureI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "CrystallineStructure"},
-	ASubtypeOf: []sst.ElementInformer{ArrangedIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "CrystallineStructure"},
+	ASubtypeOf:        []sst.ElementInformer{ArrangedIndividual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}},
 }}
@@ -1351,24 +1241,23 @@ type KindDefinitionSpace interface {
 
 type definitionSpaceI struct{ sst.ElementInfo }
 
-func (definitionSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23DefinitionSpace()   {}
-func (definitionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()  {}
-func (definitionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23DefinitionSpace() {}
-func (definitionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()         {}
-func (definitionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RepresentationSpace() {
-}
-func (definitionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (definitionSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (definitionSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (definitionSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23DefinitionSpace()       {}
+func (definitionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()      {}
+func (definitionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23DefinitionSpace()     {}
+func (definitionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()             {}
+func (definitionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RepresentationSpace() {}
+func (definitionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()               {}
+func (definitionSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (definitionSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
 
 var definitionSpaceKindInterface reflect.Type
 
 var DefinitionSpace = definitionSpaceI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "DefinitionSpace"},
-	ASubtypeOf: []sst.ElementInformer{RepresentationSpace},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "DefinitionSpace"},
+	ASubtypeOf:        []sst.ElementInformer{RepresentationSpace},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1386,25 +1275,23 @@ type KindDescriptionSpace interface {
 
 type descriptionSpaceI struct{ sst.ElementInfo }
 
-func (descriptionSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23DescriptionSpace() {}
-func (descriptionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {}
-func (descriptionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23DescriptionSpace() {
-}
-func (descriptionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping() {}
-func (descriptionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RepresentationSpace() {
-}
-func (descriptionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (descriptionSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (descriptionSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (descriptionSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23DescriptionSpace()      {}
+func (descriptionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()      {}
+func (descriptionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23DescriptionSpace()    {}
+func (descriptionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()             {}
+func (descriptionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RepresentationSpace() {}
+func (descriptionSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()               {}
+func (descriptionSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (descriptionSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
 
 var descriptionSpaceKindInterface reflect.Type
 
 var DescriptionSpace = descriptionSpaceI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "DescriptionSpace"},
-	ASubtypeOf: []sst.ElementInformer{RepresentationSpace},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "DescriptionSpace"},
+	ASubtypeOf:        []sst.ElementInformer{RepresentationSpace},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1434,11 +1321,11 @@ func (documentTypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thin
 var documentTypeKindInterface reflect.Type
 
 var DocumentType = documentTypeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "DocumentType"},
-	ASubtypeOf: []sst.ElementInformer{InformationContent},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "DocumentType"},
+	ASubtypeOf:        []sst.ElementInformer{InformationContent},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, InformationObject.Element: {}},
 }}
@@ -1467,11 +1354,11 @@ func (eventI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()    
 var eventKindInterface reflect.Type
 
 var Event = eventI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Event"},
-	ASubtypeOf: []sst.ElementInformer{Individual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Event"},
+	ASubtypeOf:        []sst.ElementInformer{Individual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}},
 }}
@@ -1502,11 +1389,11 @@ func (featureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()  
 var featureKindInterface reflect.Type
 
 var Feature = featureI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Feature"},
-	ASubtypeOf: []sst.ElementInformer{ArrangedIndividual, PhysicalObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Feature"},
+	ASubtypeOf:        []sst.ElementInformer{ArrangedIndividual, PhysicalObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -1525,30 +1412,24 @@ type KindFlexRigidKinematicBody interface {
 
 type flexRigidKinematicBodyI struct{ sst.ElementInfo }
 
-func (flexRigidKinematicBodyI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23FlexRigidKinematicBody() {
-}
-func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23FlexRigidKinematicBody() {
-}
-func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter() {}
-func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidBody() {
-}
-func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (flexRigidKinematicBodyI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23FlexRigidKinematicBody()   {}
+func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23FlexRigidKinematicBody() {}
+func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()             {}
+func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()                 {}
+func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()         {}
+func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidBody()              {}
+func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                  {}
+func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
+func (flexRigidKinematicBodyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                     {}
 
 var flexRigidKinematicBodyKindInterface reflect.Type
 
 var FlexRigidKinematicBody = flexRigidKinematicBodyI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "FlexRigidKinematicBody"},
-	ASubtypeOf: []sst.ElementInformer{SolidBody},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "FlexRigidKinematicBody"},
+	ASubtypeOf:        []sst.ElementInformer{SolidBody},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}, SolidBody.Element: {}},
 }}
@@ -1580,11 +1461,11 @@ func (flexibleBodyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thin
 var flexibleBodyKindInterface reflect.Type
 
 var FlexibleBody = flexibleBodyI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "FlexibleBody"},
-	ASubtypeOf: []sst.ElementInformer{SolidBody},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "FlexibleBody"},
+	ASubtypeOf:        []sst.ElementInformer{SolidBody},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1602,27 +1483,22 @@ type KindFunctionalPhysicalObject interface {
 
 type functionalPhysicalObjectI struct{ sst.ElementInfo }
 
-func (functionalPhysicalObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23FunctionalPhysicalObject() {
-}
-func (functionalPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23FunctionalPhysicalObject() {
-}
-func (functionalPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (functionalPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (functionalPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (functionalPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (functionalPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (functionalPhysicalObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23FunctionalPhysicalObject()   {}
+func (functionalPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23FunctionalPhysicalObject() {}
+func (functionalPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()               {}
+func (functionalPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()           {}
+func (functionalPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                    {}
+func (functionalPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
+func (functionalPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                       {}
 
 var functionalPhysicalObjectKindInterface reflect.Type
 
 var FunctionalPhysicalObject = functionalPhysicalObjectI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "FunctionalPhysicalObject"},
-	ASubtypeOf: []sst.ElementInformer{PhysicalObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "FunctionalPhysicalObject"},
+	ASubtypeOf:        []sst.ElementInformer{PhysicalObject},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1640,35 +1516,27 @@ type KindGasInSolidSolution interface {
 
 type gasInSolidSolutionI struct{ sst.ElementInfo }
 
-func (gasInSolidSolutionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23GasInSolidSolution() {
-}
-func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture() {
-}
-func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSolution() {
-}
-func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23GasInSolidSolution() {
-}
-func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {
-}
-func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()     {}
-func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidSolution() {
-}
-func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (gasInSolidSolutionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23GasInSolidSolution()           {}
+func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture()            {}
+func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSolution()           {}
+func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23GasInSolidSolution()         {}
+func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {}
+func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                 {}
+func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()                     {}
+func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()             {}
+func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidSolution()              {}
+func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                      {}
+func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (gasInSolidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                         {}
 
 var gasInSolidSolutionKindInterface reflect.Type
 
 var GasInSolidSolution = gasInSolidSolutionI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "GasInSolidSolution"},
-	ASubtypeOf: []sst.ElementInformer{SolidSolution},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "GasInSolidSolution"},
+	ASubtypeOf:        []sst.ElementInformer{SolidSolution},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalMixture.Element: {}, ChemicalSolution.Element: {}, HomogeneousChemicalMixture.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}, SolidSolution.Element: {}},
 }}
@@ -1700,11 +1568,11 @@ func (gasPhaseI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() 
 var gasPhaseKindInterface reflect.Type
 
 var GasPhase = gasPhaseI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "GasPhase"},
-	ASubtypeOf: []sst.ElementInformer{MatterPhase},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "GasPhase"},
+	ASubtypeOf:        []sst.ElementInformer{MatterPhase},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, Matter.Element: {}, MatterPhase.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -1723,32 +1591,24 @@ type KindHeterogeneousChemicalMixture interface {
 
 type heterogeneousChemicalMixtureI struct{ sst.ElementInfo }
 
-func (heterogeneousChemicalMixtureI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HeterogeneousChemicalMixture() {
-}
-func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture() {
-}
-func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HeterogeneousChemicalMixture() {
-}
-func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter() {
-}
-func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {
-}
-func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (heterogeneousChemicalMixtureI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HeterogeneousChemicalMixture()   {}
+func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture()              {}
+func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HeterogeneousChemicalMixture() {}
+func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                   {}
+func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()                       {}
+func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()               {}
+func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                        {}
+func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
+func (heterogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                           {}
 
 var heterogeneousChemicalMixtureKindInterface reflect.Type
 
 var HeterogeneousChemicalMixture = heterogeneousChemicalMixtureI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "HeterogeneousChemicalMixture"},
-	ASubtypeOf: []sst.ElementInformer{ChemicalMixture},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "HeterogeneousChemicalMixture"},
+	ASubtypeOf:        []sst.ElementInformer{ChemicalMixture},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalMixture.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -1767,32 +1627,24 @@ type KindHomogeneousChemicalMixture interface {
 
 type homogeneousChemicalMixtureI struct{ sst.ElementInfo }
 
-func (homogeneousChemicalMixtureI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {
-}
-func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture() {
-}
-func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {
-}
-func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter() {
-}
-func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {
-}
-func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (homogeneousChemicalMixtureI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture()   {}
+func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture()            {}
+func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {}
+func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                 {}
+func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()                     {}
+func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()             {}
+func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                      {}
+func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (homogeneousChemicalMixtureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                         {}
 
 var homogeneousChemicalMixtureKindInterface reflect.Type
 
 var HomogeneousChemicalMixture = homogeneousChemicalMixtureI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "HomogeneousChemicalMixture"},
-	ASubtypeOf: []sst.ElementInformer{ChemicalMixture},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "HomogeneousChemicalMixture"},
+	ASubtypeOf:        []sst.ElementInformer{ChemicalMixture},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalMixture.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -1811,28 +1663,23 @@ type KindIdentificationSpace interface {
 
 type identificationSpaceI struct{ sst.ElementInfo }
 
-func (identificationSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23IdentificationSpace() {
-}
-func (identificationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (identificationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23IdentificationSpace() {
-}
-func (identificationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping() {}
-func (identificationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RepresentationSpace() {
-}
-func (identificationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (identificationSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (identificationSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (identificationSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23IdentificationSpace()   {}
+func (identificationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()      {}
+func (identificationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23IdentificationSpace() {}
+func (identificationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()             {}
+func (identificationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RepresentationSpace() {}
+func (identificationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()               {}
+func (identificationSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (identificationSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
 
 var identificationSpaceKindInterface reflect.Type
 
 var IdentificationSpace = identificationSpaceI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "IdentificationSpace"},
-	ASubtypeOf: []sst.ElementInformer{RepresentationSpace},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "IdentificationSpace"},
+	ASubtypeOf:        []sst.ElementInformer{RepresentationSpace},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1850,24 +1697,21 @@ type KindInanimateIndividual interface {
 
 type inanimateIndividualI struct{ sst.ElementInfo }
 
-func (inanimateIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InanimateIndividual() {
-}
-func (inanimateIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InanimateIndividual() {
-}
-func (inanimateIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (inanimateIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()      {}
-func (inanimateIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (inanimateIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (inanimateIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InanimateIndividual()   {}
+func (inanimateIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InanimateIndividual() {}
+func (inanimateIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()          {}
+func (inanimateIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()               {}
+func (inanimateIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (inanimateIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
 
 var inanimateIndividualKindInterface reflect.Type
 
 var InanimateIndividual = inanimateIndividualI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "InanimateIndividual"},
-	ASubtypeOf: []sst.ElementInformer{Individual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "InanimateIndividual"},
+	ASubtypeOf:        []sst.ElementInformer{Individual},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1894,11 +1738,11 @@ func (individualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing(
 var individualKindInterface reflect.Type
 
 var Individual = individualI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Individual"},
-	ASubtypeOf: []sst.ElementInformer{Thing},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Individual"},
+	ASubtypeOf:        []sst.ElementInformer{Thing},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -1917,21 +1761,18 @@ type KindIndividualUsedInConnection interface {
 
 type individualUsedInConnectionI struct{ sst.ElementInfo }
 
-func (individualUsedInConnectionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23IndividualUsedInConnection() {
-}
-func (individualUsedInConnectionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23IndividualUsedInConnection() {
-}
-func (individualUsedInConnectionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (individualUsedInConnectionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23IndividualUsedInConnection()   {}
+func (individualUsedInConnectionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23IndividualUsedInConnection() {}
+func (individualUsedInConnectionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
 
 var individualUsedInConnectionKindInterface reflect.Type
 
 var IndividualUsedInConnection = individualUsedInConnectionI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "IndividualUsedInConnection"},
-	ARange:  Individual,
+	ARange:            Individual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1949,26 +1790,22 @@ type KindInformationContent interface {
 
 type informationContentI struct{ sst.ElementInfo }
 
-func (informationContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationContent() {
-}
-func (informationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (informationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationContent() {
-}
-func (informationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationObject() {
-}
-func (informationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (informationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (informationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (informationContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationContent()   {}
+func (informationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()         {}
+func (informationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationContent() {}
+func (informationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationObject()  {}
+func (informationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()              {}
+func (informationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
+func (informationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                 {}
 
 var informationContentKindInterface reflect.Type
 
 var InformationContent = informationContentI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "InformationContent"},
-	ASubtypeOf: []sst.ElementInformer{InformationObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "InformationContent"},
+	ASubtypeOf:        []sst.ElementInformer{InformationObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1986,24 +1823,21 @@ type KindInformationObject interface {
 
 type informationObjectI struct{ sst.ElementInfo }
 
-func (informationObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationObject() {
-}
-func (informationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (informationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationObject() {
-}
-func (informationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (informationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (informationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (informationObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationObject()   {}
+func (informationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()        {}
+func (informationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationObject() {}
+func (informationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (informationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (informationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var informationObjectKindInterface reflect.Type
 
 var InformationObject = informationObjectI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "InformationObject"},
-	ASubtypeOf: []sst.ElementInformer{Individual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "InformationObject"},
+	ASubtypeOf:        []sst.ElementInformer{Individual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}},
 }}
@@ -2033,11 +1867,11 @@ func (integerI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()  
 var integerKindInterface reflect.Type
 
 var Integer = integerI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Integer"},
-	ASubtypeOf: []sst.ElementInformer{Number},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Integer"},
+	ASubtypeOf:        []sst.ElementInformer{Number},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2055,32 +1889,25 @@ type KindIntermetallicCompound interface {
 
 type intermetallicCompoundI struct{ sst.ElementInfo }
 
-func (intermetallicCompoundI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23IntermetallicCompound() {
-}
-func (intermetallicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalCompound() {
-}
-func (intermetallicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance() {
-}
-func (intermetallicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (intermetallicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23IntermetallicCompound() {
-}
-func (intermetallicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter() {}
-func (intermetallicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (intermetallicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (intermetallicCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (intermetallicCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (intermetallicCompoundI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23IntermetallicCompound()   {}
+func (intermetallicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalCompound()      {}
+func (intermetallicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance()     {}
+func (intermetallicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()            {}
+func (intermetallicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23IntermetallicCompound() {}
+func (intermetallicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()                {}
+func (intermetallicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()        {}
+func (intermetallicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                 {}
+func (intermetallicCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
+func (intermetallicCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                    {}
 
 var intermetallicCompoundKindInterface reflect.Type
 
 var IntermetallicCompound = intermetallicCompoundI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "IntermetallicCompound"},
-	ASubtypeOf: []sst.ElementInformer{ChemicalCompound},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "IntermetallicCompound"},
+	ASubtypeOf:        []sst.ElementInformer{ChemicalCompound},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalCompound.Element: {}, ChemicalSubstance.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -2113,11 +1940,11 @@ func (ionicCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thi
 var ionicCompoundKindInterface reflect.Type
 
 var IonicCompound = ionicCompoundI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "IonicCompound"},
-	ASubtypeOf: []sst.ElementInformer{ChemicalCompound},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "IonicCompound"},
+	ASubtypeOf:        []sst.ElementInformer{ChemicalCompound},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalCompound.Element: {}, ChemicalSubstance.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -2136,24 +1963,23 @@ type KindIsomorphism interface {
 
 type isomorphismI struct{ sst.ElementInfo }
 
-func (isomorphismI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Isomorphism()      {}
-func (isomorphismI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {}
-func (isomorphismI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Isomorphism()    {}
-func (isomorphismI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()        {}
-func (isomorphismI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MathematicalFunction() {
-}
-func (isomorphismI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (isomorphismI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (isomorphismI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (isomorphismI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Isomorphism()            {}
+func (isomorphismI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()       {}
+func (isomorphismI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Isomorphism()          {}
+func (isomorphismI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()              {}
+func (isomorphismI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MathematicalFunction() {}
+func (isomorphismI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                {}
+func (isomorphismI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (isomorphismI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                   {}
 
 var isomorphismKindInterface reflect.Type
 
 var Isomorphism = isomorphismI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Isomorphism"},
-	ASubtypeOf: []sst.ElementInformer{MathematicalFunction},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Isomorphism"},
+	ASubtypeOf:        []sst.ElementInformer{MathematicalFunction},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2184,11 +2010,11 @@ func (kinematicBodyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thi
 var kinematicBodyKindInterface reflect.Type
 
 var KinematicBody = kinematicBodyI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "KinematicBody"},
-	ASubtypeOf: []sst.ElementInformer{SolidBody},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "KinematicBody"},
+	ASubtypeOf:        []sst.ElementInformer{SolidBody},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2218,11 +2044,11 @@ func (languageI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() 
 var languageKindInterface reflect.Type
 
 var Language = languageI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Language"},
-	ASubtypeOf: []sst.ElementInformer{InformationContent},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Language"},
+	ASubtypeOf:        []sst.ElementInformer{InformationContent},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, InformationObject.Element: {}},
 }}
@@ -2241,26 +2067,25 @@ type KindLinearScale interface {
 
 type linearScaleI struct{ sst.ElementInfo }
 
-func (linearScaleI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LinearScale()      {}
-func (linearScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {}
-func (linearScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Isomorphism()    {}
-func (linearScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LinearScale()    {}
-func (linearScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()        {}
-func (linearScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MathematicalFunction() {
-}
-func (linearScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Scale()          {}
-func (linearScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (linearScaleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (linearScaleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (linearScaleI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LinearScale()            {}
+func (linearScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()       {}
+func (linearScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Isomorphism()          {}
+func (linearScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LinearScale()          {}
+func (linearScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()              {}
+func (linearScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MathematicalFunction() {}
+func (linearScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Scale()                {}
+func (linearScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                {}
+func (linearScaleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (linearScaleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                   {}
 
 var linearScaleKindInterface reflect.Type
 
 var LinearScale = linearScaleI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "LinearScale"},
-	ASubtypeOf: []sst.ElementInformer{Scale},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "LinearScale"},
+	ASubtypeOf:        []sst.ElementInformer{Scale},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2278,36 +2103,27 @@ type KindLiquidInSolidSolution interface {
 
 type liquidInSolidSolutionI struct{ sst.ElementInfo }
 
-func (liquidInSolidSolutionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LiquidInSolidSolution() {
-}
-func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture() {
-}
-func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSolution() {
-}
-func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {
-}
-func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LiquidInSolidSolution() {
-}
-func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter() {}
-func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidSolution() {
-}
-func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (liquidInSolidSolutionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LiquidInSolidSolution()        {}
+func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture()            {}
+func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSolution()           {}
+func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {}
+func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                 {}
+func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LiquidInSolidSolution()      {}
+func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()                     {}
+func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()             {}
+func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidSolution()              {}
+func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                      {}
+func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (liquidInSolidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                         {}
 
 var liquidInSolidSolutionKindInterface reflect.Type
 
 var LiquidInSolidSolution = liquidInSolidSolutionI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "LiquidInSolidSolution"},
-	ASubtypeOf: []sst.ElementInformer{SolidSolution},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "LiquidInSolidSolution"},
+	ASubtypeOf:        []sst.ElementInformer{SolidSolution},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalMixture.Element: {}, ChemicalSolution.Element: {}, HomogeneousChemicalMixture.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}, SolidSolution.Element: {}},
 }}
@@ -2339,11 +2155,11 @@ func (liquidPhaseI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing
 var liquidPhaseKindInterface reflect.Type
 
 var LiquidPhase = liquidPhaseI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "LiquidPhase"},
-	ASubtypeOf: []sst.ElementInformer{MatterPhase},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "LiquidPhase"},
+	ASubtypeOf:        []sst.ElementInformer{MatterPhase},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, Matter.Element: {}, MatterPhase.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -2362,27 +2178,26 @@ type KindLiquidSolution interface {
 
 type liquidSolutionI struct{ sst.ElementInfo }
 
-func (liquidSolutionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LiquidSolution()     {}
-func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture()  {}
-func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSolution() {}
-func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {
-}
-func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()     {}
-func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LiquidSolution() {}
-func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()         {}
-func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {}
-func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (liquidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (liquidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (liquidSolutionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LiquidSolution()               {}
+func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture()            {}
+func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSolution()           {}
+func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {}
+func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                 {}
+func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LiquidSolution()             {}
+func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()                     {}
+func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()             {}
+func (liquidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                      {}
+func (liquidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (liquidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                         {}
 
 var liquidSolutionKindInterface reflect.Type
 
 var LiquidSolution = liquidSolutionI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "LiquidSolution"},
-	ASubtypeOf: []sst.ElementInformer{ChemicalSolution},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "LiquidSolution"},
+	ASubtypeOf:        []sst.ElementInformer{ChemicalSolution},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalMixture.Element: {}, ChemicalSolution.Element: {}, HomogeneousChemicalMixture.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -2413,11 +2228,11 @@ func (listI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()     
 var listKindInterface reflect.Type
 
 var List = listI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "List"},
-	ASubtypeOf: []sst.ElementInformer{MathematicalFunction},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "List"},
+	ASubtypeOf:        []sst.ElementInformer{MathematicalFunction},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2435,31 +2250,25 @@ type KindListOfPhysicalQuantity interface {
 
 type listOfPhysicalQuantityI struct{ sst.ElementInfo }
 
-func (listOfPhysicalQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ListOfPhysicalQuantity() {
-}
-func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23List() {}
-func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ListOfPhysicalQuantity() {
-}
-func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ListOfQuantity() {
-}
-func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping() {}
-func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MathematicalFunction() {
-}
-func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (listOfPhysicalQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ListOfPhysicalQuantity()   {}
+func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()         {}
+func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23List()                   {}
+func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ListOfPhysicalQuantity() {}
+func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ListOfQuantity()         {}
+func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()                {}
+func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MathematicalFunction()   {}
+func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                  {}
+func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
+func (listOfPhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                     {}
 
 var listOfPhysicalQuantityKindInterface reflect.Type
 
 var ListOfPhysicalQuantity = listOfPhysicalQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ListOfPhysicalQuantity"},
-	ASubtypeOf: []sst.ElementInformer{ListOfQuantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ListOfPhysicalQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{ListOfQuantity},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2477,25 +2286,24 @@ type KindListOfQuantity interface {
 
 type listOfQuantityI struct{ sst.ElementInfo }
 
-func (listOfQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ListOfQuantity()   {}
-func (listOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {}
-func (listOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23List()           {}
-func (listOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ListOfQuantity() {}
-func (listOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()        {}
-func (listOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MathematicalFunction() {
-}
-func (listOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (listOfQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (listOfQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (listOfQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ListOfQuantity()         {}
+func (listOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()       {}
+func (listOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23List()                 {}
+func (listOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ListOfQuantity()       {}
+func (listOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()              {}
+func (listOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MathematicalFunction() {}
+func (listOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                {}
+func (listOfQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (listOfQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                   {}
 
 var listOfQuantityKindInterface reflect.Type
 
 var ListOfQuantity = listOfQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ListOfQuantity"},
-	ASubtypeOf: []sst.ElementInformer{List},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ListOfQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{List},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2513,27 +2321,25 @@ type KindLogarithmicScale interface {
 
 type logarithmicScaleI struct{ sst.ElementInfo }
 
-func (logarithmicScaleI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LogarithmicScale() {}
-func (logarithmicScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {}
-func (logarithmicScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Isomorphism()    {}
-func (logarithmicScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LogarithmicScale() {
-}
-func (logarithmicScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping() {}
-func (logarithmicScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MathematicalFunction() {
-}
-func (logarithmicScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Scale()          {}
-func (logarithmicScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (logarithmicScaleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (logarithmicScaleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (logarithmicScaleI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LogarithmicScale()       {}
+func (logarithmicScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()       {}
+func (logarithmicScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Isomorphism()          {}
+func (logarithmicScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23LogarithmicScale()     {}
+func (logarithmicScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()              {}
+func (logarithmicScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MathematicalFunction() {}
+func (logarithmicScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Scale()                {}
+func (logarithmicScaleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                {}
+func (logarithmicScaleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (logarithmicScaleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                   {}
 
 var logarithmicScaleKindInterface reflect.Type
 
 var LogarithmicScale = logarithmicScaleI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "LogarithmicScale"},
-	ASubtypeOf: []sst.ElementInformer{Scale},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "LogarithmicScale"},
+	ASubtypeOf:        []sst.ElementInformer{Scale},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2562,11 +2368,11 @@ func (logicalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()  
 var logicalKindInterface reflect.Type
 
 var Logical = logicalI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Logical"},
-	ASubtypeOf: []sst.ElementInformer{Number},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Logical"},
+	ASubtypeOf:        []sst.ElementInformer{Number},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2594,11 +2400,11 @@ func (mappingI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()  
 var mappingKindInterface reflect.Type
 
 var Mapping = mappingI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Mapping"},
-	ASubtypeOf: []sst.ElementInformer{AbstractObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Mapping"},
+	ASubtypeOf:        []sst.ElementInformer{AbstractObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2616,28 +2422,22 @@ type KindMaterializedPhysicalObject interface {
 
 type materializedPhysicalObjectI struct{ sst.ElementInfo }
 
-func (materializedPhysicalObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MaterializedPhysicalObject() {
-}
-func (materializedPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (materializedPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MaterializedPhysicalObject() {
-}
-func (materializedPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (materializedPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {
-}
-func (materializedPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (materializedPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (materializedPhysicalObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MaterializedPhysicalObject()   {}
+func (materializedPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                 {}
+func (materializedPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MaterializedPhysicalObject() {}
+func (materializedPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()             {}
+func (materializedPhysicalObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                      {}
+func (materializedPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (materializedPhysicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                         {}
 
 var materializedPhysicalObjectKindInterface reflect.Type
 
 var MaterializedPhysicalObject = materializedPhysicalObjectI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "MaterializedPhysicalObject"},
-	ASubtypeOf: []sst.ElementInformer{PhysicalObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "MaterializedPhysicalObject"},
+	ASubtypeOf:        []sst.ElementInformer{PhysicalObject},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2655,26 +2455,22 @@ type KindMathematicalFunction interface {
 
 type mathematicalFunctionI struct{ sst.ElementInfo }
 
-func (mathematicalFunctionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MathematicalFunction() {
-}
-func (mathematicalFunctionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (mathematicalFunctionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping() {}
-func (mathematicalFunctionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MathematicalFunction() {
-}
-func (mathematicalFunctionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (mathematicalFunctionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (mathematicalFunctionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (mathematicalFunctionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MathematicalFunction()   {}
+func (mathematicalFunctionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()       {}
+func (mathematicalFunctionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()              {}
+func (mathematicalFunctionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MathematicalFunction() {}
+func (mathematicalFunctionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                {}
+func (mathematicalFunctionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (mathematicalFunctionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                   {}
 
 var mathematicalFunctionKindInterface reflect.Type
 
 var MathematicalFunction = mathematicalFunctionI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "MathematicalFunction"},
-	ASubtypeOf: []sst.ElementInformer{Mapping},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "MathematicalFunction"},
+	ASubtypeOf:        []sst.ElementInformer{Mapping},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2703,11 +2499,11 @@ func (matterI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()   
 var matterKindInterface reflect.Type
 
 var Matter = matterI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Matter"},
-	ASubtypeOf: []sst.ElementInformer{PhysicalObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Matter"},
+	ASubtypeOf:        []sst.ElementInformer{PhysicalObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -2738,11 +2534,11 @@ func (matterPhaseI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing
 var matterPhaseKindInterface reflect.Type
 
 var MatterPhase = matterPhaseI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "MatterPhase"},
-	ASubtypeOf: []sst.ElementInformer{Matter},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "MatterPhase"},
+	ASubtypeOf:        []sst.ElementInformer{Matter},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -2774,11 +2570,11 @@ func (maxQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing
 var maxQuantityKindInterface reflect.Type
 
 var MaxQuantity = maxQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "MaxQuantity"},
-	ASubtypeOf: []sst.ElementInformer{Quantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "MaxQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{Quantity},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2796,25 +2592,24 @@ type KindMinMaxQuantity interface {
 
 type minMaxQuantityI struct{ sst.ElementInfo }
 
-func (minMaxQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MinMaxQuantity()   {}
-func (minMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {}
-func (minMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()          {}
-func (minMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (minMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MinMaxQuantity() {}
-func (minMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Quantity()       {}
-func (minMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (minMaxQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (minMaxQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (minMaxQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MinMaxQuantity()      {}
+func (minMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()    {}
+func (minMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()             {}
+func (minMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {}
+func (minMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MinMaxQuantity()    {}
+func (minMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Quantity()          {}
+func (minMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (minMaxQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (minMaxQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var minMaxQuantityKindInterface reflect.Type
 
 var MinMaxQuantity = minMaxQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "MinMaxQuantity"},
-	ASubtypeOf: []sst.ElementInformer{Quantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "MinMaxQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{Quantity},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2832,29 +2627,24 @@ type KindMinNomMaxQuantity interface {
 
 type minNomMaxQuantityI struct{ sst.ElementInfo }
 
-func (minNomMaxQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MinNomMaxQuantity() {
-}
-func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {}
-func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MinNomMaxQuantity() {
-}
-func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Quantity() {}
-func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()    {}
-func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (minNomMaxQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MinNomMaxQuantity()   {}
+func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()    {}
+func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()             {}
+func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {}
+func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MinNomMaxQuantity() {}
+func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Quantity()          {}
+func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (minNomMaxQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var minNomMaxQuantityKindInterface reflect.Type
 
 var MinNomMaxQuantity = minNomMaxQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "MinNomMaxQuantity"},
-	ASubtypeOf: []sst.ElementInformer{Quantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "MinNomMaxQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{Quantity},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2885,11 +2675,11 @@ func (minQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing
 var minQuantityKindInterface reflect.Type
 
 var MinQuantity = minQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "MinQuantity"},
-	ASubtypeOf: []sst.ElementInformer{Quantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "MinQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{Quantity},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2907,31 +2697,25 @@ type KindMolecularCompound interface {
 
 type molecularCompoundI struct{ sst.ElementInfo }
 
-func (molecularCompoundI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MolecularCompound() {
-}
-func (molecularCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalCompound() {
-}
-func (molecularCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance() {
-}
-func (molecularCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (molecularCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()     {}
-func (molecularCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MolecularCompound() {
-}
-func (molecularCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (molecularCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (molecularCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (molecularCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (molecularCompoundI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MolecularCompound()   {}
+func (molecularCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalCompound()  {}
+func (molecularCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance() {}
+func (molecularCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()        {}
+func (molecularCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()            {}
+func (molecularCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23MolecularCompound() {}
+func (molecularCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()    {}
+func (molecularCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (molecularCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (molecularCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var molecularCompoundKindInterface reflect.Type
 
 var MolecularCompound = molecularCompoundI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "MolecularCompound"},
-	ASubtypeOf: []sst.ElementInformer{ChemicalCompound},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "MolecularCompound"},
+	ASubtypeOf:        []sst.ElementInformer{ChemicalCompound},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalCompound.Element: {}, ChemicalSubstance.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -2950,25 +2734,24 @@ type KindNominalQuantity interface {
 
 type nominalQuantityI struct{ sst.ElementInfo }
 
-func (nominalQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23NominalQuantity()  {}
-func (nominalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {}
-func (nominalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()          {}
-func (nominalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (nominalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23NominalQuantity() {}
-func (nominalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Quantity()        {}
-func (nominalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()           {}
-func (nominalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()  {}
-func (nominalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()              {}
+func (nominalQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23NominalQuantity()     {}
+func (nominalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()    {}
+func (nominalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()             {}
+func (nominalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {}
+func (nominalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23NominalQuantity()   {}
+func (nominalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Quantity()          {}
+func (nominalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (nominalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (nominalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var nominalQuantityKindInterface reflect.Type
 
 var NominalQuantity = nominalQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "NominalQuantity"},
-	ASubtypeOf: []sst.ElementInformer{Quantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "NominalQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{Quantity},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -2986,26 +2769,22 @@ type KindNonActualIndividual interface {
 
 type non_ActualIndividualI struct{ sst.ElementInfo }
 
-func (non_ActualIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Non_2DactualIndividual() {
-}
-func (non_ActualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (non_ActualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Non_2DactualIndividual() {
-}
-func (non_ActualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SpecificIndividual() {
-}
-func (non_ActualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (non_ActualIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (non_ActualIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (non_ActualIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Non_2DactualIndividual()   {}
+func (non_ActualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()             {}
+func (non_ActualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Non_2DactualIndividual() {}
+func (non_ActualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SpecificIndividual()     {}
+func (non_ActualIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                  {}
+func (non_ActualIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
+func (non_ActualIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                     {}
 
 var non_ActualIndividualKindInterface reflect.Type
 
 var NonActualIndividual = non_ActualIndividualI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Non-actualIndividual"},
-	ASubtypeOf: []sst.ElementInformer{SpecificIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Non-actualIndividual"},
+	ASubtypeOf:        []sst.ElementInformer{SpecificIndividual},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3023,25 +2802,21 @@ type KindNonArrangedIndividual interface {
 
 type non_ArrangedIndividualI struct{ sst.ElementInfo }
 
-func (non_ArrangedIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Non_2DarrangedIndividual() {
-}
-func (non_ArrangedIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (non_ArrangedIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Non_2DarrangedIndividual() {
-}
-func (non_ArrangedIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (non_ArrangedIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (non_ArrangedIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (non_ArrangedIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Non_2DarrangedIndividual()   {}
+func (non_ArrangedIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()               {}
+func (non_ArrangedIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Non_2DarrangedIndividual() {}
+func (non_ArrangedIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                    {}
+func (non_ArrangedIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
+func (non_ArrangedIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                       {}
 
 var non_ArrangedIndividualKindInterface reflect.Type
 
 var NonArrangedIndividual = non_ArrangedIndividualI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Non-arrangedIndividual"},
-	ASubtypeOf: []sst.ElementInformer{Individual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Non-arrangedIndividual"},
+	ASubtypeOf:        []sst.ElementInformer{Individual},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3059,25 +2834,21 @@ type KindNonWholeLifeIndividual interface {
 
 type non_WholeLifeIndividualI struct{ sst.ElementInfo }
 
-func (non_WholeLifeIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Non_2DwholeLifeIndividual() {
-}
-func (non_WholeLifeIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (non_WholeLifeIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Non_2DwholeLifeIndividual() {
-}
-func (non_WholeLifeIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (non_WholeLifeIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (non_WholeLifeIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (non_WholeLifeIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Non_2DwholeLifeIndividual()   {}
+func (non_WholeLifeIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                {}
+func (non_WholeLifeIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Non_2DwholeLifeIndividual() {}
+func (non_WholeLifeIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                     {}
+func (non_WholeLifeIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()            {}
+func (non_WholeLifeIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                        {}
 
 var non_WholeLifeIndividualKindInterface reflect.Type
 
 var NonWholeLifeIndividual = non_WholeLifeIndividualI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Non-wholeLifeIndividual"},
-	ASubtypeOf: []sst.ElementInformer{Individual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Non-wholeLifeIndividual"},
+	ASubtypeOf:        []sst.ElementInformer{Individual},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3105,11 +2876,11 @@ func (numberI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()   
 var numberKindInterface reflect.Type
 
 var Number = numberI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Number"},
-	ASubtypeOf: []sst.ElementInformer{AbstractObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Number"},
+	ASubtypeOf:        []sst.ElementInformer{AbstractObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3138,11 +2909,11 @@ func (numberRangeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing
 var numberRangeKindInterface reflect.Type
 
 var NumberRange = numberRangeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "NumberRange"},
-	ASubtypeOf: []sst.ElementInformer{NumberSpace},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "NumberRange"},
+	ASubtypeOf:        []sst.ElementInformer{NumberSpace},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3170,11 +2941,11 @@ func (numberSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing
 var numberSpaceKindInterface reflect.Type
 
 var NumberSpace = numberSpaceI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "NumberSpace"},
-	ASubtypeOf: []sst.ElementInformer{AbstractObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "NumberSpace"},
+	ASubtypeOf:        []sst.ElementInformer{AbstractObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3202,11 +2973,11 @@ func (orderedPairI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing
 var orderedPairKindInterface reflect.Type
 
 var OrderedPair = orderedPairI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "OrderedPair"},
-	ASubtypeOf: []sst.ElementInformer{AbstractObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "OrderedPair"},
+	ASubtypeOf:        []sst.ElementInformer{AbstractObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3224,31 +2995,23 @@ type KindOrderedPairOfPhysicalQuantity interface {
 
 type orderedPairOfPhysicalQuantityI struct{ sst.ElementInfo }
 
-func (orderedPairOfPhysicalQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfPhysicalQuantity() {
-}
-func (orderedPairOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (orderedPairOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPair() {
-}
-func (orderedPairOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfPhysicalQuantity() {
-}
-func (orderedPairOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfQuantity() {
-}
-func (orderedPairOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {
-}
-func (orderedPairOfPhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (orderedPairOfPhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
+func (orderedPairOfPhysicalQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfPhysicalQuantity()   {}
+func (orderedPairOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()                {}
+func (orderedPairOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPair()                   {}
+func (orderedPairOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfPhysicalQuantity() {}
+func (orderedPairOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfQuantity()         {}
+func (orderedPairOfPhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                         {}
+func (orderedPairOfPhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                {}
+func (orderedPairOfPhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                            {}
 
 var orderedPairOfPhysicalQuantityKindInterface reflect.Type
 
 var OrderedPairOfPhysicalQuantity = orderedPairOfPhysicalQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "OrderedPairOfPhysicalQuantity"},
-	ASubtypeOf: []sst.ElementInformer{OrderedPairOfQuantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "OrderedPairOfPhysicalQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{OrderedPairOfQuantity},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3266,27 +3029,22 @@ type KindOrderedPairOfQuantity interface {
 
 type orderedPairOfQuantityI struct{ sst.ElementInfo }
 
-func (orderedPairOfQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfQuantity() {
-}
-func (orderedPairOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (orderedPairOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPair() {
-}
-func (orderedPairOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfQuantity() {
-}
-func (orderedPairOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (orderedPairOfQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (orderedPairOfQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (orderedPairOfQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfQuantity()   {}
+func (orderedPairOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()        {}
+func (orderedPairOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPair()           {}
+func (orderedPairOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfQuantity() {}
+func (orderedPairOfQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                 {}
+func (orderedPairOfQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
+func (orderedPairOfQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                    {}
 
 var orderedPairOfQuantityKindInterface reflect.Type
 
 var OrderedPairOfQuantity = orderedPairOfQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "OrderedPairOfQuantity"},
-	ASubtypeOf: []sst.ElementInformer{OrderedPair},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "OrderedPairOfQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{OrderedPair},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3304,31 +3062,24 @@ type KindOrderedPairOfTimeDuration interface {
 
 type orderedPairOfTimeDurationI struct{ sst.ElementInfo }
 
-func (orderedPairOfTimeDurationI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfTimeDuration() {
-}
-func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPair() {
-}
-func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfPhysicalQuantity() {
-}
-func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfQuantity() {
-}
-func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfTimeDuration() {
-}
-func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (orderedPairOfTimeDurationI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfTimeDuration()       {}
+func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()                {}
+func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPair()                   {}
+func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfPhysicalQuantity() {}
+func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfQuantity()         {}
+func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrderedPairOfTimeDuration()     {}
+func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                         {}
+func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                {}
+func (orderedPairOfTimeDurationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                            {}
 
 var orderedPairOfTimeDurationKindInterface reflect.Type
 
 var OrderedPairOfTimeDuration = orderedPairOfTimeDurationI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "OrderedPairOfTimeDuration"},
-	ASubtypeOf: []sst.ElementInformer{OrderedPairOfPhysicalQuantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "OrderedPairOfTimeDuration"},
+	ASubtypeOf:        []sst.ElementInformer{OrderedPairOfPhysicalQuantity},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3346,27 +3097,25 @@ type KindOrganicCompound interface {
 
 type organicCompoundI struct{ sst.ElementInfo }
 
-func (organicCompoundI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrganicCompound() {}
-func (organicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalCompound() {
-}
-func (organicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance() {
-}
-func (organicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()      {}
-func (organicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()          {}
-func (organicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrganicCompound() {}
-func (organicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()  {}
-func (organicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()           {}
-func (organicCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()  {}
-func (organicCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()              {}
+func (organicCompoundI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrganicCompound()     {}
+func (organicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalCompound()  {}
+func (organicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSubstance() {}
+func (organicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()        {}
+func (organicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()            {}
+func (organicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23OrganicCompound()   {}
+func (organicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()    {}
+func (organicCompoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (organicCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (organicCompoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var organicCompoundKindInterface reflect.Type
 
 var OrganicCompound = organicCompoundI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "OrganicCompound"},
-	ASubtypeOf: []sst.ElementInformer{ChemicalCompound},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "OrganicCompound"},
+	ASubtypeOf:        []sst.ElementInformer{ChemicalCompound},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalCompound.Element: {}, ChemicalSubstance.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -3397,11 +3146,11 @@ func (organismI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() 
 var organismKindInterface reflect.Type
 
 var Organism = organismI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Organism"},
-	ASubtypeOf: []sst.ElementInformer{ArrangedIndividual, PhysicalObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Organism"},
+	ASubtypeOf:        []sst.ElementInformer{ArrangedIndividual, PhysicalObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -3432,11 +3181,11 @@ func (organizationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thin
 var organizationKindInterface reflect.Type
 
 var Organization = organizationI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Organization"},
-	ASubtypeOf: []sst.ElementInformer{ArrangedIndividual, PhysicalObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Organization"},
+	ASubtypeOf:        []sst.ElementInformer{ArrangedIndividual, PhysicalObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -3455,27 +3204,23 @@ type KindParticulateMaterial interface {
 
 type particulateMaterialI struct{ sst.ElementInfo }
 
-func (particulateMaterialI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ParticulateMaterial() {
-}
-func (particulateMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (particulateMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()     {}
-func (particulateMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ParticulateMaterial() {
-}
-func (particulateMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (particulateMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (particulateMaterialI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (particulateMaterialI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (particulateMaterialI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ParticulateMaterial()   {}
+func (particulateMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()          {}
+func (particulateMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()              {}
+func (particulateMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ParticulateMaterial() {}
+func (particulateMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()      {}
+func (particulateMaterialI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()               {}
+func (particulateMaterialI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (particulateMaterialI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
 
 var particulateMaterialKindInterface reflect.Type
 
 var ParticulateMaterial = particulateMaterialI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "ParticulateMaterial"},
-	ASubtypeOf: []sst.ElementInformer{Matter},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ParticulateMaterial"},
+	ASubtypeOf:        []sst.ElementInformer{Matter},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -3494,26 +3239,24 @@ type KindPeriodInTime interface {
 
 type periodInTimeI struct{ sst.ElementInfo }
 
-func (periodInTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PeriodInTime()     {}
-func (periodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()     {}
-func (periodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PeriodInTime()   {}
-func (periodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {}
-func (periodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrPeriodInTime() {
-}
-func (periodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {
-}
-func (periodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (periodInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (periodInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (periodInTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PeriodInTime()                  {}
+func (periodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                  {}
+func (periodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PeriodInTime()                {}
+func (periodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()              {}
+func (periodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrPeriodInTime()         {}
+func (periodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {}
+func (periodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                       {}
+func (periodInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
+func (periodInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                          {}
 
 var periodInTimeKindInterface reflect.Type
 
 var PeriodInTime = periodInTimeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "PeriodInTime"},
-	ASubtypeOf: []sst.ElementInformer{PointOrPeriodInTime},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "PeriodInTime"},
+	ASubtypeOf:        []sst.ElementInformer{PointOrPeriodInTime},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, PhysicalObject.Element: {}, PointOrPeriodInTime.Element: {}, PointOrRegionInSpaceAndTime.Element: {}},
 }}
@@ -3545,11 +3288,11 @@ func (personI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()   
 var personKindInterface reflect.Type
 
 var Person = personI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Person"},
-	ASubtypeOf: []sst.ElementInformer{Organism},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Person"},
+	ASubtypeOf:        []sst.ElementInformer{Organism},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, Organism.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -3578,11 +3321,11 @@ func (physicalObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Th
 var physicalObjectKindInterface reflect.Type
 
 var PhysicalObject = physicalObjectI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "PhysicalObject"},
-	ASubtypeOf: []sst.ElementInformer{Individual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "PhysicalObject"},
+	ASubtypeOf:        []sst.ElementInformer{Individual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}},
 }}
@@ -3601,23 +3344,22 @@ type KindPhysicalProperty interface {
 
 type physicalPropertyI struct{ sst.ElementInfo }
 
-func (physicalPropertyI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalProperty() {}
-func (physicalPropertyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {}
-func (physicalPropertyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()        {}
-func (physicalPropertyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalProperty() {
-}
-func (physicalPropertyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (physicalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (physicalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (physicalPropertyI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalProperty()   {}
+func (physicalPropertyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()   {}
+func (physicalPropertyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()          {}
+func (physicalPropertyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalProperty() {}
+func (physicalPropertyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()            {}
+func (physicalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
+func (physicalPropertyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()               {}
 
 var physicalPropertyKindInterface reflect.Type
 
 var PhysicalProperty = physicalPropertyI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "PhysicalProperty"},
-	ASubtypeOf: []sst.ElementInformer{Mapping},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "PhysicalProperty"},
+	ASubtypeOf:        []sst.ElementInformer{Mapping},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3635,26 +3377,27 @@ type KindPhysicalQuantity interface {
 
 type physicalQuantityI struct{ sst.ElementInfo }
 
-func (physicalQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantity() {}
-func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {}
-func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()          {}
-func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantity() {
-}
-func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Quantity()       {}
-func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (physicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (physicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (physicalQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantity()         {}
+func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()         {}
+func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                  {}
+func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()      {}
+func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantity()       {}
+func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Quantity()               {}
+func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                  {}
+func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Frep_23CharacterSpacingSelect() {}
+func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Frep_23SizeSelect()             {}
+func (physicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Frep_23ValueQualifierSubjects() {}
+func (physicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
+func (physicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                     {}
 
 var physicalQuantityKindInterface reflect.Type
 
 var PhysicalQuantity = physicalQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "PhysicalQuantity"},
-	ASubtypeOf: []sst.ElementInformer{Quantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "PhysicalQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{Quantity},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ClassOfIndividual.Element: {}},
 }}
@@ -3673,38 +3416,28 @@ type KindPhysicalQuantityKind interface {
 
 type physicalQuantityKindI struct{ sst.ElementInfo }
 
-func (physicalQuantityKindI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantityKind() {
-}
-func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {}
-func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPhysicalQuantity() {
-}
-func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfQuantity() {
-}
-func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantityKind() {
-}
-func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantitySpace() {
-}
-func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23QuantityKind() {
-}
-func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23QuantitySpace() {
-}
-func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (physicalQuantityKindI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (physicalQuantityKindI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (physicalQuantityKindI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantityKind()      {}
+func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()          {}
+func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                   {}
+func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()       {}
+func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPhysicalQuantity() {}
+func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfQuantity()         {}
+func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantityKind()    {}
+func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantitySpace()   {}
+func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23QuantityKind()            {}
+func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23QuantitySpace()           {}
+func (physicalQuantityKindI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                   {}
+func (physicalQuantityKindI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
+func (physicalQuantityKindI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                      {}
 
 var physicalQuantityKindKindInterface reflect.Type
 
 var PhysicalQuantityKind = physicalQuantityKindI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "PhysicalQuantityKind"},
-	ASubtypeOf: []sst.ElementInformer{PhysicalQuantitySpace, QuantityKind},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "PhysicalQuantityKind"},
+	ASubtypeOf:        []sst.ElementInformer{PhysicalQuantitySpace, QuantityKind},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3722,34 +3455,26 @@ type KindPhysicalQuantitySpace interface {
 
 type physicalQuantitySpaceI struct{ sst.ElementInfo }
 
-func (physicalQuantitySpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantitySpace() {
-}
-func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {}
-func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPhysicalQuantity() {
-}
-func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfQuantity() {
-}
-func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantitySpace() {
-}
-func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23QuantitySpace() {
-}
-func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (physicalQuantitySpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantitySpace()     {}
+func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()          {}
+func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                   {}
+func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()       {}
+func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfPhysicalQuantity() {}
+func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfQuantity()         {}
+func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantitySpace()   {}
+func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23QuantitySpace()           {}
+func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                   {}
+func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
+func (physicalQuantitySpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                      {}
 
 var physicalQuantitySpaceKindInterface reflect.Type
 
 var PhysicalQuantitySpace = physicalQuantitySpaceI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "PhysicalQuantitySpace"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfPhysicalQuantity, QuantitySpace},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "PhysicalQuantitySpace"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfPhysicalQuantity, QuantitySpace},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3767,28 +3492,22 @@ type KindPhysicalRepresentationType interface {
 
 type physicalRepresentationTypeI struct{ sst.ElementInfo }
 
-func (physicalRepresentationTypeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalRepresentationType() {
-}
-func (physicalRepresentationTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (physicalRepresentationTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationObject() {
-}
-func (physicalRepresentationTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalRepresentationType() {
-}
-func (physicalRepresentationTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {
-}
-func (physicalRepresentationTypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (physicalRepresentationTypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (physicalRepresentationTypeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalRepresentationType()   {}
+func (physicalRepresentationTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                 {}
+func (physicalRepresentationTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationObject()          {}
+func (physicalRepresentationTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalRepresentationType() {}
+func (physicalRepresentationTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                      {}
+func (physicalRepresentationTypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (physicalRepresentationTypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                         {}
 
 var physicalRepresentationTypeKindInterface reflect.Type
 
 var PhysicalRepresentationType = physicalRepresentationTypeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "PhysicalRepresentationType"},
-	ASubtypeOf: []sst.ElementInformer{InformationObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "PhysicalRepresentationType"},
+	ASubtypeOf:        []sst.ElementInformer{InformationObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3819,11 +3538,11 @@ func (plasmaPhaseI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing
 var plasmaPhaseKindInterface reflect.Type
 
 var PlasmaPhase = plasmaPhaseI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "PlasmaPhase"},
-	ASubtypeOf: []sst.ElementInformer{MatterPhase},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "PlasmaPhase"},
+	ASubtypeOf:        []sst.ElementInformer{MatterPhase},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, Matter.Element: {}, MatterPhase.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -3842,26 +3561,24 @@ type KindPointInSpace interface {
 
 type pointInSpaceI struct{ sst.ElementInfo }
 
-func (pointInSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointInSpace()     {}
-func (pointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()     {}
-func (pointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {}
-func (pointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointInSpace()   {}
-func (pointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpace() {
-}
-func (pointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {
-}
-func (pointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (pointInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (pointInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (pointInSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointInSpace()                  {}
+func (pointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                  {}
+func (pointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()              {}
+func (pointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointInSpace()                {}
+func (pointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpace()        {}
+func (pointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {}
+func (pointInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                       {}
+func (pointInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
+func (pointInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                          {}
 
 var pointInSpaceKindInterface reflect.Type
 
 var PointInSpace = pointInSpaceI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "PointInSpace"},
-	ASubtypeOf: []sst.ElementInformer{PointOrRegionInSpace},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "PointInSpace"},
+	ASubtypeOf:        []sst.ElementInformer{PointOrRegionInSpace},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, PhysicalObject.Element: {}, PointOrRegionInSpaceAndTime.Element: {}},
 }}
@@ -3880,26 +3597,25 @@ type KindPointInTime interface {
 
 type pointInTimeI struct{ sst.ElementInfo }
 
-func (pointInTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointInTime()           {}
-func (pointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Event()               {}
-func (pointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()          {}
-func (pointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()      {}
-func (pointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointInTime()         {}
-func (pointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrPeriodInTime() {}
-func (pointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {
-}
-func (pointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (pointInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (pointInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (pointInTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointInTime()                   {}
+func (pointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Event()                       {}
+func (pointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                  {}
+func (pointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()              {}
+func (pointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointInTime()                 {}
+func (pointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrPeriodInTime()         {}
+func (pointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {}
+func (pointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                       {}
+func (pointInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
+func (pointInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                          {}
 
 var pointInTimeKindInterface reflect.Type
 
 var PointInTime = pointInTimeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "PointInTime"},
-	ASubtypeOf: []sst.ElementInformer{Event, PointOrPeriodInTime},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "PointInTime"},
+	ASubtypeOf:        []sst.ElementInformer{Event, PointOrPeriodInTime},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Event.Element: {}, Individual.Element: {}, PhysicalObject.Element: {}, PointOrPeriodInTime.Element: {}, PointOrRegionInSpaceAndTime.Element: {}},
 }}
@@ -3918,28 +3634,23 @@ type KindPointOrPeriodInTime interface {
 
 type pointOrPeriodInTimeI struct{ sst.ElementInfo }
 
-func (pointOrPeriodInTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrPeriodInTime() {
-}
-func (pointOrPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (pointOrPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (pointOrPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrPeriodInTime() {
-}
-func (pointOrPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {
-}
-func (pointOrPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (pointOrPeriodInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (pointOrPeriodInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (pointOrPeriodInTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrPeriodInTime()           {}
+func (pointOrPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                  {}
+func (pointOrPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()              {}
+func (pointOrPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrPeriodInTime()         {}
+func (pointOrPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {}
+func (pointOrPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                       {}
+func (pointOrPeriodInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
+func (pointOrPeriodInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                          {}
 
 var pointOrPeriodInTimeKindInterface reflect.Type
 
 var PointOrPeriodInTime = pointOrPeriodInTimeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "PointOrPeriodInTime"},
-	ASubtypeOf: []sst.ElementInformer{PointOrRegionInSpaceAndTime},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "PointOrPeriodInTime"},
+	ASubtypeOf:        []sst.ElementInformer{PointOrRegionInSpaceAndTime},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, PhysicalObject.Element: {}, PointOrRegionInSpaceAndTime.Element: {}},
 }}
@@ -3958,28 +3669,23 @@ type KindPointOrRegionInSpace interface {
 
 type pointOrRegionInSpaceI struct{ sst.ElementInfo }
 
-func (pointOrRegionInSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpace() {
-}
-func (pointOrRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (pointOrRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (pointOrRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpace() {
-}
-func (pointOrRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {
-}
-func (pointOrRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (pointOrRegionInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (pointOrRegionInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (pointOrRegionInSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpace()          {}
+func (pointOrRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                  {}
+func (pointOrRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()              {}
+func (pointOrRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpace()        {}
+func (pointOrRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {}
+func (pointOrRegionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                       {}
+func (pointOrRegionInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
+func (pointOrRegionInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                          {}
 
 var pointOrRegionInSpaceKindInterface reflect.Type
 
 var PointOrRegionInSpace = pointOrRegionInSpaceI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "PointOrRegionInSpace"},
-	ASubtypeOf: []sst.ElementInformer{PointOrRegionInSpaceAndTime},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "PointOrRegionInSpace"},
+	ASubtypeOf:        []sst.ElementInformer{PointOrRegionInSpaceAndTime},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: true, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -3997,28 +3703,22 @@ type KindPointOrRegionInSpaceAndTime interface {
 
 type pointOrRegionInSpaceAndTimeI struct{ sst.ElementInfo }
 
-func (pointOrRegionInSpaceAndTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {
-}
-func (pointOrRegionInSpaceAndTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (pointOrRegionInSpaceAndTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (pointOrRegionInSpaceAndTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {
-}
-func (pointOrRegionInSpaceAndTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {
-}
-func (pointOrRegionInSpaceAndTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (pointOrRegionInSpaceAndTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (pointOrRegionInSpaceAndTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime()   {}
+func (pointOrRegionInSpaceAndTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                  {}
+func (pointOrRegionInSpaceAndTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()              {}
+func (pointOrRegionInSpaceAndTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {}
+func (pointOrRegionInSpaceAndTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                       {}
+func (pointOrRegionInSpaceAndTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
+func (pointOrRegionInSpaceAndTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                          {}
 
 var pointOrRegionInSpaceAndTimeKindInterface reflect.Type
 
 var PointOrRegionInSpaceAndTime = pointOrRegionInSpaceAndTimeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "PointOrRegionInSpaceAndTime"},
-	ASubtypeOf: []sst.ElementInformer{PhysicalObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "PointOrRegionInSpaceAndTime"},
+	ASubtypeOf:        []sst.ElementInformer{PhysicalObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -4037,23 +3737,19 @@ type KindPropertyDefinition interface {
 
 type propertyDefinitionI struct{ sst.ElementInfo }
 
-func (propertyDefinitionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PropertyDefinition() {
-}
-func (propertyDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PropertyDefinition() {
-}
-func (propertyDefinitionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {
-}
-func (propertyDefinitionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (propertyDefinitionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PropertyDefinition()         {}
+func (propertyDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PropertyDefinition()       {}
+func (propertyDefinitionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F1999_2F02_2F22_2Drdf_2Dsyntax_2Dns_23Property() {}
+func (propertyDefinitionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
 
 var propertyDefinitionKindInterface reflect.Type
 
 var PropertyDefinition = propertyDefinitionI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "PropertyDefinition"},
-	ASubtypeOf: []sst.ElementInformer{rdf.Property},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "PropertyDefinition"},
+	ASubtypeOf:        []sst.ElementInformer{rdf.Property},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -4084,11 +3780,11 @@ func (quantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() 
 var quantityKindInterface reflect.Type
 
 var Quantity = quantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Quantity"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Quantity"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfIndividual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4120,11 +3816,11 @@ func (quantityKindI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thin
 var quantityKindKindInterface reflect.Type
 
 var QuantityKind = quantityKindI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "QuantityKind"},
-	ASubtypeOf: []sst.ElementInformer{QuantitySpace},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "QuantityKind"},
+	ASubtypeOf:        []sst.ElementInformer{QuantitySpace},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4155,11 +3851,11 @@ func (quantitySpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thi
 var quantitySpaceKindInterface reflect.Type
 
 var QuantitySpace = quantitySpaceI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "QuantitySpace"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfQuantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "QuantitySpace"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfQuantity},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4177,30 +3873,24 @@ type KindRangePhysicalQuantity interface {
 
 type rangePhysicalQuantityI struct{ sst.ElementInfo }
 
-func (rangePhysicalQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RangePhysicalQuantity() {
-}
-func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {}
-func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RangePhysicalQuantity() {
-}
-func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RangeQuantity() {
-}
-func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (rangePhysicalQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RangePhysicalQuantity()   {}
+func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()        {}
+func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                 {}
+func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()     {}
+func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RangePhysicalQuantity() {}
+func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RangeQuantity()         {}
+func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                 {}
+func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
+func (rangePhysicalQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                    {}
 
 var rangePhysicalQuantityKindInterface reflect.Type
 
 var RangePhysicalQuantity = rangePhysicalQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "RangePhysicalQuantity"},
-	ASubtypeOf: []sst.ElementInformer{RangeQuantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "RangePhysicalQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{RangeQuantity},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4230,11 +3920,11 @@ func (rangeQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thi
 var rangeQuantityKindInterface reflect.Type
 
 var RangeQuantity = rangeQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "RangeQuantity"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "RangeQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfIndividual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4252,31 +3942,25 @@ type KindRangeTimeDuration interface {
 
 type rangeTimeDurationI struct{ sst.ElementInfo }
 
-func (rangeTimeDurationI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RangeTimeDuration() {
-}
-func (rangeTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (rangeTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {}
-func (rangeTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (rangeTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RangePhysicalQuantity() {
-}
-func (rangeTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RangeQuantity() {}
-func (rangeTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RangeTimeDuration() {
-}
-func (rangeTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (rangeTimeDurationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (rangeTimeDurationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (rangeTimeDurationI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RangeTimeDuration()       {}
+func (rangeTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()        {}
+func (rangeTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                 {}
+func (rangeTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()     {}
+func (rangeTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RangePhysicalQuantity() {}
+func (rangeTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RangeQuantity()         {}
+func (rangeTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RangeTimeDuration()     {}
+func (rangeTimeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                 {}
+func (rangeTimeDurationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
+func (rangeTimeDurationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                    {}
 
 var rangeTimeDurationKindInterface reflect.Type
 
 var RangeTimeDuration = rangeTimeDurationI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "RangeTimeDuration"},
-	ASubtypeOf: []sst.ElementInformer{RangePhysicalQuantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "RangeTimeDuration"},
+	ASubtypeOf:        []sst.ElementInformer{RangePhysicalQuantity},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4305,11 +3989,11 @@ func (realI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()     
 var realKindInterface reflect.Type
 
 var Real = realI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Real"},
-	ASubtypeOf: []sst.ElementInformer{Number},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Real"},
+	ASubtypeOf:        []sst.ElementInformer{Number},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4327,26 +4011,24 @@ type KindRegionInSpace interface {
 
 type regionInSpaceI struct{ sst.ElementInfo }
 
-func (regionInSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RegionInSpace()    {}
-func (regionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()     {}
-func (regionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {}
-func (regionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpace() {
-}
-func (regionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {
-}
-func (regionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RegionInSpace()  {}
-func (regionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (regionInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (regionInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (regionInSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RegionInSpace()                 {}
+func (regionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                  {}
+func (regionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()              {}
+func (regionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpace()        {}
+func (regionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PointOrRegionInSpaceAndTime() {}
+func (regionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RegionInSpace()               {}
+func (regionInSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                       {}
+func (regionInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
+func (regionInSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                          {}
 
 var regionInSpaceKindInterface reflect.Type
 
 var RegionInSpace = regionInSpaceI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "RegionInSpace"},
-	ASubtypeOf: []sst.ElementInformer{PointOrRegionInSpace},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "RegionInSpace"},
+	ASubtypeOf:        []sst.ElementInformer{PointOrRegionInSpace},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, PhysicalObject.Element: {}, PointOrRegionInSpaceAndTime.Element: {}},
 }}
@@ -4365,28 +4047,23 @@ type KindRepresentationFormat interface {
 
 type representationFormatI struct{ sst.ElementInfo }
 
-func (representationFormatI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RepresentationFormat() {
-}
-func (representationFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (representationFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationContent() {
-}
-func (representationFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationObject() {
-}
-func (representationFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RepresentationFormat() {
-}
-func (representationFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (representationFormatI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (representationFormatI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (representationFormatI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RepresentationFormat()   {}
+func (representationFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()           {}
+func (representationFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationContent()   {}
+func (representationFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23InformationObject()    {}
+func (representationFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RepresentationFormat() {}
+func (representationFormatI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                {}
+func (representationFormatI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (representationFormatI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                   {}
 
 var representationFormatKindInterface reflect.Type
 
 var RepresentationFormat = representationFormatI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "RepresentationFormat"},
-	ASubtypeOf: []sst.ElementInformer{InformationContent},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "RepresentationFormat"},
+	ASubtypeOf:        []sst.ElementInformer{InformationContent},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4404,26 +4081,22 @@ type KindRepresentationSpace interface {
 
 type representationSpaceI struct{ sst.ElementInfo }
 
-func (representationSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RepresentationSpace() {
-}
-func (representationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (representationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping() {}
-func (representationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RepresentationSpace() {
-}
-func (representationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (representationSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (representationSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (representationSpaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RepresentationSpace()   {}
+func (representationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()      {}
+func (representationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Mapping()             {}
+func (representationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23RepresentationSpace() {}
+func (representationSpaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()               {}
+func (representationSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (representationSpaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
 
 var representationSpaceKindInterface reflect.Type
 
 var RepresentationSpace = representationSpaceI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "RepresentationSpace"},
-	ASubtypeOf: []sst.ElementInformer{Mapping},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "RepresentationSpace"},
+	ASubtypeOf:        []sst.ElementInformer{Mapping},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4454,11 +4127,11 @@ func (rigidBodyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()
 var rigidBodyKindInterface reflect.Type
 
 var RigidBody = rigidBodyI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "RigidBody"},
-	ASubtypeOf: []sst.ElementInformer{SolidBody},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "RigidBody"},
+	ASubtypeOf:        []sst.ElementInformer{SolidBody},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4489,11 +4162,11 @@ func (scaleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()    
 var scaleKindInterface reflect.Type
 
 var Scale = scaleI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Scale"},
-	ASubtypeOf: []sst.ElementInformer{Isomorphism},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Scale"},
+	ASubtypeOf:        []sst.ElementInformer{Isomorphism},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4523,11 +4196,11 @@ func (solidBodyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()
 var solidBodyKindInterface reflect.Type
 
 var SolidBody = solidBodyI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "SolidBody"},
-	ASubtypeOf: []sst.ElementInformer{Matter},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "SolidBody"},
+	ASubtypeOf:        []sst.ElementInformer{Matter},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -4546,35 +4219,27 @@ type KindSolidInSolidSolution interface {
 
 type solidInSolidSolutionI struct{ sst.ElementInfo }
 
-func (solidInSolidSolutionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidInSolidSolution() {
-}
-func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture() {
-}
-func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSolution() {
-}
-func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {
-}
-func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()     {}
-func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidInSolidSolution() {
-}
-func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidSolution() {
-}
-func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (solidInSolidSolutionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidInSolidSolution()         {}
+func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture()            {}
+func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSolution()           {}
+func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {}
+func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                 {}
+func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()                     {}
+func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()             {}
+func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidInSolidSolution()       {}
+func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidSolution()              {}
+func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                      {}
+func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (solidInSolidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                         {}
 
 var solidInSolidSolutionKindInterface reflect.Type
 
 var SolidInSolidSolution = solidInSolidSolutionI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "SolidInSolidSolution"},
-	ASubtypeOf: []sst.ElementInformer{SolidSolution},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "SolidInSolidSolution"},
+	ASubtypeOf:        []sst.ElementInformer{SolidSolution},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalMixture.Element: {}, ChemicalSolution.Element: {}, HomogeneousChemicalMixture.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}, SolidSolution.Element: {}},
 }}
@@ -4606,11 +4271,11 @@ func (solidPhaseI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing(
 var solidPhaseKindInterface reflect.Type
 
 var SolidPhase = solidPhaseI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "SolidPhase"},
-	ASubtypeOf: []sst.ElementInformer{MatterPhase},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "SolidPhase"},
+	ASubtypeOf:        []sst.ElementInformer{MatterPhase},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, Matter.Element: {}, MatterPhase.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -4629,27 +4294,26 @@ type KindSolidSolution interface {
 
 type solidSolutionI struct{ sst.ElementInfo }
 
-func (solidSolutionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidSolution()      {}
-func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture()  {}
-func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSolution() {}
-func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {
-}
-func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()     {}
-func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()         {}
-func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {}
-func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidSolution()  {}
-func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (solidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (solidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (solidSolutionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidSolution()                {}
+func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalMixture()            {}
+func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ChemicalSolution()           {}
+func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23HomogeneousChemicalMixture() {}
+func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                 {}
+func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()                     {}
+func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()             {}
+func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SolidSolution()              {}
+func (solidSolutionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                      {}
+func (solidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
+func (solidSolutionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                         {}
 
 var solidSolutionKindInterface reflect.Type
 
 var SolidSolution = solidSolutionI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "SolidSolution"},
-	ASubtypeOf: []sst.ElementInformer{ChemicalSolution},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "SolidSolution"},
+	ASubtypeOf:        []sst.ElementInformer{ChemicalSolution},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{ChemicalMixture.Element: {}, ChemicalSolution.Element: {}, HomogeneousChemicalMixture.Element: {}, Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -4668,24 +4332,21 @@ type KindSpecificIndividual interface {
 
 type specificIndividualI struct{ sst.ElementInfo }
 
-func (specificIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SpecificIndividual() {
-}
-func (specificIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (specificIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SpecificIndividual() {
-}
-func (specificIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (specificIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (specificIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (specificIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SpecificIndividual()   {}
+func (specificIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()         {}
+func (specificIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SpecificIndividual() {}
+func (specificIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()              {}
+func (specificIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
+func (specificIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                 {}
 
 var specificIndividualKindInterface reflect.Type
 
 var SpecificIndividual = specificIndividualI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "SpecificIndividual"},
-	ASubtypeOf: []sst.ElementInformer{Individual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "SpecificIndividual"},
+	ASubtypeOf:        []sst.ElementInformer{Individual},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4715,11 +4376,11 @@ func (statusI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()   
 var statusKindInterface reflect.Type
 
 var Status = statusI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Status"},
-	ASubtypeOf: []sst.ElementInformer{ClassOfIndividual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Status"},
+	ASubtypeOf:        []sst.ElementInformer{ClassOfIndividual},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4748,11 +4409,11 @@ func (streamI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()   
 var streamKindInterface reflect.Type
 
 var Stream = streamI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Stream"},
-	ASubtypeOf: []sst.ElementInformer{PhysicalObject},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Stream"},
+	ASubtypeOf:        []sst.ElementInformer{PhysicalObject},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -4771,27 +4432,23 @@ type KindSubAtomicParticle interface {
 
 type subAtomicParticleI struct{ sst.ElementInfo }
 
-func (subAtomicParticleI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SubAtomicParticle() {
-}
-func (subAtomicParticleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (subAtomicParticleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()     {}
-func (subAtomicParticleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject() {
-}
-func (subAtomicParticleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SubAtomicParticle() {
-}
-func (subAtomicParticleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (subAtomicParticleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (subAtomicParticleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (subAtomicParticleI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SubAtomicParticle()   {}
+func (subAtomicParticleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()        {}
+func (subAtomicParticleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Matter()            {}
+func (subAtomicParticleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalObject()    {}
+func (subAtomicParticleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23SubAtomicParticle() {}
+func (subAtomicParticleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (subAtomicParticleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (subAtomicParticleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var subAtomicParticleKindInterface reflect.Type
 
 var SubAtomicParticle = subAtomicParticleI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "SubAtomicParticle"},
-	ASubtypeOf: []sst.ElementInformer{Matter},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "SubAtomicParticle"},
+	ASubtypeOf:        []sst.ElementInformer{Matter},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Individual.Element: {}, Matter.Element: {}, PhysicalObject.Element: {}},
 }}
@@ -4822,11 +4479,11 @@ func (textStringI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing(
 var textStringKindInterface reflect.Type
 
 var TextString = textStringI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "TextString"},
-	ASubtypeOf: []sst.ElementInformer{InformationContent},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "TextString"},
+	ASubtypeOf:        []sst.ElementInformer{InformationContent},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4844,30 +4501,24 @@ type KindTheoreticalExactQuantity interface {
 
 type theoreticalExactQuantityI struct{ sst.ElementInfo }
 
-func (theoreticalExactQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23TheoreticalExactQuantity() {
-}
-func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject() {
-}
-func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class() {}
-func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {
-}
-func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Quantity() {
-}
-func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23TheoreticalExactQuantity() {
-}
-func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (theoreticalExactQuantityI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23TheoreticalExactQuantity()   {}
+func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()           {}
+func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                    {}
+func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()        {}
+func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Quantity()                 {}
+func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23TheoreticalExactQuantity() {}
+func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                    {}
+func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
+func (theoreticalExactQuantityI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                       {}
 
 var theoreticalExactQuantityKindInterface reflect.Type
 
 var TheoreticalExactQuantity = theoreticalExactQuantityI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "TheoreticalExactQuantity"},
-	ASubtypeOf: []sst.ElementInformer{Quantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "TheoreticalExactQuantity"},
+	ASubtypeOf:        []sst.ElementInformer{Quantity},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4893,11 +4544,11 @@ func (thingI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()    
 var thingKindInterface reflect.Type
 
 var Thing = thingI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "Thing"},
-	ASubtypeOf: []sst.ElementInformer{owl.Thing},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "Thing"},
+	ASubtypeOf:        []sst.ElementInformer{owl.Thing},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: true, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4915,25 +4566,28 @@ type KindTimeDuration interface {
 
 type timeDurationI struct{ sst.ElementInfo }
 
-func (timeDurationI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23TimeDuration()        {}
-func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()    {}
-func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()             {}
-func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual() {}
-func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantity()  {}
-func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Quantity()          {}
-func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
-func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23TimeDuration()      {}
-func (timeDurationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
-func (timeDurationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
+func (timeDurationI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23TimeDuration()             {}
+func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23AbstractObject()         {}
+func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Class()                  {}
+func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ClassOfIndividual()      {}
+func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23PhysicalQuantity()       {}
+func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Quantity()               {}
+func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                  {}
+func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23TimeDuration()           {}
+func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Frep_23CharacterSpacingSelect() {}
+func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Frep_23SizeSelect()             {}
+func (timeDurationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Frep_23ValueQualifierSubjects() {}
+func (timeDurationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
+func (timeDurationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                     {}
 
 var timeDurationKindInterface reflect.Type
 
 var TimeDuration = timeDurationI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "TimeDuration"},
-	ASubtypeOf: []sst.ElementInformer{PhysicalQuantity},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "TimeDuration"},
+	ASubtypeOf:        []sst.ElementInformer{PhysicalQuantity},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4951,24 +4605,21 @@ type KindTypicalIndividual interface {
 
 type typicalIndividualI struct{ sst.ElementInfo }
 
-func (typicalIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23TypicalIndividual() {
-}
-func (typicalIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (typicalIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()      {}
-func (typicalIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23TypicalIndividual() {
-}
-func (typicalIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (typicalIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (typicalIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23TypicalIndividual()   {}
+func (typicalIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()        {}
+func (typicalIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()             {}
+func (typicalIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23TypicalIndividual() {}
+func (typicalIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
+func (typicalIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                {}
 
 var typicalIndividualKindInterface reflect.Type
 
 var TypicalIndividual = typicalIndividualI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "TypicalIndividual"},
-	ASubtypeOf: []sst.ElementInformer{Individual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "TypicalIndividual"},
+	ASubtypeOf:        []sst.ElementInformer{Individual},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -4986,24 +4637,21 @@ type KindWholeLifeIndividual interface {
 
 type wholeLifeIndividualI struct{ sst.ElementInfo }
 
-func (wholeLifeIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23WholeLifeIndividual() {
-}
-func (wholeLifeIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (wholeLifeIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()      {}
-func (wholeLifeIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23WholeLifeIndividual() {
-}
-func (wholeLifeIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (wholeLifeIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (wholeLifeIndividualI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23WholeLifeIndividual()   {}
+func (wholeLifeIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()          {}
+func (wholeLifeIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()               {}
+func (wholeLifeIndividualI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23WholeLifeIndividual() {}
+func (wholeLifeIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
+func (wholeLifeIndividualI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                  {}
 
 var wholeLifeIndividualKindInterface reflect.Type
 
 var WholeLifeIndividual = wholeLifeIndividualI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: LCIVocabulary, Name: "WholeLifeIndividual"},
-	ASubtypeOf: []sst.ElementInformer{Individual},
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "WholeLifeIndividual"},
+	ASubtypeOf:        []sst.ElementInformer{Individual},
 
 	AClass: true, AnOptionClass: true, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5028,13 +4676,13 @@ func (afterI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Re
 var afterKindInterface reflect.Type
 
 var After = afterI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "after"},
-	ADomain:     Individual,
-	ARange:      Individual,
-	AnInverseOf: Before,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "after"},
+	ADomain:           Individual,
+	ARange:            Individual,
+	AnInverseOf:       Before,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5062,14 +4710,14 @@ func (arrangedPartOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dsc
 var arrangedPartOfKindInterface reflect.Type
 
 var ArrangedPartOf = arrangedPartOfI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "arrangedPartOf"},
-	ADomain:        Individual,
-	ARange:         ArrangedIndividual,
-	ASubPropertyOf: PartOf,
-	AnInverseOf:    HasArrangedPart,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "arrangedPartOf"},
+	ADomain:           Individual,
+	ARange:            ArrangedIndividual,
+	ASubPropertyOf:    PartOf,
+	AnInverseOf:       HasArrangedPart,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5098,14 +4746,14 @@ func (assembledPartOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Ds
 var assembledPartOfKindInterface reflect.Type
 
 var AssembledPartOf = assembledPartOfI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "assembledPartOf"},
-	ADomain:        Individual,
-	ARange:         ArrangedIndividual,
-	ASubPropertyOf: ArrangedPartOf,
-	AnInverseOf:    HasAssembledPart,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "assembledPartOf"},
+	ADomain:           Individual,
+	ARange:            ArrangedIndividual,
+	ASubPropertyOf:    ArrangedPartOf,
+	AnInverseOf:       HasAssembledPart,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5133,11 +4781,11 @@ var beforeKindInterface reflect.Type
 
 var Before = beforeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "before"},
-	ADomain: Individual,
-	ARange:  Individual,
+	ADomain:           Individual,
+	ARange:            Individual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5167,14 +4815,14 @@ func (beginsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23R
 var beginsKindInterface reflect.Type
 
 var Begins = beginsI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "begins"},
-	ADomain:        Event,
-	ARange:         Individual,
-	ASubPropertyOf: TemporalBoundOf,
-	AnInverseOf:    HasBeginning,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "begins"},
+	ADomain:           Event,
+	ARange:            Individual,
+	ASubPropertyOf:    TemporalBoundOf,
+	AnInverseOf:       HasBeginning,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5194,23 +4842,21 @@ type KindBooleanAsLiteral interface {
 
 type booleanAsLiteralI struct{ sst.ElementInfo }
 
-func (booleanAsLiteralI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23booleanAsLiteral() {}
-func (booleanAsLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23booleanAsLiteral() {
-}
-func (booleanAsLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numberAsLiteral() {
-}
-func (booleanAsLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (booleanAsLiteralI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23booleanAsLiteral()   {}
+func (booleanAsLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23booleanAsLiteral() {}
+func (booleanAsLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numberAsLiteral()  {}
+func (booleanAsLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
 
 var booleanAsLiteralKindInterface reflect.Type
 
 var BooleanAsLiteral = booleanAsLiteralI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "booleanAsLiteral"},
-	ADomain:        Boolean,
-	ARange:         xsd.Boolean,
-	ASubPropertyOf: NumberAsLiteral,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "booleanAsLiteral"},
+	ADomain:           Boolean,
+	ARange:            xsd.Boolean,
+	ASubPropertyOf:    NumberAsLiteral,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5235,13 +4881,13 @@ func (causesI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23R
 var causesKindInterface reflect.Type
 
 var Causes = causesI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "causes"},
-	ADomain:     Activity,
-	ARange:      Event,
-	AnInverseOf: HasCause,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "causes"},
+	ADomain:           Activity,
+	ARange:            Event,
+	AnInverseOf:       HasCause,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5261,23 +4907,20 @@ type KindCausesBeginningOf interface {
 
 type causesBeginningOfI struct{ sst.ElementInfo }
 
-func (causesBeginningOfI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23causesBeginningOf() {
-}
-func (causesBeginningOfI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23causesBeginningOf() {
-}
-func (causesBeginningOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (causesBeginningOfI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23causesBeginningOf()   {}
+func (causesBeginningOfI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23causesBeginningOf() {}
+func (causesBeginningOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
 
 var causesBeginningOfKindInterface reflect.Type
 
 var CausesBeginningOf = causesBeginningOfI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "causesBeginningOf"},
-	ADomain:     Activity,
-	ARange:      Individual,
-	AnInverseOf: HasCauseOfBeginning,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "causesBeginningOf"},
+	ADomain:           Activity,
+	ARange:            Individual,
+	AnInverseOf:       HasCauseOfBeginning,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5304,13 +4947,13 @@ func (causesEndOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschem
 var causesEndOfKindInterface reflect.Type
 
 var CausesEndOf = causesEndOfI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "causesEndOf"},
-	ADomain:     Activity,
-	ARange:      Individual,
-	AnInverseOf: HasCauseOfEnd,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "causesEndOf"},
+	ADomain:           Activity,
+	ARange:            Individual,
+	AnInverseOf:       HasCauseOfEnd,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5330,23 +4973,20 @@ type KindClassAfterOccurrence interface {
 
 type classAfterOccurrenceI struct{ sst.ElementInfo }
 
-func (classAfterOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classAfterOccurrence() {
-}
-func (classAfterOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classAfterOccurrence() {
-}
-func (classAfterOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classAfterOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classAfterOccurrence()   {}
+func (classAfterOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classAfterOccurrence() {}
+func (classAfterOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
 
 var classAfterOccurrenceKindInterface reflect.Type
 
 var ClassAfterOccurrence = classAfterOccurrenceI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classAfterOccurrence"},
-	ADomain:     ClassOfIndividual,
-	ARange:      ClassOfIndividual,
-	AnInverseOf: ClassBeforeOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classAfterOccurrence"},
+	ADomain:           ClassOfIndividual,
+	ARange:            ClassOfIndividual,
+	AnInverseOf:       ClassBeforeOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5373,13 +5013,13 @@ func (classAfterValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Ds
 var classAfterValueKindInterface reflect.Type
 
 var ClassAfterValue = classAfterValueI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classAfterValue"},
-	ADomain:     ClassOfIndividual,
-	ARange:      Individual,
-	AnInverseOf: ValueBeforeOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classAfterValue"},
+	ADomain:           ClassOfIndividual,
+	ARange:            Individual,
+	AnInverseOf:       ValueBeforeOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5399,22 +5039,19 @@ type KindClassBeforeOccurrence interface {
 
 type classBeforeOccurrenceI struct{ sst.ElementInfo }
 
-func (classBeforeOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeforeOccurrence() {
-}
-func (classBeforeOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeforeOccurrence() {
-}
-func (classBeforeOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classBeforeOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeforeOccurrence()   {}
+func (classBeforeOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeforeOccurrence() {}
+func (classBeforeOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
 
 var classBeforeOccurrenceKindInterface reflect.Type
 
 var ClassBeforeOccurrence = classBeforeOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classBeforeOccurrence"},
-	ADomain: ClassOfIndividual,
-	ARange:  ClassOfIndividual,
+	ADomain:           ClassOfIndividual,
+	ARange:            ClassOfIndividual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5434,21 +5071,20 @@ type KindClassBeforeValue interface {
 
 type classBeforeValueI struct{ sst.ElementInfo }
 
-func (classBeforeValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeforeValue() {}
-func (classBeforeValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeforeValue() {
-}
-func (classBeforeValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (classBeforeValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeforeValue()   {}
+func (classBeforeValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeforeValue() {}
+func (classBeforeValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
 
 var classBeforeValueKindInterface reflect.Type
 
 var ClassBeforeValue = classBeforeValueI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classBeforeValue"},
-	ADomain:     ClassOfIndividual,
-	ARange:      Individual,
-	AnInverseOf: ValueAfterOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classBeforeValue"},
+	ADomain:           ClassOfIndividual,
+	ARange:            Individual,
+	AnInverseOf:       ValueAfterOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5468,28 +5104,23 @@ type KindClassBeginsOccurrence interface {
 
 type classBeginsOccurrenceI struct{ sst.ElementInfo }
 
-func (classBeginsOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeginsOccurrence() {
-}
-func (classBeginsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeginsOccurrence() {
-}
-func (classBeginsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfOccurrence() {
-}
-func (classBeginsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfOccurrence() {
-}
-func (classBeginsOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classBeginsOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeginsOccurrence()           {}
+func (classBeginsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeginsOccurrence()         {}
+func (classBeginsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfOccurrence()         {}
+func (classBeginsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfOccurrence() {}
+func (classBeginsOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                {}
 
 var classBeginsOccurrenceKindInterface reflect.Type
 
 var ClassBeginsOccurrence = classBeginsOccurrenceI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "classBeginsOccurrence"},
-	ADomain:        ClassOfEvent,
-	ARange:         ClassOfIndividual,
-	ASubPropertyOf: ClassTemporalPartOfOccurrence,
-	AnInverseOf:    ClassHasBeginningOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classBeginsOccurrence"},
+	ADomain:           ClassOfEvent,
+	ARange:            ClassOfIndividual,
+	ASubPropertyOf:    ClassTemporalPartOfOccurrence,
+	AnInverseOf:       ClassHasBeginningOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5509,26 +5140,23 @@ type KindClassBeginsValue interface {
 
 type classBeginsValueI struct{ sst.ElementInfo }
 
-func (classBeginsValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeginsValue() {}
-func (classBeginsValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeginsValue() {
-}
-func (classBeginsValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfValue() {
-}
-func (classBeginsValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfValue() {
-}
-func (classBeginsValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (classBeginsValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeginsValue()           {}
+func (classBeginsValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classBeginsValue()         {}
+func (classBeginsValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfValue()         {}
+func (classBeginsValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfValue() {}
+func (classBeginsValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
 
 var classBeginsValueKindInterface reflect.Type
 
 var ClassBeginsValue = classBeginsValueI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "classBeginsValue"},
-	ADomain:        ClassOfEvent,
-	ARange:         Individual,
-	ASubPropertyOf: ClassTemporalPartOfValue,
-	AnInverseOf:    ValueHasBeginningOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classBeginsValue"},
+	ADomain:           ClassOfEvent,
+	ARange:            Individual,
+	ASubPropertyOf:    ClassTemporalPartOfValue,
+	AnInverseOf:       ValueHasBeginningOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5548,29 +5176,24 @@ type KindClassCausesBeginningOfOccurrence interface {
 
 type classCausesBeginningOfOccurrenceI struct{ sst.ElementInfo }
 
-func (classCausesBeginningOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesBeginningOfOccurrence() {
-}
-func (classCausesBeginningOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesBeginningOfOccurrence() {
-}
-func (classCausesBeginningOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classCausesBeginningOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesBeginningOfOccurrence()   {}
+func (classCausesBeginningOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesBeginningOfOccurrence() {}
+func (classCausesBeginningOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                   {}
 
 var classCausesBeginningOfOccurrenceKindInterface reflect.Type
 
 var ClassCausesBeginningOfOccurrence = classCausesBeginningOfOccurrenceI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classCausesBeginningOfOccurrence"},
-	ADomain:     ClassOfActivity,
-	ARange:      ClassOfIndividual,
-	AnInverseOf: ClassHasCauseOfBeginningOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classCausesBeginningOfOccurrence"},
+	ADomain:           ClassOfActivity,
+	ARange:            ClassOfIndividual,
+	AnInverseOf:       ClassHasCauseOfBeginningOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (classHasCauseOfBeginningOccurrenceI) InverseOf() sst.ElementInformer {
-	return ClassCausesBeginningOfOccurrence
-}
+func (classHasCauseOfBeginningOccurrenceI) InverseOf() sst.ElementInformer { return ClassCausesBeginningOfOccurrence }
 
 // Definitions of lci.classCausesBeginningOfValue
 
@@ -5586,29 +5209,24 @@ type KindClassCausesBeginningOfValue interface {
 
 type classCausesBeginningOfValueI struct{ sst.ElementInfo }
 
-func (classCausesBeginningOfValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesBeginningOfValue() {
-}
-func (classCausesBeginningOfValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesBeginningOfValue() {
-}
-func (classCausesBeginningOfValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classCausesBeginningOfValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesBeginningOfValue()   {}
+func (classCausesBeginningOfValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesBeginningOfValue() {}
+func (classCausesBeginningOfValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
 
 var classCausesBeginningOfValueKindInterface reflect.Type
 
 var ClassCausesBeginningOfValue = classCausesBeginningOfValueI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classCausesBeginningOfValue"},
-	ADomain:     ClassOfActivity,
-	ARange:      Individual,
-	AnInverseOf: ValueHasCauseOfBeginningOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classCausesBeginningOfValue"},
+	ADomain:           ClassOfActivity,
+	ARange:            Individual,
+	AnInverseOf:       ValueHasCauseOfBeginningOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (valueHasCauseOfBeginningOccurrenceI) InverseOf() sst.ElementInformer {
-	return ClassCausesBeginningOfValue
-}
+func (valueHasCauseOfBeginningOccurrenceI) InverseOf() sst.ElementInformer { return ClassCausesBeginningOfValue }
 
 // Definitions of lci.classCausesEndOfOccurrence
 
@@ -5624,29 +5242,24 @@ type KindClassCausesEndOfOccurrence interface {
 
 type classCausesEndOfOccurrenceI struct{ sst.ElementInfo }
 
-func (classCausesEndOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesEndOfOccurrence() {
-}
-func (classCausesEndOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesEndOfOccurrence() {
-}
-func (classCausesEndOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classCausesEndOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesEndOfOccurrence()   {}
+func (classCausesEndOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesEndOfOccurrence() {}
+func (classCausesEndOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
 
 var classCausesEndOfOccurrenceKindInterface reflect.Type
 
 var ClassCausesEndOfOccurrence = classCausesEndOfOccurrenceI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classCausesEndOfOccurrence"},
-	ADomain:     ClassOfActivity,
-	ARange:      ClassOfIndividual,
-	AnInverseOf: ClassHasCauseOfEndOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classCausesEndOfOccurrence"},
+	ADomain:           ClassOfActivity,
+	ARange:            ClassOfIndividual,
+	AnInverseOf:       ClassHasCauseOfEndOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (classHasCauseOfEndOccurrenceI) InverseOf() sst.ElementInformer {
-	return ClassCausesEndOfOccurrence
-}
+func (classHasCauseOfEndOccurrenceI) InverseOf() sst.ElementInformer { return ClassCausesEndOfOccurrence }
 
 // Definitions of lci.classCausesEndOfValue
 
@@ -5662,23 +5275,20 @@ type KindClassCausesEndOfValue interface {
 
 type classCausesEndOfValueI struct{ sst.ElementInfo }
 
-func (classCausesEndOfValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesEndOfValue() {
-}
-func (classCausesEndOfValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesEndOfValue() {
-}
-func (classCausesEndOfValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classCausesEndOfValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesEndOfValue()   {}
+func (classCausesEndOfValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesEndOfValue() {}
+func (classCausesEndOfValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
 
 var classCausesEndOfValueKindInterface reflect.Type
 
 var ClassCausesEndOfValue = classCausesEndOfValueI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classCausesEndOfValue"},
-	ADomain:     ClassOfActivity,
-	ARange:      Individual,
-	AnInverseOf: ValueHasCauseOfEndOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classCausesEndOfValue"},
+	ADomain:           ClassOfActivity,
+	ARange:            Individual,
+	AnInverseOf:       ValueHasCauseOfEndOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5698,23 +5308,20 @@ type KindClassCausesOccurrence interface {
 
 type classCausesOccurrenceI struct{ sst.ElementInfo }
 
-func (classCausesOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesOccurrence() {
-}
-func (classCausesOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesOccurrence() {
-}
-func (classCausesOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classCausesOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesOccurrence()   {}
+func (classCausesOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesOccurrence() {}
+func (classCausesOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
 
 var classCausesOccurrenceKindInterface reflect.Type
 
 var ClassCausesOccurrence = classCausesOccurrenceI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classCausesOccurrence"},
-	ADomain:     ClassOfActivity,
-	ARange:      ClassOfEvent,
-	AnInverseOf: ClassHasCauseOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classCausesOccurrence"},
+	ADomain:           ClassOfActivity,
+	ARange:            ClassOfEvent,
+	AnInverseOf:       ClassHasCauseOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5734,21 +5341,20 @@ type KindClassCausesValue interface {
 
 type classCausesValueI struct{ sst.ElementInfo }
 
-func (classCausesValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesValue() {}
-func (classCausesValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesValue() {
-}
-func (classCausesValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (classCausesValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesValue()   {}
+func (classCausesValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classCausesValue() {}
+func (classCausesValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
 
 var classCausesValueKindInterface reflect.Type
 
 var ClassCausesValue = classCausesValueI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classCausesValue"},
-	ADomain:     ClassOfActivity,
-	ARange:      Event,
-	AnInverseOf: ValueHasCauseOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classCausesValue"},
+	ADomain:           ClassOfActivity,
+	ARange:            Event,
+	AnInverseOf:       ValueHasCauseOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5768,28 +5374,23 @@ type KindClassEndsOccurrence interface {
 
 type classEndsOccurrenceI struct{ sst.ElementInfo }
 
-func (classEndsOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classEndsOccurrence() {
-}
-func (classEndsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classEndsOccurrence() {
-}
-func (classEndsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfOccurrence() {
-}
-func (classEndsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfOccurrence() {
-}
-func (classEndsOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classEndsOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classEndsOccurrence()             {}
+func (classEndsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classEndsOccurrence()           {}
+func (classEndsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfOccurrence()         {}
+func (classEndsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfOccurrence() {}
+func (classEndsOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                {}
 
 var classEndsOccurrenceKindInterface reflect.Type
 
 var ClassEndsOccurrence = classEndsOccurrenceI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "classEndsOccurrence"},
-	ADomain:        ClassOfEvent,
-	ARange:         ClassOfIndividual,
-	ASubPropertyOf: ClassTemporalPartOfOccurrence,
-	AnInverseOf:    ClassHasEndOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classEndsOccurrence"},
+	ADomain:           ClassOfEvent,
+	ARange:            ClassOfIndividual,
+	ASubPropertyOf:    ClassTemporalPartOfOccurrence,
+	AnInverseOf:       ClassHasEndOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5809,24 +5410,23 @@ type KindClassEndsValue interface {
 
 type classEndsValueI struct{ sst.ElementInfo }
 
-func (classEndsValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classEndsValue()     {}
-func (classEndsValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classEndsValue()   {}
-func (classEndsValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfValue() {}
-func (classEndsValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfValue() {
-}
-func (classEndsValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (classEndsValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classEndsValue()             {}
+func (classEndsValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classEndsValue()           {}
+func (classEndsValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfValue()         {}
+func (classEndsValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfValue() {}
+func (classEndsValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
 
 var classEndsValueKindInterface reflect.Type
 
 var ClassEndsValue = classEndsValueI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "classEndsValue"},
-	ADomain:        ClassOfEvent,
-	ARange:         Individual,
-	ASubPropertyOf: ClassTemporalPartOfValue,
-	AnInverseOf:    ValueHasEndOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classEndsValue"},
+	ADomain:           ClassOfEvent,
+	ARange:            Individual,
+	ASubPropertyOf:    ClassTemporalPartOfValue,
+	AnInverseOf:       ValueHasEndOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5846,27 +5446,22 @@ type KindClassHasBeginningOccurrence interface {
 
 type classHasBeginningOccurrenceI struct{ sst.ElementInfo }
 
-func (classHasBeginningOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasBeginningOccurrence() {
-}
-func (classHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasBeginningOccurrence() {
-}
-func (classHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartOccurrence() {
-}
-func (classHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartOccurrence() {
-}
-func (classHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classHasBeginningOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasBeginningOccurrence()      {}
+func (classHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasBeginningOccurrence()    {}
+func (classHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartOccurrence()         {}
+func (classHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartOccurrence() {}
+func (classHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
 
 var classHasBeginningOccurrenceKindInterface reflect.Type
 
 var ClassHasBeginningOccurrence = classHasBeginningOccurrenceI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "classHasBeginningOccurrence"},
-	ADomain:        ClassOfIndividual,
-	ARange:         ClassOfEvent,
-	ASubPropertyOf: ClassHasTemporalPartOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classHasBeginningOccurrence"},
+	ADomain:           ClassOfIndividual,
+	ARange:            ClassOfEvent,
+	ASubPropertyOf:    ClassHasTemporalPartOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5886,28 +5481,23 @@ type KindClassHasBeginningValue interface {
 
 type classHasBeginningValueI struct{ sst.ElementInfo }
 
-func (classHasBeginningValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasBeginningValue() {
-}
-func (classHasBeginningValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasBeginningValue() {
-}
-func (classHasBeginningValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartValue() {
-}
-func (classHasBeginningValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartValue() {
-}
-func (classHasBeginningValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classHasBeginningValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasBeginningValue()      {}
+func (classHasBeginningValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasBeginningValue()    {}
+func (classHasBeginningValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartValue()         {}
+func (classHasBeginningValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartValue() {}
+func (classHasBeginningValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()            {}
 
 var classHasBeginningValueKindInterface reflect.Type
 
 var ClassHasBeginningValue = classHasBeginningValueI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "classHasBeginningValue"},
-	ADomain:        ClassOfIndividual,
-	ARange:         Event,
-	ASubPropertyOf: ClassHasTemporalPartValue,
-	AnInverseOf:    ValueBeginsOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classHasBeginningValue"},
+	ADomain:           ClassOfIndividual,
+	ARange:            Event,
+	ASubPropertyOf:    ClassHasTemporalPartValue,
+	AnInverseOf:       ValueBeginsOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5927,22 +5517,19 @@ type KindClassHasCauseOccurrence interface {
 
 type classHasCauseOccurrenceI struct{ sst.ElementInfo }
 
-func (classHasCauseOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOccurrence() {
-}
-func (classHasCauseOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOccurrence() {
-}
-func (classHasCauseOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classHasCauseOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOccurrence()   {}
+func (classHasCauseOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOccurrence() {}
+func (classHasCauseOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
 
 var classHasCauseOccurrenceKindInterface reflect.Type
 
 var ClassHasCauseOccurrence = classHasCauseOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classHasCauseOccurrence"},
-	ADomain: ClassOfEvent,
-	ARange:  ClassOfActivity,
+	ADomain:           ClassOfEvent,
+	ARange:            ClassOfActivity,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -5962,28 +5549,23 @@ type KindClassHasCauseOfBeginningOccurrence interface {
 
 type classHasCauseOfBeginningOccurrenceI struct{ sst.ElementInfo }
 
-func (classHasCauseOfBeginningOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfBeginningOccurrence() {
-}
-func (classHasCauseOfBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfBeginningOccurrence() {
-}
-func (classHasCauseOfBeginningOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classHasCauseOfBeginningOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfBeginningOccurrence()   {}
+func (classHasCauseOfBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfBeginningOccurrence() {}
+func (classHasCauseOfBeginningOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                     {}
 
 var classHasCauseOfBeginningOccurrenceKindInterface reflect.Type
 
 var ClassHasCauseOfBeginningOccurrence = classHasCauseOfBeginningOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classHasCauseOfBeginningOccurrence"},
-	ADomain: ClassOfIndividual,
-	ARange:  ClassOfActivity,
+	ADomain:           ClassOfIndividual,
+	ARange:            ClassOfActivity,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (classCausesBeginningOfOccurrenceI) InverseOf() sst.ElementInformer {
-	return ClassHasCauseOfBeginningOccurrence
-}
+func (classCausesBeginningOfOccurrenceI) InverseOf() sst.ElementInformer { return ClassHasCauseOfBeginningOccurrence }
 
 // Definitions of lci.classHasCauseOfBeginningValue
 
@@ -5999,29 +5581,24 @@ type KindClassHasCauseOfBeginningValue interface {
 
 type classHasCauseOfBeginningValueI struct{ sst.ElementInfo }
 
-func (classHasCauseOfBeginningValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfBeginningValue() {
-}
-func (classHasCauseOfBeginningValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfBeginningValue() {
-}
-func (classHasCauseOfBeginningValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classHasCauseOfBeginningValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfBeginningValue()   {}
+func (classHasCauseOfBeginningValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfBeginningValue() {}
+func (classHasCauseOfBeginningValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                {}
 
 var classHasCauseOfBeginningValueKindInterface reflect.Type
 
 var ClassHasCauseOfBeginningValue = classHasCauseOfBeginningValueI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classHasCauseOfBeginningValue"},
-	ADomain:     ClassOfIndividual,
-	ARange:      Activity,
-	AnInverseOf: ValueCausesBeginningOfOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classHasCauseOfBeginningValue"},
+	ADomain:           ClassOfIndividual,
+	ARange:            Activity,
+	AnInverseOf:       ValueCausesBeginningOfOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (valueCausesBeginningOfOccurrenceI) InverseOf() sst.ElementInformer {
-	return ClassHasCauseOfBeginningValue
-}
+func (valueCausesBeginningOfOccurrenceI) InverseOf() sst.ElementInformer { return ClassHasCauseOfBeginningValue }
 
 // Definitions of lci.classHasCauseOfEndOccurrence
 
@@ -6037,28 +5614,23 @@ type KindClassHasCauseOfEndOccurrence interface {
 
 type classHasCauseOfEndOccurrenceI struct{ sst.ElementInfo }
 
-func (classHasCauseOfEndOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfEndOccurrence() {
-}
-func (classHasCauseOfEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfEndOccurrence() {
-}
-func (classHasCauseOfEndOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classHasCauseOfEndOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfEndOccurrence()   {}
+func (classHasCauseOfEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfEndOccurrence() {}
+func (classHasCauseOfEndOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
 
 var classHasCauseOfEndOccurrenceKindInterface reflect.Type
 
 var ClassHasCauseOfEndOccurrence = classHasCauseOfEndOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classHasCauseOfEndOccurrence"},
-	ADomain: ClassOfIndividual,
-	ARange:  ClassOfActivity,
+	ADomain:           ClassOfIndividual,
+	ARange:            ClassOfActivity,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (classCausesEndOfOccurrenceI) InverseOf() sst.ElementInformer {
-	return ClassHasCauseOfEndOccurrence
-}
+func (classCausesEndOfOccurrenceI) InverseOf() sst.ElementInformer { return ClassHasCauseOfEndOccurrence }
 
 // Definitions of lci.classHasCauseOfEndValue
 
@@ -6074,23 +5646,20 @@ type KindClassHasCauseOfEndValue interface {
 
 type classHasCauseOfEndValueI struct{ sst.ElementInfo }
 
-func (classHasCauseOfEndValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfEndValue() {
-}
-func (classHasCauseOfEndValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfEndValue() {
-}
-func (classHasCauseOfEndValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classHasCauseOfEndValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfEndValue()   {}
+func (classHasCauseOfEndValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseOfEndValue() {}
+func (classHasCauseOfEndValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
 
 var classHasCauseOfEndValueKindInterface reflect.Type
 
 var ClassHasCauseOfEndValue = classHasCauseOfEndValueI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classHasCauseOfEndValue"},
-	ADomain:     ClassOfIndividual,
-	ARange:      Activity,
-	AnInverseOf: ValueCausesEndOfOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classHasCauseOfEndValue"},
+	ADomain:           ClassOfIndividual,
+	ARange:            Activity,
+	AnInverseOf:       ValueCausesEndOfOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6110,23 +5679,20 @@ type KindClassHasCauseValue interface {
 
 type classHasCauseValueI struct{ sst.ElementInfo }
 
-func (classHasCauseValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseValue() {
-}
-func (classHasCauseValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseValue() {
-}
-func (classHasCauseValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classHasCauseValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseValue()   {}
+func (classHasCauseValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasCauseValue() {}
+func (classHasCauseValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
 
 var classHasCauseValueKindInterface reflect.Type
 
 var ClassHasCauseValue = classHasCauseValueI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classHasCauseValue"},
-	ADomain:     ClassOfEvent,
-	ARange:      Activity,
-	AnInverseOf: ValueCausesOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classHasCauseValue"},
+	ADomain:           ClassOfEvent,
+	ARange:            Activity,
+	AnInverseOf:       ValueCausesOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6146,27 +5712,22 @@ type KindClassHasEndOccurrence interface {
 
 type classHasEndOccurrenceI struct{ sst.ElementInfo }
 
-func (classHasEndOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasEndOccurrence() {
-}
-func (classHasEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasEndOccurrence() {
-}
-func (classHasEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartOccurrence() {
-}
-func (classHasEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartOccurrence() {
-}
-func (classHasEndOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classHasEndOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasEndOccurrence()            {}
+func (classHasEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasEndOccurrence()          {}
+func (classHasEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartOccurrence()         {}
+func (classHasEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartOccurrence() {}
+func (classHasEndOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
 
 var classHasEndOccurrenceKindInterface reflect.Type
 
 var ClassHasEndOccurrence = classHasEndOccurrenceI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "classHasEndOccurrence"},
-	ADomain:        ClassOfIndividual,
-	ARange:         ClassOfEvent,
-	ASubPropertyOf: ClassHasTemporalPartOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classHasEndOccurrence"},
+	ADomain:           ClassOfIndividual,
+	ARange:            ClassOfEvent,
+	ASubPropertyOf:    ClassHasTemporalPartOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6186,26 +5747,23 @@ type KindClassHasEndValue interface {
 
 type classHasEndValueI struct{ sst.ElementInfo }
 
-func (classHasEndValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasEndValue() {}
-func (classHasEndValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasEndValue() {
-}
-func (classHasEndValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartValue() {
-}
-func (classHasEndValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartValue() {
-}
-func (classHasEndValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (classHasEndValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasEndValue()            {}
+func (classHasEndValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasEndValue()          {}
+func (classHasEndValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartValue()         {}
+func (classHasEndValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartValue() {}
+func (classHasEndValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()            {}
 
 var classHasEndValueKindInterface reflect.Type
 
 var ClassHasEndValue = classHasEndValueI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "classHasEndValue"},
-	ADomain:        ClassOfIndividual,
-	ARange:         Event,
-	ASubPropertyOf: ClassHasTemporalPartValue,
-	AnInverseOf:    ValueEndsOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classHasEndValue"},
+	ADomain:           ClassOfIndividual,
+	ARange:            Event,
+	ASubPropertyOf:    ClassHasTemporalPartValue,
+	AnInverseOf:       ValueEndsOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6225,23 +5783,20 @@ type KindClassHasPartOccurrence interface {
 
 type classHasPartOccurrenceI struct{ sst.ElementInfo }
 
-func (classHasPartOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartOccurrence() {
-}
-func (classHasPartOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartOccurrence() {
-}
-func (classHasPartOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classHasPartOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartOccurrence()   {}
+func (classHasPartOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartOccurrence() {}
+func (classHasPartOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
 
 var classHasPartOccurrenceKindInterface reflect.Type
 
 var ClassHasPartOccurrence = classHasPartOccurrenceI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classHasPartOccurrence"},
-	ADomain:     ClassOfIndividual,
-	ARange:      ClassOfIndividual,
-	AnInverseOf: ClassPartOfOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classHasPartOccurrence"},
+	ADomain:           ClassOfIndividual,
+	ARange:            ClassOfIndividual,
+	AnInverseOf:       ClassPartOfOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6261,23 +5816,20 @@ type KindClassHasPartValue interface {
 
 type classHasPartValueI struct{ sst.ElementInfo }
 
-func (classHasPartValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartValue() {
-}
-func (classHasPartValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartValue() {
-}
-func (classHasPartValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classHasPartValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartValue()   {}
+func (classHasPartValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartValue() {}
+func (classHasPartValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
 
 var classHasPartValueKindInterface reflect.Type
 
 var ClassHasPartValue = classHasPartValueI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classHasPartValue"},
-	ADomain:     ClassOfIndividual,
-	ARange:      Individual,
-	AnInverseOf: ValuePartOfOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classHasPartValue"},
+	ADomain:           ClassOfIndividual,
+	ARange:            Individual,
+	AnInverseOf:       ValuePartOfOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6297,32 +5849,26 @@ type KindClassHasTemporalPartOccurrence interface {
 
 type classHasTemporalPartOccurrenceI struct{ sst.ElementInfo }
 
-func (classHasTemporalPartOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartOccurrence() {
-}
-func (classHasTemporalPartOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartOccurrence() {
-}
-func (classHasTemporalPartOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartOccurrence() {
-}
-func (classHasTemporalPartOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classHasTemporalPartOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartOccurrence()   {}
+func (classHasTemporalPartOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartOccurrence()         {}
+func (classHasTemporalPartOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartOccurrence() {}
+func (classHasTemporalPartOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
 
 var classHasTemporalPartOccurrenceKindInterface reflect.Type
 
 var ClassHasTemporalPartOccurrence = classHasTemporalPartOccurrenceI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "classHasTemporalPartOccurrence"},
-	ADomain:        ClassOfIndividual,
-	ARange:         ClassOfIndividual,
-	ASubPropertyOf: ClassHasPartOccurrence,
-	AnInverseOf:    ClassTemporalPartOfOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classHasTemporalPartOccurrence"},
+	ADomain:           ClassOfIndividual,
+	ARange:            ClassOfIndividual,
+	ASubPropertyOf:    ClassHasPartOccurrence,
+	AnInverseOf:       ClassTemporalPartOfOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (classTemporalPartOfOccurrenceI) InverseOf() sst.ElementInformer {
-	return ClassHasTemporalPartOccurrence
-}
+func (classTemporalPartOfOccurrenceI) InverseOf() sst.ElementInformer { return ClassHasTemporalPartOccurrence }
 
 // Definitions of lci.classHasTemporalPartValue
 
@@ -6338,32 +5884,26 @@ type KindClassHasTemporalPartValue interface {
 
 type classHasTemporalPartValueI struct{ sst.ElementInfo }
 
-func (classHasTemporalPartValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartValue() {
-}
-func (classHasTemporalPartValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartValue() {
-}
-func (classHasTemporalPartValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartValue() {
-}
-func (classHasTemporalPartValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classHasTemporalPartValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartValue()   {}
+func (classHasTemporalPartValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasPartValue()         {}
+func (classHasTemporalPartValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classHasTemporalPartValue() {}
+func (classHasTemporalPartValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()            {}
 
 var classHasTemporalPartValueKindInterface reflect.Type
 
 var ClassHasTemporalPartValue = classHasTemporalPartValueI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "classHasTemporalPartValue"},
-	ADomain:        ClassOfIndividual,
-	ARange:         Individual,
-	ASubPropertyOf: ClassHasPartValue,
-	AnInverseOf:    ValueTemporalPartOfOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classHasTemporalPartValue"},
+	ADomain:           ClassOfIndividual,
+	ARange:            Individual,
+	ASubPropertyOf:    ClassHasPartValue,
+	AnInverseOf:       ValueTemporalPartOfOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (valueTemporalPartOfOccurrenceI) InverseOf() sst.ElementInformer {
-	return ClassHasTemporalPartValue
-}
+func (valueTemporalPartOfOccurrenceI) InverseOf() sst.ElementInformer { return ClassHasTemporalPartValue }
 
 // Definitions of lci.classLocatedRelativeToOccurrence
 
@@ -6379,22 +5919,19 @@ type KindClassLocatedRelativeToOccurrence interface {
 
 type classLocatedRelativeToOccurrenceI struct{ sst.ElementInfo }
 
-func (classLocatedRelativeToOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classLocatedRelativeToOccurrence() {
-}
-func (classLocatedRelativeToOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classLocatedRelativeToOccurrence() {
-}
-func (classLocatedRelativeToOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classLocatedRelativeToOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classLocatedRelativeToOccurrence()   {}
+func (classLocatedRelativeToOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classLocatedRelativeToOccurrence() {}
+func (classLocatedRelativeToOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                   {}
 
 var classLocatedRelativeToOccurrenceKindInterface reflect.Type
 
 var ClassLocatedRelativeToOccurrence = classLocatedRelativeToOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classLocatedRelativeToOccurrence"},
-	ADomain: ClassOfIndividual,
-	ARange:  ClassOfIndividual,
+	ADomain:           ClassOfIndividual,
+	ARange:            ClassOfIndividual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6412,29 +5949,24 @@ type KindClassLocatedRelativeToValue interface {
 
 type classLocatedRelativeToValueI struct{ sst.ElementInfo }
 
-func (classLocatedRelativeToValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classLocatedRelativeToValue() {
-}
-func (classLocatedRelativeToValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classLocatedRelativeToValue() {
-}
-func (classLocatedRelativeToValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classLocatedRelativeToValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classLocatedRelativeToValue()   {}
+func (classLocatedRelativeToValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classLocatedRelativeToValue() {}
+func (classLocatedRelativeToValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
 
 var classLocatedRelativeToValueKindInterface reflect.Type
 
 var ClassLocatedRelativeToValue = classLocatedRelativeToValueI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classLocatedRelativeToValue"},
-	ADomain:     ClassOfIndividual,
-	ARange:      Individual,
-	AnInverseOf: ValueLocatedRelativeToOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classLocatedRelativeToValue"},
+	ADomain:           ClassOfIndividual,
+	ARange:            Individual,
+	AnInverseOf:       ValueLocatedRelativeToOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (valueLocatedRelativeToOccurrenceI) InverseOf() sst.ElementInformer {
-	return ClassLocatedRelativeToValue
-}
+func (valueLocatedRelativeToOccurrenceI) InverseOf() sst.ElementInformer { return ClassLocatedRelativeToValue }
 
 // Definitions of lci.classPartOfOccurrence
 
@@ -6450,22 +5982,19 @@ type KindClassPartOfOccurrence interface {
 
 type classPartOfOccurrenceI struct{ sst.ElementInfo }
 
-func (classPartOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfOccurrence() {
-}
-func (classPartOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfOccurrence() {
-}
-func (classPartOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classPartOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfOccurrence()   {}
+func (classPartOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfOccurrence() {}
+func (classPartOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
 
 var classPartOfOccurrenceKindInterface reflect.Type
 
 var ClassPartOfOccurrence = classPartOfOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classPartOfOccurrence"},
-	ADomain: ClassOfIndividual,
-	ARange:  ClassOfIndividual,
+	ADomain:           ClassOfIndividual,
+	ARange:            ClassOfIndividual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6485,21 +6014,20 @@ type KindClassPartOfValue interface {
 
 type classPartOfValueI struct{ sst.ElementInfo }
 
-func (classPartOfValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfValue() {}
-func (classPartOfValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfValue() {
-}
-func (classPartOfValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (classPartOfValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfValue()   {}
+func (classPartOfValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfValue() {}
+func (classPartOfValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
 
 var classPartOfValueKindInterface reflect.Type
 
 var ClassPartOfValue = classPartOfValueI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classPartOfValue"},
-	ADomain:     ClassOfIndividual,
-	ARange:      Individual,
-	AnInverseOf: ValueHasPartOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classPartOfValue"},
+	ADomain:           ClassOfIndividual,
+	ARange:            Individual,
+	AnInverseOf:       ValueHasPartOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6519,23 +6047,20 @@ type KindClassReferencedByOccurrence interface {
 
 type classReferencedByOccurrenceI struct{ sst.ElementInfo }
 
-func (classReferencedByOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencedByOccurrence() {
-}
-func (classReferencedByOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencedByOccurrence() {
-}
-func (classReferencedByOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classReferencedByOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencedByOccurrence()   {}
+func (classReferencedByOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencedByOccurrence() {}
+func (classReferencedByOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
 
 var classReferencedByOccurrenceKindInterface reflect.Type
 
 var ClassReferencedByOccurrence = classReferencedByOccurrenceI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classReferencedByOccurrence"},
-	ADomain:     Class,
-	ARange:      ClassOfActivity,
-	AnInverseOf: ClassReferencesOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classReferencedByOccurrence"},
+	ADomain:           Class,
+	ARange:            ClassOfActivity,
+	AnInverseOf:       ClassReferencesOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6555,23 +6080,20 @@ type KindClassReferencedByValue interface {
 
 type classReferencedByValueI struct{ sst.ElementInfo }
 
-func (classReferencedByValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencedByValue() {
-}
-func (classReferencedByValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencedByValue() {
-}
-func (classReferencedByValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classReferencedByValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencedByValue()   {}
+func (classReferencedByValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencedByValue() {}
+func (classReferencedByValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
 
 var classReferencedByValueKindInterface reflect.Type
 
 var ClassReferencedByValue = classReferencedByValueI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classReferencedByValue"},
-	ADomain:     Class,
-	ARange:      Activity,
-	AnInverseOf: ValueReferencesOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classReferencedByValue"},
+	ADomain:           Class,
+	ARange:            Activity,
+	AnInverseOf:       ValueReferencesOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6591,22 +6113,19 @@ type KindClassReferencesOccurrence interface {
 
 type classReferencesOccurrenceI struct{ sst.ElementInfo }
 
-func (classReferencesOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencesOccurrence() {
-}
-func (classReferencesOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencesOccurrence() {
-}
-func (classReferencesOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classReferencesOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencesOccurrence()   {}
+func (classReferencesOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencesOccurrence() {}
+func (classReferencesOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()            {}
 
 var classReferencesOccurrenceKindInterface reflect.Type
 
 var ClassReferencesOccurrence = classReferencesOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classReferencesOccurrence"},
-	ADomain: ClassOfActivity,
-	ARange:  Class,
+	ADomain:           ClassOfActivity,
+	ARange:            Class,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6626,23 +6145,20 @@ type KindClassReferencesValue interface {
 
 type classReferencesValueI struct{ sst.ElementInfo }
 
-func (classReferencesValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencesValue() {
-}
-func (classReferencesValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencesValue() {
-}
-func (classReferencesValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classReferencesValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencesValue()   {}
+func (classReferencesValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classReferencesValue() {}
+func (classReferencesValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
 
 var classReferencesValueKindInterface reflect.Type
 
 var ClassReferencesValue = classReferencesValueI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "classReferencesValue"},
-	ADomain:     ClassOfActivity,
-	ARange:      Thing,
-	AnInverseOf: ValueReferencedByOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classReferencesValue"},
+	ADomain:           ClassOfActivity,
+	ARange:            Thing,
+	AnInverseOf:       ValueReferencedByOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6662,31 +6178,25 @@ type KindClassTemporalPartOfOccurrence interface {
 
 type classTemporalPartOfOccurrenceI struct{ sst.ElementInfo }
 
-func (classTemporalPartOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfOccurrence() {
-}
-func (classTemporalPartOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfOccurrence() {
-}
-func (classTemporalPartOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfOccurrence() {
-}
-func (classTemporalPartOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classTemporalPartOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfOccurrence()   {}
+func (classTemporalPartOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfOccurrence()         {}
+func (classTemporalPartOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfOccurrence() {}
+func (classTemporalPartOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                {}
 
 var classTemporalPartOfOccurrenceKindInterface reflect.Type
 
 var ClassTemporalPartOfOccurrence = classTemporalPartOfOccurrenceI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "classTemporalPartOfOccurrence"},
-	ADomain:        ClassOfIndividual,
-	ARange:         ClassOfIndividual,
-	ASubPropertyOf: ClassPartOfOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classTemporalPartOfOccurrence"},
+	ADomain:           ClassOfIndividual,
+	ARange:            ClassOfIndividual,
+	ASubPropertyOf:    ClassPartOfOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (classHasTemporalPartOccurrenceI) InverseOf() sst.ElementInformer {
-	return ClassTemporalPartOfOccurrence
-}
+func (classHasTemporalPartOccurrenceI) InverseOf() sst.ElementInformer { return ClassTemporalPartOfOccurrence }
 
 // Definitions of lci.classTemporalPartOfValue
 
@@ -6702,32 +6212,26 @@ type KindClassTemporalPartOfValue interface {
 
 type classTemporalPartOfValueI struct{ sst.ElementInfo }
 
-func (classTemporalPartOfValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfValue() {
-}
-func (classTemporalPartOfValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfValue() {
-}
-func (classTemporalPartOfValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfValue() {
-}
-func (classTemporalPartOfValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (classTemporalPartOfValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfValue()   {}
+func (classTemporalPartOfValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classPartOfValue()         {}
+func (classTemporalPartOfValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23classTemporalPartOfValue() {}
+func (classTemporalPartOfValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
 
 var classTemporalPartOfValueKindInterface reflect.Type
 
 var ClassTemporalPartOfValue = classTemporalPartOfValueI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "classTemporalPartOfValue"},
-	ADomain:        ClassOfIndividual,
-	ARange:         Individual,
-	ASubPropertyOf: ClassPartOfValue,
-	AnInverseOf:    ValueHasTemporalPartOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "classTemporalPartOfValue"},
+	ADomain:           ClassOfIndividual,
+	ARange:            Individual,
+	ASubPropertyOf:    ClassPartOfValue,
+	AnInverseOf:       ValueHasTemporalPartOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (valueHasTemporalPartOccurrenceI) InverseOf() sst.ElementInformer {
-	return ClassTemporalPartOfValue
-}
+func (valueHasTemporalPartOccurrenceI) InverseOf() sst.ElementInformer { return ClassTemporalPartOfValue }
 
 // Definitions of lci.connectedTo
 
@@ -6751,11 +6255,11 @@ var connectedToKindInterface reflect.Type
 
 var ConnectedTo = connectedToI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "connectedTo"},
-	ADomain: Individual,
-	ARange:  Individual,
+	ADomain:           Individual,
+	ARange:            Individual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6780,13 +6284,13 @@ func (containedByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschem
 var containedByKindInterface reflect.Type
 
 var ContainedBy = containedByI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "containedBy"},
-	ADomain:     Individual,
-	ARange:      Individual,
-	AnInverseOf: Contains,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "containedBy"},
+	ADomain:           Individual,
+	ARange:            Individual,
+	AnInverseOf:       Contains,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6814,11 +6318,11 @@ var containsKindInterface reflect.Type
 
 var Contains = containsI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "contains"},
-	ADomain: Individual,
-	ARange:  Individual,
+	ADomain:           Individual,
+	ARange:            Individual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6846,12 +6350,12 @@ func (definitionByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dsche
 var definitionByKindInterface reflect.Type
 
 var DefinitionBy = definitionByI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "definitionBy"},
-	ADomain:        Class,
-	ASubPropertyOf: RepresentationBy,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "definitionBy"},
+	ADomain:           Class,
+	ASubPropertyOf:    RepresentationBy,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6869,29 +6373,23 @@ type KindDefinitionByInformationContent interface {
 
 type definitionByInformationContentI struct{ sst.ElementInfo }
 
-func (definitionByInformationContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23definitionByInformationContent() {
-}
-func (definitionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23definitionBy() {
-}
-func (definitionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23definitionByInformationContent() {
-}
-func (definitionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {
-}
-func (definitionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationContent() {
-}
-func (definitionByInformationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (definitionByInformationContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23definitionByInformationContent()       {}
+func (definitionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23definitionBy()                       {}
+func (definitionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23definitionByInformationContent()     {}
+func (definitionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy()                   {}
+func (definitionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationContent() {}
+func (definitionByInformationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                     {}
 
 var definitionByInformationContentKindInterface reflect.Type
 
 var DefinitionByInformationContent = definitionByInformationContentI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "definitionByInformationContent"},
-	ADomain:        Thing,
-	ARange:         InformationContent,
-	ASubPropertyOf: RepresentationByInformationContent,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "definitionByInformationContent"},
+	ADomain:           Thing,
+	ARange:            InformationContent,
+	ASubPropertyOf:    RepresentationByInformationContent,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6909,29 +6407,23 @@ type KindDefinitionByInformationObject interface {
 
 type definitionByInformationObjectI struct{ sst.ElementInfo }
 
-func (definitionByInformationObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23definitionByInformationObject() {
-}
-func (definitionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23definitionBy() {
-}
-func (definitionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23definitionByInformationObject() {
-}
-func (definitionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {
-}
-func (definitionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationObject() {
-}
-func (definitionByInformationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (definitionByInformationObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23definitionByInformationObject()       {}
+func (definitionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23definitionBy()                      {}
+func (definitionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23definitionByInformationObject()     {}
+func (definitionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy()                  {}
+func (definitionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationObject() {}
+func (definitionByInformationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                    {}
 
 var definitionByInformationObjectKindInterface reflect.Type
 
 var DefinitionByInformationObject = definitionByInformationObjectI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "definitionByInformationObject"},
-	ADomain:        Thing,
-	ARange:         InformationObject,
-	ASubPropertyOf: RepresentationByInformationObject,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "definitionByInformationObject"},
+	ADomain:           Thing,
+	ARange:            InformationObject,
+	ASubPropertyOf:    RepresentationByInformationObject,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6957,12 +6449,12 @@ func (descriptionByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dsch
 var descriptionByKindInterface reflect.Type
 
 var DescriptionBy = descriptionByI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "descriptionBy"},
-	ADomain:        Thing,
-	ASubPropertyOf: RepresentationBy,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "descriptionBy"},
+	ADomain:           Thing,
+	ASubPropertyOf:    RepresentationBy,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -6980,29 +6472,23 @@ type KindDescriptionByInformationContent interface {
 
 type descriptionByInformationContentI struct{ sst.ElementInfo }
 
-func (descriptionByInformationContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionByInformationContent() {
-}
-func (descriptionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionBy() {
-}
-func (descriptionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionByInformationContent() {
-}
-func (descriptionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {
-}
-func (descriptionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationContent() {
-}
-func (descriptionByInformationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (descriptionByInformationContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionByInformationContent()      {}
+func (descriptionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionBy()                      {}
+func (descriptionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionByInformationContent()    {}
+func (descriptionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy()                   {}
+func (descriptionByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationContent() {}
+func (descriptionByInformationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                     {}
 
 var descriptionByInformationContentKindInterface reflect.Type
 
 var DescriptionByInformationContent = descriptionByInformationContentI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "descriptionByInformationContent"},
-	ADomain:        Thing,
-	ARange:         InformationContent,
-	ASubPropertyOf: RepresentationByInformationContent,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "descriptionByInformationContent"},
+	ADomain:           Thing,
+	ARange:            InformationContent,
+	ASubPropertyOf:    RepresentationByInformationContent,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7020,29 +6506,23 @@ type KindDescriptionByInformationObject interface {
 
 type descriptionByInformationObjectI struct{ sst.ElementInfo }
 
-func (descriptionByInformationObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionByInformationObject() {
-}
-func (descriptionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionBy() {
-}
-func (descriptionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionByInformationObject() {
-}
-func (descriptionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {
-}
-func (descriptionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationObject() {
-}
-func (descriptionByInformationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (descriptionByInformationObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionByInformationObject()      {}
+func (descriptionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionBy()                     {}
+func (descriptionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionByInformationObject()    {}
+func (descriptionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy()                  {}
+func (descriptionByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationObject() {}
+func (descriptionByInformationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                    {}
 
 var descriptionByInformationObjectKindInterface reflect.Type
 
 var DescriptionByInformationObject = descriptionByInformationObjectI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "descriptionByInformationObject"},
-	ADomain:        Thing,
-	ARange:         InformationObject,
-	ASubPropertyOf: RepresentationByInformationObject,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "descriptionByInformationObject"},
+	ADomain:           Thing,
+	ARange:            InformationObject,
+	ASubPropertyOf:    RepresentationByInformationObject,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7060,24 +6540,20 @@ type KindDescriptionOfExampleBy interface {
 
 type descriptionOfExampleByI struct{ sst.ElementInfo }
 
-func (descriptionOfExampleByI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleBy() {
-}
-func (descriptionOfExampleByI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleBy() {
-}
-func (descriptionOfExampleByI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {
-}
-func (descriptionOfExampleByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (descriptionOfExampleByI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleBy()   {}
+func (descriptionOfExampleByI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleBy() {}
+func (descriptionOfExampleByI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy()       {}
+func (descriptionOfExampleByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
 
 var descriptionOfExampleByKindInterface reflect.Type
 
 var DescriptionOfExampleBy = descriptionOfExampleByI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "descriptionOfExampleBy"},
-	ADomain:        Class,
-	ASubPropertyOf: RepresentationBy,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "descriptionOfExampleBy"},
+	ADomain:           Class,
+	ASubPropertyOf:    RepresentationBy,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7095,29 +6571,23 @@ type KindDescriptionOfExampleByInformationContent interface {
 
 type descriptionOfExampleByInformationContentI struct{ sst.ElementInfo }
 
-func (descriptionOfExampleByInformationContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleByInformationContent() {
-}
-func (descriptionOfExampleByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleBy() {
-}
-func (descriptionOfExampleByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleByInformationContent() {
-}
-func (descriptionOfExampleByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {
-}
-func (descriptionOfExampleByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationContent() {
-}
-func (descriptionOfExampleByInformationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (descriptionOfExampleByInformationContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleByInformationContent()   {}
+func (descriptionOfExampleByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleBy()                   {}
+func (descriptionOfExampleByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleByInformationContent() {}
+func (descriptionOfExampleByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy()                         {}
+func (descriptionOfExampleByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationContent()       {}
+func (descriptionOfExampleByInformationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                           {}
 
 var descriptionOfExampleByInformationContentKindInterface reflect.Type
 
 var DescriptionOfExampleByInformationContent = descriptionOfExampleByInformationContentI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "descriptionOfExampleByInformationContent"},
-	ADomain:        Class,
-	ARange:         InformationContent,
-	ASubPropertyOf: RepresentationByInformationContent,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "descriptionOfExampleByInformationContent"},
+	ADomain:           Class,
+	ARange:            InformationContent,
+	ASubPropertyOf:    RepresentationByInformationContent,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7135,29 +6605,23 @@ type KindDescriptionOfExampleByInformationObject interface {
 
 type descriptionOfExampleByInformationObjectI struct{ sst.ElementInfo }
 
-func (descriptionOfExampleByInformationObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleByInformationObject() {
-}
-func (descriptionOfExampleByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleBy() {
-}
-func (descriptionOfExampleByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleByInformationObject() {
-}
-func (descriptionOfExampleByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {
-}
-func (descriptionOfExampleByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationObject() {
-}
-func (descriptionOfExampleByInformationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (descriptionOfExampleByInformationObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleByInformationObject()   {}
+func (descriptionOfExampleByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleBy()                  {}
+func (descriptionOfExampleByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptionOfExampleByInformationObject() {}
+func (descriptionOfExampleByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy()                        {}
+func (descriptionOfExampleByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationObject()       {}
+func (descriptionOfExampleByInformationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                          {}
 
 var descriptionOfExampleByInformationObjectKindInterface reflect.Type
 
 var DescriptionOfExampleByInformationObject = descriptionOfExampleByInformationObjectI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "descriptionOfExampleByInformationObject"},
-	ADomain:        Class,
-	ARange:         InformationObject,
-	ASubPropertyOf: RepresentationByInformationObject,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "descriptionOfExampleByInformationObject"},
+	ADomain:           Class,
+	ARange:            InformationObject,
+	ASubPropertyOf:    RepresentationByInformationObject,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7175,22 +6639,19 @@ type KindDescriptiveQuantityValue interface {
 
 type descriptiveQuantityValueI struct{ sst.ElementInfo }
 
-func (descriptiveQuantityValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptiveQuantityValue() {
-}
-func (descriptiveQuantityValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptiveQuantityValue() {
-}
-func (descriptiveQuantityValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (descriptiveQuantityValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptiveQuantityValue()   {}
+func (descriptiveQuantityValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23descriptiveQuantityValue() {}
+func (descriptiveQuantityValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
 
 var descriptiveQuantityValueKindInterface reflect.Type
 
 var DescriptiveQuantityValue = descriptiveQuantityValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "descriptiveQuantityValue"},
-	ADomain: Quantity,
-	ARange:  xsd.String,
+	ADomain:           Quantity,
+	ARange:            xsd.String,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7208,24 +6669,21 @@ type KindDirectlyConnectedTo interface {
 
 type directlyConnectedToI struct{ sst.ElementInfo }
 
-func (directlyConnectedToI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23directlyConnectedTo() {
-}
-func (directlyConnectedToI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23connectedTo() {}
-func (directlyConnectedToI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23directlyConnectedTo() {
-}
-func (directlyConnectedToI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (directlyConnectedToI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23directlyConnectedTo()   {}
+func (directlyConnectedToI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23connectedTo()         {}
+func (directlyConnectedToI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23directlyConnectedTo() {}
+func (directlyConnectedToI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
 
 var directlyConnectedToKindInterface reflect.Type
 
 var DirectlyConnectedTo = directlyConnectedToI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "directlyConnectedTo"},
-	ADomain:        Individual,
-	ARange:         Individual,
-	ASubPropertyOf: ConnectedTo,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "directlyConnectedTo"},
+	ADomain:           Individual,
+	ARange:            Individual,
+	ASubPropertyOf:    ConnectedTo,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7251,11 +6709,11 @@ var domainMaxKindInterface reflect.Type
 
 var DomainMax = domainMaxI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "domainMax"},
-	ADomain: owl.ObjectProperty,
-	ARange:  xsd.UnsignedInt,
+	ADomain:           owl.ObjectProperty,
+	ARange:            xsd.UnsignedInt,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7281,11 +6739,11 @@ var domainMinKindInterface reflect.Type
 
 var DomainMin = domainMinI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "domainMin"},
-	ADomain: owl.ObjectProperty,
-	ARange:  xsd.UnsignedInt,
+	ADomain:           owl.ObjectProperty,
+	ARange:            xsd.UnsignedInt,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7313,14 +6771,14 @@ func (endsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Res
 var endsKindInterface reflect.Type
 
 var Ends = endsI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "ends"},
-	ADomain:        Event,
-	ARange:         Individual,
-	ASubPropertyOf: TemporalBoundOf,
-	AnInverseOf:    HasEnd,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "ends"},
+	ADomain:           Event,
+	ARange:            Individual,
+	ASubPropertyOf:    TemporalBoundOf,
+	AnInverseOf:       HasEnd,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7349,14 +6807,14 @@ func (featureOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_
 var featureOfKindInterface reflect.Type
 
 var FeatureOf = featureOfI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "featureOf"},
-	ADomain:        Feature,
-	ARange:         ArrangedIndividual,
-	ASubPropertyOf: ArrangedPartOf,
-	AnInverseOf:    HasFeature,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "featureOf"},
+	ADomain:           Feature,
+	ARange:            ArrangedIndividual,
+	ASubPropertyOf:    ArrangedPartOf,
+	AnInverseOf:       HasFeature,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7384,13 +6842,13 @@ func (hasArrangedPartI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Ds
 var hasArrangedPartKindInterface reflect.Type
 
 var HasArrangedPart = hasArrangedPartI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "hasArrangedPart"},
-	ADomain:        ArrangedIndividual,
-	ARange:         Individual,
-	ASubPropertyOf: HasPart,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "hasArrangedPart"},
+	ADomain:           ArrangedIndividual,
+	ARange:            Individual,
+	ASubPropertyOf:    HasPart,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7410,24 +6868,22 @@ type KindHasAssembledPart interface {
 
 type hasAssembledPartI struct{ sst.ElementInfo }
 
-func (hasAssembledPartI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasAssembledPart() {}
-func (hasAssembledPartI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasArrangedPart() {
-}
-func (hasAssembledPartI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasAssembledPart() {
-}
-func (hasAssembledPartI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasPart()        {}
-func (hasAssembledPartI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (hasAssembledPartI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasAssembledPart()   {}
+func (hasAssembledPartI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasArrangedPart()  {}
+func (hasAssembledPartI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasAssembledPart() {}
+func (hasAssembledPartI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasPart()          {}
+func (hasAssembledPartI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
 
 var hasAssembledPartKindInterface reflect.Type
 
 var HasAssembledPart = hasAssembledPartI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "hasAssembledPart"},
-	ADomain:        ArrangedIndividual,
-	ARange:         Individual,
-	ASubPropertyOf: HasArrangedPart,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "hasAssembledPart"},
+	ADomain:           ArrangedIndividual,
+	ARange:            Individual,
+	ASubPropertyOf:    HasArrangedPart,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7457,13 +6913,13 @@ func (hasBeginningI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dsche
 var hasBeginningKindInterface reflect.Type
 
 var HasBeginning = hasBeginningI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "hasBeginning"},
-	ADomain:        Individual,
-	ARange:         Event,
-	ASubPropertyOf: HasTemporalBound,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "hasBeginning"},
+	ADomain:           Individual,
+	ARange:            Event,
+	ASubPropertyOf:    HasTemporalBound,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7491,11 +6947,11 @@ var hasCauseKindInterface reflect.Type
 
 var HasCause = hasCauseI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "hasCause"},
-	ADomain: Event,
-	ARange:  Activity,
+	ADomain:           Event,
+	ARange:            Activity,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7515,22 +6971,19 @@ type KindHasCauseOfBeginning interface {
 
 type hasCauseOfBeginningI struct{ sst.ElementInfo }
 
-func (hasCauseOfBeginningI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasCauseOfBeginning() {
-}
-func (hasCauseOfBeginningI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasCauseOfBeginning() {
-}
-func (hasCauseOfBeginningI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (hasCauseOfBeginningI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasCauseOfBeginning()   {}
+func (hasCauseOfBeginningI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasCauseOfBeginning() {}
+func (hasCauseOfBeginningI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
 
 var hasCauseOfBeginningKindInterface reflect.Type
 
 var HasCauseOfBeginning = hasCauseOfBeginningI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "hasCauseOfBeginning"},
-	ADomain: Individual,
-	ARange:  Activity,
+	ADomain:           Individual,
+	ARange:            Activity,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7558,11 +7011,11 @@ var hasCauseOfEndKindInterface reflect.Type
 
 var HasCauseOfEnd = hasCauseOfEndI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "hasCauseOfEnd"},
-	ADomain: Individual,
-	ARange:  Activity,
+	ADomain:           Individual,
+	ARange:            Activity,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7592,13 +7045,13 @@ func (hasEndI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23R
 var hasEndKindInterface reflect.Type
 
 var HasEnd = hasEndI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "hasEnd"},
-	ADomain:        Individual,
-	ARange:         Event,
-	ASubPropertyOf: HasTemporalBound,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "hasEnd"},
+	ADomain:           Individual,
+	ARange:            Event,
+	ASubPropertyOf:    HasTemporalBound,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7627,13 +7080,13 @@ func (hasFeatureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema
 var hasFeatureKindInterface reflect.Type
 
 var HasFeature = hasFeatureI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "hasFeature"},
-	ADomain:        ArrangedIndividual,
-	ARange:         Feature,
-	ASubPropertyOf: HasArrangedPart,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "hasFeature"},
+	ADomain:           ArrangedIndividual,
+	ARange:            Feature,
+	ASubPropertyOf:    HasArrangedPart,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7661,11 +7114,11 @@ var hasFirstInPairKindInterface reflect.Type
 
 var HasFirstInPair = hasFirstInPairI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "hasFirstInPair"},
-	ADomain: OrderedPair,
-	ARange:  owl.Thing,
+	ADomain:           OrderedPair,
+	ARange:            owl.Thing,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7690,13 +7143,13 @@ func (hasPartI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23
 var hasPartKindInterface reflect.Type
 
 var HasPart = hasPartI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "hasPart"},
-	ADomain:     Individual,
-	ARange:      Individual,
-	AnInverseOf: PartOf,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "hasPart"},
+	ADomain:           Individual,
+	ARange:            Individual,
+	AnInverseOf:       PartOf,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7724,14 +7177,14 @@ func (hasParticipantI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dsc
 var hasParticipantKindInterface reflect.Type
 
 var HasParticipant = hasParticipantI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "hasParticipant"},
-	ADomain:        Activity,
-	ARange:         Individual,
-	ASubPropertyOf: HasPart,
-	AnInverseOf:    ParticipantIn,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "hasParticipant"},
+	ADomain:           Activity,
+	ARange:            Individual,
+	ASubPropertyOf:    HasPart,
+	AnInverseOf:       ParticipantIn,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7759,11 +7212,11 @@ var hasSecondInPairKindInterface reflect.Type
 
 var HasSecondInPair = hasSecondInPairI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "hasSecondInPair"},
-	ADomain: OrderedPair,
-	ARange:  owl.Thing,
+	ADomain:           OrderedPair,
+	ARange:            owl.Thing,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7781,25 +7234,23 @@ type KindHasTemporalBound interface {
 
 type hasTemporalBoundI struct{ sst.ElementInfo }
 
-func (hasTemporalBoundI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasTemporalBound() {}
-func (hasTemporalBoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasPart()        {}
-func (hasTemporalBoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasTemporalBound() {
-}
-func (hasTemporalBoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasTemporalPart() {
-}
-func (hasTemporalBoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (hasTemporalBoundI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasTemporalBound()   {}
+func (hasTemporalBoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasPart()          {}
+func (hasTemporalBoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasTemporalBound() {}
+func (hasTemporalBoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23hasTemporalPart()  {}
+func (hasTemporalBoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
 
 var hasTemporalBoundKindInterface reflect.Type
 
 var HasTemporalBound = hasTemporalBoundI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "hasTemporalBound"},
-	ADomain:        Individual,
-	ARange:         Event,
-	ASubPropertyOf: HasTemporalPart,
-	AnInverseOf:    TemporalBoundOf,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "hasTemporalBound"},
+	ADomain:           Individual,
+	ARange:            Event,
+	ASubPropertyOf:    HasTemporalPart,
+	AnInverseOf:       TemporalBoundOf,
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: true, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7827,14 +7278,14 @@ func (hasTemporalPartI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Ds
 var hasTemporalPartKindInterface reflect.Type
 
 var HasTemporalPart = hasTemporalPartI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "hasTemporalPart"},
-	ADomain:        Individual,
-	ARange:         Individual,
-	ASubPropertyOf: HasPart,
-	AnInverseOf:    TemporalPartOf,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "hasTemporalPart"},
+	ADomain:           Individual,
+	ARange:            Individual,
+	ASubPropertyOf:    HasPart,
+	AnInverseOf:       TemporalPartOf,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7854,19 +7305,18 @@ type KindIdentificationBy interface {
 
 type identificationByI struct{ sst.ElementInfo }
 
-func (identificationByI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationBy() {}
-func (identificationByI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationBy() {
-}
-func (identificationByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (identificationByI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationBy()   {}
+func (identificationByI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationBy() {}
+func (identificationByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
 
 var identificationByKindInterface reflect.Type
 
 var IdentificationBy = identificationByI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "identificationBy"},
-	ADomain: Thing,
+	ADomain:           Thing,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7884,29 +7334,23 @@ type KindIdentificationByInformationContent interface {
 
 type identificationByInformationContentI struct{ sst.ElementInfo }
 
-func (identificationByInformationContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationByInformationContent() {
-}
-func (identificationByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationBy() {
-}
-func (identificationByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationByInformationContent() {
-}
-func (identificationByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {
-}
-func (identificationByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationContent() {
-}
-func (identificationByInformationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (identificationByInformationContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationByInformationContent()   {}
+func (identificationByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationBy()                   {}
+func (identificationByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationByInformationContent() {}
+func (identificationByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy()                   {}
+func (identificationByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationContent() {}
+func (identificationByInformationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                     {}
 
 var identificationByInformationContentKindInterface reflect.Type
 
 var IdentificationByInformationContent = identificationByInformationContentI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "identificationByInformationContent"},
-	ADomain:        Thing,
-	ARange:         InformationContent,
-	ASubPropertyOf: RepresentationByInformationContent,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "identificationByInformationContent"},
+	ADomain:           Thing,
+	ARange:            InformationContent,
+	ASubPropertyOf:    RepresentationByInformationContent,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7924,29 +7368,23 @@ type KindIdentificationByInformationObject interface {
 
 type identificationByInformationObjectI struct{ sst.ElementInfo }
 
-func (identificationByInformationObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationByInformationObject() {
-}
-func (identificationByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationBy() {
-}
-func (identificationByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationByInformationObject() {
-}
-func (identificationByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {
-}
-func (identificationByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationObject() {
-}
-func (identificationByInformationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (identificationByInformationObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationByInformationObject()   {}
+func (identificationByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationBy()                  {}
+func (identificationByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationByInformationObject() {}
+func (identificationByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy()                  {}
+func (identificationByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationObject() {}
+func (identificationByInformationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                    {}
 
 var identificationByInformationObjectKindInterface reflect.Type
 
 var IdentificationByInformationObject = identificationByInformationObjectI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "identificationByInformationObject"},
-	ADomain:        Thing,
-	ARange:         InformationObject,
-	ASubPropertyOf: RepresentationByInformationObject,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "identificationByInformationObject"},
+	ADomain:           Thing,
+	ARange:            InformationObject,
+	ASubPropertyOf:    RepresentationByInformationObject,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -7964,27 +7402,22 @@ type KindIdentificationByLiteral interface {
 
 type identificationByLiteralI struct{ sst.ElementInfo }
 
-func (identificationByLiteralI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationByLiteral() {
-}
-func (identificationByLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationBy() {
-}
-func (identificationByLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationByLiteral() {
-}
-func (identificationByLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByLiteral() {
-}
-func (identificationByLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (identificationByLiteralI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationByLiteral()   {}
+func (identificationByLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationBy()        {}
+func (identificationByLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23identificationByLiteral() {}
+func (identificationByLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByLiteral() {}
+func (identificationByLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
 
 var identificationByLiteralKindInterface reflect.Type
 
 var IdentificationByLiteral = identificationByLiteralI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "identificationByLiteral"},
-	ADomain:        Thing,
-	ARange:         xsd.String,
-	ASubPropertyOf: RepresentationByLiteral,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "identificationByLiteral"},
+	ADomain:           Thing,
+	ARange:            xsd.String,
+	ASubPropertyOf:    RepresentationByLiteral,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8002,25 +7435,21 @@ type KindIndirectlyConnectedTo interface {
 
 type indirectlyConnectedToI struct{ sst.ElementInfo }
 
-func (indirectlyConnectedToI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23indirectlyConnectedTo() {
-}
-func (indirectlyConnectedToI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23connectedTo() {
-}
-func (indirectlyConnectedToI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23indirectlyConnectedTo() {
-}
-func (indirectlyConnectedToI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (indirectlyConnectedToI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23indirectlyConnectedTo()   {}
+func (indirectlyConnectedToI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23connectedTo()           {}
+func (indirectlyConnectedToI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23indirectlyConnectedTo() {}
+func (indirectlyConnectedToI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
 
 var indirectlyConnectedToKindInterface reflect.Type
 
 var IndirectlyConnectedTo = indirectlyConnectedToI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "indirectlyConnectedTo"},
-	ADomain:        Individual,
-	ARange:         Individual,
-	ASubPropertyOf: ConnectedTo,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "indirectlyConnectedTo"},
+	ADomain:           Individual,
+	ARange:            Individual,
+	ASubPropertyOf:    ConnectedTo,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8038,23 +7467,21 @@ type KindIntegerAsLiteral interface {
 
 type integerAsLiteralI struct{ sst.ElementInfo }
 
-func (integerAsLiteralI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23integerAsLiteral() {}
-func (integerAsLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23integerAsLiteral() {
-}
-func (integerAsLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numberAsLiteral() {
-}
-func (integerAsLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (integerAsLiteralI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23integerAsLiteral()   {}
+func (integerAsLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23integerAsLiteral() {}
+func (integerAsLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numberAsLiteral()  {}
+func (integerAsLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
 
 var integerAsLiteralKindInterface reflect.Type
 
 var IntegerAsLiteral = integerAsLiteralI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "integerAsLiteral"},
-	ADomain:        Integer,
-	ARange:         xsd.Integer,
-	ASubPropertyOf: NumberAsLiteral,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "integerAsLiteral"},
+	ADomain:           Integer,
+	ARange:            xsd.Integer,
+	ASubPropertyOf:    NumberAsLiteral,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8081,14 +7508,14 @@ func (isDefinedByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschem
 var isDefinedByKindInterface reflect.Type
 
 var IsDefinedBy = isDefinedByI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "isDefinedBy"},
-	ADomain:        Individual,
-	ARange:         Individual,
-	ASubPropertyOf: rdfs.IsDefinedBy,
-	AnInverseOf:    IsDefinitionFor,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "isDefinedBy"},
+	ADomain:           Individual,
+	ARange:            Individual,
+	ASubPropertyOf:    rdfs.IsDefinedBy,
+	AnInverseOf:       IsDefinitionFor,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8116,11 +7543,11 @@ var isDefinitionForKindInterface reflect.Type
 
 var IsDefinitionFor = isDefinitionForI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "isDefinitionFor"},
-	ADomain: Individual,
-	ARange:  Individual,
+	ADomain:           Individual,
+	ARange:            Individual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8140,22 +7567,19 @@ type KindIso8601IdentificationOfPeriodInTime interface {
 
 type iso8601IdentificationOfPeriodInTimeI struct{ sst.ElementInfo }
 
-func (iso8601IdentificationOfPeriodInTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23iso8601IdentificationOfPeriodInTime() {
-}
-func (iso8601IdentificationOfPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23iso8601IdentificationOfPeriodInTime() {
-}
-func (iso8601IdentificationOfPeriodInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (iso8601IdentificationOfPeriodInTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23iso8601IdentificationOfPeriodInTime()   {}
+func (iso8601IdentificationOfPeriodInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23iso8601IdentificationOfPeriodInTime() {}
+func (iso8601IdentificationOfPeriodInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                      {}
 
 var iso8601IdentificationOfPeriodInTimeKindInterface reflect.Type
 
 var Iso8601IdentificationOfPeriodInTime = iso8601IdentificationOfPeriodInTimeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "iso8601IdentificationOfPeriodInTime"},
-	ADomain: PeriodInTime,
-	ARange:  xsd.String,
+	ADomain:           PeriodInTime,
+	ARange:            xsd.String,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8173,22 +7597,19 @@ type KindIso8601IdentificationOfPointInTime interface {
 
 type iso8601IdentificationOfPointInTimeI struct{ sst.ElementInfo }
 
-func (iso8601IdentificationOfPointInTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23iso8601IdentificationOfPointInTime() {
-}
-func (iso8601IdentificationOfPointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23iso8601IdentificationOfPointInTime() {
-}
-func (iso8601IdentificationOfPointInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (iso8601IdentificationOfPointInTimeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23iso8601IdentificationOfPointInTime()   {}
+func (iso8601IdentificationOfPointInTimeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23iso8601IdentificationOfPointInTime() {}
+func (iso8601IdentificationOfPointInTimeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                     {}
 
 var iso8601IdentificationOfPointInTimeKindInterface reflect.Type
 
 var Iso8601IdentificationOfPointInTime = iso8601IdentificationOfPointInTimeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "iso8601IdentificationOfPointInTime"},
-	ADomain: PointInTime,
-	ARange:  xsd.DateTime,
+	ADomain:           PointInTime,
+	ARange:            xsd.DateTime,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8206,22 +7627,19 @@ type KindLocatedRelativeTo interface {
 
 type locatedRelativeToI struct{ sst.ElementInfo }
 
-func (locatedRelativeToI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23locatedRelativeTo() {
-}
-func (locatedRelativeToI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23locatedRelativeTo() {
-}
-func (locatedRelativeToI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (locatedRelativeToI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23locatedRelativeTo()   {}
+func (locatedRelativeToI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23locatedRelativeTo() {}
+func (locatedRelativeToI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
 
 var locatedRelativeToKindInterface reflect.Type
 
 var LocatedRelativeTo = locatedRelativeToI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "locatedRelativeTo"},
-	ADomain: Individual,
-	ARange:  Individual,
+	ADomain:           Individual,
+	ARange:            Individual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8239,23 +7657,21 @@ type KindLogicalAsLiteral interface {
 
 type logicalAsLiteralI struct{ sst.ElementInfo }
 
-func (logicalAsLiteralI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23logicalAsLiteral() {}
-func (logicalAsLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23logicalAsLiteral() {
-}
-func (logicalAsLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numberAsLiteral() {
-}
-func (logicalAsLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (logicalAsLiteralI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23logicalAsLiteral()   {}
+func (logicalAsLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23logicalAsLiteral() {}
+func (logicalAsLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numberAsLiteral()  {}
+func (logicalAsLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
 
 var logicalAsLiteralKindInterface reflect.Type
 
 var LogicalAsLiteral = logicalAsLiteralI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "logicalAsLiteral"},
-	ADomain:        Logical,
-	ARange:         xsd.String,
-	ASubPropertyOf: NumberAsLiteral,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "logicalAsLiteral"},
+	ADomain:           Logical,
+	ARange:            xsd.String,
+	ASubPropertyOf:    NumberAsLiteral,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8273,22 +7689,19 @@ type KindMaxOffsetFromNominalValue interface {
 
 type maxOffsetFromNominalValueI struct{ sst.ElementInfo }
 
-func (maxOffsetFromNominalValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23maxOffsetFromNominalValue() {
-}
-func (maxOffsetFromNominalValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23maxOffsetFromNominalValue() {
-}
-func (maxOffsetFromNominalValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (maxOffsetFromNominalValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23maxOffsetFromNominalValue()   {}
+func (maxOffsetFromNominalValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23maxOffsetFromNominalValue() {}
+func (maxOffsetFromNominalValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()            {}
 
 var maxOffsetFromNominalValueKindInterface reflect.Type
 
 var MaxOffsetFromNominalValue = maxOffsetFromNominalValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "maxOffsetFromNominalValue"},
-	ADomain: MinNomMaxQuantity,
-	ARange:  xsd.Double,
+	ADomain:           MinNomMaxQuantity,
+	ARange:            xsd.Double,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8306,22 +7719,19 @@ type KindMaxRelativeOffsetFromNominalValue interface {
 
 type maxRelativeOffsetFromNominalValueI struct{ sst.ElementInfo }
 
-func (maxRelativeOffsetFromNominalValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23maxRelativeOffsetFromNominalValue() {
-}
-func (maxRelativeOffsetFromNominalValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23maxRelativeOffsetFromNominalValue() {
-}
-func (maxRelativeOffsetFromNominalValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (maxRelativeOffsetFromNominalValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23maxRelativeOffsetFromNominalValue()   {}
+func (maxRelativeOffsetFromNominalValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23maxRelativeOffsetFromNominalValue() {}
+func (maxRelativeOffsetFromNominalValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                    {}
 
 var maxRelativeOffsetFromNominalValueKindInterface reflect.Type
 
 var MaxRelativeOffsetFromNominalValue = maxRelativeOffsetFromNominalValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "maxRelativeOffsetFromNominalValue"},
-	ADomain: MinNomMaxQuantity,
-	ARange:  xsd.Double,
+	ADomain:           MinNomMaxQuantity,
+	ARange:            xsd.Double,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8339,22 +7749,19 @@ type KindMinMaxOffsetFromNominalValue interface {
 
 type minMaxOffsetFromNominalValueI struct{ sst.ElementInfo }
 
-func (minMaxOffsetFromNominalValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minMaxOffsetFromNominalValue() {
-}
-func (minMaxOffsetFromNominalValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minMaxOffsetFromNominalValue() {
-}
-func (minMaxOffsetFromNominalValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (minMaxOffsetFromNominalValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minMaxOffsetFromNominalValue()   {}
+func (minMaxOffsetFromNominalValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minMaxOffsetFromNominalValue() {}
+func (minMaxOffsetFromNominalValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
 
 var minMaxOffsetFromNominalValueKindInterface reflect.Type
 
 var MinMaxOffsetFromNominalValue = minMaxOffsetFromNominalValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "minMaxOffsetFromNominalValue"},
-	ADomain: MinNomMaxQuantity,
-	ARange:  xsd.Double,
+	ADomain:           MinNomMaxQuantity,
+	ARange:            xsd.Double,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8372,22 +7779,19 @@ type KindMinMaxRelativeOffsetFromNominalValue interface {
 
 type minMaxRelativeOffsetFromNominalValueI struct{ sst.ElementInfo }
 
-func (minMaxRelativeOffsetFromNominalValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minMaxRelativeOffsetFromNominalValue() {
-}
-func (minMaxRelativeOffsetFromNominalValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minMaxRelativeOffsetFromNominalValue() {
-}
-func (minMaxRelativeOffsetFromNominalValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (minMaxRelativeOffsetFromNominalValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minMaxRelativeOffsetFromNominalValue()   {}
+func (minMaxRelativeOffsetFromNominalValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minMaxRelativeOffsetFromNominalValue() {}
+func (minMaxRelativeOffsetFromNominalValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                       {}
 
 var minMaxRelativeOffsetFromNominalValueKindInterface reflect.Type
 
 var MinMaxRelativeOffsetFromNominalValue = minMaxRelativeOffsetFromNominalValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "minMaxRelativeOffsetFromNominalValue"},
-	ADomain: MinNomMaxQuantity,
-	ARange:  xsd.Double,
+	ADomain:           MinNomMaxQuantity,
+	ARange:            xsd.Double,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8405,22 +7809,19 @@ type KindMinOffsetFromNominalValue interface {
 
 type minOffsetFromNominalValueI struct{ sst.ElementInfo }
 
-func (minOffsetFromNominalValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minOffsetFromNominalValue() {
-}
-func (minOffsetFromNominalValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minOffsetFromNominalValue() {
-}
-func (minOffsetFromNominalValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (minOffsetFromNominalValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minOffsetFromNominalValue()   {}
+func (minOffsetFromNominalValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minOffsetFromNominalValue() {}
+func (minOffsetFromNominalValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()            {}
 
 var minOffsetFromNominalValueKindInterface reflect.Type
 
 var MinOffsetFromNominalValue = minOffsetFromNominalValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "minOffsetFromNominalValue"},
-	ADomain: MinNomMaxQuantity,
-	ARange:  xsd.Double,
+	ADomain:           MinNomMaxQuantity,
+	ARange:            xsd.Double,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8438,22 +7839,19 @@ type KindMinRelativeOffsetFromNominalValue interface {
 
 type minRelativeOffsetFromNominalValueI struct{ sst.ElementInfo }
 
-func (minRelativeOffsetFromNominalValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minRelativeOffsetFromNominalValue() {
-}
-func (minRelativeOffsetFromNominalValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minRelativeOffsetFromNominalValue() {
-}
-func (minRelativeOffsetFromNominalValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (minRelativeOffsetFromNominalValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minRelativeOffsetFromNominalValue()   {}
+func (minRelativeOffsetFromNominalValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23minRelativeOffsetFromNominalValue() {}
+func (minRelativeOffsetFromNominalValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                    {}
 
 var minRelativeOffsetFromNominalValueKindInterface reflect.Type
 
 var MinRelativeOffsetFromNominalValue = minRelativeOffsetFromNominalValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "minRelativeOffsetFromNominalValue"},
-	ADomain: MinNomMaxQuantity,
-	ARange:  xsd.Double,
+	ADomain:           MinNomMaxQuantity,
+	ARange:            xsd.Double,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8479,12 +7877,12 @@ func (noteByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23R
 var noteByKindInterface reflect.Type
 
 var NoteBy = noteByI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "noteBy"},
-	ADomain:        Thing,
-	ASubPropertyOf: RepresentationBy,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "noteBy"},
+	ADomain:           Thing,
+	ASubPropertyOf:    RepresentationBy,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8502,28 +7900,23 @@ type KindNoteByInformationContent interface {
 
 type noteByInformationContentI struct{ sst.ElementInfo }
 
-func (noteByInformationContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23noteByInformationContent() {
-}
-func (noteByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23noteBy() {}
-func (noteByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23noteByInformationContent() {
-}
-func (noteByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {
-}
-func (noteByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationContent() {
-}
-func (noteByInformationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (noteByInformationContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23noteByInformationContent()             {}
+func (noteByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23noteBy()                             {}
+func (noteByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23noteByInformationContent()           {}
+func (noteByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy()                   {}
+func (noteByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationContent() {}
+func (noteByInformationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                     {}
 
 var noteByInformationContentKindInterface reflect.Type
 
 var NoteByInformationContent = noteByInformationContentI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "noteByInformationContent"},
-	ADomain:        Thing,
-	ARange:         InformationContent,
-	ASubPropertyOf: RepresentationByInformationContent,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "noteByInformationContent"},
+	ADomain:           Thing,
+	ARange:            InformationContent,
+	ASubPropertyOf:    RepresentationByInformationContent,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8541,28 +7934,23 @@ type KindNoteByInformationObject interface {
 
 type noteByInformationObjectI struct{ sst.ElementInfo }
 
-func (noteByInformationObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23noteByInformationObject() {
-}
-func (noteByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23noteBy() {}
-func (noteByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23noteByInformationObject() {
-}
-func (noteByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {
-}
-func (noteByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationObject() {
-}
-func (noteByInformationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (noteByInformationObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23noteByInformationObject()             {}
+func (noteByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23noteBy()                            {}
+func (noteByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23noteByInformationObject()           {}
+func (noteByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy()                  {}
+func (noteByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationObject() {}
+func (noteByInformationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                    {}
 
 var noteByInformationObjectKindInterface reflect.Type
 
 var NoteByInformationObject = noteByInformationObjectI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "noteByInformationObject"},
-	ADomain:        Thing,
-	ARange:         InformationObject,
-	ASubPropertyOf: RepresentationByInformationObject,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "noteByInformationObject"},
+	ADomain:           Thing,
+	ARange:            InformationObject,
+	ASubPropertyOf:    RepresentationByInformationObject,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8588,10 +7976,10 @@ var numberAsLiteralKindInterface reflect.Type
 
 var NumberAsLiteral = numberAsLiteralI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "numberAsLiteral"},
-	ADomain: Number,
+	ADomain:           Number,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8609,22 +7997,19 @@ type KindNumberRangeHasLowerBound interface {
 
 type numberRangeHasLowerBoundI struct{ sst.ElementInfo }
 
-func (numberRangeHasLowerBoundI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numberRangeHasLowerBound() {
-}
-func (numberRangeHasLowerBoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numberRangeHasLowerBound() {
-}
-func (numberRangeHasLowerBoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (numberRangeHasLowerBoundI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numberRangeHasLowerBound()   {}
+func (numberRangeHasLowerBoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numberRangeHasLowerBound() {}
+func (numberRangeHasLowerBoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
 
 var numberRangeHasLowerBoundKindInterface reflect.Type
 
 var NumberRangeHasLowerBound = numberRangeHasLowerBoundI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "numberRangeHasLowerBound"},
-	ADomain: NumberRange,
-	ARange:  Number,
+	ADomain:           NumberRange,
+	ARange:            Number,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8642,22 +8027,19 @@ type KindNumberRangeHasUpperBound interface {
 
 type numberRangeHasUpperBoundI struct{ sst.ElementInfo }
 
-func (numberRangeHasUpperBoundI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numberRangeHasUpperBound() {
-}
-func (numberRangeHasUpperBoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numberRangeHasUpperBound() {
-}
-func (numberRangeHasUpperBoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (numberRangeHasUpperBoundI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numberRangeHasUpperBound()   {}
+func (numberRangeHasUpperBoundI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numberRangeHasUpperBound() {}
+func (numberRangeHasUpperBoundI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
 
 var numberRangeHasUpperBoundKindInterface reflect.Type
 
 var NumberRangeHasUpperBound = numberRangeHasUpperBoundI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "numberRangeHasUpperBound"},
-	ADomain: NumberRange,
-	ARange:  Number,
+	ADomain:           NumberRange,
+	ARange:            Number,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8675,22 +8057,19 @@ type KindNumericQuantityValue interface {
 
 type numericQuantityValueI struct{ sst.ElementInfo }
 
-func (numericQuantityValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numericQuantityValue() {
-}
-func (numericQuantityValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numericQuantityValue() {
-}
-func (numericQuantityValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (numericQuantityValueI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numericQuantityValue()   {}
+func (numericQuantityValueI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23numericQuantityValue() {}
+func (numericQuantityValueI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
 
 var numericQuantityValueKindInterface reflect.Type
 
 var NumericQuantityValue = numericQuantityValueI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "numericQuantityValue"},
-	ADomain: Quantity,
-	ARange:  xsd.Double,
+	ADomain:           Quantity,
+	ARange:            xsd.Double,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8716,11 +8095,11 @@ var partOfKindInterface reflect.Type
 
 var PartOf = partOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "partOf"},
-	ADomain: Individual,
-	ARange:  Individual,
+	ADomain:           Individual,
+	ARange:            Individual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8748,13 +8127,13 @@ func (participantInI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dsch
 var participantInKindInterface reflect.Type
 
 var ParticipantIn = participantInI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "participantIn"},
-	ADomain:        Individual,
-	ARange:         Activity,
-	ASubPropertyOf: PartOf,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "participantIn"},
+	ADomain:           Individual,
+	ARange:            Activity,
+	ASubPropertyOf:    PartOf,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8782,11 +8161,11 @@ var powerClassOfKindInterface reflect.Type
 
 var PowerClassOf = powerClassOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "powerClassOf"},
-	ADomain: owl.Class,
-	ARange:  owl.Class,
+	ADomain:           owl.Class,
+	ARange:            owl.Class,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8812,11 +8191,11 @@ var rangeMaxKindInterface reflect.Type
 
 var RangeMax = rangeMaxI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "rangeMax"},
-	ADomain: owl.ObjectProperty,
-	ARange:  xsd.UnsignedInt,
+	ADomain:           owl.ObjectProperty,
+	ARange:            xsd.UnsignedInt,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8842,11 +8221,11 @@ var rangeMinKindInterface reflect.Type
 
 var RangeMin = rangeMinI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "rangeMin"},
-	ADomain: owl.ObjectProperty,
-	ARange:  xsd.UnsignedInt,
+	ADomain:           owl.ObjectProperty,
+	ARange:            xsd.UnsignedInt,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8872,13 +8251,13 @@ func (realAsLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dsch
 var realAsLiteralKindInterface reflect.Type
 
 var RealAsLiteral = realAsLiteralI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "realAsLiteral"},
-	ADomain:        Real,
-	ARange:         xsd.Float,
-	ASubPropertyOf: NumberAsLiteral,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "realAsLiteral"},
+	ADomain:           Real,
+	ARange:            xsd.Float,
+	ASubPropertyOf:    NumberAsLiteral,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8903,13 +8282,13 @@ func (referencedByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dsche
 var referencedByKindInterface reflect.Type
 
 var ReferencedBy = referencedByI{sst.ElementInfo{
-	Element:     sst.Element{Vocabulary: LCIVocabulary, Name: "referencedBy"},
-	ADomain:     Thing,
-	ARange:      Activity,
-	AnInverseOf: References,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "referencedBy"},
+	ADomain:           Thing,
+	ARange:            Activity,
+	AnInverseOf:       References,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8937,11 +8316,11 @@ var referencesKindInterface reflect.Type
 
 var References = referencesI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "references"},
-	ADomain: Activity,
-	ARange:  Thing,
+	ADomain:           Activity,
+	ARange:            Thing,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8961,19 +8340,18 @@ type KindRepresentationBy interface {
 
 type representationByI struct{ sst.ElementInfo }
 
-func (representationByI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {}
-func (representationByI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {
-}
-func (representationByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (representationByI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy()   {}
+func (representationByI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {}
+func (representationByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
 
 var representationByKindInterface reflect.Type
 
 var RepresentationBy = representationByI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "representationBy"},
-	ADomain: Thing,
+	ADomain:           Thing,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -8991,25 +8369,21 @@ type KindRepresentationByInformationContent interface {
 
 type representationByInformationContentI struct{ sst.ElementInfo }
 
-func (representationByInformationContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationContent() {
-}
-func (representationByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {
-}
-func (representationByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationContent() {
-}
-func (representationByInformationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (representationByInformationContentI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationContent()   {}
+func (representationByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy()                   {}
+func (representationByInformationContentI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationContent() {}
+func (representationByInformationContentI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                     {}
 
 var representationByInformationContentKindInterface reflect.Type
 
 var RepresentationByInformationContent = representationByInformationContentI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "representationByInformationContent"},
-	ADomain:        Thing,
-	ARange:         InformationContent,
-	ASubPropertyOf: RepresentationBy,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "representationByInformationContent"},
+	ADomain:           Thing,
+	ARange:            InformationContent,
+	ASubPropertyOf:    RepresentationBy,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9027,25 +8401,21 @@ type KindRepresentationByInformationObject interface {
 
 type representationByInformationObjectI struct{ sst.ElementInfo }
 
-func (representationByInformationObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationObject() {
-}
-func (representationByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy() {
-}
-func (representationByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationObject() {
-}
-func (representationByInformationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (representationByInformationObjectI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationObject()   {}
+func (representationByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationBy()                  {}
+func (representationByInformationObjectI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByInformationObject() {}
+func (representationByInformationObjectI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                    {}
 
 var representationByInformationObjectKindInterface reflect.Type
 
 var RepresentationByInformationObject = representationByInformationObjectI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "representationByInformationObject"},
-	ADomain:        Thing,
-	ARange:         InformationObject,
-	ASubPropertyOf: RepresentationBy,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "representationByInformationObject"},
+	ADomain:           Thing,
+	ARange:            InformationObject,
+	ASubPropertyOf:    RepresentationBy,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9063,22 +8433,19 @@ type KindRepresentationByLiteral interface {
 
 type representationByLiteralI struct{ sst.ElementInfo }
 
-func (representationByLiteralI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByLiteral() {
-}
-func (representationByLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByLiteral() {
-}
-func (representationByLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (representationByLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (representationByLiteralI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByLiteral()   {}
+func (representationByLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationByLiteral() {}
+func (representationByLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
+func (representationByLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                      {}
 
 var representationByLiteralKindInterface reflect.Type
 
 var RepresentationByLiteral = representationByLiteralI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "representationByLiteral"},
-	ARange:  xsd.String,
+	ARange:            xsd.String,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -9096,22 +8463,19 @@ type KindRepresentationSpaceAssignedBy interface {
 
 type representationSpaceAssignedByI struct{ sst.ElementInfo }
 
-func (representationSpaceAssignedByI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationSpaceAssignedBy() {
-}
-func (representationSpaceAssignedByI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationSpaceAssignedBy() {
-}
-func (representationSpaceAssignedByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (representationSpaceAssignedByI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationSpaceAssignedBy()   {}
+func (representationSpaceAssignedByI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationSpaceAssignedBy() {}
+func (representationSpaceAssignedByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                {}
 
 var representationSpaceAssignedByKindInterface reflect.Type
 
 var RepresentationSpaceAssignedBy = representationSpaceAssignedByI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "representationSpaceAssignedBy"},
-	ADomain: RepresentationSpace,
-	ARange:  Individual,
+	ADomain:           RepresentationSpace,
+	ARange:            Individual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9129,22 +8493,19 @@ type KindRepresentationSpaceUsedBy interface {
 
 type representationSpaceUsedByI struct{ sst.ElementInfo }
 
-func (representationSpaceUsedByI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationSpaceUsedBy() {
-}
-func (representationSpaceUsedByI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationSpaceUsedBy() {
-}
-func (representationSpaceUsedByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (representationSpaceUsedByI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationSpaceUsedBy()   {}
+func (representationSpaceUsedByI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23representationSpaceUsedBy() {}
+func (representationSpaceUsedByI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()            {}
 
 var representationSpaceUsedByKindInterface reflect.Type
 
 var RepresentationSpaceUsedBy = representationSpaceUsedByI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "representationSpaceUsedBy"},
-	ADomain: RepresentationSpace,
-	ARange:  Individual,
+	ADomain:           RepresentationSpace,
+	ARange:            Individual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9162,22 +8523,19 @@ type KindSignificantDecimalDigits interface {
 
 type significantDecimalDigitsI struct{ sst.ElementInfo }
 
-func (significantDecimalDigitsI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23significantDecimalDigits() {
-}
-func (significantDecimalDigitsI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23significantDecimalDigits() {
-}
-func (significantDecimalDigitsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (significantDecimalDigitsI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23significantDecimalDigits()   {}
+func (significantDecimalDigitsI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23significantDecimalDigits() {}
+func (significantDecimalDigitsI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
 
 var significantDecimalDigitsKindInterface reflect.Type
 
 var SignificantDecimalDigits = significantDecimalDigitsI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "significantDecimalDigits"},
-	ADomain: Quantity,
-	ARange:  xsd.PositiveInteger,
+	ADomain:           Quantity,
+	ARange:            xsd.PositiveInteger,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9195,20 +8553,19 @@ type KindSubNumberSpaceOf interface {
 
 type subNumberSpaceOfI struct{ sst.ElementInfo }
 
-func (subNumberSpaceOfI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23subNumberSpaceOf() {}
-func (subNumberSpaceOfI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23subNumberSpaceOf() {
-}
-func (subNumberSpaceOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (subNumberSpaceOfI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23subNumberSpaceOf()   {}
+func (subNumberSpaceOfI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23subNumberSpaceOf() {}
+func (subNumberSpaceOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
 
 var subNumberSpaceOfKindInterface reflect.Type
 
 var SubNumberSpaceOf = subNumberSpaceOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "subNumberSpaceOf"},
-	ADomain: NumberSpace,
-	ARange:  NumberSpace,
+	ADomain:           NumberSpace,
+	ARange:            NumberSpace,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9226,22 +8583,19 @@ type KindSubPhysicalQuantitySpaceOf interface {
 
 type subPhysicalQuantitySpaceOfI struct{ sst.ElementInfo }
 
-func (subPhysicalQuantitySpaceOfI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23subPhysicalQuantitySpaceOf() {
-}
-func (subPhysicalQuantitySpaceOfI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23subPhysicalQuantitySpaceOf() {
-}
-func (subPhysicalQuantitySpaceOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (subPhysicalQuantitySpaceOfI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23subPhysicalQuantitySpaceOf()   {}
+func (subPhysicalQuantitySpaceOfI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23subPhysicalQuantitySpaceOf() {}
+func (subPhysicalQuantitySpaceOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
 
 var subPhysicalQuantitySpaceOfKindInterface reflect.Type
 
 var SubPhysicalQuantitySpaceOf = subPhysicalQuantitySpaceOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "subPhysicalQuantitySpaceOf"},
-	ADomain: PhysicalQuantitySpace,
-	ARange:  PhysicalQuantitySpace,
+	ADomain:           PhysicalQuantitySpace,
+	ARange:            PhysicalQuantitySpace,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9268,13 +8622,13 @@ func (temporalBoundOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Ds
 var temporalBoundOfKindInterface reflect.Type
 
 var TemporalBoundOf = temporalBoundOfI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "temporalBoundOf"},
-	ADomain:        Event,
-	ARange:         Individual,
-	ASubPropertyOf: TemporalPartOf,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "temporalBoundOf"},
+	ADomain:           Event,
+	ARange:            Individual,
+	ASubPropertyOf:    TemporalPartOf,
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: true, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9302,13 +8656,13 @@ func (temporalPartOfI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dsc
 var temporalPartOfKindInterface reflect.Type
 
 var TemporalPartOf = temporalPartOfI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "temporalPartOf"},
-	ADomain:        Individual,
-	ARange:         Individual,
-	ASubPropertyOf: PartOf,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "temporalPartOf"},
+	ADomain:           Individual,
+	ARange:            Individual,
+	ASubPropertyOf:    PartOf,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9328,22 +8682,19 @@ type KindTextStringAsLiteral interface {
 
 type textStringAsLiteralI struct{ sst.ElementInfo }
 
-func (textStringAsLiteralI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23textStringAsLiteral() {
-}
-func (textStringAsLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23textStringAsLiteral() {
-}
-func (textStringAsLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (textStringAsLiteralI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23textStringAsLiteral()   {}
+func (textStringAsLiteralI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23textStringAsLiteral() {}
+func (textStringAsLiteralI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
 
 var textStringAsLiteralKindInterface reflect.Type
 
 var TextStringAsLiteral = textStringAsLiteralI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "textStringAsLiteral"},
-	ADomain: TextString,
-	ARange:  xsd.String,
+	ADomain:           TextString,
+	ARange:            xsd.String,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9369,11 +8720,11 @@ var translationOfKindInterface reflect.Type
 
 var TranslationOf = translationOfI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "translationOf"},
-	ADomain: InformationContent,
-	ARange:  InformationContent,
+	ADomain:           InformationContent,
+	ARange:            InformationContent,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9391,22 +8742,19 @@ type KindValueAfterOccurrence interface {
 
 type valueAfterOccurrenceI struct{ sst.ElementInfo }
 
-func (valueAfterOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueAfterOccurrence() {
-}
-func (valueAfterOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueAfterOccurrence() {
-}
-func (valueAfterOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueAfterOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueAfterOccurrence()   {}
+func (valueAfterOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueAfterOccurrence() {}
+func (valueAfterOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
 
 var valueAfterOccurrenceKindInterface reflect.Type
 
 var ValueAfterOccurrence = valueAfterOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueAfterOccurrence"},
-	ADomain: Individual,
-	ARange:  ClassOfIndividual,
+	ADomain:           Individual,
+	ARange:            ClassOfIndividual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9426,22 +8774,19 @@ type KindValueBeforeOccurrence interface {
 
 type valueBeforeOccurrenceI struct{ sst.ElementInfo }
 
-func (valueBeforeOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueBeforeOccurrence() {
-}
-func (valueBeforeOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueBeforeOccurrence() {
-}
-func (valueBeforeOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueBeforeOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueBeforeOccurrence()   {}
+func (valueBeforeOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueBeforeOccurrence() {}
+func (valueBeforeOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
 
 var valueBeforeOccurrenceKindInterface reflect.Type
 
 var ValueBeforeOccurrence = valueBeforeOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueBeforeOccurrence"},
-	ADomain: Individual,
-	ARange:  ClassOfIndividual,
+	ADomain:           Individual,
+	ARange:            ClassOfIndividual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9461,27 +8806,22 @@ type KindValueBeginsOccurrence interface {
 
 type valueBeginsOccurrenceI struct{ sst.ElementInfo }
 
-func (valueBeginsOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueBeginsOccurrence() {
-}
-func (valueBeginsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueBeginsOccurrence() {
-}
-func (valueBeginsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valuePartOfOccurrence() {
-}
-func (valueBeginsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueTemporalPartOfOccurrence() {
-}
-func (valueBeginsOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueBeginsOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueBeginsOccurrence()           {}
+func (valueBeginsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueBeginsOccurrence()         {}
+func (valueBeginsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valuePartOfOccurrence()         {}
+func (valueBeginsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueTemporalPartOfOccurrence() {}
+func (valueBeginsOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                {}
 
 var valueBeginsOccurrenceKindInterface reflect.Type
 
 var ValueBeginsOccurrence = valueBeginsOccurrenceI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "valueBeginsOccurrence"},
-	ADomain:        Event,
-	ARange:         ClassOfIndividual,
-	ASubPropertyOf: ValueTemporalPartOfOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueBeginsOccurrence"},
+	ADomain:           Event,
+	ARange:            ClassOfIndividual,
+	ASubPropertyOf:    ValueTemporalPartOfOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9501,28 +8841,23 @@ type KindValueCausesBeginningOfOccurrence interface {
 
 type valueCausesBeginningOfOccurrenceI struct{ sst.ElementInfo }
 
-func (valueCausesBeginningOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueCausesBeginningOfOccurrence() {
-}
-func (valueCausesBeginningOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueCausesBeginningOfOccurrence() {
-}
-func (valueCausesBeginningOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueCausesBeginningOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueCausesBeginningOfOccurrence()   {}
+func (valueCausesBeginningOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueCausesBeginningOfOccurrence() {}
+func (valueCausesBeginningOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                   {}
 
 var valueCausesBeginningOfOccurrenceKindInterface reflect.Type
 
 var ValueCausesBeginningOfOccurrence = valueCausesBeginningOfOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueCausesBeginningOfOccurrence"},
-	ADomain: Activity,
-	ARange:  ClassOfIndividual,
+	ADomain:           Activity,
+	ARange:            ClassOfIndividual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (classHasCauseOfBeginningValueI) InverseOf() sst.ElementInformer {
-	return ValueCausesBeginningOfOccurrence
-}
+func (classHasCauseOfBeginningValueI) InverseOf() sst.ElementInformer { return ValueCausesBeginningOfOccurrence }
 
 // Definitions of lci.valueCausesEndOfOccurrence
 
@@ -9538,22 +8873,19 @@ type KindValueCausesEndOfOccurrence interface {
 
 type valueCausesEndOfOccurrenceI struct{ sst.ElementInfo }
 
-func (valueCausesEndOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueCausesEndOfOccurrence() {
-}
-func (valueCausesEndOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueCausesEndOfOccurrence() {
-}
-func (valueCausesEndOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueCausesEndOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueCausesEndOfOccurrence()   {}
+func (valueCausesEndOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueCausesEndOfOccurrence() {}
+func (valueCausesEndOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()             {}
 
 var valueCausesEndOfOccurrenceKindInterface reflect.Type
 
 var ValueCausesEndOfOccurrence = valueCausesEndOfOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueCausesEndOfOccurrence"},
-	ADomain: Activity,
-	ARange:  ClassOfIndividual,
+	ADomain:           Activity,
+	ARange:            ClassOfIndividual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9573,22 +8905,19 @@ type KindValueCausesOccurrence interface {
 
 type valueCausesOccurrenceI struct{ sst.ElementInfo }
 
-func (valueCausesOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueCausesOccurrence() {
-}
-func (valueCausesOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueCausesOccurrence() {
-}
-func (valueCausesOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueCausesOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueCausesOccurrence()   {}
+func (valueCausesOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueCausesOccurrence() {}
+func (valueCausesOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
 
 var valueCausesOccurrenceKindInterface reflect.Type
 
 var ValueCausesOccurrence = valueCausesOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueCausesOccurrence"},
-	ADomain: Activity,
-	ARange:  ClassOfEvent,
+	ADomain:           Activity,
+	ARange:            ClassOfEvent,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9608,27 +8937,22 @@ type KindValueEndsOccurrence interface {
 
 type valueEndsOccurrenceI struct{ sst.ElementInfo }
 
-func (valueEndsOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueEndsOccurrence() {
-}
-func (valueEndsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueEndsOccurrence() {
-}
-func (valueEndsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valuePartOfOccurrence() {
-}
-func (valueEndsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueTemporalPartOfOccurrence() {
-}
-func (valueEndsOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueEndsOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueEndsOccurrence()             {}
+func (valueEndsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueEndsOccurrence()           {}
+func (valueEndsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valuePartOfOccurrence()         {}
+func (valueEndsOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueTemporalPartOfOccurrence() {}
+func (valueEndsOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                {}
 
 var valueEndsOccurrenceKindInterface reflect.Type
 
 var ValueEndsOccurrence = valueEndsOccurrenceI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "valueEndsOccurrence"},
-	ADomain:        Event,
-	ARange:         ClassOfIndividual,
-	ASubPropertyOf: ValueTemporalPartOfOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueEndsOccurrence"},
+	ADomain:           Event,
+	ARange:            ClassOfIndividual,
+	ASubPropertyOf:    ValueTemporalPartOfOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9648,27 +8972,22 @@ type KindValueHasBeginningOccurrence interface {
 
 type valueHasBeginningOccurrenceI struct{ sst.ElementInfo }
 
-func (valueHasBeginningOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasBeginningOccurrence() {
-}
-func (valueHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasBeginningOccurrence() {
-}
-func (valueHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasPartOccurrence() {
-}
-func (valueHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasTemporalPartOccurrence() {
-}
-func (valueHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueHasBeginningOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasBeginningOccurrence()      {}
+func (valueHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasBeginningOccurrence()    {}
+func (valueHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasPartOccurrence()         {}
+func (valueHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasTemporalPartOccurrence() {}
+func (valueHasBeginningOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
 
 var valueHasBeginningOccurrenceKindInterface reflect.Type
 
 var ValueHasBeginningOccurrence = valueHasBeginningOccurrenceI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "valueHasBeginningOccurrence"},
-	ADomain:        Individual,
-	ARange:         ClassOfEvent,
-	ASubPropertyOf: ValueHasTemporalPartOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueHasBeginningOccurrence"},
+	ADomain:           Individual,
+	ARange:            ClassOfEvent,
+	ASubPropertyOf:    ValueHasTemporalPartOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9688,22 +9007,19 @@ type KindValueHasCauseOccurrence interface {
 
 type valueHasCauseOccurrenceI struct{ sst.ElementInfo }
 
-func (valueHasCauseOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasCauseOccurrence() {
-}
-func (valueHasCauseOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasCauseOccurrence() {
-}
-func (valueHasCauseOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueHasCauseOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasCauseOccurrence()   {}
+func (valueHasCauseOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasCauseOccurrence() {}
+func (valueHasCauseOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
 
 var valueHasCauseOccurrenceKindInterface reflect.Type
 
 var ValueHasCauseOccurrence = valueHasCauseOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueHasCauseOccurrence"},
-	ADomain: Event,
-	ARange:  ClassOfActivity,
+	ADomain:           Event,
+	ARange:            ClassOfActivity,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9723,28 +9039,23 @@ type KindValueHasCauseOfBeginningOccurrence interface {
 
 type valueHasCauseOfBeginningOccurrenceI struct{ sst.ElementInfo }
 
-func (valueHasCauseOfBeginningOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasCauseOfBeginningOccurrence() {
-}
-func (valueHasCauseOfBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasCauseOfBeginningOccurrence() {
-}
-func (valueHasCauseOfBeginningOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueHasCauseOfBeginningOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasCauseOfBeginningOccurrence()   {}
+func (valueHasCauseOfBeginningOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasCauseOfBeginningOccurrence() {}
+func (valueHasCauseOfBeginningOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                     {}
 
 var valueHasCauseOfBeginningOccurrenceKindInterface reflect.Type
 
 var ValueHasCauseOfBeginningOccurrence = valueHasCauseOfBeginningOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueHasCauseOfBeginningOccurrence"},
-	ADomain: Individual,
-	ARange:  ClassOfActivity,
+	ADomain:           Individual,
+	ARange:            ClassOfActivity,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (classCausesBeginningOfValueI) InverseOf() sst.ElementInformer {
-	return ValueHasCauseOfBeginningOccurrence
-}
+func (classCausesBeginningOfValueI) InverseOf() sst.ElementInformer { return ValueHasCauseOfBeginningOccurrence }
 
 // Definitions of lci.valueHasCauseOfEndOccurrence
 
@@ -9760,22 +9071,19 @@ type KindValueHasCauseOfEndOccurrence interface {
 
 type valueHasCauseOfEndOccurrenceI struct{ sst.ElementInfo }
 
-func (valueHasCauseOfEndOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasCauseOfEndOccurrence() {
-}
-func (valueHasCauseOfEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasCauseOfEndOccurrence() {
-}
-func (valueHasCauseOfEndOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueHasCauseOfEndOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasCauseOfEndOccurrence()   {}
+func (valueHasCauseOfEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasCauseOfEndOccurrence() {}
+func (valueHasCauseOfEndOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
 
 var valueHasCauseOfEndOccurrenceKindInterface reflect.Type
 
 var ValueHasCauseOfEndOccurrence = valueHasCauseOfEndOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueHasCauseOfEndOccurrence"},
-	ADomain: Individual,
-	ARange:  ClassOfActivity,
+	ADomain:           Individual,
+	ARange:            ClassOfActivity,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9795,27 +9103,22 @@ type KindValueHasEndOccurrence interface {
 
 type valueHasEndOccurrenceI struct{ sst.ElementInfo }
 
-func (valueHasEndOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasEndOccurrence() {
-}
-func (valueHasEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasEndOccurrence() {
-}
-func (valueHasEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasPartOccurrence() {
-}
-func (valueHasEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasTemporalPartOccurrence() {
-}
-func (valueHasEndOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueHasEndOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasEndOccurrence()            {}
+func (valueHasEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasEndOccurrence()          {}
+func (valueHasEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasPartOccurrence()         {}
+func (valueHasEndOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasTemporalPartOccurrence() {}
+func (valueHasEndOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
 
 var valueHasEndOccurrenceKindInterface reflect.Type
 
 var ValueHasEndOccurrence = valueHasEndOccurrenceI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "valueHasEndOccurrence"},
-	ADomain:        Individual,
-	ARange:         ClassOfEvent,
-	ASubPropertyOf: ValueHasTemporalPartOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueHasEndOccurrence"},
+	ADomain:           Individual,
+	ARange:            ClassOfEvent,
+	ASubPropertyOf:    ValueHasTemporalPartOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9835,22 +9138,19 @@ type KindValueHasPartOccurrence interface {
 
 type valueHasPartOccurrenceI struct{ sst.ElementInfo }
 
-func (valueHasPartOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasPartOccurrence() {
-}
-func (valueHasPartOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasPartOccurrence() {
-}
-func (valueHasPartOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueHasPartOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasPartOccurrence()   {}
+func (valueHasPartOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasPartOccurrence() {}
+func (valueHasPartOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()         {}
 
 var valueHasPartOccurrenceKindInterface reflect.Type
 
 var ValueHasPartOccurrence = valueHasPartOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueHasPartOccurrence"},
-	ADomain: Individual,
-	ARange:  ClassOfIndividual,
+	ADomain:           Individual,
+	ARange:            ClassOfIndividual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9870,31 +9170,25 @@ type KindValueHasTemporalPartOccurrence interface {
 
 type valueHasTemporalPartOccurrenceI struct{ sst.ElementInfo }
 
-func (valueHasTemporalPartOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasTemporalPartOccurrence() {
-}
-func (valueHasTemporalPartOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasPartOccurrence() {
-}
-func (valueHasTemporalPartOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasTemporalPartOccurrence() {
-}
-func (valueHasTemporalPartOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueHasTemporalPartOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasTemporalPartOccurrence()   {}
+func (valueHasTemporalPartOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasPartOccurrence()         {}
+func (valueHasTemporalPartOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueHasTemporalPartOccurrence() {}
+func (valueHasTemporalPartOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                 {}
 
 var valueHasTemporalPartOccurrenceKindInterface reflect.Type
 
 var ValueHasTemporalPartOccurrence = valueHasTemporalPartOccurrenceI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "valueHasTemporalPartOccurrence"},
-	ADomain:        Individual,
-	ARange:         ClassOfIndividual,
-	ASubPropertyOf: ValueHasPartOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueHasTemporalPartOccurrence"},
+	ADomain:           Individual,
+	ARange:            ClassOfIndividual,
+	ASubPropertyOf:    ValueHasPartOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (classTemporalPartOfValueI) InverseOf() sst.ElementInformer {
-	return ValueHasTemporalPartOccurrence
-}
+func (classTemporalPartOfValueI) InverseOf() sst.ElementInformer { return ValueHasTemporalPartOccurrence }
 
 // Definitions of lci.valueLocatedRelativeToOccurrence
 
@@ -9910,28 +9204,23 @@ type KindValueLocatedRelativeToOccurrence interface {
 
 type valueLocatedRelativeToOccurrenceI struct{ sst.ElementInfo }
 
-func (valueLocatedRelativeToOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueLocatedRelativeToOccurrence() {
-}
-func (valueLocatedRelativeToOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueLocatedRelativeToOccurrence() {
-}
-func (valueLocatedRelativeToOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueLocatedRelativeToOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueLocatedRelativeToOccurrence()   {}
+func (valueLocatedRelativeToOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueLocatedRelativeToOccurrence() {}
+func (valueLocatedRelativeToOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                   {}
 
 var valueLocatedRelativeToOccurrenceKindInterface reflect.Type
 
 var ValueLocatedRelativeToOccurrence = valueLocatedRelativeToOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueLocatedRelativeToOccurrence"},
-	ADomain: Individual,
-	ARange:  ClassOfIndividual,
+	ADomain:           Individual,
+	ARange:            ClassOfIndividual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (classLocatedRelativeToValueI) InverseOf() sst.ElementInformer {
-	return ValueLocatedRelativeToOccurrence
-}
+func (classLocatedRelativeToValueI) InverseOf() sst.ElementInformer { return ValueLocatedRelativeToOccurrence }
 
 // Definitions of lci.valuePartOfOccurrence
 
@@ -9947,22 +9236,19 @@ type KindValuePartOfOccurrence interface {
 
 type valuePartOfOccurrenceI struct{ sst.ElementInfo }
 
-func (valuePartOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valuePartOfOccurrence() {
-}
-func (valuePartOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valuePartOfOccurrence() {
-}
-func (valuePartOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valuePartOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valuePartOfOccurrence()   {}
+func (valuePartOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valuePartOfOccurrence() {}
+func (valuePartOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()        {}
 
 var valuePartOfOccurrenceKindInterface reflect.Type
 
 var ValuePartOfOccurrence = valuePartOfOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valuePartOfOccurrence"},
-	ADomain: Individual,
-	ARange:  ClassOfIndividual,
+	ADomain:           Individual,
+	ARange:            ClassOfIndividual,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -9982,22 +9268,19 @@ type KindValueReferencedByOccurrence interface {
 
 type valueReferencedByOccurrenceI struct{ sst.ElementInfo }
 
-func (valueReferencedByOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueReferencedByOccurrence() {
-}
-func (valueReferencedByOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueReferencedByOccurrence() {
-}
-func (valueReferencedByOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueReferencedByOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueReferencedByOccurrence()   {}
+func (valueReferencedByOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueReferencedByOccurrence() {}
+func (valueReferencedByOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
 
 var valueReferencedByOccurrenceKindInterface reflect.Type
 
 var ValueReferencedByOccurrence = valueReferencedByOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueReferencedByOccurrence"},
-	ADomain: Thing,
-	ARange:  ClassOfActivity,
+	ADomain:           Thing,
+	ARange:            ClassOfActivity,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -10017,22 +9300,19 @@ type KindValueReferencesOccurrence interface {
 
 type valueReferencesOccurrenceI struct{ sst.ElementInfo }
 
-func (valueReferencesOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueReferencesOccurrence() {
-}
-func (valueReferencesOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueReferencesOccurrence() {
-}
-func (valueReferencesOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueReferencesOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueReferencesOccurrence()   {}
+func (valueReferencesOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueReferencesOccurrence() {}
+func (valueReferencesOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()            {}
 
 var valueReferencesOccurrenceKindInterface reflect.Type
 
 var ValueReferencesOccurrence = valueReferencesOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueReferencesOccurrence"},
-	ADomain: Activity,
-	ARange:  Class,
+	ADomain:           Activity,
+	ARange:            Class,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -10052,28 +9332,22 @@ type KindValueTemporalPartOfOccurrence interface {
 
 type valueTemporalPartOfOccurrenceI struct{ sst.ElementInfo }
 
-func (valueTemporalPartOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueTemporalPartOfOccurrence() {
-}
-func (valueTemporalPartOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valuePartOfOccurrence() {
-}
-func (valueTemporalPartOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueTemporalPartOfOccurrence() {
-}
-func (valueTemporalPartOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (valueTemporalPartOfOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueTemporalPartOfOccurrence()   {}
+func (valueTemporalPartOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valuePartOfOccurrence()         {}
+func (valueTemporalPartOfOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23valueTemporalPartOfOccurrence() {}
+func (valueTemporalPartOfOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                {}
 
 var valueTemporalPartOfOccurrenceKindInterface reflect.Type
 
 var ValueTemporalPartOfOccurrence = valueTemporalPartOfOccurrenceI{sst.ElementInfo{
-	Element:        sst.Element{Vocabulary: LCIVocabulary, Name: "valueTemporalPartOfOccurrence"},
-	ADomain:        Individual,
-	ARange:         ClassOfIndividual,
-	ASubPropertyOf: ValuePartOfOccurrence,
+	Element: sst.Element{Vocabulary: LCIVocabulary, Name: "valueTemporalPartOfOccurrence"},
+	ADomain:           Individual,
+	ARange:            ClassOfIndividual,
+	ASubPropertyOf:    ValuePartOfOccurrence,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
-func (classHasTemporalPartValueI) InverseOf() sst.ElementInformer {
-	return ValueTemporalPartOfOccurrence
-}
+func (classHasTemporalPartValueI) InverseOf() sst.ElementInformer { return ValueTemporalPartOfOccurrence }

@@ -6,7 +6,6 @@ package eed
 
 import (
 	"reflect"
-
 	"github.com/semanticstep/sst-core/sst"
 )
 
@@ -33,27 +32,22 @@ type KindBidirectionalMasterPort interface {
 
 type bidirectionalMasterPortI struct{ sst.ElementInfo }
 
-func (bidirectionalMasterPortI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23BidirectionalMasterPort() {
-}
-func (bidirectionalMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23BidirectionalMasterPort() {
-}
-func (bidirectionalMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MasterPort() {
-}
-func (bidirectionalMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (bidirectionalMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (bidirectionalMasterPortI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (bidirectionalMasterPortI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (bidirectionalMasterPortI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23BidirectionalMasterPort()   {}
+func (bidirectionalMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23BidirectionalMasterPort() {}
+func (bidirectionalMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MasterPort()              {}
+func (bidirectionalMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()              {}
+func (bidirectionalMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                   {}
+func (bidirectionalMasterPortI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
+func (bidirectionalMasterPortI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                      {}
 
 var bidirectionalMasterPortKindInterface reflect.Type
 
 var BidirectionalMasterPort = bidirectionalMasterPortI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "BidirectionalMasterPort"},
-	ASubtypeOf: []sst.ElementInformer{MasterPort},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "BidirectionalMasterPort"},
+	ASubtypeOf:        []sst.ElementInformer{MasterPort},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{MasterPort.Element: {}},
 }}
@@ -72,15 +66,12 @@ type KindFunctionalDefinition interface {
 
 type functionalDefinitionI struct{ sst.ElementInfo }
 
-func (functionalDefinitionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinition() {
-}
-func (functionalDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinition() {
-}
-func (functionalDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (functionalDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()      {}
-func (functionalDefinitionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (functionalDefinitionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (functionalDefinitionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinition()   {}
+func (functionalDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinition() {}
+func (functionalDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()           {}
+func (functionalDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                {}
+func (functionalDefinitionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (functionalDefinitionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                   {}
 
 var functionalDefinitionKindInterface reflect.Type
 
@@ -88,7 +79,7 @@ var FunctionalDefinition = functionalDefinitionI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "FunctionalDefinition"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -107,21 +98,14 @@ type KindFunctionalDefinitionElement interface {
 
 type functionalDefinitionElementI struct{ sst.ElementInfo }
 
-func (functionalDefinitionElementI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionElement() {
-}
-func (functionalDefinitionElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionElement() {
-}
-func (functionalDefinitionElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (functionalDefinitionElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (functionalDefinitionElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {
-}
-func (functionalDefinitionElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect() {
-}
-func (functionalDefinitionElementI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (functionalDefinitionElementI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (functionalDefinitionElementI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionElement()   {}
+func (functionalDefinitionElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionElement() {}
+func (functionalDefinitionElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual()          {}
+func (functionalDefinitionElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                  {}
+func (functionalDefinitionElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                       {}
+func (functionalDefinitionElementI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()                      {}
+func (functionalDefinitionElementI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
+func (functionalDefinitionElementI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                          {}
 
 var functionalDefinitionElementKindInterface reflect.Type
 
@@ -129,7 +113,7 @@ var FunctionalDefinitionElement = functionalDefinitionElementI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "FunctionalDefinitionElement"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -148,32 +132,24 @@ type KindFunctionalDefinitionTerminal interface {
 
 type functionalDefinitionTerminalI struct{ sst.ElementInfo }
 
-func (functionalDefinitionTerminalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionTerminal() {
-}
-func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionElement() {
-}
-func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionTerminal() {
-}
-func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {
-}
-func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect() {
-}
-func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (functionalDefinitionTerminalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionTerminal()   {}
+func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionElement()  {}
+func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionTerminal() {}
+func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual()           {}
+func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                   {}
+func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                        {}
+func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()                       {}
+func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
+func (functionalDefinitionTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                           {}
 
 var functionalDefinitionTerminalKindInterface reflect.Type
 
 var FunctionalDefinitionTerminal = functionalDefinitionTerminalI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "FunctionalDefinitionTerminal"},
-	ASubtypeOf: []sst.ElementInformer{FunctionalDefinitionElement},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "FunctionalDefinitionTerminal"},
+	ASubtypeOf:        []sst.ElementInformer{FunctionalDefinitionElement},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{FunctionalDefinitionElement.Element: {}},
 }}
@@ -192,32 +168,25 @@ type KindFunctionalInternallNode interface {
 
 type functionalInternallNodeI struct{ sst.ElementInfo }
 
-func (functionalInternallNodeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalInternallNode() {
-}
-func (functionalInternallNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionElement() {
-}
-func (functionalInternallNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalInternallNode() {
-}
-func (functionalInternallNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalNode() {
-}
-func (functionalInternallNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (functionalInternallNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (functionalInternallNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()  {}
-func (functionalInternallNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect() {}
-func (functionalInternallNodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (functionalInternallNodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (functionalInternallNodeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalInternallNode()       {}
+func (functionalInternallNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionElement() {}
+func (functionalInternallNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalInternallNode()     {}
+func (functionalInternallNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalNode()              {}
+func (functionalInternallNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual()          {}
+func (functionalInternallNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                  {}
+func (functionalInternallNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                       {}
+func (functionalInternallNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()                      {}
+func (functionalInternallNodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
+func (functionalInternallNodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                          {}
 
 var functionalInternallNodeKindInterface reflect.Type
 
 var FunctionalInternallNode = functionalInternallNodeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "FunctionalInternallNode"},
-	ASubtypeOf: []sst.ElementInformer{FunctionalNode},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "FunctionalInternallNode"},
+	ASubtypeOf:        []sst.ElementInformer{FunctionalNode},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{FunctionalDefinitionElement.Element: {}},
 }}
@@ -236,32 +205,24 @@ type KindFunctionalNetworkDefinition interface {
 
 type functionalNetworkDefinitionI struct{ sst.ElementInfo }
 
-func (functionalNetworkDefinitionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalNetworkDefinition() {
-}
-func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionElement() {
-}
-func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalNetworkDefinition() {
-}
-func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {
-}
-func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect() {
-}
-func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (functionalNetworkDefinitionI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalNetworkDefinition()   {}
+func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionElement() {}
+func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalNetworkDefinition() {}
+func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual()          {}
+func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                  {}
+func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                       {}
+func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()                      {}
+func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
+func (functionalNetworkDefinitionI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                          {}
 
 var functionalNetworkDefinitionKindInterface reflect.Type
 
 var FunctionalNetworkDefinition = functionalNetworkDefinitionI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "FunctionalNetworkDefinition"},
-	ASubtypeOf: []sst.ElementInformer{FunctionalDefinitionElement},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "FunctionalNetworkDefinition"},
+	ASubtypeOf:        []sst.ElementInformer{FunctionalDefinitionElement},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{FunctionalDefinitionElement.Element: {}},
 }}
@@ -280,26 +241,24 @@ type KindFunctionalNode interface {
 
 type functionalNodeI struct{ sst.ElementInfo }
 
-func (functionalNodeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalNode() {}
-func (functionalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionElement() {
-}
-func (functionalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalNode() {}
-func (functionalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (functionalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()     {}
-func (functionalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (functionalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()         {}
-func (functionalNodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (functionalNodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (functionalNodeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalNode()                {}
+func (functionalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionElement() {}
+func (functionalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalNode()              {}
+func (functionalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual()          {}
+func (functionalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                  {}
+func (functionalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                       {}
+func (functionalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()                      {}
+func (functionalNodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()              {}
+func (functionalNodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                          {}
 
 var functionalNodeKindInterface reflect.Type
 
 var FunctionalNode = functionalNodeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "FunctionalNode"},
-	ASubtypeOf: []sst.ElementInformer{FunctionalDefinitionElement},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "FunctionalNode"},
+	ASubtypeOf:        []sst.ElementInformer{FunctionalDefinitionElement},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: true, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -317,15 +276,12 @@ type KindFunctionalOccurrence interface {
 
 type functionalOccurrenceI struct{ sst.ElementInfo }
 
-func (functionalOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalOccurrence() {
-}
-func (functionalOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalOccurrence() {
-}
-func (functionalOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {}
-func (functionalOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()      {}
-func (functionalOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (functionalOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (functionalOccurrenceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalOccurrence()   {}
+func (functionalOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalOccurrence() {}
+func (functionalOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()           {}
+func (functionalOccurrenceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                {}
+func (functionalOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()       {}
+func (functionalOccurrenceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                   {}
 
 var functionalOccurrenceKindInterface reflect.Type
 
@@ -333,7 +289,7 @@ var FunctionalOccurrence = functionalOccurrenceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "FunctionalOccurrence"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -352,21 +308,14 @@ type KindFunctionalOccurrenceTerminal interface {
 
 type functionalOccurrenceTerminalI struct{ sst.ElementInfo }
 
-func (functionalOccurrenceTerminalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalOccurrenceTerminal() {
-}
-func (functionalOccurrenceTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalOccurrenceTerminal() {
-}
-func (functionalOccurrenceTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (functionalOccurrenceTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (functionalOccurrenceTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {
-}
-func (functionalOccurrenceTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect() {
-}
-func (functionalOccurrenceTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (functionalOccurrenceTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (functionalOccurrenceTerminalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalOccurrenceTerminal()   {}
+func (functionalOccurrenceTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalOccurrenceTerminal() {}
+func (functionalOccurrenceTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual()           {}
+func (functionalOccurrenceTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                   {}
+func (functionalOccurrenceTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                        {}
+func (functionalOccurrenceTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()                       {}
+func (functionalOccurrenceTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
+func (functionalOccurrenceTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                           {}
 
 var functionalOccurrenceTerminalKindInterface reflect.Type
 
@@ -374,7 +323,7 @@ var FunctionalOccurrenceTerminal = functionalOccurrenceTerminalI{sst.ElementInfo
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "FunctionalOccurrenceTerminal"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -393,34 +342,26 @@ type KindFunctionalTerminalNode interface {
 
 type functionalTerminalNodeI struct{ sst.ElementInfo }
 
-func (functionalTerminalNodeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalTerminalNode() {
-}
-func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionElement() {
-}
-func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionTerminal() {
-}
-func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalNode() {
-}
-func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalTerminalNode() {
-}
-func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()  {}
-func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect() {}
-func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (functionalTerminalNodeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalTerminalNode()         {}
+func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionElement()  {}
+func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalDefinitionTerminal() {}
+func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalNode()               {}
+func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23FunctionalTerminalNode()       {}
+func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual()           {}
+func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                   {}
+func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                        {}
+func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()                       {}
+func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
+func (functionalTerminalNodeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                           {}
 
 var functionalTerminalNodeKindInterface reflect.Type
 
 var FunctionalTerminalNode = functionalTerminalNodeI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "FunctionalTerminalNode"},
-	ASubtypeOf: []sst.ElementInformer{FunctionalDefinitionTerminal, FunctionalNode},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "FunctionalTerminalNode"},
+	ASubtypeOf:        []sst.ElementInformer{FunctionalDefinitionTerminal, FunctionalNode},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{FunctionalDefinitionElement.Element: {}, FunctionalDefinitionTerminal.Element: {}},
 }}
@@ -450,11 +391,11 @@ func (inputMasterPortI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23T
 var inputMasterPortKindInterface reflect.Type
 
 var InputMasterPort = inputMasterPortI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "InputMasterPort"},
-	ASubtypeOf: []sst.ElementInformer{MasterPort},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "InputMasterPort"},
+	ASubtypeOf:        []sst.ElementInformer{MasterPort},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{MasterPort.Element: {}},
 }}
@@ -473,20 +414,17 @@ type KindLayerShapeRepresentation interface {
 
 type layerShapeRepresentationI struct{ sst.ElementInfo }
 
-func (layerShapeRepresentationI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23LayerShapeRepresentation() {
-}
-func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23LayerShapeRepresentation() {
-}
-func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Frep_23Representation() {
-}
-func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Frep_23ShapeRepresentation() {
-}
-func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (layerShapeRepresentationI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23LayerShapeRepresentation()   {}
+func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23LayerShapeRepresentation() {}
+func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()               {}
+func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                    {}
+func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Frep_23InvisibleItem()            {}
+func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Frep_23Representation()           {}
+func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Frep_23ShapeRepresentation()      {}
+func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Frep_23StyleContextSelect()       {}
+func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Frep_23StyleItemSelect()          {}
+func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()           {}
+func (layerShapeRepresentationI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                       {}
 
 var layerShapeRepresentationKindInterface reflect.Type
 
@@ -494,7 +432,7 @@ var LayerShapeRepresentation = layerShapeRepresentationI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "LayerShapeRepresentation"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -525,7 +463,7 @@ var MasterPort = masterPortI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "MasterPort"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -544,13 +482,12 @@ type KindMasterPortBundle interface {
 
 type masterPortBundleI struct{ sst.ElementInfo }
 
-func (masterPortBundleI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MasterPortBundle() {}
-func (masterPortBundleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MasterPortBundle() {
-}
-func (masterPortBundleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()     {}
-func (masterPortBundleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (masterPortBundleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (masterPortBundleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (masterPortBundleI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MasterPortBundle()   {}
+func (masterPortBundleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MasterPortBundle() {}
+func (masterPortBundleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()       {}
+func (masterPortBundleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()            {}
+func (masterPortBundleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
+func (masterPortBundleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()               {}
 
 var masterPortBundleKindInterface reflect.Type
 
@@ -558,7 +495,7 @@ var MasterPortBundle = masterPortBundleI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "MasterPortBundle"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -577,14 +514,12 @@ type KindMountingTechnology interface {
 
 type mountingTechnologyI struct{ sst.ElementInfo }
 
-func (mountingTechnologyI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology() {
-}
-func (mountingTechnologyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology() {
-}
-func (mountingTechnologyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23OptionClass() {
-}
-func (mountingTechnologyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (mountingTechnologyI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology()   {}
+func (mountingTechnologyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology() {}
+func (mountingTechnologyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23MainClass()       {}
+func (mountingTechnologyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23OptionClass()     {}
+func (mountingTechnologyI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23SelectClass()     {}
+func (mountingTechnologyI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()     {}
 
 var mountingTechnologyKindInterface reflect.Type
 
@@ -592,7 +527,7 @@ var MountingTechnology = mountingTechnologyI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "MountingTechnology"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -610,13 +545,10 @@ type KindMountingTechnology_surface interface {
 
 type mountingTechnology_SurfaceI struct{ sst.ElementInfo }
 
-func (mountingTechnology_SurfaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology_5Fsurface() {
-}
-func (mountingTechnology_SurfaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology_5Fsurface() {
-}
-func (mountingTechnology_SurfaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (mountingTechnology_SurfaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (mountingTechnology_SurfaceI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology_5Fsurface()   {}
+func (mountingTechnology_SurfaceI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology_5Fsurface() {}
+func (mountingTechnology_SurfaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
+func (mountingTechnology_SurfaceI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                           {}
 
 var mountingTechnology_SurfaceKindInterface reflect.Type
 
@@ -624,7 +556,7 @@ var MountingTechnology_surface = mountingTechnology_SurfaceI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "MountingTechnology_surface"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -642,14 +574,10 @@ type KindMountingTechnology_throughHole interface {
 
 type mountingTechnology_ThroughHoleI struct{ sst.ElementInfo }
 
-func (mountingTechnology_ThroughHoleI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology_5FthroughHole() {
-}
-func (mountingTechnology_ThroughHoleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology_5FthroughHole() {
-}
-func (mountingTechnology_ThroughHoleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (mountingTechnology_ThroughHoleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {
-}
+func (mountingTechnology_ThroughHoleI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology_5FthroughHole()   {}
+func (mountingTechnology_ThroughHoleI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology_5FthroughHole() {}
+func (mountingTechnology_ThroughHoleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                   {}
+func (mountingTechnology_ThroughHoleI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                               {}
 
 var mountingTechnology_ThroughHoleKindInterface reflect.Type
 
@@ -657,7 +585,7 @@ var MountingTechnology_throughHole = mountingTechnology_ThroughHoleI{sst.Element
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "MountingTechnology_throughHole"},
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: true,
 }}
 
@@ -675,23 +603,22 @@ type KindOutputMasterPort interface {
 
 type outputMasterPortI struct{ sst.ElementInfo }
 
-func (outputMasterPortI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23OutputMasterPort() {}
-func (outputMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MasterPort()     {}
-func (outputMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23OutputMasterPort() {
-}
-func (outputMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()     {}
-func (outputMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()          {}
-func (outputMasterPortI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (outputMasterPortI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (outputMasterPortI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23OutputMasterPort()   {}
+func (outputMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MasterPort()       {}
+func (outputMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23OutputMasterPort() {}
+func (outputMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()       {}
+func (outputMasterPortI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()            {}
+func (outputMasterPortI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()   {}
+func (outputMasterPortI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()               {}
 
 var outputMasterPortKindInterface reflect.Type
 
 var OutputMasterPort = outputMasterPortI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "OutputMasterPort"},
-	ASubtypeOf: []sst.ElementInformer{MasterPort},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "OutputMasterPort"},
+	ASubtypeOf:        []sst.ElementInformer{MasterPort},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{MasterPort.Element: {}},
 }}
@@ -722,11 +649,11 @@ func (packageI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()  
 var packageKindInterface reflect.Type
 
 var Package = packageI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "Package"},
-	ASubtypeOf: []sst.ElementInformer{Template},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "Package"},
+	ASubtypeOf:        []sst.ElementInformer{Template},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{Template.Element: {}},
 }}
@@ -745,18 +672,19 @@ type KindPackageFeature interface {
 
 type packageFeatureI struct{ sst.ElementInfo }
 
-func (packageFeatureI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageFeature()   {}
-func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageFeature() {}
-func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()   {}
-func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()        {}
-func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()       {}
-func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeElement() {}
-func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeFeatureDefinitionElement() {
-}
-func (packageFeatureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (packageFeatureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (packageFeatureI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageFeature()                     {}
+func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageFeature()                   {}
+func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual()               {}
+func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                       {}
+func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                            {}
+func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()                           {}
+func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23DraughtingModelItemDefinition()    {}
+func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23GeometricItemSpecificUsageSelect() {}
+func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23GeometricToleranceTarget()         {}
+func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeElement()                     {}
+func (packageFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeFeatureDefinitionElement()    {}
+func (packageFeatureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                   {}
+func (packageFeatureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                               {}
 
 var packageFeatureKindInterface reflect.Type
 
@@ -764,7 +692,7 @@ var PackageFeature = packageFeatureI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "PackageFeature"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -783,28 +711,29 @@ type KindPackageTerminal interface {
 
 type packageTerminalI struct{ sst.ElementInfo }
 
-func (packageTerminalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageTerminal()   {}
-func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageFeature()  {}
-func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageTerminal() {}
-func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()   {}
-func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()        {}
-func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()       {}
-func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeElement() {}
-func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeFeatureDefinitionElement() {
-}
-func (packageTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (packageTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (packageTerminalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageTerminal()                    {}
+func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageFeature()                   {}
+func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageTerminal()                  {}
+func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual()               {}
+func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                       {}
+func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                            {}
+func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()                           {}
+func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23DraughtingModelItemDefinition()    {}
+func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23GeometricItemSpecificUsageSelect() {}
+func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23GeometricToleranceTarget()         {}
+func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeElement()                     {}
+func (packageTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeFeatureDefinitionElement()    {}
+func (packageTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                   {}
+func (packageTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                               {}
 
 var packageTerminalKindInterface reflect.Type
 
 var PackageTerminal = packageTerminalI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "PackageTerminal"},
-	ASubtypeOf: []sst.ElementInformer{PackageFeature},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "PackageTerminal"},
+	ASubtypeOf:        []sst.ElementInformer{PackageFeature},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{PackageFeature.Element: {}},
 }}
@@ -823,18 +752,13 @@ type KindPackageTerminalTemplate interface {
 
 type packageTerminalTemplateI struct{ sst.ElementInfo }
 
-func (packageTerminalTemplateI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageTerminalTemplate() {
-}
-func (packageTerminalTemplateI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageTerminalTemplate() {
-}
-func (packageTerminalTemplateI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (packageTerminalTemplateI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing() {}
-func (packageTerminalTemplateI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeFeatureDefinition() {
-}
-func (packageTerminalTemplateI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (packageTerminalTemplateI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (packageTerminalTemplateI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageTerminalTemplate()   {}
+func (packageTerminalTemplateI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageTerminalTemplate() {}
+func (packageTerminalTemplateI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()              {}
+func (packageTerminalTemplateI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                   {}
+func (packageTerminalTemplateI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeFeatureDefinition()  {}
+func (packageTerminalTemplateI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()          {}
+func (packageTerminalTemplateI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                      {}
 
 var packageTerminalTemplateKindInterface reflect.Type
 
@@ -842,7 +766,7 @@ var PackageTerminalTemplate = packageTerminalTemplateI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "PackageTerminalTemplate"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -863,7 +787,9 @@ type packageTypeI struct{ sst.ElementInfo }
 
 func (packageTypeI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageType()      {}
 func (packageTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageType()    {}
+func (packageTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23MainClass()   {}
 func (packageTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23OptionClass() {}
+func (packageTypeI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fssmeta_23SelectClass() {}
 func (packageTypeI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
 
 var packageTypeKindInterface reflect.Type
@@ -872,7 +798,7 @@ var PackageType = packageTypeI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "PackageType"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -890,21 +816,19 @@ type KindPackageType_BGA interface {
 
 type packageType_BGAI struct{ sst.ElementInfo }
 
-func (packageType_BGAI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageType_5FBGA() {}
-func (packageType_BGAI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology_5Fsurface() {
-}
-func (packageType_BGAI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageType_5FBGA() {
-}
-func (packageType_BGAI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (packageType_BGAI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageType_5FBGA()              {}
+func (packageType_BGAI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology_5Fsurface() {}
+func (packageType_BGAI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageType_5FBGA()            {}
+func (packageType_BGAI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()               {}
 
 var packageType_BGAKindInterface reflect.Type
 
 var PackageType_BGA = packageType_BGAI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "PackageType_BGA"},
-	ASubtypeOf: []sst.ElementInformer{MountingTechnology_surface},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "PackageType_BGA"},
+	ASubtypeOf:        []sst.ElementInformer{MountingTechnology_surface},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -922,21 +846,19 @@ type KindPackageType_DIP interface {
 
 type packageType_DIPI struct{ sst.ElementInfo }
 
-func (packageType_DIPI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageType_5FDIP() {}
-func (packageType_DIPI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology_5FthroughHole() {
-}
-func (packageType_DIPI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageType_5FDIP() {
-}
-func (packageType_DIPI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (packageType_DIPI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageType_5FDIP()                  {}
+func (packageType_DIPI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology_5FthroughHole() {}
+func (packageType_DIPI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageType_5FDIP()                {}
+func (packageType_DIPI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                   {}
 
 var packageType_DIPKindInterface reflect.Type
 
 var PackageType_DIP = packageType_DIPI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "PackageType_DIP"},
-	ASubtypeOf: []sst.ElementInformer{MountingTechnology_throughHole},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "PackageType_DIP"},
+	ASubtypeOf:        []sst.ElementInformer{MountingTechnology_throughHole},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -954,21 +876,19 @@ type KindPackageType_SIP interface {
 
 type packageType_SIPI struct{ sst.ElementInfo }
 
-func (packageType_SIPI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageType_5FSIP() {}
-func (packageType_SIPI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology_5FthroughHole() {
-}
-func (packageType_SIPI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageType_5FSIP() {
-}
-func (packageType_SIPI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
+func (packageType_SIPI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageType_5FSIP()                  {}
+func (packageType_SIPI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23MountingTechnology_5FthroughHole() {}
+func (packageType_SIPI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23PackageType_5FSIP()                {}
+func (packageType_SIPI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                   {}
 
 var packageType_SIPKindInterface reflect.Type
 
 var PackageType_SIP = packageType_SIPI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "PackageType_SIP"},
-	ASubtypeOf: []sst.ElementInformer{MountingTechnology_throughHole},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "PackageType_SIP"},
+	ASubtypeOf:        []sst.ElementInformer{MountingTechnology_throughHole},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1000,7 +920,7 @@ var Template = templateI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "Template"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -1019,34 +939,29 @@ type KindTemplateContactFeature interface {
 
 type templateContactFeatureI struct{ sst.ElementInfo }
 
-func (templateContactFeatureI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateContactFeature() {
-}
-func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateContactFeature() {
-}
-func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateFeature() {
-}
-func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual() {
-}
-func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()  {}
-func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect() {}
-func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeElement() {
-}
-func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeFeatureDefinitionElement() {
-}
-func (templateContactFeatureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
-func (templateContactFeatureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing() {}
+func (templateContactFeatureI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateContactFeature()             {}
+func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateContactFeature()           {}
+func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateFeature()                  {}
+func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual()               {}
+func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                       {}
+func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                            {}
+func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()                           {}
+func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23DraughtingModelItemDefinition()    {}
+func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23GeometricItemSpecificUsageSelect() {}
+func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23GeometricToleranceTarget()         {}
+func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeElement()                     {}
+func (templateContactFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeFeatureDefinitionElement()    {}
+func (templateContactFeatureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                   {}
+func (templateContactFeatureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                               {}
 
 var templateContactFeatureKindInterface reflect.Type
 
 var TemplateContactFeature = templateContactFeatureI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "TemplateContactFeature"},
-	ASubtypeOf: []sst.ElementInformer{TemplateFeature},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "TemplateContactFeature"},
+	ASubtypeOf:        []sst.ElementInformer{TemplateFeature},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{TemplateFeature.Element: {}},
 }}
@@ -1065,18 +980,19 @@ type KindTemplateFeature interface {
 
 type templateFeatureI struct{ sst.ElementInfo }
 
-func (templateFeatureI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateFeature()   {}
-func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateFeature() {}
-func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()   {}
-func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()        {}
-func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()       {}
-func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeElement() {}
-func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeFeatureDefinitionElement() {
-}
-func (templateFeatureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (templateFeatureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (templateFeatureI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateFeature()                    {}
+func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateFeature()                  {}
+func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual()               {}
+func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                       {}
+func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                            {}
+func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()                           {}
+func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23DraughtingModelItemDefinition()    {}
+func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23GeometricItemSpecificUsageSelect() {}
+func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23GeometricToleranceTarget()         {}
+func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeElement()                     {}
+func (templateFeatureI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeFeatureDefinitionElement()    {}
+func (templateFeatureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                   {}
+func (templateFeatureI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                               {}
 
 var templateFeatureKindInterface reflect.Type
 
@@ -1084,7 +1000,7 @@ var TemplateFeature = templateFeatureI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "TemplateFeature"},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{},
 }}
@@ -1103,32 +1019,30 @@ type KindTemplateTerminal interface {
 
 type templateTerminalI struct{ sst.ElementInfo }
 
-func (templateTerminalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateTerminal() {}
-func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateContactFeature() {
-}
-func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateFeature() {
-}
-func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateTerminal() {
-}
-func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual() {
-}
-func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()   {}
-func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()        {}
-func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()       {}
-func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeElement() {}
-func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeFeatureDefinitionElement() {
-}
-func (templateTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {}
-func (templateTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()             {}
+func (templateTerminalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateTerminal()                   {}
+func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateContactFeature()           {}
+func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateFeature()                  {}
+func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23TemplateTerminal()                 {}
+func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23ArrangedIndividual()               {}
+func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Individual()                       {}
+func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23Thing()                            {}
+func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23Aspect()                           {}
+func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23DraughtingModelItemDefinition()    {}
+func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23GeometricItemSpecificUsageSelect() {}
+func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23GeometricToleranceTarget()         {}
+func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeElement()                     {}
+func (templateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Fsso_23ShapeFeatureDefinitionElement()    {}
+func (templateTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                   {}
+func (templateTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2002_2F07_2Fowl_23Thing()                               {}
 
 var templateTerminalKindInterface reflect.Type
 
 var TemplateTerminal = templateTerminalI{sst.ElementInfo{
-	Element:    sst.Element{Vocabulary: EEDVocabulary, Name: "TemplateTerminal"},
-	ASubtypeOf: []sst.ElementInformer{TemplateContactFeature},
+	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "TemplateTerminal"},
+	ASubtypeOf:        []sst.ElementInformer{TemplateContactFeature},
 
 	AClass: true, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false,
+	AProperty: false, ADatatypeProperty: false, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 	AMainClassSupersedure: map[sst.Element]struct{}{TemplateContactFeature.Element: {}, TemplateFeature.Element: {}},
 }}
@@ -1147,24 +1061,20 @@ type KindConnectedTerminal interface {
 
 type connectedTerminalI struct{ sst.ElementInfo }
 
-func (connectedTerminalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23connectedTerminal() {
-}
-func (connectedTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23connectedTerminal() {
-}
-func (connectedTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23connectedTo() {}
-func (connectedTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23directlyConnectedTo() {
-}
-func (connectedTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (connectedTerminalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23connectedTerminal()     {}
+func (connectedTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23connectedTerminal()   {}
+func (connectedTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23connectedTo()         {}
+func (connectedTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Flci_23directlyConnectedTo() {}
+func (connectedTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
 
 var connectedTerminalKindInterface reflect.Type
 
 var ConnectedTerminal = connectedTerminalI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "connectedTerminal"},
-	ARange:  FunctionalOccurrenceTerminal,
+	ARange:            FunctionalOccurrenceTerminal,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1194,10 +1104,10 @@ var ipcIdKindInterface reflect.Type
 
 var IpcID = ipcIdI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "ipcId"},
-	ADomain: Package,
+	ADomain:           Package,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1227,10 +1137,10 @@ var jedecIdKindInterface reflect.Type
 
 var JedecID = jedecIdI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "jedecId"},
-	ADomain: Package,
+	ADomain:           Package,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false,
+	AProperty: true, ADatatypeProperty: true, AnObjectProperty: false, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1248,21 +1158,18 @@ type KindMapPartTerminalToFunctionalTerminal interface {
 
 type mapPartTerminalToFunctionalTerminalI struct{ sst.ElementInfo }
 
-func (mapPartTerminalToFunctionalTerminalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartTerminalToFunctionalTerminal() {
-}
-func (mapPartTerminalToFunctionalTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartTerminalToFunctionalTerminal() {
-}
-func (mapPartTerminalToFunctionalTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (mapPartTerminalToFunctionalTerminalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartTerminalToFunctionalTerminal()   {}
+func (mapPartTerminalToFunctionalTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartTerminalToFunctionalTerminal() {}
+func (mapPartTerminalToFunctionalTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                      {}
 
 var mapPartTerminalToFunctionalTerminalKindInterface reflect.Type
 
 var MapPartTerminalToFunctionalTerminal = mapPartTerminalToFunctionalTerminalI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "mapPartTerminalToFunctionalTerminal"},
-	ARange:  FunctionalDefinitionTerminal,
+	ARange:            FunctionalDefinitionTerminal,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1280,21 +1187,18 @@ type KindMapPartTerminalToTemplateTerminal interface {
 
 type mapPartTerminalToTemplateTerminalI struct{ sst.ElementInfo }
 
-func (mapPartTerminalToTemplateTerminalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartTerminalToTemplateTerminal() {
-}
-func (mapPartTerminalToTemplateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartTerminalToTemplateTerminal() {
-}
-func (mapPartTerminalToTemplateTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (mapPartTerminalToTemplateTerminalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartTerminalToTemplateTerminal()   {}
+func (mapPartTerminalToTemplateTerminalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartTerminalToTemplateTerminal() {}
+func (mapPartTerminalToTemplateTerminalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()                    {}
 
 var mapPartTerminalToTemplateTerminalKindInterface reflect.Type
 
 var MapPartTerminalToTemplateTerminal = mapPartTerminalToTemplateTerminalI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "mapPartTerminalToTemplateTerminal"},
-	ARange:  TemplateTerminal,
+	ARange:            TemplateTerminal,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1312,21 +1216,18 @@ type KindMapPartToFunctional interface {
 
 type mapPartToFunctionalI struct{ sst.ElementInfo }
 
-func (mapPartToFunctionalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartToFunctional() {
-}
-func (mapPartToFunctionalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartToFunctional() {
-}
-func (mapPartToFunctionalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (mapPartToFunctionalI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartToFunctional()   {}
+func (mapPartToFunctionalI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartToFunctional() {}
+func (mapPartToFunctionalI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()      {}
 
 var mapPartToFunctionalKindInterface reflect.Type
 
 var MapPartToFunctional = mapPartToFunctionalI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "mapPartToFunctional"},
-	ARange:  FunctionalDefinition,
+	ARange:            FunctionalDefinition,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}
 
@@ -1344,20 +1245,17 @@ type KindMapPartToTemplate interface {
 
 type mapPartToTemplateI struct{ sst.ElementInfo }
 
-func (mapPartToTemplateI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartToTemplate() {
-}
-func (mapPartToTemplateI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartToTemplate() {
-}
-func (mapPartToTemplateI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource() {
-}
+func (mapPartToTemplateI) AsIs_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartToTemplate()   {}
+func (mapPartToTemplateI) AsKind_http_3A_2F_2Fontology_2Esemanticstep_2Enet_2Feed_23mapPartToTemplate() {}
+func (mapPartToTemplateI) AsKind_http_3A_2F_2Fwww_2Ew3_2Eorg_2F2000_2F01_2Frdf_2Dschema_23Resource()    {}
 
 var mapPartToTemplateKindInterface reflect.Type
 
 var MapPartToTemplate = mapPartToTemplateI{sst.ElementInfo{
 	Element: sst.Element{Vocabulary: EEDVocabulary, Name: "mapPartToTemplate"},
-	ARange:  Template,
+	ARange:            Template,
 
 	AClass: false, AnOptionClass: false, AnAbstractClass: false, ARootClass: false,
-	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true,
+	AProperty: true, ADatatypeProperty: false, AnObjectProperty: true, 
 	ADatatype: false, AnIndividual: false,
 }}

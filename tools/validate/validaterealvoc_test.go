@@ -1005,6 +1005,7 @@ func Test_ExampleValidation(t *testing.T) {
 			rp, err := validate.Validate(st, validate.KindRdfType, validate.KindDomainRange)
 			assert.NoError(t, err)
 
+
 			var want validate.ValidateReport
 			require.NoError(t, json.Unmarshal([]byte(tt.expected), &want))
 

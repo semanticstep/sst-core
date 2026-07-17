@@ -98,9 +98,10 @@ func ParseAccessMode(s string) AccessMode {
 }
 
 // AccessModeFromRoles determines the highest AccessMode from a slice of OIDC role strings.
-// It looks for well-known keywords in each role name.
+// It looks for well-known keywords in each role name. If no recognized role is
+// found, it returns AccessMode_None.
 func AccessModeFromRoles(roles []string) AccessMode {
-	mode := AccessMode_ReadOnly
+	mode := AccessMode_None
 	for _, r := range roles {
 		rl := strings.ToLower(r)
 		if strings.Contains(rl, "super-admin") || strings.Contains(rl, "superadmin") || strings.Contains(rl, "super_admin") {
@@ -111,6 +112,11 @@ func AccessModeFromRoles(roles []string) AccessMode {
 		}
 		if strings.Contains(rl, "write") || strings.Contains(rl, "rw") {
 			mode = AccessMode_ReadWrite
+		}
+		if strings.Contains(rl, "read-only") || strings.Contains(rl, "readonly") || strings.Contains(rl, "read_only") {
+			if mode < AccessMode_ReadOnly {
+				mode = AccessMode_ReadOnly
+			}
 		}
 	}
 	return mode

@@ -9,10 +9,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	fs "github.com/relab/wrfs"
 	"github.com/semanticstep/sst-core/cli/cmd/utils"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/tools/validate"
+	fs "github.com/relab/wrfs"
 	"go.uber.org/zap"
 )
 
@@ -433,8 +433,15 @@ func handleStageValidate(stageAlias string, args []string) {
 		return
 	}
 
-	if len(args) != 0 {
-		fmt.Printf("Usage: %s.validate\n", stageAlias)
+	outputPath, err := utils.ExtractOutputFlag(args)
+	if err != nil {
+		fmt.Println(err)
+		fmt.Printf("Usage: %s.validate [-o <file>]\n", stageAlias)
+		return
+	}
+
+	if len(utils.ArgsWithoutOutputFlag(args)) > 0 {
+		fmt.Printf("Usage: %s.validate [-o <file>]\n", stageAlias)
 		return
 	}
 
@@ -448,5 +455,31 @@ func handleStageValidate(stageAlias string, args []string) {
 		utils.PrintCLIProblem("validate stage", err)
 		return
 	}
-	fmt.Print(report.FormatHumanReadable())
+
+	text := report.FormatHumanReadable()
+	if outputPath == "" {
+		fmt.Print(text)
+		return
+	}
+
+	outputPath = utils.EnsureOutputExt(outputPath, ".txt")
+
+	if _, err := os.Stat(outputPath); err == nil {
+		fmt.Printf("File '%s' already exists. Overwrite? (y/N): ", outputPath)
+		var input string
+		fmt.Scanln(&input)
+		if strings.ToLower(strings.TrimSpace(input)) != "y" {
+			fmt.Println("Aborted.")
+			return
+		}
+	} else if !os.IsNotExist(err) {
+		fmt.Fprintf(os.Stderr, "Error checking file '%s': %v\n", outputPath, err)
+		return
+	}
+
+	if err := os.WriteFile(outputPath, []byte(text), 0644); err != nil {
+		utils.PrintCLIProblem("write validation report", err)
+		return
+	}
+	fmt.Printf("Validation report written to %s\n", outputPath)
 }

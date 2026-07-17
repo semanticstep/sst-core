@@ -17,9 +17,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/bboltproto"
 	"github.com/semanticstep/sst-core/sstauth"
+	"github.com/google/uuid"
 	"go.etcd.io/bbolt"
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
@@ -37,9 +37,11 @@ const (
 )
 
 type datasetServiceServer struct {
-	r        Repository
-	sr       SuperRepository
-	clientID string
+	r           Repository
+	sr          SuperRepository
+	clientID    string
+	perRepoAuth bool
+	methodRoles map[string]sstauth.AccessMode
 	bboltproto.UnimplementedDatasetServiceServer
 	TimeNow func() time.Time
 }
@@ -53,7 +55,7 @@ func (s *datasetServiceServer) GetBleveInfo(
 		panic("request is nil")
 	}
 
-	repo, err := datasetServiceServerToRepository(s, ctx, defaultSuperRepoName)
+	repo, err := datasetServiceServerToRepository(s, ctx, request.GetRepoName())
 	if err != nil {
 		return nil, err
 	}
@@ -85,27 +87,26 @@ func (s *datasetServiceServer) GetRepositoryInfo(
 		return nil, fmt.Errorf("failed to get repository info: %w", err)
 	}
 
-	roles := make([]string, 0)
-	tok, err := tokenFromIncomingContext(ctx)
-	if err != nil {
-		if status.Code(err) == codes.Unauthenticated {
-			GlobalLogger.Debug("no token found in context", zap.Error(err))
-		} else {
-			return nil, err
-		}
-	} else {
-		extractedRoles, err := extractClientRolesNoVerify(tok, s.clientID)
-		if err != nil {
-			// GlobalLogger.Error("failed to extract client roles", zap.Error(err))
-			GlobalLogger.Debug("failed to extract client roles", zap.Error(err))
-		}
-		roles = append(roles, extractedRoles...)
+	clientID := s.clientID
+	if s.perRepoAuth {
+		clientID = sstauth.PerRepoClientID(s.clientID, request.RepoName)
 	}
-	// log.Println("extracted token:", tok)
 
-	// log.Println("extracted roles:", roles)
-
-	mode := sstauth.AccessModeFromRoles(roles)
+	mode := sstauth.AccessMode_ReadOnly
+	if p, ok := sstauth.PrincipalFromContext(ctx); ok {
+		mode = sstauth.AccessModeForClientID(p.Claims, clientID)
+	} else {
+		// Fallback for test-mode tokens: extract roles directly from the
+		// unsigned JWT payload. The RBAC interceptor is not active with
+		// test://issuer, so Principal is not present in the context.
+		tok, err := tokenFromIncomingContext(ctx)
+		if err == nil {
+			extractedRoles, err := extractClientRolesNoVerify(tok, clientID)
+			if err == nil {
+				mode = sstauth.AccessModeFromRoles(extractedRoles)
+			}
+		}
+	}
 	isAdmin := sstauth.HasAccess(mode, sstauth.AccessMode_Admin)
 	resp := &bboltproto.GetRepositoryInfoResponse{
 		AccessRight:                 mode.String(),
@@ -818,6 +819,9 @@ func (s *datasetServiceServer) SyncFrom(stream bboltproto.DatasetService_SyncFro
 	// Track document_info hashes that were synced
 	documentHashesToSync := make(map[string]bool)
 
+	// Track dataset IDs whose master branch was updated and need a Bleve re-index.
+	dsIDsToReindex := make(map[uuid.UUID]struct{})
+
 	// Process streamed bucket data
 	for {
 		req, err := stream.Recv()
@@ -834,6 +838,20 @@ func (s *datasetServiceServer) SyncFrom(stream bboltproto.DatasetService_SyncFro
 			// Extract repo_name from metadata for SuperRepository support
 			if data.Metadata != nil {
 				repoName = data.Metadata.RepoName
+			}
+			// Per-repo authorization check for streaming RPCs.
+			if s.perRepoAuth {
+				repoURL := sstauth.PerRepoClientID(s.clientID, repoName)
+				if err := sstauth.CheckRepoAccess(
+					stream.Context(),
+					repoURL,
+					"/sst.repository.DatasetService/SyncFrom",
+					s.methodRoles,
+					s.clientID,
+					false,
+				); err != nil {
+					return err
+				}
 			}
 			// Get the correct repository from SuperRepository
 			if localRepo == nil {
@@ -855,12 +873,16 @@ func (s *datasetServiceServer) SyncFrom(stream bboltproto.DatasetService_SyncFro
 			}
 			continue
 		case *bboltproto.SyncFromRequest_BucketData:
-			if db == nil {
+			if localRepo == nil {
 				return status.Errorf(codes.FailedPrecondition, "metadata must be sent before bucket data")
 			}
 			bd := data.BucketData
-			if err := s.processBucketData(db, bd, stats, documentHashesToSync); err != nil {
+			reindexID, err := s.processBucketData(localRepo, bd, stats, documentHashesToSync)
+			if err != nil {
 				return status.Errorf(codes.Internal, "failed to process bucket data: %v", err)
+			}
+			if reindexID != uuid.Nil {
+				dsIDsToReindex[reindexID] = struct{}{}
 			}
 		}
 	}
@@ -872,6 +894,17 @@ func (s *datasetServiceServer) SyncFrom(stream bboltproto.DatasetService_SyncFro
 			GlobalLogger.Warn("some document files may be missing in vault", zap.Error(err))
 			// Don't fail the sync if files are missing, as they might have been uploaded separately
 		}
+	}
+
+	// Update Bleve index for datasets whose master branch changed.
+	if localRepo != nil && localRepo.config.bleveIndexUpdater != nil {
+		for id := range dsIDsToReindex {
+			localRepo.config.bleveIndexUpdater.updateAfterSync(stream.Context(), localRepo, id, DefaultBranch)
+		}
+		// Ensure asynchronous Bleve index updates are visible before returning to
+		// the remote client.
+		// comment due to timeout in edm
+		// FlushBleveIndex(localRepo)
 	}
 
 	if localRepo != nil && existingDSRs != nil {
@@ -1196,7 +1229,7 @@ func (s *datasetServiceServer) streamCommitsToClient(
 
 		// Filter by branch if specified
 		if !isAllBranches(branchName) && datasetsBucket != nil {
-			if !isCommitInBranch(commitHash, branchName, datasetIDSet, datasetsBucket) {
+			if !isCommitInBranch(commitHash, branchName, datasetIDSet, datasetsBucket, bucket) {
 				return nil // Not in specified branch, skip
 			}
 		}
@@ -1310,16 +1343,17 @@ func (s *datasetServiceServer) verifyDocumentFiles(localRepo *localFullRepositor
 }
 
 func (s *datasetServiceServer) processBucketData(
-	db *bbolt.DB,
+	localRepo *localFullRepository,
 	bd *bboltproto.SyncFromBucketData,
 	stats *bboltproto.SyncFromResponse,
 	documentHashesToSync map[string]bool,
-) error {
+) (uuid.UUID, error) {
 	bucketName := bd.BucketName
 	key := bd.Key
 	value := bd.Value
 
-	return db.Update(func(tx *bbolt.Tx) error {
+	var dsIDToReindex uuid.UUID
+	err := localRepo.db.Update(func(tx *bbolt.Tx) error {
 		var bucket *bbolt.Bucket
 		var err error
 
@@ -1375,21 +1409,20 @@ func (s *datasetServiceServer) processBucketData(
 					if err := dsBucket.Put(bd.SubKey, bd.SubValue); err != nil {
 						return err
 					}
+
+					// Schedule Bleve index update if the synced sub-key is the master branch.
+					if isMasterBranchRefKey(bd.SubKey) {
+						dsIDToReindex = uuid.UUID(key)
+					}
 				}
 				stats.DatasetsSynced++
 			} else if bd.IsBucket && len(bd.SubKey) > 0 {
-				// Check if identical or merge
-				existingValue := dsBucket.Get(bd.SubKey)
-				if !bytes.Equal(existingValue, bd.SubValue) {
-					// TO BE SPECIFIED: For Datasets with different content, perform detailed analysis
-					// of all revisions and all Named Branches and their parents.
-					// Current implementation: simplified merge (keep existing if different)
-					if existingValue == nil {
-						if err := dsBucket.Put(bd.SubKey, bd.SubValue); err != nil {
-							return err
-						}
-					}
-					// If exists and different, keep existing (simplified merge)
+				masterUpdated, err := mergeIncomingDatasetRef(dsBucket, bd.SubKey, bd.SubValue)
+				if err != nil {
+					return err
+				}
+				if masterUpdated {
+					dsIDToReindex = uuid.UUID(key)
 				}
 			}
 		case "c":
@@ -1449,6 +1482,7 @@ func (s *datasetServiceServer) processBucketData(
 
 		return nil
 	})
+	return dsIDToReindex, err
 }
 
 type suggestion interface {

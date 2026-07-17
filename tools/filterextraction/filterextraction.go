@@ -16,15 +16,16 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict" // register vocabulary map
 	"github.com/semanticstep/sst-core/vocabularies/lci"
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
+	"github.com/google/uuid"
 	"go.uber.org/zap"
 )
+
 
 // returns a map
 // key:    predicate

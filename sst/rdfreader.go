@@ -222,8 +222,10 @@ func fromReaderToStage(
 
 	extractCollections(newStage)
 
-	if err := processImports(newStage, newStage.NamedGraphs()[0]); err != nil {
-		return newStage, err
+	if graphs := newStage.NamedGraphs(); len(graphs) > 0 {
+		if err := processImports(newStage, graphs[0]); err != nil {
+			return newStage, err
+		}
 	}
 
 	return newStage, nil

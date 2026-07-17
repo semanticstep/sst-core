@@ -8,8 +8,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/blevesearch/bleve/v2"
 	"github.com/semanticstep/sst-core/sst"
+	"github.com/blevesearch/bleve/v2"
 )
 
 func PrintRepositoryInfo(info sst.RepositoryInfo) {

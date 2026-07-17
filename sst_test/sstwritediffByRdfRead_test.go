@@ -8,8 +8,8 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"testing"
 	"text/tabwriter"
+	"testing"
 
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/qau"

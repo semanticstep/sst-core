@@ -11,19 +11,19 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/uuid"
-	fs "github.com/relab/wrfs"
 	"github.com/semanticstep/sst-core/sst"
-	"github.com/semanticstep/sst-core/sst_test/testutil"
 	"github.com/semanticstep/sst-core/step/ap242xmlimport"
+	"github.com/semanticstep/sst-core/sst_test/testutil"
 	filterextraction "github.com/semanticstep/sst-core/tools/filterextraction"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
+	"github.com/google/uuid"
+	fs "github.com/relab/wrfs"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 const (
-	testWD      = "../.."
+	testWD     = "../.."
 	xmlDataBase = "step/testdata/ewhfortest/"
 )
 

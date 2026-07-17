@@ -337,6 +337,7 @@ func (d *defaultBleveIndexUpdater) updateAfterSync(
 			GlobalLogger.Warn("failed to update bleve index after sync", zap.Error(err))
 			d.recordError(err)
 		} else {
+			GlobalLogger.Info("bleve index updated for dataset", zap.String("dataset", capturedID.String()))
 			d.recordSuccess()
 		}
 	})
@@ -452,7 +453,7 @@ func updateIndexForGraph(graph NamedGraph, batch *indexBatch, withOriginal bool,
 		return err
 	}
 
-	if commitInfo != nil {
+	if len(commitInfo) > 0 {
 		data["commitHash"] = commitInfo[0].CommitHash
 		data["commitAuthor"] = commitInfo[0].CommitAuthor
 		data["commitTime"] = commitInfo[0].CommitTime

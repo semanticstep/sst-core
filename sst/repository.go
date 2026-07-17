@@ -20,11 +20,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/blevesearch/bleve/v2"
 	"github.com/blevesearch/bleve/v2/mapping"
 	"github.com/blevesearch/bleve/v2/search/query"
 	"github.com/google/uuid"
-	"github.com/semanticstep/sst-core/sstauth"
 	"go.etcd.io/bbolt"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -154,9 +154,8 @@ type Repository interface {
 	// ExtractSstFile extracts a particular revision of a NamedGraph into a io.Writer that will create a SST-file.
 	ExtractSstFile(ctx context.Context, namedGraphRevision Hash, w io.Writer) error
 
-	// Only used in remoteRepository and LocalFullRepository.
-	// For RemoteRepository, it can sync from a LocalFullRepository to the method receiver.
-	// For LocalFullRepository, it can sync from a RemoteRepository to the method receiver.
+	// SyncFrom is synchronizing the commits of the from repository to this repository.
+	// It may synchronize the whole repository or only selected datasets.
 	// Options can be used to specify which datasets and branches to sync:
 	// - If no options are provided, syncs all datasets and all branches.
 	// - Use WithDatasetIRIs() to specify which datasets to sync (including their imported dependencies).

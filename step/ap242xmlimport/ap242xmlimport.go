@@ -1686,14 +1686,14 @@ func FromXMLReader(fromXML io.Reader) (sst.NamedGraph, error) {
 						if !found {
 							return graph, fmt.Errorf("%w: for <%v>", ErrRepresentationRelationshipNotFound, refLoop.Ref)
 						}
-						subProp.AddStatement(rep.ContextDependentShapeRepresentation, representationRelationshipRef)
+						subProp.AddStatement(sso.ContextDependentShapeRepresentation, representationRelationshipRef)
 					}
 					for _, refLoop := range viewOccurrenceRelationshipLoop.Placement.GeometricRepresentationRelationship {
 						representationRelationshipRef, found := cp.representationRelationshipMap[refLoop.Ref]
 						if !found {
 							return graph, fmt.Errorf("%w: for <%v>", ErrRepresentationRelationshipNotFound, refLoop.Ref)
 						}
-						subProp.AddStatement(rep.ContextDependentShapeRepresentation, representationRelationshipRef)
+						subProp.AddStatement(sso.ContextDependentShapeRepresentation, representationRelationshipRef)
 					}
 				}
 			}

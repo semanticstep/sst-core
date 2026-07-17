@@ -13,9 +13,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
+	"github.com/google/uuid"
 	"go.etcd.io/bbolt"
 	"go.uber.org/zap"
 )

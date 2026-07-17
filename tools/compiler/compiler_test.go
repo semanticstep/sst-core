@@ -8,9 +8,9 @@ import (
 	"log"
 	"testing"
 
-	wrfs "github.com/relab/wrfs"
-	"github.com/semanticstep/sst-core/sst"
 	ontologies "github.com/semanticstep/sst-ontologies"
+	"github.com/semanticstep/sst-core/sst"
+	wrfs "github.com/relab/wrfs"
 	"github.com/stretchr/testify/assert"
 )
 

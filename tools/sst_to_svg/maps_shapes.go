@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
+	"github.com/google/uuid"
 )
 
 func getCircleMap(o sst.Term, styleMap map[uuid.UUID]map[string]string) map[string]string {
@@ -504,3 +504,4 @@ func getTextMap(o sst.Term, styleMap map[uuid.UUID]map[string]string) map[string
 	})
 	return resultMap
 }
+

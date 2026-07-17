@@ -10,13 +10,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/sst"
 	"github.com/semanticstep/sst-core/vocabularies/rdf"
-	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
+	"github.com/semanticstep/sst-core/vocabularies/rdfs"
+	"github.com/google/uuid"
 )
-
 func createNodeForPath(graph sst.NamedGraph, path path) (sst.IBNode, error) {
 	commands, err := parsePathData(string(path.D))
 	if err != nil {
@@ -1053,3 +1052,4 @@ func pointsToString(points []point) string {
 	}
 	return strings.TrimSpace(sb.String())
 }
+

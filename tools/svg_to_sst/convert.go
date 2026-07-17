@@ -11,7 +11,6 @@ import (
 	_ "github.com/semanticstep/sst-core/vocabularies/dict"
 	_ "github.com/semanticstep/sst-core/vocabularies/lci"
 )
-
 func decodeSVG(r io.Reader) (svg, error) {
 	var doc svg
 	dec := xml.NewDecoder(r)
@@ -60,3 +59,4 @@ func ConvertSvgToGraph(r io.Reader, graphIRI sst.IRI) (sst.NamedGraph, error) {
 	createSymbolRepresentation(graph, contextNode, itemUUIDs, svg.Title, svg.Desc)
 	return graph, nil
 }
+

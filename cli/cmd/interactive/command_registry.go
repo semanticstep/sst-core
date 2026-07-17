@@ -56,7 +56,7 @@ func registerTopLevelCommands() {
 		{Name: "rdfread", Handler: func(args []string) { handleRDFRead(args) }, Usage: "rdfread <file>", Help: "Read an RDF file in Turtle or TriG format into a new stage"},
 		{Name: "sstread", Handler: func(args []string) { handleSstRead(args) }, Usage: "sstread <file>", Help: "Read an SST binary file into a new stage"},
 		{Name: "importap242xml", Handler: func(args []string) { handleImportAP242XML(args) }, Usage: "importap242xml <file>", Help: "Import AP242 XML file into a new stage"},
-		{Name: "importp21", Handler: func(args []string) { handleImportP21(args) }, Usage: "importp21 <file>", Help: "Import P21/STEP file into a new stage"},
+		{Name: "importp21", Handler: func(args []string) { handleImportP21(args) }, Usage: "importp21 <file> [-o <raw-ttl>]", Help: "Import P21/STEP file into a new stage; use -o to write pre-conversion raw P21 Turtle for debugging"},
 		{Name: "importsvg", Handler: func(args []string) { handleImportSVG(args) }, Usage: "importsvg <file.svg>", Help: "Convert SVG into a new SST geometry stage"},
 	}
 }
@@ -117,7 +117,7 @@ func registerAliasCommands() {
 		{Name: "moveandmerge", Kinds: []aliasKind{kindStage}, Handler: handleMoveAndMerge, Usage: "moveandmerge", Help: "Move and merge named graphs"},
 		{Name: "alignhistory", Kinds: []aliasKind{kindStage}, Handler: handleAlignHistory, Usage: "alignhistory <from-stage>", Help: "Copy repository pointer and checkout metadata from from-stage onto to-stage (e.g. after rdfread) so commit preserves original history"},
 		{Name: "commit", Kinds: []aliasKind{kindStage}, Handler: handleStageCommit, Usage: "commit <message> [branch]", Help: "Commit current changes in the stage, with a message and optional branch name"},
-		{Name: "validate", Kinds: []aliasKind{kindStage}, Handler: handleStageValidate, Usage: "validate", Help: "Validate stage (rdf/domain-range); prints detailed report with triples"},
+		{Name: "validate", Kinds: []aliasKind{kindStage}, Handler: handleStageValidate, Usage: "validate [-o <file>]", Help: "Validate stage (rdf/domain-range); print report to console, or write to file with -o (default extension .txt)"},
 		{Name: "trig", Kinds: []aliasKind{kindStage}, Handler: handleStageTriG, Usage: "trig", Help: "Print RDF of the Stage to the console (TriG format)"},
 		{Name: "writesstfilesdirectory", Kinds: []aliasKind{kindStage}, Handler: handleWriteSstFilesDirectory, Usage: "writesstfilesdirectory <directory>", Help: "Write modified NamedGraphs as SST files into a directory (IRI-base64 filenames)"},
 		{

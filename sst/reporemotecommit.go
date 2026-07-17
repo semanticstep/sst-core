@@ -11,9 +11,9 @@ import (
 	"log"
 	"sort"
 
-	"github.com/google/uuid"
 	"github.com/semanticstep/sst-core/bboltproto"
 	"github.com/semanticstep/sst-core/sstauth"
+	"github.com/google/uuid"
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

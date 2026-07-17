@@ -27,6 +27,7 @@ var (
 	ErrStageNotLinkToRepository                        = errors.New("stage does not link to a repository")
 	ErrCommitWasNotCreated                             = errors.New("commit was not created")
 	ErrPreCommitConditionFailed                        = errors.New("pre-commit condition failed")
+	ErrStagesRepositoryMismatch                        = errors.New("stage is already linked to a different repository")
 )
 
 // TriplexMode is a parameter for all functions and methods that create a new Stage, including
@@ -160,6 +161,12 @@ type Stage interface {
 	// This allows a stage created from e.g. RdfRead to be committed to the same
 	// repository as the source stage.
 	AlignHistory(from Stage)
+
+	// LinkToRepository links the Stage to the given Repository and calls
+	// NamedGraph.LinkToRepository for every local NamedGraph in this Stage.
+	// All local NamedGraphs are attached to the same branch. If per-NamedGraph
+	// branch control is required, call NamedGraph.LinkToRepository directly.
+	LinkToRepository(ctx context.Context, repo Repository, branch string) error
 
 	// IBNodeByVocabulary locates the IBNode with the IRI for the specified vocabulary element.
 	IBNodeByVocabulary(t Elementer) (IBNode, error)
@@ -875,6 +882,28 @@ func (to *stage) MoveAndMerge(ctx context.Context, from Stage) (*MoveAndMergeRep
 // commit reflects the removal.
 // This allows a stage created from e.g. RdfRead to be committed to the same
 // repository as the source stage.
+func (to *stage) LinkToRepository(ctx context.Context, repo Repository, branch string) error {
+	if err := to.assertAccess(); err != nil {
+		return err
+	}
+	if repo == nil {
+		return wrapError(ErrRepositoryNotFound)
+	}
+	if branch == "" {
+		return wrapError(ErrEmptyBranchName)
+	}
+	if to.repo != nil && to.repo != repo {
+		return wrapError(ErrStagesRepositoryMismatch)
+	}
+
+	for _, ng := range to.localGraphs {
+		if err := ng.LinkToRepository(ctx, repo, branch); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func (to *stage) AlignHistory(from Stage) {
 	fromImpl := from.(*stage)
 	to.repo = fromImpl.repo
@@ -911,7 +940,6 @@ func (to *stage) AlignHistory(from Stage) {
 			copyMetadata(toNg, fromNg)
 		}
 	}
-
 }
 
 // update all IBNode triples in fromNg by the content in toStage
@@ -1405,7 +1433,6 @@ func (to *stage) vocabularyElementToIBNode(t Element) *ibNode {
 
 		if IsUuidFragment {
 			ib, err = ng.createIriUUIDNode(uuidFragment)
-
 		} else {
 			ib, err = ng.createIRIStringNode(t.Name)
 		}

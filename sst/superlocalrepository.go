@@ -25,63 +25,65 @@ import (
 
 const defaultSuperRepoName = "default"
 
-// SuperRepository is a container that manages multiple related Repositories.
-// It provides functionality to create, retrieve, list, and delete repositories
-// within a single location (local directory or remote server).
+// SuperRepository is a container that manages multiple related Repository Entries.
+// It provides functionality to create, retrieve, list, and delete Repository
+// Entries within a single location (local directory or remote server).
 //
-// A SuperRepository always contains at least one "default" repository.
+// A SuperRepository always contains at least one "default" Repository.
 // All methods are context-aware for timeout and cancellation support.
+// The URL of a Repository Entry in a SuperRepository is constructed by using the SuperRepository's URL as base URL
+// and using the name of a Repository Entry as a fragment to the base URL (separated by "#").
 type SuperRepository interface {
 	// URL returns the specific location where this SuperRepository is stored.
 	// For a remote SuperRepository the returned URL uses grpc:// scheme.
 	// For a local SuperRepository the returned URL uses file:// scheme.
 	URL() string
 
-	// Get retrieves an existing repository by name from the SuperRepository.
-	// If name is empty, it returns the "default" repository.
-	// Returns an error if the repository does not exist.
+	// Get retrieves an existing Repository Entry by name from the SuperRepository.
+	// If name is empty, it returns the "default" Repository.
+	// Returns an error if the Repository does not exist.
 	Get(ctx context.Context, name string) (Repository, error)
 
-	// Create creates a new repository with the given name in the SuperRepository.
-	// Returns an error if a repository with the same name already exists.
-	// The created repository is automatically opened and ready for use.
+	// Create creates a new Repository Entry with the given name in the SuperRepository.
+	// Returns an error if a Repository Entry with the same name already exists.
+	// The created Repository is automatically opened and ready for use.
 	Create(ctx context.Context, name string) (Repository, error)
 
-	// Delete removes a repository by name from the SuperRepository.
-	// If name is empty, it deletes the "default" repository.
-	// This operation permanently removes all data in the repository.
+	// Delete removes a Repository Entry by name from the SuperRepository.
+	// If name is empty, it deletes the "default" Repository.
+	// This operation permanently removes all data in the Repository.
 	Delete(ctx context.Context, name string) error
 
-	// List returns the names of all repositories in the SuperRepository.
+	// List returns the names of all Repository Entries in the SuperRepository.
 	// The returned slice is sorted alphabetically.
 	List(ctx context.Context) ([]string, error)
 
-	// RegisterIndexHandler registers a Bleve index handler for all sub-repositories
-	// in this SuperRepository. Similar to Repository.RegisterIndexHandler but applies
-	// to all repositories managed by this SuperRepository.
+	// RegisterIndexHandler registers a Bleve index handler for all Repository
+	// Entries in this SuperRepository. Similar to Repository.RegisterIndexHandler but applies
+	// to all Repository Entries managed by this SuperRepository.
 	// Returns an error if index registration fails.
 	RegisterIndexHandler(*SSTDeriveInfo) error
 
-	// GetQuota returns the per-repository quota for the named sub-repository.
+	// GetQuota returns the per-Repository quota for the named Repository Entry.
 	GetQuota(ctx context.Context, name string) (RepositoryQuota, error)
 
-	// SetQuota sets the per-repository quota for the named sub-repository.
+	// SetQuota sets the per-Repository quota for the named Repository Entry.
 	SetQuota(ctx context.Context, name string, maxSizeBytes int64) error
 
-	// GetTotalQuota returns the aggregate quota across all sub-repositories.
+	// GetTotalQuota returns the aggregate quota across all Repository Entries.
 	GetTotalQuota(ctx context.Context) (RepositoryQuota, error)
 
-	// SetTotalQuota sets the aggregate quota across all sub-repositories.
+	// SetTotalQuota sets the aggregate quota across all Repository Entries.
 	SetTotalQuota(ctx context.Context, maxSizeBytes int64) error
 
-	// GetMaxRepositoryCount returns the maximum number of sub-repositories, or 0 for unlimited.
+	// GetMaxRepositoryCount returns the maximum number of Repository Entries, or 0 for unlimited.
 	GetMaxRepositoryCount(ctx context.Context) int
 
-	// SetMaxRepositoryCount sets the maximum number of sub-repositories.
+	// SetMaxRepositoryCount sets the maximum number of Repository Entries.
 	SetMaxRepositoryCount(ctx context.Context, count int) error
 
-	// Close releases all resources, including closing all opened sub-Repositories.
-	// Any error encountered while closing individual repositories is returned.
+	// Close releases all resources, including closing all opened Repository Entries.
+	// Any error encountered while closing individual Repository Entries is returned.
 	Close() error
 }
 
@@ -613,6 +615,10 @@ type SuperRepositoryServer struct {
 // registration fails.
 func NewSuperServer(c *RepositoryServerConfig, opts ...grpc.ServerOption) (*SuperRepositoryServer, error) {
 	// for now, all repository in the superRepository will use the same bleve deriveInfo
+	// Enable per-repo authorization for SuperRepositories, but only when a real
+	// OIDC issuer is configured. The test://issuer bypasses RBAC, so per-repo
+	// checks cannot be enforced there.
+	c.PerRepoAuth = c.Issuer != "" && c.Issuer != "test://issuer"
 	super, err := NewLocalSuperRepository(c.RepoDir)
 	if err != nil {
 		return nil, err
@@ -633,7 +639,7 @@ func NewSuperServer(c *RepositoryServerConfig, opts ...grpc.ServerOption) (*Supe
 
 	s := newServerWithConfig(c)
 
-	dsService := datasetServiceServer{r: r, sr: super, clientID: c.ClientID, TimeNow: time.Now}
+	dsService := datasetServiceServer{r: r, sr: super, clientID: c.ClientID, perRepoAuth: c.PerRepoAuth, TimeNow: time.Now}
 	bboltproto.RegisterDatasetServiceServer(s, &dsService)
 	GlobalLogger.Info("datasetService has been registered")
 
@@ -645,7 +651,7 @@ func NewSuperServer(c *RepositoryServerConfig, opts ...grpc.ServerOption) (*Supe
 	bboltproto.RegisterCommitServiceServer(s, &commitService)
 	GlobalLogger.Info("commitService has been registered")
 
-	bleveproto.RegisterIndexServiceServer(s, initIndexServiceServer(r, super))
+	bleveproto.RegisterIndexServiceServer(s, initIndexServiceServer(r, super, c.ClientID, c.PerRepoAuth, repositoryMethodRoles))
 	GlobalLogger.Info("IndexService has been registered")
 
 	bboltproto.RegisterRepoManagerServiceServer(s, newRepoManagerService(super))

@@ -17,7 +17,6 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/blevesearch/bleve/v2"
 	phrase "github.com/semanticstep/sst-core/defaultderive/analyzerphrase"
 	separatedkeyword "github.com/semanticstep/sst-core/defaultderive/analyzerseparatedkeyword"
 	"github.com/semanticstep/sst-core/singleton"
@@ -28,6 +27,7 @@ import (
 	"github.com/semanticstep/sst-core/vocabularies/rdfs"
 	"github.com/semanticstep/sst-core/vocabularies/rep"
 	"github.com/semanticstep/sst-core/vocabularies/sso"
+	"github.com/blevesearch/bleve/v2"
 
 	// auto import will import wrong keyword package
 	"github.com/blevesearch/bleve/v2/analysis/analyzer/keyword"
@@ -53,6 +53,7 @@ const (
 	productFamilyType                  = "ProductFamily"
 	breakdownSystemType                = "BreakdownSystem"
 	documentsType                      = "Document"
+	specificPhysicalProductType        = "SpecificPhysicalProduct"
 	typeField                          = "mainType"
 	additionalTypeField                = "additionalType"
 	specificTypeField                  = "specificType"
@@ -147,6 +148,7 @@ func documentTypes() []string {
 		breakdownSystemType,
 		productFamilyType,
 		documentsType,
+		specificPhysicalProductType,
 	}
 }
 
@@ -376,11 +378,11 @@ func deriveIndexFromNamedGraph(r sst.Repository, g sst.NamedGraph) (gID string,
 				// 	typeSubdocument[1][mainNodeField] = string(d.Fragment())
 				// }
 				recognizedSubtype = true
-			case lci.KindMaterializedPhysicalObject:
-				if documentType[1], ok = overrideDocumentType(documentType[1], materializedPhysicalObjectType); ok {
-					typeSubdocument[1][mainNodeField] = string(d.Fragment())
-				}
-				recognizedType = true
+			// case lci.KindMaterializedPhysicalObject:
+			// 	if documentType[1], ok = overrideDocumentType(documentType[1], materializedPhysicalObjectType); ok {
+			// 		typeSubdocument[1][mainNodeField] = string(d.Fragment())
+			// 	}
+			// 	recognizedType = true
 			case lci.KindComputerFile:
 				if documentType[1], ok = overrideDocumentType(documentType[1], computerFileType); ok {
 					typeSubdocument[1][mainNodeField] = string(d.Fragment())
@@ -403,6 +405,11 @@ func deriveIndexFromNamedGraph(r sst.Repository, g sst.NamedGraph) (gID string,
 					}
 					recognizedType = true
 				}
+			case sso.KindSpecificPhysicalProduct:
+				if documentType[1], ok = overrideDocumentType(documentType[1], specificPhysicalProductType); ok {
+					typeSubdocument[1][mainNodeField] = string(d.Fragment())
+				}
+				recognizedType = true
 			}
 		}
 		var ids map[sst.IBNode]map[string]interface{}

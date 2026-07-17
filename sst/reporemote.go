@@ -18,14 +18,14 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/semanticstep/sst-core/bboltproto"
+	"github.com/semanticstep/sst-core/bleveproto"
+	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/blevesearch/bleve/v2"
 	"github.com/blevesearch/bleve/v2/mapping"
 	index "github.com/blevesearch/bleve_index_api"
 	"github.com/google/uuid"
 	fs "github.com/relab/wrfs"
-	"github.com/semanticstep/sst-core/bboltproto"
-	"github.com/semanticstep/sst-core/bleveproto"
-	"github.com/semanticstep/sst-core/sstauth"
 	"go.etcd.io/bbolt"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -261,7 +261,7 @@ func (r *remoteRepository) RebuildBleveIndex() error {
 	return ErrNotSupported
 }
 
-// Use grpc.NewClient to create a new gRPC "channel" for the target URI provided. No I/O is performed.
+// Use grpc.NewClient to create a new gRPC "channel" for the target URL provided. No I/O is performed.
 func dialRepository(targetURL string, opts []grpc.DialOption) (*remoteRepository, error) {
 	cc, err := grpc.NewClient(targetURL, opts...)
 	if err != nil {
@@ -565,6 +565,7 @@ func (r *remoteRepository) CommitDetails(ctx context.Context, ids []Hash) ([]*Co
 
 	// Prepare request
 	var req bboltproto.GetCommitDetailsBatchRequest
+	req.RepoName = r.repoName
 	for _, id := range ids {
 		req.CommitIds = append(req.CommitIds, id[:])
 	}
@@ -681,7 +682,7 @@ func (d *remoteDataset) FindCommonParentRevision(ctx context.Context, revision1,
 	}
 	defer d.r.leave()
 
-	req := bboltproto.FindCommonParentRevisionRequest{DatasetId: d.id[:], DatasetCommitRv1: revision1[:], DatasetCommitRv2: revision2[:]}
+	req := bboltproto.FindCommonParentRevisionRequest{DatasetId: d.id[:], DatasetCommitRv1: revision1[:], DatasetCommitRv2: revision2[:], RepoName: d.r.repoName}
 	GlobalLogger.Debug("gRPC dsClient call FindCommonParentRevision")
 	var opts []grpc.CallOption
 	authProvider := sstauth.AuthProviderFromContext(ctx)
@@ -707,7 +708,7 @@ func (d *remoteDataset) CommitForRevision(ctx context.Context, datasetRevision H
 	}
 	defer d.r.leave()
 
-	req := bboltproto.GetCommitForDatasetRevisionRequest{DatasetId: d.id[:], DatasetRevision: datasetRevision[:]}
+	req := bboltproto.GetCommitForDatasetRevisionRequest{DatasetId: d.id[:], DatasetRevision: datasetRevision[:], RepoName: d.r.repoName}
 	GlobalLogger.Debug("gRPC dsClient call GetCommitForDatasetRevision")
 	var opts []grpc.CallOption
 	authProvider := sstauth.AuthProviderFromContext(ctx)
@@ -1080,7 +1081,9 @@ func (d *remoteDataset) CheckoutRevision(ctx context.Context, datasetRevision Ha
 		return nil, err
 	}
 
-	// Send inquiry
+	// Send inquiry and close the client send side so the server knows no
+	// further inquiries are coming. Without this CloseSend the server keeps
+	// waiting for more messages and the stream deadlocks.
 	err = fetchStream.Send(&bboltproto.DatasetInquiry{
 		Inq: &bboltproto.DatasetInquiry_WantDatasetRevision{
 			WantDatasetRevision: datasetRevision[:],
@@ -1088,6 +1091,9 @@ func (d *remoteDataset) CheckoutRevision(ctx context.Context, datasetRevision Ha
 		RepoName: d.r.repoName,
 	})
 	if err != nil {
+		return nil, err
+	}
+	if err := fetchStream.CloseSend(); err != nil {
 		return nil, err
 	}
 
@@ -1268,6 +1274,10 @@ func (d *remoteDataset) CommitDetailsByHash(
 	if err != nil {
 		GlobalLogger.Error("", zap.Error(err))
 		return nil, err
+	}
+
+	if len(cd) == 0 {
+		return nil, wrapError(ErrCommitNotFound)
 	}
 
 	return cd[0], nil
@@ -1622,7 +1632,7 @@ func (r *remoteRepository) Info(ctx context.Context, branchName string) (Reposit
 		return RepositoryInfo{}, fmt.Errorf("failed to get repository info: %w", err)
 	}
 
-	bleveInfo, err := r.dsClient.GetBleveInfo(ctx, &bboltproto.GetRepoBleveInfoRequest{}, opts...)
+	bleveInfo, err := r.dsClient.GetBleveInfo(ctx, &bboltproto.GetRepoBleveInfoRequest{RepoName: r.repoName}, opts...)
 	if err != nil {
 		return RepositoryInfo{}, wrapError(fmt.Errorf("failed to get Bleve info: %w", err))
 	}
@@ -1996,57 +2006,51 @@ func (r *remoteRepository) ExtractSstFile(ctx context.Context, namedGraphRevisio
 
 // SyncFrom synchronizes data from the source repository to this remote repository.
 // For RemoteRepository, syncing from a LocalFullRepository streams bucket data via gRPC.
+// Syncing from another RemoteRepository relays SyncTo bucket data into SyncFrom on this repository.
 func (r *remoteRepository) SyncFrom(ctx context.Context, from Repository, options ...SyncOption) error {
 	if err := r.enter(); err != nil {
 		return err
 	}
 	defer r.leave()
 
-	// Check if source is a LocalFullRepository
-	fromLocal, ok := from.(*localFullRepository)
-	if !ok {
-		return fmt.Errorf("syncing from %T to RemoteRepository is not yet implemented", from)
-	}
-
-	// Parse sync options
 	opts := defaultSyncOptions()
 	for _, option := range options {
 		option(&opts)
 	}
 
-	// Extract DatasetIDs and BranchName from options
+	switch from := from.(type) {
+	case *localFullRepository:
+		return r.syncFromLocal(ctx, from, opts)
+	case *remoteRepository:
+		return r.syncFromRemote(ctx, from, opts)
+	default:
+		return fmt.Errorf("syncing from %T to RemoteRepository is not yet implemented", from)
+	}
+}
+
+func (r *remoteRepository) syncFromLocal(ctx context.Context, fromLocal *localFullRepository, opts SyncOptions) error {
 	datasetIDs := opts.DatasetIDs
 	branchName := opts.BranchName
 
-	// Setup authentication
-	var grpcOpts []grpc.CallOption
-	authProvider := sstauth.AuthProviderFromContext(ctx)
-	if p, ok := authProvider.(sstauth.Provider); ok {
-		token, err := p.Oauth2Token()
-		if err != nil {
-			return fmt.Errorf("failed to get oauth token: %w", err)
-		}
-		grpcOpts = append(grpcOpts, grpc.PerRPCCredentials(oauth.NewOauthAccess(token)))
+	targetGrpcOpts, err := perRPCCallOpts(ctx)
+	if err != nil {
+		return fmt.Errorf("failed to get oauth token: %w", err)
 	}
 
-	// Collect all imported datasets if datasetIDs is provided
 	var datasetIDSet map[uuid.UUID]struct{}
 	if len(datasetIDs) > 0 {
-		var err error
 		datasetIDSet, err = collectAllImportedDatasets(ctx, fromLocal, datasetIDs, branchName)
 		if err != nil {
 			return fmt.Errorf("failed to collect imported datasets: %w", err)
 		}
 	}
 
-	// Create gRPC stream
 	GlobalLogger.Debug("gRPC dsClient call SyncFrom")
-	stream, err := r.dsClient.SyncFrom(ctx, grpcOpts...)
+	stream, err := r.dsClient.SyncFrom(ctx, targetGrpcOpts...)
 	if err != nil {
 		return fmt.Errorf("failed to initiate SyncFrom stream: %w", err)
 	}
 
-	// Prepare metadata with dataset IDs and branch name
 	metadata := &bboltproto.SyncFromMetadata{
 		RepoName:    r.repoName,
 		BranchName:  branchName,
@@ -2067,12 +2071,10 @@ func (r *remoteRepository) SyncFrom(ctx context.Context, from Repository, option
 		return fmt.Errorf("failed to send metadata: %w", err)
 	}
 
-	// Stream all bucket data from local repository
 	if err := r.streamBucketData(ctx, fromLocal, stream, datasetIDSet, branchName); err != nil {
 		return fmt.Errorf("failed to stream bucket data: %w", err)
 	}
 
-	// Close send and receive response
 	resp, err := stream.CloseAndRecv()
 	if err != nil {
 		return fmt.Errorf("failed to receive sync response: %w", err)
@@ -2086,6 +2088,170 @@ func (r *remoteRepository) SyncFrom(ctx context.Context, from Repository, option
 		zap.Int32("commits", resp.CommitsSynced),
 		zap.Int32("documentInfo", resp.DocumentInfoSynced),
 	)
+
+	return nil
+}
+
+func (r *remoteRepository) syncFromRemote(ctx context.Context, fromRemote *remoteRepository, opts SyncOptions) error {
+	if fromRemote.URL() == r.URL() && fromRemote.repoName == r.repoName {
+		return fmt.Errorf("cannot sync from a repository to itself")
+	}
+
+	grpcOpts, err := perRPCCallOpts(ctx)
+	if err != nil {
+		return fmt.Errorf("failed to get oauth token: %w", err)
+	}
+
+	datasetIDs := opts.DatasetIDs
+	branchName := opts.BranchName
+
+	syncToMetadata := &bboltproto.SyncToMetadata{
+		BranchName: branchName,
+	}
+	if len(datasetIDs) > 0 {
+		syncToMetadata.DatasetIds = make([][]byte, len(datasetIDs))
+		for i, dsID := range datasetIDs {
+			syncToMetadata.DatasetIds[i] = dsID[:]
+		}
+	}
+
+	GlobalLogger.Debug("gRPC dsClient call SyncTo")
+	sourceStream, err := fromRemote.dsClient.SyncTo(ctx, &bboltproto.SyncToRequest{
+		Metadata: syncToMetadata,
+	}, grpcOpts...)
+	if err != nil {
+		return fmt.Errorf("failed to initiate SyncTo stream: %w", err)
+	}
+
+	GlobalLogger.Debug("gRPC dsClient call SyncFrom")
+	targetStream, err := r.dsClient.SyncFrom(ctx, grpcOpts...)
+	if err != nil {
+		return fmt.Errorf("failed to initiate SyncFrom stream: %w", err)
+	}
+
+	syncFromMetadata := &bboltproto.SyncFromMetadata{
+		RepoName:    r.repoName,
+		BranchName:  branchName,
+		FromRepoUrl: fromRemote.URL(),
+	}
+	if len(datasetIDs) > 0 {
+		syncFromMetadata.DatasetIds = make([][]byte, len(datasetIDs))
+		for i, dsID := range datasetIDs {
+			syncFromMetadata.DatasetIds[i] = dsID[:]
+		}
+	}
+
+	if err := targetStream.Send(&bboltproto.SyncFromRequest{
+		Data: &bboltproto.SyncFromRequest_Metadata{
+			Metadata: syncFromMetadata,
+		},
+	}); err != nil {
+		return fmt.Errorf("failed to send metadata: %w", err)
+	}
+
+	documentHashesToSync := make(map[string]bool)
+
+	for {
+		resp, err := sourceStream.Recv()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return fmt.Errorf("failed to receive sync data from source: %w", err)
+		}
+
+		switch data := resp.Data.(type) {
+		case *bboltproto.SyncToResponse_BucketData:
+			bd := data.BucketData
+			if bd != nil && bd.BucketName == "document_info" && len(bd.Key) > 0 {
+				documentHashesToSync[string(bd.Key)] = true
+			}
+			if err := targetStream.Send(&bboltproto.SyncFromRequest{
+				Data: &bboltproto.SyncFromRequest_BucketData{
+					BucketData: syncToBucketDataAsSyncFrom(bd),
+				},
+			}); err != nil {
+				return fmt.Errorf("failed to send bucket data to target: %w", err)
+			}
+		case *bboltproto.SyncToResponse_Complete:
+			GlobalLogger.Debug(
+				"SyncTo completed",
+				zap.Int32("namedGraphRevisions", data.Complete.NamedGraphRevisionsSynced),
+				zap.Int32("datasetRevisions", data.Complete.DatasetRevisionsSynced),
+				zap.Int32("datasets", data.Complete.DatasetsSynced),
+				zap.Int32("commits", data.Complete.CommitsSynced),
+				zap.Int32("documentInfo", data.Complete.DocumentInfoSynced),
+			)
+		}
+	}
+
+	resp, err := targetStream.CloseAndRecv()
+	if err != nil {
+		return fmt.Errorf("failed to receive sync response: %w", err)
+	}
+
+	GlobalLogger.Debug(
+		"SyncFrom completed",
+		zap.Int32("namedGraphRevisions", resp.NamedGraphRevisionsSynced),
+		zap.Int32("datasetRevisions", resp.DatasetRevisionsSynced),
+		zap.Int32("datasets", resp.DatasetsSynced),
+		zap.Int32("commits", resp.CommitsSynced),
+		zap.Int32("documentInfo", resp.DocumentInfoSynced),
+	)
+
+	if err := syncDocumentFilesBetweenRemotes(ctx, fromRemote, r, documentHashesToSync); err != nil {
+		GlobalLogger.Warn("failed to sync some document files between remotes", zap.Error(err))
+	}
+
+	return nil
+}
+
+func syncToBucketDataAsSyncFrom(bd *bboltproto.SyncToBucketData) *bboltproto.SyncFromBucketData {
+	if bd == nil {
+		return nil
+	}
+	return &bboltproto.SyncFromBucketData{
+		BucketName: bd.BucketName,
+		Key:        bd.Key,
+		Value:      bd.Value,
+		IsBucket:   bd.IsBucket,
+		SubKey:     bd.SubKey,
+		SubValue:   bd.SubValue,
+	}
+}
+
+func syncDocumentFilesBetweenRemotes(
+	ctx context.Context,
+	fromRemote, toRemote *remoteRepository,
+	documentHashes map[string]bool,
+) error {
+	for hashStr := range documentHashes {
+		hash, err := StringToHash(hashStr)
+		if err != nil {
+			GlobalLogger.Warn("invalid document hash during remote sync", zap.String("hash", hashStr), zap.Error(err))
+			continue
+		}
+
+		var buf bytes.Buffer
+		docInfo, err := fromRemote.Document(ctx, hash, &buf)
+		if err != nil {
+			GlobalLogger.Warn("failed to read document from source remote repository during sync",
+				zap.Error(err),
+				zap.String("hash", hash.String()))
+			continue
+		}
+
+		if _, err := toRemote.DocumentSet(ctx, docInfo.MIMEType, bufio.NewReader(&buf)); err != nil {
+			GlobalLogger.Warn("failed to store document to target remote repository during sync",
+				zap.Error(err),
+				zap.String("hash", hash.String()))
+			continue
+		}
+
+		GlobalLogger.Debug("synced document file between remotes",
+			zap.String("hash", hash.String()),
+			zap.String("mime_type", docInfo.MIMEType))
+	}
 
 	return nil
 }
@@ -2287,7 +2453,7 @@ func (r *remoteRepository) streamCommits(tx *bbolt.Tx, stream bboltproto.Dataset
 
 		// Filter by branch if specified
 		if !isAllBranches(branchName) && datasetsBucket != nil {
-			if !isCommitInBranch(commitHash, branchName, datasetIDSet, datasetsBucket) {
+			if !isCommitInBranch(commitHash, branchName, datasetIDSet, datasetsBucket, bucket) {
 				return nil // Not in specified branch, skip
 			}
 		}

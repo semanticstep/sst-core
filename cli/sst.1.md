@@ -92,7 +92,7 @@ The following tables mirror the built-in `help` output and the dispatch logic in
 | **rdfread** *file* | Load Turtle or TriG into a **new** stage (new alias). |
 | **sstread** *file* | Load an SST binary file into a **new** stage (new alias). |
 | **importap242xml** *file* | Import AP242 XML into a new stage. |
-| **importp21** *file* | Import STEP P21 into a new stage. |
+| **importp21** *file* [-o *raw-ttl*] | Import STEP P21 into a new stage; use `-o` to write pre-conversion raw Turtle for debugging. |
 
 ### *repo* — repository alias
 
@@ -162,7 +162,7 @@ The following tables mirror the built-in `help` output and the dispatch logic in
 | **moveandmerge** *source-stage-alias* | Merge graphs from another open stage into this stage. |
 | **alignhistory** *from-stage-alias* | Copy repository pointer and checkout metadata from *from-stage-alias* onto this stage (e.g. after external RDF edit and `rdfread`). Does not merge triples or unregister the source stage. |
 | **commit** *message* [*branch*] | Commit staged changes. |
-| **validate** | RDF / domain-range validation; detailed report with NamedGraph sections and triples per finding. |
+| **validate** [*-o* *file*] | RDF / domain-range validation; print report to console, or write to *file* with `-o` (default extension `.txt`). |
 | **rdfwrite** *file* | Write stage as TriG. |
 | **trig** | Print stage TriG to stdout. |
 | **writesstfilesdirectory** *directory* | Write modified NamedGraphs as SST binary files into *directory*. |

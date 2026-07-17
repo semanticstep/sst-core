@@ -22,11 +22,11 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/semanticstep/sst-core/bboltproto"
+	"github.com/semanticstep/sst-core/sstauth"
 	"github.com/blevesearch/bleve/v2"
 	"github.com/google/uuid"
 	fs "github.com/relab/wrfs"
-	"github.com/semanticstep/sst-core/bboltproto"
-	"github.com/semanticstep/sst-core/sstauth"
 	"go.etcd.io/bbolt"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -56,6 +56,92 @@ var (
 func createLeafCommitRef(dsBucket *bbolt.Bucket, commitHash []byte) error {
 	leafKey := bytesToRefKey(commitHash, refLeafPrefix)
 	return dsBucket.Put(leafKey, commitHash)
+}
+
+// datasetCommitAlreadyReferenced reports whether commitHash is already a branch tip
+// or leaf commit ref in the dataset bucket.
+func datasetCommitAlreadyReferenced(dsBucket *bbolt.Bucket, commitHash []byte) bool {
+	if dsBucket == nil || len(commitHash) == 0 {
+		return false
+	}
+	found := false
+	_ = dsBucket.ForEach(func(k, v []byte) error {
+		if found {
+			return nil
+		}
+		if len(k) == 0 {
+			return nil
+		}
+		if (k[0] == byte(refBranchPrefix) || k[0] == byte(refLeafPrefix)) && bytes.Equal(v, commitHash) {
+			found = true
+		}
+		return nil
+	})
+	return found
+}
+
+// mergeDatasetRefsFromSource merges dataset ref entries from source into target.
+// On divergent branch tips, keeps the target tip and records the source tip as a leaf
+// commit so it remains reachable via LeafCommits / listcommits / history.
+func mergeDatasetRefsFromSource(toSub, fromSub *bbolt.Bucket) error {
+	if toSub == nil || fromSub == nil {
+		return nil
+	}
+	return fromSub.ForEach(func(k, v []byte) error {
+		if len(k) == 0 {
+			return nil
+		}
+		existing := toSub.Get(k)
+		switch k[0] {
+		case byte(refBranchPrefix):
+			if existing == nil {
+				return toSub.Put(k, v)
+			}
+			if bytes.Equal(existing, v) {
+				return nil
+			}
+			if !datasetCommitAlreadyReferenced(toSub, v) {
+				return createLeafCommitRef(toSub, v)
+			}
+			return nil
+		case byte(refLeafPrefix):
+			if existing == nil {
+				return toSub.Put(k, v)
+			}
+			return nil
+		default:
+			// IRI and other keys: copy if missing, keep target on conflict.
+			if existing == nil {
+				return toSub.Put(k, v)
+			}
+			return nil
+		}
+	})
+}
+
+// mergeIncomingDatasetRef applies a single streamed dataset ref from source into target.
+// Returns true when a new master branch tip was written (caller may reindex Bleve).
+func mergeIncomingDatasetRef(dsBucket *bbolt.Bucket, subKey, subValue []byte) (masterUpdated bool, err error) {
+	if dsBucket == nil || len(subKey) == 0 {
+		return false, nil
+	}
+	existing := dsBucket.Get(subKey)
+	if existing == nil {
+		if err := dsBucket.Put(subKey, subValue); err != nil {
+			return false, err
+		}
+		return isMasterBranchRefKey(subKey), nil
+	}
+	if bytes.Equal(existing, subValue) {
+		return false, nil
+	}
+	// Divergent branch tip: keep target tip, leaf the source tip.
+	if subKey[0] == byte(refBranchPrefix) && !datasetCommitAlreadyReferenced(dsBucket, subValue) {
+		if err := createLeafCommitRef(dsBucket, subValue); err != nil {
+			return false, err
+		}
+	}
+	return false, nil
 }
 
 // deleteLeafCommitRef deletes a leaf commit reference from the dataset bucket.
@@ -1386,6 +1472,10 @@ func (d *localFullDataset) CommitDetailsByHash(ctx context.Context, commitID Has
 	cds, err := d.r.CommitDetails(ctx, []Hash{commitID})
 	if err != nil {
 		return nil, wrapError(err)
+	}
+
+	if len(cds) == 0 {
+		return nil, wrapError(ErrCommitNotFound)
 	}
 
 	return cds[0], nil
@@ -3359,8 +3449,9 @@ func (r *localFullRepository) SyncFrom(ctx context.Context, from Repository, opt
 			return fmt.Errorf("failed to sync DatasetRevisions: %w", err)
 		}
 
-		// Step 3: Sync Datasets (with BleveIndex updates for master branch)
-		if err := r.syncDatasets(ctx, fromLocal, datasetIDSet, branchName); err != nil {
+		// Step 3: Sync Datasets (collect master branch updates for Bleve re-indexing)
+		dsIDsToReindex, err := r.syncDatasets(ctx, fromLocal, datasetIDSet, branchName)
+		if err != nil {
 			return fmt.Errorf("failed to sync Datasets: %w", err)
 		}
 
@@ -3372,6 +3463,13 @@ func (r *localFullRepository) SyncFrom(ctx context.Context, from Repository, opt
 		// Step 5: Sync document_info
 		if err := r.syncDocumentInfo(ctx, fromLocal, datasetIDSet); err != nil {
 			return fmt.Errorf("failed to sync document_info: %w", err)
+		}
+
+		// Update Bleve index after all dependent data has been committed.
+		if r.config.bleveIndexUpdater != nil {
+			for _, id := range dsIDsToReindex {
+				r.config.bleveIndexUpdater.updateAfterSync(ctx, r, id, DefaultBranch)
+			}
 		}
 
 		if err := writeSyncFromLogAfterSync(ctx, r, fromLocal.URL(), existingDSRs, branchName); err != nil {
@@ -3391,9 +3489,94 @@ func (r *localFullRepository) SyncFrom(ctx context.Context, from Repository, opt
 	return fmt.Errorf("syncing from %T is not yet implemented", from)
 }
 
+// parentCommitsFromCommitBucket returns parent commit hashes recorded for dsID in a commit.
+func parentCommitsFromCommitBucket(commitBucket *bbolt.Bucket, dsID uuid.UUID) []Hash {
+	dsKey := iDToPrefixedKey(dsID, commitDsPrefix)
+	actualKey, v := commitBucket.Cursor().Seek(dsKey)
+	if !bytes.Equal(actualKey, dsKey) || len(v) < len(hashT{}) {
+		return nil
+	}
+	extra := v[len(hashT{}):]
+	parents := make([]Hash, 0, len(extra)/len(hashT{}))
+	for i := 0; i+len(hashT{}) <= len(extra); i += len(hashT{}) {
+		var p Hash
+		copy(p[:], extra[i:i+len(hashT{})])
+		parents = append(parents, p)
+	}
+	return parents
+}
+
+// walkCommitAncestry visits start and all ancestors reachable via parent links for dsID.
+// fn returns true to stop early.
+func walkCommitAncestry(
+	start Hash,
+	dsID uuid.UUID,
+	commitsBucket *bbolt.Bucket,
+	fn func(commitHash Hash, commitBucket *bbolt.Bucket) bool,
+) {
+	if commitsBucket == nil {
+		return
+	}
+	visited := make(map[Hash]struct{})
+	queue := []Hash{start}
+	for len(queue) > 0 {
+		h := queue[0]
+		queue = queue[1:]
+		if _, seen := visited[h]; seen {
+			continue
+		}
+		visited[h] = struct{}{}
+		cb := commitsBucket.Bucket(h[:])
+		if cb == nil {
+			continue
+		}
+		if fn(h, cb) {
+			return
+		}
+		queue = append(queue, parentCommitsFromCommitBucket(cb, dsID)...)
+	}
+}
+
+// forEachBranchTip calls fn for each branch tip of dsID. If branchName is a specific
+// branch, only that tip is used; otherwise every branch tip is used.
+func forEachBranchTip(
+	dsID uuid.UUID,
+	branchName string,
+	datasetsBucket *bbolt.Bucket,
+	fn func(tip Hash),
+) {
+	dsBucket := datasetsBucket.Bucket(dsID[:])
+	if dsBucket == nil {
+		return
+	}
+	if !isAllBranches(branchName) {
+		branchKey := bytesToRefKey(stringAsImmutableBytes(branchName), refBranchPrefix)
+		if tipBytes := dsBucket.Get(branchKey); tipBytes != nil {
+			fn(BytesToHash(tipBytes))
+		}
+		return
+	}
+	_ = dsBucket.ForEach(func(k, v []byte) error {
+		if len(k) > 1 && k[0] == byte(refBranchPrefix) {
+			fn(BytesToHash(v))
+		}
+		return nil
+	})
+}
+
+// datasetRevisionHashFromCommit returns the DatasetRevision hash for dsID in a commit, if present.
+func datasetRevisionHashFromCommit(commitBucket *bbolt.Bucket, dsID uuid.UUID) (Hash, bool) {
+	dsKey := iDToPrefixedKey(dsID, commitDsPrefix)
+	actualKey, v := commitBucket.Cursor().Seek(dsKey)
+	if !bytes.Equal(actualKey, dsKey) || len(v) < len(hashT{}) {
+		return Hash{}, false
+	}
+	return BytesToHash(v[:len(hashT{})]), true
+}
+
 // isNamedGraphRevisionForDatasets checks if a NamedGraphRevision belongs to any of the specified datasets.
 // It does this by checking if the NamedGraphRevision hash is referenced in any DatasetRevision of the specified datasets.
-// If branchName is specified, only checks commits from that branch.
+// If branchName is specified, checks the tip and all ancestor commits of that branch.
 func isNamedGraphRevisionForDatasets(
 	ngRevisionHash Hash,
 	datasetIDSet map[uuid.UUID]struct{},
@@ -3421,96 +3604,44 @@ func isNamedGraphRevisionForDatasets(
 		})
 	}
 
-	// Check all datasets in the set
+	ngrReferencedInCommit := func(_ Hash, commitBucket *bbolt.Bucket, dsID uuid.UUID) bool {
+		dsRevisionHash, ok := datasetRevisionHashFromCommit(commitBucket, dsID)
+		if !ok {
+			return false
+		}
+		dsrSubBucket := dsrBucket.Bucket(dsRevisionHash[:])
+		if dsrSubBucket == nil {
+			return false
+		}
+		hit := false
+		_ = dsrSubBucket.ForEach(func(dsrK, dsrV []byte) error {
+			if (len(dsrK) == 1 && dsrK[0] == '\x00') || (len(dsrK) > 1 && dsrK[0] == '\x01') {
+				if bytes.Equal(dsrV, ngRevisionHash[:]) {
+					hit = true
+					return nil
+				}
+			}
+			return nil
+		})
+		return hit
+	}
+
 	for dsID := range datasetsToCheck {
 		if found {
 			break
 		}
-		dsBucket := datasetsBucket.Bucket(dsID[:])
-		if dsBucket == nil {
-			continue
-		}
-
-		// Check branches
-		if !isAllBranches(branchName) {
-			// Only check the specified branch
-			branchKey := bytesToRefKey(stringAsImmutableBytes(branchName), refBranchPrefix)
-			commitHashBytes := dsBucket.Get(branchKey)
-			if commitHashBytes == nil {
-				continue // Branch not found for this dataset, skip
+		forEachBranchTip(dsID, branchName, datasetsBucket, func(tip Hash) {
+			if found {
+				return
 			}
-			commitHash := BytesToHash(commitHashBytes)
-			commitBucket := commitsBucket.Bucket(commitHash[:])
-			if commitBucket == nil {
-				continue
-			}
-
-			// Get DatasetRevision hash from commit
-			dsKey := iDToPrefixedKey(dsID, commitDsPrefix)
-			actualDSKey, dsRevisionHashBytes := commitBucket.Cursor().Seek(dsKey)
-			if !bytes.Equal(actualDSKey, dsKey) {
-				continue
-			}
-
-			dsRevisionHash := BytesToHash(dsRevisionHashBytes[:len(hashT{})])
-			dsrSubBucket := dsrBucket.Bucket(dsRevisionHash[:])
-			if dsrSubBucket == nil {
-				continue
-			}
-
-			// Check if this NamedGraphRevision is referenced in the DatasetRevision
-			dsrSubBucket.ForEach(func(dsrK, dsrV []byte) error {
-				if (len(dsrK) == 1 && dsrK[0] == '\x00') || (len(dsrK) > 1 && dsrK[0] == '\x01') {
-					if bytes.Equal(dsrV, ngRevisionHash[:]) {
-						found = true
-						return nil
-					}
+			walkCommitAncestry(tip, dsID, commitsBucket, func(h Hash, cb *bbolt.Bucket) bool {
+				if ngrReferencedInCommit(h, cb, dsID) {
+					found = true
+					return true
 				}
-				return nil
+				return false
 			})
-		} else {
-			// Check all branches of this dataset
-			dsBucket.ForEach(func(k, v []byte) error {
-				if found {
-					return nil // Already found, skip
-				}
-				if len(k) > 1 && k[0] == '\x00' {
-					// This is a branch, v is commit hash
-					commitHash := BytesToHash(v)
-					commitBucket := commitsBucket.Bucket(commitHash[:])
-					if commitBucket == nil {
-						return nil
-					}
-
-					// Get DatasetRevision hash from commit
-					dsKey := iDToPrefixedKey(dsID, commitDsPrefix)
-					actualDSKey, dsRevisionHashBytes := commitBucket.Cursor().Seek(dsKey)
-					if !bytes.Equal(actualDSKey, dsKey) {
-						return nil
-					}
-
-					dsRevisionHash := BytesToHash(dsRevisionHashBytes[:len(hashT{})])
-					dsrSubBucket := dsrBucket.Bucket(dsRevisionHash[:])
-					if dsrSubBucket == nil {
-						return nil
-					}
-
-					// Check if this NamedGraphRevision is referenced in the DatasetRevision
-					// Default NamedGraph: key is \x00, value is NGR hash
-					// Imported NamedGraph: key is \x01 + NG UUID, value is NGR hash
-					dsrSubBucket.ForEach(func(dsrK, dsrV []byte) error {
-						if (len(dsrK) == 1 && dsrK[0] == '\x00') || (len(dsrK) > 1 && dsrK[0] == '\x01') {
-							if bytes.Equal(dsrV, ngRevisionHash[:]) {
-								found = true
-								return nil
-							}
-						}
-						return nil
-					})
-				}
-				return nil
-			})
-		}
+		})
 	}
 
 	return found
@@ -3563,7 +3694,7 @@ func (r *localFullRepository) syncNamedGraphRevisions(ctx context.Context, from 
 
 // isDatasetRevisionForDatasets checks if a DatasetRevision belongs to any of the specified datasets.
 // It does this by checking if the DatasetRevision hash is used in any commit of the specified datasets.
-// If branchName is specified, only checks commits from that branch.
+// If branchName is specified, checks the tip and all ancestor commits of that branch.
 func isDatasetRevisionForDatasets(
 	dsRevisionHash Hash,
 	datasetIDSet map[uuid.UUID]struct{},
@@ -3590,80 +3721,23 @@ func isDatasetRevisionForDatasets(
 		})
 	}
 
-	// Check all datasets in the set
 	for dsID := range datasetsToCheck {
 		if found {
 			break
 		}
-		dsBucket := datasetsBucket.Bucket(dsID[:])
-		if dsBucket == nil {
-			continue
-		}
-
-		// Check branches
-		if !isAllBranches(branchName) {
-			// Only check the specified branch
-			branchKey := bytesToRefKey(stringAsImmutableBytes(branchName), refBranchPrefix)
-			commitHashBytes := dsBucket.Get(branchKey)
-			if commitHashBytes == nil {
-				continue // Branch not found for this dataset, skip
+		forEachBranchTip(dsID, branchName, datasetsBucket, func(tip Hash) {
+			if found {
+				return
 			}
-			commitHash := BytesToHash(commitHashBytes)
-			commitBucket := commitsBucket.Bucket(commitHash[:])
-			if commitBucket == nil {
-				continue
-			}
-
-			// Get DatasetRevision hash from commit
-			dsKey := iDToPrefixedKey(dsID, commitDsPrefix)
-			actualDSKey, dsRevisionHashBytes := commitBucket.Cursor().Seek(dsKey)
-			if !bytes.Equal(actualDSKey, dsKey) {
-				continue
-			}
-
-			// Check if this matches the DatasetRevision we're looking for
-			if bytes.Equal(dsRevisionHashBytes[:len(hashT{})], dsRevisionHash[:]) {
-				found = true
-				continue
-			}
-
-			// Also check imported datasets - the DatasetRevision might be for an imported dataset
-			// We need to check if this DatasetRevision is referenced in the import chain
-			// This is a simplified check - a full implementation would need to traverse the import graph
-		} else {
-			// Check all branches of this dataset
-			dsBucket.ForEach(func(k, v []byte) error {
-				if found {
-					return nil // Already found, skip
+			walkCommitAncestry(tip, dsID, commitsBucket, func(_ Hash, commitBucket *bbolt.Bucket) bool {
+				rev, ok := datasetRevisionHashFromCommit(commitBucket, dsID)
+				if ok && rev == dsRevisionHash {
+					found = true
+					return true
 				}
-				if len(k) > 1 && k[0] == '\x00' {
-					// This is a branch, v is commit hash
-					commitHash := BytesToHash(v)
-					commitBucket := commitsBucket.Bucket(commitHash[:])
-					if commitBucket == nil {
-						return nil
-					}
-
-					// Get DatasetRevision hash from commit
-					dsKey := iDToPrefixedKey(dsID, commitDsPrefix)
-					actualDSKey, dsRevisionHashBytes := commitBucket.Cursor().Seek(dsKey)
-					if !bytes.Equal(actualDSKey, dsKey) {
-						return nil
-					}
-
-					// Check if this matches the DatasetRevision we're looking for
-					if bytes.Equal(dsRevisionHashBytes[:len(hashT{})], dsRevisionHash[:]) {
-						found = true
-						return nil
-					}
-
-					// Also check imported datasets - the DatasetRevision might be for an imported dataset
-					// We need to check if this DatasetRevision is referenced in the import chain
-					// This is a simplified check - a full implementation would need to traverse the import graph
-				}
-				return nil
+				return false
 			})
-		}
+		})
 	}
 
 	return found
@@ -3733,8 +3807,9 @@ func (r *localFullRepository) syncDatasetRevisions(ctx context.Context, from *lo
 // Updates BleveIndex as needed (if master branch)
 // If datasetIDSet is not nil, only syncs datasets in the set.
 // If branchName is not empty, only syncs datasets from the specified branch.
-func (r *localFullRepository) syncDatasets(ctx context.Context, from *localFullRepository, datasetIDSet map[uuid.UUID]struct{}, branchName string) error {
-	return from.db.View(func(fromTx *bbolt.Tx) error {
+func (r *localFullRepository) syncDatasets(ctx context.Context, from *localFullRepository, datasetIDSet map[uuid.UUID]struct{}, branchName string) ([]uuid.UUID, error) {
+	var dsIDsToReindex []uuid.UUID
+	err := from.db.View(func(fromTx *bbolt.Tx) error {
 		fromBucket := fromTx.Bucket(keyDatasets)
 		if fromBucket == nil {
 			return nil // Source has no Datasets bucket
@@ -3796,10 +3871,8 @@ func (r *localFullRepository) syncDatasets(ctx context.Context, from *localFullR
 						}
 					}
 
-					// Update BleveIndex if master branch exists
-					if r.config.bleveIndexUpdater != nil {
-						r.config.bleveIndexUpdater.updateAfterSync(ctx, r, uuid.UUID(k), DefaultBranch)
-					}
+					// Schedule Bleve index update if master branch exists
+					dsIDsToReindex = append(dsIDsToReindex, uuid.UUID(k))
 
 					return nil
 				}
@@ -3814,28 +3887,31 @@ func (r *localFullRepository) syncDatasets(ctx context.Context, from *localFullR
 						if err := toSubBucket.Put(branchKey, branchValue); err != nil {
 							return err
 						}
+
+						// Schedule Bleve index update if the synced branch is master
+						if branchName == DefaultBranch {
+							dsIDsToReindex = append(dsIDsToReindex, uuid.UUID(k))
+						}
 					}
 					return nil
 				}
 
-				// All branches: check if content is identical
+				// All branches: merge refs; divergent tips become leaf commits.
 				if r.datasetsAreIdentical(fromSubBucket, toSubBucket) {
 					return nil // Identical, skip
 				}
 
-				// Different content - perform detailed analysis
-				// TO BE SPECIFIED: A more detailed analysis of all revisions and all Named Branches
-				// and their parents have to happen here.
-				// For now, we skip this dataset and log a warning
-				GlobalLogger.Warn("Dataset exists with different content - detailed analysis TO BE SPECIFIED",
-					zap.String("dataset", uuid.UUID(k).String()))
-				// TODO: Implement detailed analysis of revisions and branches
-				// TODO: Update BleveIndex as needed (if master branch) after analysis
-
+				if err := mergeDatasetRefsFromSource(toSubBucket, fromSubBucket); err != nil {
+					return err
+				}
 				return nil
 			})
 		})
 	})
+	if err != nil {
+		return nil, err
+	}
+	return dsIDsToReindex, nil
 }
 
 // datasetsAreIdentical checks if two dataset buckets have identical content.
@@ -3914,6 +3990,9 @@ func (r *localFullRepository) syncFromRemote(ctx context.Context, fromRemote *re
 	// Track document_info hashes that need file sync
 	documentHashesToSync := make(map[string]bool)
 
+	// Track dataset IDs whose master branch was updated and need a Bleve re-index.
+	dsIDsToReindex := make(map[uuid.UUID]struct{})
+
 	existingDSRs, err := snapshotExistingDSRs(r.db)
 	if err != nil {
 		return fmt.Errorf("failed to snapshot existing dataset revisions: %w", err)
@@ -3933,8 +4012,12 @@ func (r *localFullRepository) syncFromRemote(ctx context.Context, fromRemote *re
 		switch data := resp.Data.(type) {
 		case *bboltproto.SyncToResponse_BucketData:
 			bd := data.BucketData
-			if err := r.processBucketDataFromRemote(ctx, bd, documentHashesToSync, nil); err != nil {
+			reindexID, err := r.processBucketDataFromRemote(ctx, bd, documentHashesToSync, nil)
+			if err != nil {
 				return fmt.Errorf("failed to process bucket data: %w", err)
+			}
+			if reindexID != uuid.Nil {
+				dsIDsToReindex[reindexID] = struct{}{}
 			}
 
 		case *bboltproto.SyncToResponse_Complete:
@@ -3954,6 +4037,13 @@ func (r *localFullRepository) syncFromRemote(ctx context.Context, fromRemote *re
 				// Don't fail the entire sync if some files fail
 			}
 
+			// Update Bleve index for datasets whose master branch changed.
+			if r.config.bleveIndexUpdater != nil {
+				for id := range dsIDsToReindex {
+					r.config.bleveIndexUpdater.updateAfterSync(ctx, r, id, DefaultBranch)
+				}
+			}
+
 			if err := writeSyncFromLogAfterSync(ctx, r, fromRemote.URL(), existingDSRs, branchName); err != nil {
 				return fmt.Errorf("failed to write sync_from log entry: %w", err)
 			}
@@ -3966,6 +4056,13 @@ func (r *localFullRepository) syncFromRemote(ctx context.Context, fromRemote *re
 	if err := r.syncDocumentFilesFromRemote(ctx, fromRemote, documentHashesToSync); err != nil {
 		GlobalLogger.Warn("failed to sync some document files from remote", zap.Error(err))
 		// Don't fail the entire sync if some files fail
+	}
+
+	// Update Bleve index for datasets whose master branch changed.
+	if r.config.bleveIndexUpdater != nil {
+		for id := range dsIDsToReindex {
+			r.config.bleveIndexUpdater.updateAfterSync(ctx, r, id, DefaultBranch)
+		}
 	}
 
 	if err := writeSyncFromLogAfterSync(ctx, r, fromRemote.URL(), existingDSRs, branchName); err != nil {
@@ -4024,12 +4121,14 @@ func (r *localFullRepository) syncDocumentFilesFromRemote(ctx context.Context, f
 
 // processBucketDataFromRemote processes bucket data received from remote repository and writes to local database.
 // If datasetIDSet is not nil, filters data to only process items related to the specified datasets.
-func (r *localFullRepository) processBucketDataFromRemote(ctx context.Context, bd *bboltproto.SyncToBucketData, documentHashesToSync map[string]bool, datasetIDSet map[uuid.UUID]struct{}) error {
+// It returns the dataset ID whose master branch was updated and should be re-indexed, or uuid.Nil if none.
+func (r *localFullRepository) processBucketDataFromRemote(ctx context.Context, bd *bboltproto.SyncToBucketData, documentHashesToSync map[string]bool, datasetIDSet map[uuid.UUID]struct{}) (uuid.UUID, error) {
 	bucketName := bd.BucketName
 	key := bd.Key
 	value := bd.Value
 
-	return r.db.Update(func(tx *bbolt.Tx) error {
+	var dsIDToReindex uuid.UUID
+	err := r.db.Update(func(tx *bbolt.Tx) error {
 		var bucket *bbolt.Bucket
 		var err error
 
@@ -4087,34 +4186,15 @@ func (r *localFullRepository) processBucketDataFromRemote(ctx context.Context, b
 						return err
 					}
 				}
-				// Update BleveIndex if master branch exists
-				if r.config.bleveIndexUpdater != nil {
-					r.config.bleveIndexUpdater.updateAfterSync(ctx, r, uuid.UUID(key), DefaultBranch)
-				}
+				// Schedule Bleve index update for the new dataset.
+				dsIDToReindex = uuid.UUID(key)
 			} else if bd.IsBucket && len(bd.SubKey) > 0 {
-				// Check if identical or merge
-				existingValue := dsBucket.Get(bd.SubKey)
-				if existingValue == nil {
-					if err := dsBucket.Put(bd.SubKey, bd.SubValue); err != nil {
-						return err
-					}
-				} else if !bytes.Equal(existingValue, bd.SubValue) {
-					// TO BE SPECIFIED: For Datasets with different content, perform detailed analysis
-					// of all revisions and all Named Branches and their parents.
-					// This should include:
-					// - Comparing all Dataset revisions between source and target
-					// - Analyzing Named Branch assignments and their commit histories
-					// - Determining merge strategy based on branch relationships
-					// - Handling conflicts and divergence scenarios
-					// Current implementation: simplified merge (keep existing if different)
+				masterUpdated, err := mergeIncomingDatasetRef(dsBucket, bd.SubKey, bd.SubValue)
+				if err != nil {
+					return err
 				}
-				// Update BleveIndex if master branch exists (only if master branch was updated)
-				if r.config.bleveIndexUpdater != nil && bytes.HasPrefix(bd.SubKey, []byte{byte(refBranchPrefix)}) {
-					// Check if this is the master branch
-					masterBranchKey := bytesToRefKey(stringAsImmutableBytes(DefaultBranch), refBranchPrefix)
-					if bytes.Equal(bd.SubKey, masterBranchKey) {
-						r.config.bleveIndexUpdater.updateAfterSync(ctx, r, uuid.UUID(key), DefaultBranch)
-					}
+				if masterUpdated {
+					dsIDToReindex = uuid.UUID(key)
 				}
 			}
 		case "c":
@@ -4175,6 +4255,7 @@ func (r *localFullRepository) processBucketDataFromRemote(ctx context.Context, b
 
 		return nil
 	})
+	return dsIDToReindex, err
 }
 
 // isCommitForDatasets checks if a Commit contains any of the specified datasets.
@@ -4209,47 +4290,51 @@ func isCommitForDatasets(
 	return found
 }
 
-// isCommitInBranch checks if a commit belongs to the specified branch.
-// It checks if any dataset in datasetIDSet (or all datasets if nil) has the branch pointing to this commit.
+// isCommitInBranch checks if a commit belongs to the specified branch history.
+// A commit matches if it is the branch tip or any ancestor reachable via parent
+// links for a dataset that has that branch (optionally restricted by datasetIDSet).
 func isCommitInBranch(
 	commitHash Hash,
 	branchName string,
 	datasetIDSet map[uuid.UUID]struct{},
 	datasetsBucket *bbolt.Bucket,
+	commitsBucket *bbolt.Bucket,
 ) bool {
 	if isAllBranches(branchName) {
 		return true // All branches, include all commits
 	}
+	if datasetsBucket == nil || commitsBucket == nil {
+		return false
+	}
 
 	found := false
-	branchKey := bytesToRefKey(stringAsImmutableBytes(branchName), refBranchPrefix)
-
-	// Check all datasets or only specified ones
-	datasetsBucket.ForEach(func(k, v []byte) error {
+	_ = datasetsBucket.ForEach(func(k, v []byte) error {
 		if found {
-			return nil // Already found, skip
+			return nil
+		}
+		if datasetsBucket.Bucket(k) == nil {
+			return nil
 		}
 
-		// Filter by datasetIDSet if provided
+		dsID := uuid.UUID(k)
 		if datasetIDSet != nil {
-			dsID := uuid.UUID(k)
 			if _, ok := datasetIDSet[dsID]; !ok {
-				return nil // Dataset not in the set, skip
+				return nil
 			}
 		}
 
-		// Check if this dataset has the branch pointing to the commit
-		dsBucket := datasetsBucket.Bucket(k)
-		if dsBucket == nil {
-			return nil
-		}
-
-		branchCommitBytes := dsBucket.Get(branchKey)
-		if branchCommitBytes != nil && bytes.Equal(branchCommitBytes, commitHash[:]) {
-			found = true
-			return nil
-		}
-
+		forEachBranchTip(dsID, branchName, datasetsBucket, func(tip Hash) {
+			if found {
+				return
+			}
+			walkCommitAncestry(tip, dsID, commitsBucket, func(h Hash, _ *bbolt.Bucket) bool {
+				if h == commitHash {
+					found = true
+					return true
+				}
+				return false
+			})
+		})
 		return nil
 	})
 
@@ -4266,7 +4351,7 @@ func (r *localFullRepository) syncCommits(ctx context.Context, from *localFullRe
 			return nil // Source has no Commits bucket
 		}
 
-		// Get datasetsBucket for branch filtering
+		// Get datasetsBucket and commitsBucket for branch filtering
 		var datasetsBucket *bbolt.Bucket
 		if !isAllBranches(branchName) {
 			datasetsBucket = fromTx.Bucket(keyDatasets)
@@ -4289,7 +4374,7 @@ func (r *localFullRepository) syncCommits(ctx context.Context, from *localFullRe
 
 				// Filter by branch if specified
 				if !isAllBranches(branchName) && datasetsBucket != nil {
-					if !isCommitInBranch(commitHash, branchName, datasetIDSet, datasetsBucket) {
+					if !isCommitInBranch(commitHash, branchName, datasetIDSet, datasetsBucket, fromBucket) {
 						return nil // Not in specified branch, skip
 					}
 				}

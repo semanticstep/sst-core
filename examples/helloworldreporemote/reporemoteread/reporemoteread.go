@@ -12,10 +12,10 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/semanticstep/sst-core/sst"
 	"github.com/blevesearch/bleve/v2"
 	"github.com/blevesearch/bleve/v2/search/query"
 	"github.com/google/uuid"
-	"github.com/semanticstep/sst-core/sst"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
